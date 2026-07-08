@@ -7,7 +7,7 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    SHIPMENT DECK — v5 stylesheet
@@ -27,7 +27,7 @@
   --h-header:60px; --w-side:170px;
   --px:14px; --py:9px; --gap:4px; --gap2:7px; --gap3:9px;
   --ctrl:27px; --row:36px; --radius:7px; --radius-sm:6px; --radius-lg:11px;
-  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --sans:'Plus Jakarta Sans','Inter',system-ui,-apple-system,sans-serif;
   --mono:'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace;
 }
 [data-theme="light"]{
@@ -42,7 +42,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{background:var(--bg);color:var(--text2);font-family:var(--sans);font-size:12px;line-height:1.42;-webkit-font-smoothing:antialiased;letter-spacing:-.003em;overflow:hidden}
+body{background:var(--bg);color:var(--text2);font-family:var(--sans);font-size:12.5px;line-height:1.46;-webkit-font-smoothing:antialiased;letter-spacing:-.003em;overflow:hidden}
 button{font-family:inherit;cursor:pointer;color:inherit;border:none;background:none}
 input,textarea,select{font-family:inherit;color:var(--text)}
 .mono{font-family:var(--mono);font-feature-settings:"tnum" 1;letter-spacing:-.01em}
@@ -556,7 +556,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 /* Overview v6 redesign */
 .ov2{display:flex;flex-direction:column;gap:var(--gap3)}
 .ov2-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap2)}
-.mtile{background:color-mix(in srgb,var(--tc) 11%,var(--surface));border:1px solid color-mix(in srgb,var(--tc) 32%,var(--line));border-radius:var(--radius);padding:13px 14px 14px;position:relative;overflow:hidden;transition:.13s;text-align:center;cursor:pointer}
+.mtile{background:color-mix(in srgb,var(--tc) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--tc) 46%,var(--line));border-radius:var(--radius);padding:13px 14px 14px;position:relative;overflow:hidden;transition:.13s;text-align:center;cursor:pointer}
 .mtile::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--tc)}
 .mtile:hover{border-color:color-mix(in srgb,var(--tc) 62%,var(--line2));background:color-mix(in srgb,var(--tc) 16%,var(--surface))}
 .mt-l{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--text2)}
@@ -664,12 +664,12 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .chip .k{color:var(--text4);font-weight:700;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;font-family:var(--sans)}
 
 /* ===== v11: sans money font + more colour ===== */
-:root{--num:'Inter','SF Pro Text',system-ui,-apple-system,sans-serif;--green:#3ee0a6}
+:root{--num:'Plus Jakarta Sans','SF Pro Text',system-ui,-apple-system,sans-serif;--green:#3ee0a6}
 /* money & figures -> clean proportional font, tabular figures (codes stay mono) */
 .mono,.finseg .v,.mt-v,.i-money,.arow-money,.task-money,.b-money,.dl-money,.recov-big,.rs-v,.stat .sv,.mg-stats .rec,.hrow-fin .n,.ps-count,.next-risk,.sb-stat .v,.i-days,.task-dl,.b-dl,.dl-when,.acfilt .n,.acfilt .am,.cog-in,.set-in,.pipe-sum b,.chead-l .sub b,.claim,.miss,.exc{font-family:var(--num);font-feature-settings:"tnum" 1;letter-spacing:-.01em}
 /* MORE COLOUR: financial strip becomes tinted mini-cards */
 .finbar{grid-template-columns:repeat(4,1fr);gap:8px;border-top:none;padding-top:10px}
-.finseg{padding:10px 12px;border:1px solid color-mix(in srgb,var(--fc) 30%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--fc) 9%,var(--surface));position:relative;overflow:hidden}
+.finseg{padding:10px 12px;border:1px solid color-mix(in srgb,var(--fc) 42%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--fc) 15%,var(--surface));position:relative;overflow:hidden}
 .finseg:last-child{border-right:1px solid color-mix(in srgb,var(--fc) 30%,var(--line))}
 .finseg::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--fc)}
 .finseg .l{color:var(--text2);font-weight:600}
@@ -802,7 +802,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .next-sla.over b{color:var(--amber)}
 
 /* v22 — trial mode banner + toggle */
-.trial-banner{display:flex;align-items:center;gap:9px;padding:9px 16px;background:color-mix(in srgb,var(--amber) 14%,var(--surface));border-bottom:1px solid color-mix(in srgb,var(--amber) 38%,transparent);color:var(--text2);font-size:12.5px;font-weight:500;position:sticky;top:0;z-index:30}
+.trial-banner{display:flex;align-items:center;gap:7px;padding:4px 14px;background:color-mix(in srgb,var(--amber) 9%,var(--surface));border-bottom:1px solid color-mix(in srgb,var(--amber) 24%,transparent);color:var(--text3);font-size:11px;font-weight:500;position:sticky;top:0;z-index:30}
 .trial-banner .ic{color:var(--amber);flex:none}
 .trial-banner b{color:var(--amber);font-weight:700}
 .sync.trial{color:var(--amber)}
@@ -811,6 +811,23 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .toggle .knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text3);transition:transform .15s,background .15s}
 .toggle.on{background:color-mix(in srgb,var(--amber) 78%,transparent);border-color:var(--amber)}
 .toggle.on .knob{transform:translateX(16px);background:#fff}
+
+/* v23 — claim window bar, cog-need, header edit, card accent */
+.cwbar-wrap{margin-top:11px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.cwbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text3)}
+.cwbar-day{font-family:var(--num);font-size:13px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--cwc,var(--green))}
+.cwbar{height:9px;border-radius:6px;background:var(--input);overflow:hidden;position:relative;border:1px solid var(--line)}
+.cwbar i{display:block;height:100%;border-radius:6px;background:var(--cwc,var(--green));box-shadow:0 0 10px -1px var(--cwc,var(--green));transition:width .3s}
+.cwbar-mk{display:flex;justify-content:space-between;margin-top:6px;font-size:10.5px;color:var(--text4);font-weight:500}
+.cog-need{display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--red) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--red) 46%,transparent);border-radius:8px;padding:8px 11px;margin-bottom:9px;font-size:12px;font-weight:600;color:var(--red)}
+.cog-need .ic{flex:none;color:var(--red)}
+.cog-in.need,input.need{border-color:var(--red)!important;background:color-mix(in srgb,var(--red) 13%,var(--input))!important;color:var(--red)!important;font-weight:700}
+.sku.cogwarn{background:color-mix(in srgb,var(--red) 6%,var(--surface))}
+.sku{border-left:3px solid var(--lc)}
+.hdr-edit{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line2);border-radius:10px;padding:11px 13px;margin:2px 0 11px}
+.hdr-edit .f-field{margin:0}
+.hdr-edit label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);font-weight:700;margin-bottom:4px}
+.hdr-edit input{background:var(--input);border:1px solid var(--line2);border-radius:7px;padding:7px 9px;font-size:13px;color:var(--text)}
 
 </style>
 </head>
@@ -907,13 +924,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
         <div id="add-manual" style="display:none;margin-top:16px">
           <div class="f-grid">
             <div class="f-field"><label>Shipment ID</label><input id="mId" placeholder="FBA15XXXXXXX"></div>
-            <div class="f-field"><label>Destination</label><input id="mDest" placeholder="BHX4"></div>
             <div class="f-field"><label>Date closed</label><input id="mClosed" type="date"></div>
-          </div>
-          <div class="f-grid" style="grid-template-columns:2fr 1fr 1fr">
-            <div class="f-field"><label>Shipment name</label><input id="mName" placeholder="FBA STA (15/06/2026)"></div>
-            <div class="f-field"><label>Shipped</label><input id="mShipped" type="number" placeholder="182"></div>
-            <div class="f-field"><label>Received</label><input id="mReceived" type="number" placeholder="177"></div>
           </div>
           <div class="sec-l sm" style="margin:6px 0 10px">Discrepancy lines</div>
           <div class="line-grid"><span class="lg-head">Product</span><span class="lg-head">SKU</span><span class="lg-head">ASIN</span><span class="lg-head">FNSKU</span><span class="lg-head" title="− missing, + excess">+/−</span><span class="lg-head">COG £</span><span></span></div>
@@ -1132,7 +1143,7 @@ function renderChrome(){
   document.getElementById('nav-history').textContent=DATA.filter(isHist).length;
   document.getElementById('nav-actions-dot').style.display=acBundles().length?'block':'none';
   {const ss=document.getElementById('sbStat');if(ss){ss.style.cursor='pointer';ss.onclick=function(){go('active')};}if(ss)ss.innerHTML='<div class="l">At risk</div><div class="v">'+money(atRisk)+'</div><div class="s">'+open.length+' open · '+soon+' due ≤14d</div>';}
-  {const tb=document.getElementById('trialBanner');if(tb){tb.style.display=TRIAL?'flex':'none';tb.innerHTML=TRIAL?ic('triangle',15)+'<span><b>Trial mode</b> \u2014 nothing is saved. Refreshing the page wipes everything. Turn on saving in Settings when you\'re ready for real data.</span>':'';}const si=document.getElementById('syncInd');if(si){si.innerHTML='<span class="d"></span>'+(TRIAL?'Not saved':'Synced');si.classList.toggle('trial',TRIAL);}}
+  {const tb=document.getElementById('trialBanner');if(tb){tb.style.display=TRIAL?'flex':'none';tb.innerHTML=TRIAL?ic('triangle',13)+'<b>Trial mode</b> \u2014 nothing saved; refreshing clears everything. Turn saving on in Settings when ready.':'';}const si=document.getElementById('syncInd');if(si){si.innerHTML='<span class="d"></span>'+(TRIAL?'Not saved':'Synced');si.classList.toggle('trial',TRIAL);}}
   renderQuickLinks();
 }
 function renderQuickLinks(){
@@ -1260,6 +1271,7 @@ function renderQueue(){
 function pick(rid){S.sel=rid;addingLine=null;S.lineQ='';renderQueue()}
 
 /* ═══════════ DETAIL ═══════════ */
+function cwBar(s){if(isHist(s))return '';const w=win(s),cw=SETTINGS.claimWindowDays||182,elapsed=Math.max(0,cw-Math.max(0,w.days)),col=w.days<=SETTINGS.deadlineRiskDays?'var(--red)':w.days<=SETTINGS.deadlineWarnDays?'var(--amber)':'var(--green)';return '<div class="cwbar-wrap" style="--cwc:'+col+'"><div class="cwbar-top"><span>Amazon claim window</span><span class="cwbar-day">Day '+elapsed+' \u00b7 '+Math.max(0,w.days)+'d left</span></div><div class="cwbar"><i style="width:'+Math.min(100,Math.max(2,w.used))+'%"></i></div><div class="cwbar-mk"><span>Closed '+fmtDShort(s.closed)+'</span><span>Closes '+fmtD(w.e)+'</span></div></div>';}
 function stepper(s){
   const dead=s.status==='expired'||s.status==='writtenoff';
   const idx=stepIndex(s.status);
@@ -1305,6 +1317,11 @@ function saveFu(rid){const s=byId(rid);const v=document.getElementById('fuDate')
 const LSTAT={needsmsc:{l:'Needs MSC',c:'var(--amber)'},mscsub:{l:'MSC submitted',c:'var(--blue)'},denied:{l:'MSC denied',c:'var(--red)'},caseopen:{l:'Case open',c:'var(--violet)'},reimbursed:{l:'Reimbursed',c:'var(--green)'}};
 const MSCRES={submitted:'var(--blue)',approved:'var(--green)',denied:'var(--red)',error:'var(--amber)'};
 function toggleLineExp(rid,i){const k=rid+':'+i;if(collapsed.has(k))collapsed.delete(k);else collapsed.add(k);renderDetail()}
+let editingHdr=null;
+function startEditHdr(rid){editingHdr=rid;renderDetail()}
+function cancelEditHdr(){editingHdr=null;renderDetail()}
+function saveHdr(rid){const s=byId(rid);if(!s)return;const id=document.getElementById('eh-id').value.trim();const cl=document.getElementById('eh-closed').value;if(id)s.id=id;if(cl)s.closed=cl;editingHdr=null;s.updated=now();save();refresh();toast('Shipment updated')}
+function hdrEditForm(s){return '<div class="hdr-edit"><div class="f-field"><label>Shipment ID</label><input id="eh-id" value="'+esc(s.id)+'"></div><div class="f-field"><label>Date closed</label><input id="eh-closed" type="date" value="'+esc(s.closed||'')+'"></div><button class="btn pri sm" onclick="saveHdr(&quot;'+s.rid+'&quot;)">Save</button><button class="btn sm" onclick="cancelEditHdr()">Cancel</button></div>';}
 function setLineField(rid,i,f,v){const s=byId(rid);if(f==='reimb'){v=parseFloat(v)||0;s.lines[i].reimbAt=v>0?now():null;}s.lines[i][f]=v;s.updated=now();save();renderDetail()}
 function logMsc(rid,i){const s=byId(rid);const l=s.lines[i];l.msc=l.msc||[];l.msc.push({result:'submitted',cog:+l.cog||0,date:new Date().toISOString().slice(0,10)});if(!l.lstatus||l.lstatus==='needsmsc')l.lstatus='mscsub';log(s,'MSC logged for '+(l.asin||l.p));refresh()}
 function setMsc(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].result=v;if(v==='denied')s.lines[i].lstatus='denied';if(v==='approved')s.lines[i].lstatus='caseopen';s.updated=now();save();renderDetail()}
@@ -1319,7 +1336,7 @@ function copyLineCase(rid,i){const s=byId(rid),l=s.lines[i];const msg='Hi,\nPlea
 function markLineReimbursed(rid,i){const s=byId(rid),l=s.lines[i];l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';log(s,'Marked reimbursed: '+(l.asin||l.p)+' · '+money(l.reimb));refresh()}
 function toggleChk(rid,i,k){const s=byId(rid);s.lines[i][k]=!s.lines[i][k];s.updated=now();save();renderDetail()}
 function setLineQty(rid,i){const s=byId(rid),l=s.lines[i];const e=document.getElementById('qe'+i).value,r=document.getElementById('qr'+i).value;l.qtyExp=(e===''?null:parseInt(e)||0);l.qtyRec=(r===''?null:parseInt(r)||0);if(l.qtyExp!=null&&l.qtyRec!=null){l.miss=Math.max(0,l.qtyExp-l.qtyRec);l.exc=Math.max(0,l.qtyRec-l.qtyExp)}s.updated=now();save();renderDetail()}
-function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog||0),reimb=+l.reimb||0,short=claim-reimb,lst=l.lstatus||'needsmsc',cur=LSTAT[lst]||LSTAT.needsmsc,nx=lineNext(s,l),col=collapsed.has(rid+':'+i);
+function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog||0),reimb=+l.reimb||0,short=claim-reimb,lst=l.lstatus||'needsmsc',cur=LSTAT[lst]||LSTAT.needsmsc,nx=lineNext(s,l),col=collapsed.has(rid+':'+i),needCog=(l.miss>0||l.exc>0)&&!(+l.cog>0);
   const disc=l.miss?('−'+l.miss):(l.exc?('+'+l.exc):'0'),discCls=l.miss?'miss':l.exc?'exc':'zero';
   const hd='<div class="sku-h" onclick="toggleLineExp(\''+rid+'\','+i+')">'
    
@@ -1336,15 +1353,16 @@ function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog|
   const F=(lbl,inner)=>'<div class="ld-f"><label>'+lbl+'</label>'+inner+'</div>';
   const IN=(field,val,ph,type)=>'<input '+(type?'type="'+type+'" ':'')+'value="'+esc(val||'')+'" placeholder="'+(ph||'')+'" onchange="setLineField(\''+rid+'\','+i+',\''+field+'\',this.value)">';
   const bd='<div class="sku-b">'
+   +(needCog?'<div class="cog-need">'+ic('triangle',14)+'COG needs entering \u2014 set the \u00a3/unit so this line\'s claim can be calculated.</div>':'')
    +'<div class="ld-next" style="--nc:'+nx.c+'"><div class="ld-next-t">'+ic('arrow',13)+'<span>'+nx.t+'</span></div><div class="ld-next-s">'+nx.s+'</div></div>'
    +'<div class="ld-top"><span class="selwrap sm"><select onchange="setLineField(\''+rid+'\','+i+',\'lstatus\',this.value)">'+sOpts+'</select>'+ic('chevron',13)+'</span><span class="ld-acts"><button class="mini-btn" onclick="openLink(\'sc\')">'+ic('ext',13)+'MSC portal</button><button class="mini-btn" onclick="copyLineCase(\''+rid+'\','+i+')">'+ic('copy',13)+'Copy message</button>'+(lst!=='reimbursed'?'<button class="mini-btn ld-done" onclick="markLineReimbursed(\''+rid+'\','+i+')">'+ic('check',13)+'Mark reimbursed</button>':'')+'</span></div>'+'<div class="sku-chks"><button class="chk'+(l.chkMsc?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkMsc\')">MSC checked</button><button class="chk'+(l.chkInv?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkInv\')">Invoice checked</button><button class="chk'+(l.chkSub?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkSub\')">Submitted</button></div>'
-   +'<div class="ld-grid">'+F('Units expected','<input type="number" id="qe'+i+'" value="'+(l.qtyExp!=null?l.qtyExp:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('Units located','<input type="number" id="qr'+i+'" value="'+(l.qtyRec!=null?l.qtyRec:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('Discrepancy','<div class="ld-v '+discCls+'">'+disc+'</div>')+F('COG £/unit','<input type="number" step="0.01" value="'+(l.cog||'')+'" onchange="setCog(\''+rid+'\','+i+',this.value)">')+'</div>'
+   +'<div class="ld-grid">'+F('Units expected','<input type="number" id="qe'+i+'" value="'+(l.qtyExp!=null?l.qtyExp:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('Units located','<input type="number" id="qr'+i+'" value="'+(l.qtyRec!=null?l.qtyRec:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('Discrepancy','<div class="ld-v '+discCls+'">'+disc+'</div>')+F('COG £/unit','<input class="'+(needCog?'need':'')+'" type="number" step="0.01" value="'+(l.cog||'')+'" onchange="setCog(\''+rid+'\','+i+',this.value)">')+'</div>'
    +'<div class="ld-grid">'+F('Claim','<div class="ld-v">'+money(claim)+'</div>')+F('Reimbursed £','<input type="number" step="0.01" value="'+(l.reimb||'')+'" placeholder="0.00" onchange="setLineField(\''+rid+'\','+i+',\'reimb\',this.value)">')+F('Shortfall','<div class="ld-v" style="color:'+(short>0.01?'var(--red)':'var(--green)')+'">'+money(short)+'</div>')+F('Next MSC update',IN('nextUpdate',l.nextUpdate,'','date'))+'</div>'
    +'<div class="ld-grid ld-ev2">'+F('Shipment case ID','<input value="'+esc(s.caseId||'')+'" placeholder="one case for the whole shipment" onchange="setField(\''+rid+'\',\'caseId\',this.value)">')+F('Reimb ID',IN('reimbId',l.reimbId,'reimb id'))+'</div>'
    +'<div class="ld-grid ld-ev2">'+F('Invoice link',IN('invoice',l.invoice,'paste invoice URL'))+F('Evidence / photos',IN('photos',l.photos,'paste photos URL'))+'</div>'
    +'<div class="ld-msc"><div class="ld-lbl">MSC attempts <span class="cnt">'+((l.msc||[]).length)+'</span><button class="mini-btn ld-log" onclick="logMsc(\''+rid+'\','+i+')">'+ic('rotate',12)+'Log attempt</button></div>'+att+'</div>'
    +'</div>';
-  return '<div class="sku" style="--lc:'+cur.c+'">'+hd+bd+'</div>';}
+  return '<div class="sku'+(needCog?' cogwarn':'')+'" style="--lc:'+(needCog?'var(--red)':cur.c)+'">'+hd+bd+'</div>';}
 function buildLineRows(s){const lq=(S.lineQ||'').toLowerCase();let out='';s.lines.forEach((l,i)=>{if(lq&&!((l.p+' '+l.asin+' '+l.fnsku+' '+(l.sku||'')).toLowerCase().includes(lq)))return;out+=lineDetail(s,i);});return out;}
 function filterLines(v){S.lineQ=v;const s=byId(S.sel);if(!s)return;const tb=document.getElementById('linesTbody');if(tb){tb.innerHTML=buildLineRows(s)||'<div class="hint" style="padding:14px">No lines match your filter.</div>';hydrateIcons(tb)}}
 function linesSummary(s){const miss=missUnits(s),exc=excUnits(s),noCog=s.lines.filter(l=>l.miss>0&&!l.cog).length;
@@ -1391,7 +1409,8 @@ function renderDetail(){
    +'<div class="m-right">'
    +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
    +(['mscapproved','caseopen','reimbpending'].includes(s.status)?'<button class="btn sm" onclick="cp(event,caseTemplate(\''+s.rid+'\'))">'+ic('copy')+'Case template</button>':'')
-   +'<button class="btn sm danger" onclick="delShipment(\''+s.rid+'\')">'+ic('x')+'</button></div></div>'
+   +'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<button class="btn sm danger" onclick="delShipment(\''+s.rid+'\')">'+ic('x')+'</button></div></div>'
+   +(editingHdr===s.rid?hdrEditForm(s):'')
    /* next action hero */
    +'<div class="next '+(hist?'done':s.escalated?'jack':waiting?'wait':'')+'">'
    +(s.urgent&&!hist?'<div class="next-warn">'+ic('triangle',13)+'<span>'+esc(s.urgent)+'</span><button onclick="clearUrgent(\''+s.rid+'\')" title="Clear">'+ic('x',13)+'</button></div>':'')
@@ -1411,6 +1430,7 @@ function renderDetail(){
    +'<div class="finseg" style="--fc:'+(p-r>0.01?'var(--red)':'var(--green)')+'"><div class="l">Still at risk</div><div class="v">'+money(Math.max(0,p-r))+'</div><div class="s">of '+money(cogTotal(s))+' shipment COG</div></div>'
    +'<div class="finseg" style="--fc:'+(hist?'var(--text4)':w.days<=SETTINGS.deadlineRiskDays?'var(--red)':'var(--amber)')+'"><div class="l">Claim window</div><div class="v">'+(hist?(s.status==='reimbursed'||s.status==='partial'?'Closed':'Expired'):w.days+'d')+'</div><div class="s">'+(hist?'—':'closes '+fmtD(w.e))+'</div></div>'
    +'</div></div>'
+   +cwBar(s)
    /* accordions */
    +accSection('lines','Issue lines · '+esc(s.id),s.lines.length,ACC.lines,
      linesSummary(s)+(s.lines.length>7?'<div class="line-search">'+ic('search',14)+'<input placeholder="Filter these lines by product, ASIN or FNSKU…" value="'+esc(S.lineQ||'')+'" oninput="filterLines(this.value)"></div>':'')+'<div class="lines-scroll" id="linesTbody">'+(lineRows||'<div class="hint" style="padding:14px">No lines yet.</div>')+'</div>'+(addingLine===s.rid?newLineForm(s.rid):''),
@@ -1696,7 +1716,7 @@ function openAdd(){
   document.getElementById('step-prev').innerHTML='';
   document.getElementById('addSave').style.display='none';
   document.getElementById('moFootNote').textContent='';
-  ['mId','mDest','mName','mShipped','mReceived','mClosed'].forEach(i=>document.getElementById(i).value='');
+  ['mId','mClosed'].forEach(i=>{var el=document.getElementById(i);if(el)el.value='';});
   renderManualLines();addManualLine();pickSource('paste');setStep(1);
   document.getElementById('addOv').classList.add('open');
 }
@@ -1767,7 +1787,7 @@ function renderPastePrev(){
    +'<td class="prod"><div class="pn">'+esc(it.p)+'</div><div class="ids"><span class="chip"><span class="k">SKU</span>'+esc(it.sku||'—')+'</span></div></td>'
    +'<td class="mono" style="font-size:11.5px">'+esc(it.asin)+'</td>'
    +'<td class="r">'+(it.miss?'<span class="miss">−'+it.miss+'</span>':'<span class="exc">+'+it.exc+'</span>')+'</td>'
-   +'<td class="r"><input class="cog-in" type="number" step="0.01" value="'+(it.cog||'')+'" placeholder="?" onchange="pending.items['+i+'].cog=parseFloat(this.value)||0;updPrevTotal()"></td></tr>').join('');
+   +'<td class="r"><input class="cog-in'+(it.cog?'':' need')+'" type="number" step="0.01" value="'+(it.cog||'')+'" placeholder="?" onchange="pending.items['+i+'].cog=parseFloat(this.value)||0;updPrevTotal()"></td></tr>').join('');
   el.innerHTML='<div class="prev-note">Shipment <b>'+esc(p.id)+'</b>'+(p.name?' \u00b7 '+esc(p.name):'')+(p.dest?' \u00b7 '+esc(p.dest):'')+(p.shipped?' \u00b7 '+p.received+'/'+p.shipped+' received':'')+'<br>'
    +'<span class="prev-ok">'+ic('check',14)+(p.items.filter(i=>i.cog).length)+' COG'+(p.items.filter(i=>i.cog).length!==1?'s':'')+' read from SKU</span>'+(cogWarn?' &nbsp; <span class="prev-warn">'+ic('triangle',14)+cogWarn+' COG'+(cogWarn!==1?'s':'')+' need checking</span>':'')+'</div>'
    +'<table><thead><tr><th class="c">Inc</th><th>Product / SKU</th><th>ASIN</th><th class="r">Units</th><th class="r">COG £</th></tr></thead><tbody>'+rows+'</tbody></table>'
@@ -1783,7 +1803,7 @@ function renderManualLines(){document.getElementById('mLines').innerHTML=manualL
  +'<input placeholder="SKU" value="'+esc(l.sku||'')+'" onchange="manualLines['+i+'].sku=this.value;var c=cogFromSku(this.value);if(c)manualLines['+i+'].cog=c;renderManualLines()">'
  +'<input placeholder="ASIN" value="'+esc(l.asin)+'" onchange="manualLines['+i+'].asin=this.value">'
  +'<input placeholder="FNSKU" value="'+esc(l.fnsku)+'" onchange="manualLines['+i+'].fnsku=this.value">'
- +'<input type="number" placeholder="±0" title="− missing, + excess" value="'+(l.exc?l.exc:(l.miss?-l.miss:''))+'" onchange="var v=parseInt(this.value)||0;manualLines['+i+'].miss=v<0?-v:0;manualLines['+i+'].exc=v>0?v:0">'
+ +'<input type="number" placeholder="±0" title="− missing, + excess" style="color:'+(l.miss?'var(--red)':l.exc?'var(--green)':'')+';font-weight:700" value="'+(l.exc?l.exc:(l.miss?-l.miss:''))+'" onchange="var v=parseInt(this.value)||0;manualLines['+i+'].miss=v<0?-v:0;manualLines['+i+'].exc=v>0?v:0;renderManualLines()">'
  +'<input type="number" step="0.01" placeholder="auto" title="auto from SKU" value="'+(l.cog||'')+'" onchange="manualLines['+i+'].cog=parseFloat(this.value)||0">'
  +'<button class="rowx" onclick="manualLines.splice('+i+',1);renderManualLines()">'+ic('x')+'</button></div>').join('');hydrateIcons(document.getElementById('mLines'))}
 function addManualLine(){manualLines.push({p:'',asin:'',fnsku:'',sku:'',miss:0,exc:0,cog:0});renderManualLines()}
@@ -1792,7 +1812,7 @@ function saveAdd(){
   if(addMode==='paste'&&pending){const items=pending.items.filter(i=>i.inc);if(!items.length){toast('Tick at least one line');return}
     recNew={id:pending.id,name:pending.name,dest:pending.dest,closed:pending.closed||new Date().toISOString().slice(0,10),shipped:pending.shipped,received:pending.received,lines:items.map(i=>({p:i.p,sku:i.sku,asin:i.asin,fnsku:i.fnsku,miss:i.miss,exc:i.exc,cog:i.cog||0}))};
   }else{const id=document.getElementById('mId').value.trim();if(!id){toast('Shipment ID needed');return}const lines=manualLines.filter(l=>(l.asin||l.sku)&&(l.miss||l.exc)).map(l=>Object.assign({},l,{cog:l.cog||cogFromSku(l.sku)||0}));if(!lines.length){toast('Add at least one line with a ± discrepancy');return}
-    recNew={id,name:document.getElementById('mName').value.trim(),dest:document.getElementById('mDest').value.trim(),closed:document.getElementById('mClosed').value||new Date().toISOString().slice(0,10),shipped:parseInt(document.getElementById('mShipped').value)||0,received:parseInt(document.getElementById('mReceived').value)||0,lines};
+    recNew={id,name:'',dest:'',closed:document.getElementById('mClosed').value||new Date().toISOString().slice(0,10),shipped:0,received:0,lines};
   }
   if(DATA.find(s=>s.id===recNew.id)){if(!confirm(recNew.id+' already exists. Add anyway?'))return}
   const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Unassigned',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
