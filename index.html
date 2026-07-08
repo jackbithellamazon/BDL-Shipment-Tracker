@@ -801,6 +801,17 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .next-sla.over{color:var(--amber)}
 .next-sla.over b{color:var(--amber)}
 
+/* v22 — trial mode banner + toggle */
+.trial-banner{display:flex;align-items:center;gap:9px;padding:9px 16px;background:color-mix(in srgb,var(--amber) 14%,var(--surface));border-bottom:1px solid color-mix(in srgb,var(--amber) 38%,transparent);color:var(--text2);font-size:12.5px;font-weight:500;position:sticky;top:0;z-index:30}
+.trial-banner .ic{color:var(--amber);flex:none}
+.trial-banner b{color:var(--amber);font-weight:700}
+.sync.trial{color:var(--amber)}
+.sync.trial .d{background:var(--amber)}
+.toggle{width:38px;height:22px;border-radius:22px;background:var(--line2);border:1px solid var(--line2);position:relative;cursor:pointer;padding:0;transition:background .15s,border-color .15s;flex:none}
+.toggle .knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text3);transition:transform .15s,background .15s}
+.toggle.on{background:color-mix(in srgb,var(--amber) 78%,transparent);border-color:var(--amber)}
+.toggle.on .knob{transform:translateX(16px);background:#fff}
+
 </style>
 </head>
 <body>
@@ -828,6 +839,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 
   <!-- ═══ CONTENT ═══ -->
   <div class="content">
+    <div id="trialBanner" class="trial-banner" style="display:none"></div>
     <div class="chead">
       <div class="chead-l">
         <div class="ttl" id="pageTitle">Active shipments</div>
@@ -839,7 +851,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
         <span class="kbd">⌘K</span>
       </div>
       <div class="chead-r">
-        <div class="sync" title="Synced with local storage"><span class="d"></span>Synced</div>
+        <div class="sync" id="syncInd" title="Synced with local storage"><span class="d"></span>Synced</div>
         <button class="iconbtn" onclick="toggleTheme()" title="Toggle theme"><span class="ic" data-ic="theme"></span></button>
         <button class="btn pri" onclick="openAdd()"><span class="ic" data-ic="plus"></span>New shipment</button>
       </div>
@@ -1004,7 +1016,7 @@ const NEXT={
 };
 const ESC_NEXT={t:'Waiting on Jack',s:'Escalated to Jack. Check his comments below before taking the next step.'};
 /* ═══════════ STATE ═══════════ */
-const LS_KEY='sd-data-v4',LS_THEME='sd-theme',LS_LINKS='sd-links',LS_SB='sd-sidebar',LS_SETTINGS='sd-settings';
+const LS_KEY='sd-data-v4',LS_THEME='sd-theme',LS_LINKS='sd-links',LS_SB='sd-sidebar',LS_SETTINGS='sd-settings',LS_TRIAL='sd-trial';let TRIAL=true;
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
 const SETTINGS_DEFAULT={claimWindowDays:182,deadlineRiskDays:14,deadlineWarnDays:30,mscCheckDays:5,caseChaseDays:7,caseSlaDays:14,mscReductionPct:20,mscWaitDays:30};
 let SETTINGS=Object.assign({},SETTINGS_DEFAULT);
@@ -1039,11 +1051,13 @@ function evidence(s){return[
 /* suggested follow-up */
 function followUp(s){if(s.followUp)return s.followUp;const base=s.statusAt||s.updated||now();if(s.status==='mscpending')return new Date(base+(SETTINGS.mscCheckDays||5)*86400000).toISOString().slice(0,10);if(s.status==='caseopen'||s.status==='reimbpending')return new Date(base+(SETTINGS.caseChaseDays||7)*86400000).toISOString().slice(0,10);return ''}
 
-function save(){localStorage.setItem(LS_KEY,JSON.stringify(DATA))}
+function save(){if(TRIAL)return;localStorage.setItem(LS_KEY,JSON.stringify(DATA))}
 function saveLinks(){localStorage.setItem(LS_LINKS,JSON.stringify(LINKS))}
 function load(){
   try{const l=localStorage.getItem(LS_LINKS);if(l)LINKS=Object.assign(LINKS,JSON.parse(l))}catch(e){}
   try{const g=localStorage.getItem(LS_SETTINGS);if(g)SETTINGS=Object.assign({},SETTINGS_DEFAULT,JSON.parse(g))}catch(e){}
+  TRIAL=localStorage.getItem(LS_TRIAL)!=='0';
+  if(TRIAL){DATA=[];try{localStorage.removeItem(LS_KEY)}catch(e){}return;}
   try{const raw=localStorage.getItem(LS_KEY);if(raw){DATA=JSON.parse(raw);return}}catch(e){}
   DATA=[];save();
 }
@@ -1118,6 +1132,7 @@ function renderChrome(){
   document.getElementById('nav-history').textContent=DATA.filter(isHist).length;
   document.getElementById('nav-actions-dot').style.display=acBundles().length?'block':'none';
   {const ss=document.getElementById('sbStat');if(ss){ss.style.cursor='pointer';ss.onclick=function(){go('active')};}if(ss)ss.innerHTML='<div class="l">At risk</div><div class="v">'+money(atRisk)+'</div><div class="s">'+open.length+' open · '+soon+' due ≤14d</div>';}
+  {const tb=document.getElementById('trialBanner');if(tb){tb.style.display=TRIAL?'flex':'none';tb.innerHTML=TRIAL?ic('triangle',15)+'<span><b>Trial mode</b> \u2014 nothing is saved. Refreshing the page wipes everything. Turn on saving in Settings when you\'re ready for real data.</span>':'';}const si=document.getElementById('syncInd');if(si){si.innerHTML='<span class="d"></span>'+(TRIAL?'Not saved':'Synced');si.classList.toggle('trial',TRIAL);}}
   renderQuickLinks();
 }
 function renderQuickLinks(){
@@ -1800,6 +1815,7 @@ function importJSON(inp){const f=inp.files[0];if(!f)return;const r=new FileReade
 function saveSettings(){localStorage.setItem(LS_SETTINGS,JSON.stringify(SETTINGS))}
 function setSetting(k,v){SETTINGS[k]=Math.max(0,parseInt(v)||0);saveSettings();renderChrome();toast('Saved')}
 function setLink(k,v){LINKS[k]=v.trim();saveLinks();toast('Link saved')}
+function setTrial(v){TRIAL=v;try{localStorage.setItem(LS_TRIAL,v?'1':'0')}catch(e){}if(!v){save()}else{try{localStorage.removeItem(LS_KEY)}catch(e){}}renderChrome();renderSettings();toast(v?'Trial mode on \u2014 data resets on refresh':'Saving on \u2014 shipments now persist in this browser')}
 function wipeData(){if(!confirm('Delete ALL saved shipments from this browser?\\n\\nThis cannot be undone. Use Backup first if you might want them back.'))return;DATA=[];S.sel=null;save();go('overview');toast('All shipment data cleared')}
 function resetSettings(){if(!confirm('Reset all settings to defaults?'))return;SETTINGS=Object.assign({},SETTINGS_DEFAULT);saveSettings();renderSettings();renderChrome();toast('Settings reset')}
 function renderSettings(){
@@ -1826,6 +1842,7 @@ function renderSettings(){
    +'</div>'
    +'<div class="set-card"><div class="set-h">'+ic('receipt',15)+'Data &amp; backup</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Backup, restore &amp; export</div><div class="set-d">All data lives in this browser. Download a backup or export a CSV.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="exportJSON()">'+ic('ext')+'Backup</button><button class="btn sm" onclick="var f=document.getElementById(\'impFile\');if(f)f.click()">Import</button><button class="btn sm" onclick="exportCSV()">CSV</button></div></div>'
+     +'<div class="set-row"><div class="set-info"><div class="set-l">Trial mode</div><div class="set-d">When on, nothing is saved and every refresh wipes all data (with a banner up top). Turn off to keep shipments in this browser between sessions.</div></div><div class="set-ctrl"><button class="toggle'+(TRIAL?' on':'')+'" role="switch" aria-checked="'+TRIAL+'" onclick="setTrial('+(TRIAL?'false':'true')+')"><span class="knob"></span></button></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Clear all local data</div><div class="set-d">Permanently deletes every saved shipment from this browser. Back up first if unsure.</div></div><div class="set-ctrl set-btns"><button class="btn sm danger" onclick="wipeData()">'+ic('x')+'Clear all data</button></div></div>'
    +'</div>'
    +'<div class="set-foot"><button class="btn sm danger" onclick="resetSettings()">Reset settings to defaults</button></div>'
