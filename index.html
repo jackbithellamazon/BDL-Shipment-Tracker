@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shipment Deck — Reconciliation</title>
-<link rel="icon" href="data:,">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eef2f8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='16' font-weight='bold' text-anchor='middle' fill='%230a0d12'%3ESD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -945,10 +945,39 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .sidebar.collapsed .sb-toggle{margin:0}
 /* no noisy 0 badges */
 .nav-i .ct.zero,.sidebar.collapsed .nav-i .ct.zero{display:none}
+
+/* ============ v39 — confirmation dialog ============ */
+#cfmOv{align-items:center;justify-content:center}
+.cfm-card{background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:24px 24px 20px;width:min(400px,92vw);box-shadow:var(--shadow-lg);margin:auto;text-align:center}
+.cfm-ic{width:46px;height:46px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--red) 16%,transparent);border:1px solid color-mix(in srgb,var(--red) 40%,transparent)}
+.cfm-ic .ic{width:22px;height:22px;color:var(--red)}
+.cfm-t{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
+.cfm-m{font-size:12.5px;line-height:1.6;color:var(--text3);margin-bottom:20px}
+.cfm-m b{color:var(--text);font-weight:700}
+.cfm-sub{font-family:var(--mono);font-size:11.5px;color:var(--text4)}
+.cfm-warn{color:var(--red);font-weight:600}
+.cfm-btns{display:flex;gap:9px}
+.cfm-btns .btn{flex:1;justify-content:center;height:36px}
+.cfm-go{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+.cfm-go:hover{background:color-mix(in srgb,var(--red) 85%,#000);border-color:color-mix(in srgb,var(--red) 85%,#000);color:#fff}
+
+.cfm-card.neutral .cfm-ic{background:color-mix(in srgb,var(--blue) 16%,transparent);border-color:color-mix(in srgb,var(--blue) 40%,transparent)}
+.cfm-card.neutral .cfm-ic .ic{color:var(--blue)}
+.cfm-go.pri{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.cfm-go.pri:hover{background:var(--pri-hi);border-color:var(--pri-hi);color:var(--pri-ink)}
+
+/* v40 — activity author tag */
+.tl-who{margin-left:8px;font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text4);background:var(--input);border:1px solid var(--line);border-radius:99px;padding:1px 7px;white-space:nowrap}
 </style>
 </head>
 <body>
 
+<div class="overlay" id="cfmOv"><div class="cfm-card">
+  <div class="cfm-ic"><span class="ic" data-ic="triangle"></span></div>
+  <div class="cfm-t" id="cfmTitle">Are you sure?</div>
+  <div class="cfm-m" id="cfmMsg"></div>
+  <div class="cfm-btns"><button class="btn" onclick="cfmClose()">Cancel</button><button class="btn cfm-go" id="cfmGo" onclick="cfmGo()">Delete permanently</button></div>
+</div></div>
 <div class="shell">
   <!-- ═══ SIDEBAR ═══ -->
   <div class="sidebar">
@@ -984,7 +1013,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
         <span class="kbd">⌘K</span>
       </div>
       <div class="chead-r">
-        <div class="sync" id="syncInd" title="Synced with local storage"><span class="d"></span>Synced</div>
+        <div class="sync" id="syncInd" title="Synced"><span class="d"></span>Synced</div>
         <button class="iconbtn" onclick="toggleTheme()" title="Toggle theme"><span class="ic" data-ic="theme"></span></button>
         <button class="btn pri" onclick="openAdd()"><span class="ic" data-ic="plus"></span>New shipment</button>
       </div>
@@ -1149,22 +1178,27 @@ const LS_CLOUD='sd-cloud';const normUrl=u=>(u||'').trim().replace(/\/+$/,'').rep
 try{const cc=localStorage.getItem(LS_CLOUD);if(cc)CLOUD=Object.assign(CLOUD,JSON.parse(cc))}catch(e){}
 const cloudOn=()=>!!(CLOUD.url&&CLOUD.key);
 const CLOUD_TABLE='shipment_deck';const CLOUD_SQL='-- ============================================================\n-- Shipment Deck - FBA reconciliation tracker\n-- Safe to run in a SHARED Supabase project: creates and touches\n-- ONLY the "shipment_deck" table. Re-runnable (idempotent).\n-- ============================================================\n\ncreate table if not exists public.shipment_deck (\n  rid        text primary key,\n  sid        text,\n  status     text,\n  updated    timestamptz default now(),\n  data       jsonb not null,\n  created_at timestamptz default now()\n);\n\ncomment on table public.shipment_deck is $$Shipment Deck app - one row per FBA shipment, full record in data jsonb$$;\n\n-- indexes: keep queries fast as the table grows\ncreate index if not exists shipment_deck_sid_idx     on public.shipment_deck (sid);\ncreate index if not exists shipment_deck_status_idx  on public.shipment_deck (status);\ncreate index if not exists shipment_deck_updated_idx on public.shipment_deck (updated desc);\ncreate index if not exists shipment_deck_data_gin    on public.shipment_deck using gin (data);\n\n-- row level security: open to the anon key (no login, by design)\nalter table public.shipment_deck enable row level security;\n\ndrop policy if exists "shipment_deck_anon_all" on public.shipment_deck;\ncreate policy "shipment_deck_anon_all"\n  on public.shipment_deck\n  for all\n  to anon, authenticated\n  using (true)\n  with check (true);\n\ngrant all on public.shipment_deck to anon, authenticated;\n\n-- shared app config (settings + links) so every device matches\ncreate table if not exists public.shipment_deck_config (\n  k text primary key,\n  data jsonb not null,\n  updated timestamptz default now()\n);\nalter table public.shipment_deck_config enable row level security;\ndrop policy if exists "shipment_deck_config_anon_all" on public.shipment_deck_config;\ncreate policy "shipment_deck_config_anon_all"\n  on public.shipment_deck_config\n  for all\n  to anon, authenticated\n  using (true)\n  with check (true);\ngrant all on public.shipment_deck_config to anon, authenticated;';
+let cloudDead=false;const cloudUsable=()=>cloudOn()&&!cloudDead;
+async function api(path,opts){opts=opts||{};const r=await fetch(CLOUD.url+path,Object.assign({},opts,{headers:cloudHdrs(opts.headers)}));if(r.status===401||r.status===403||r.status===404){cloudDead=true;setCloudState('local')}return r}
 function cloudHdrs(x){return Object.assign({'apikey':CLOUD.key,'Authorization':'Bearer '+CLOUD.key,'Content-Type':'application/json'},x||{})}
 let cloudTimer=null;
-function setCloudState(st){const si=document.getElementById('syncInd');if(si&&cloudOn()){si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.title=st==='err'?'Could not reach the database \u2014 check Settings \u2192 Cloud sync':'Synced with your Supabase Postgres database';}}
-function cloudPush(){if(!cloudOn()||TRIAL)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{try{setCloudState('sync');
+function setCloudState(st){const si=document.getElementById('syncInd');if(!si)return;if(st==='local'||!cloudOn()){si.innerHTML='<span class="d"></span>Saved locally';si.classList.remove('trial');si.title='Saved in this browser';return}si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.title=st==='err'?'Could not reach the database \u2014 click to retry':'Synced with Supabase \u2014 click to refresh';}
+function cloudPush(){if(!cloudOn()||!cloudUsable())return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{try{setCloudState('sync');
   const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
-  if(rows.length){const r=await fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:cloudHdrs({'Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(rows)});if(!r.ok)throw new Error('push '+r.status);}
+  if(rows.length){const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});if(!r.ok)throw new Error('push '+r.status);}
   setCloudState('ok');}catch(e){setCloudState('err')}},900)}
 const CLOUD_CFG='shipment_deck_config';let cfgTimer=null;
-function cloudPushCfg(){if(!cloudOn()||TRIAL)return;clearTimeout(cfgTimer);cfgTimer=setTimeout(()=>{const rows=[{k:'settings',data:SETTINGS,updated:new Date().toISOString()},{k:'links',data:LINKS,updated:new Date().toISOString()}];fetch(CLOUD.url+'/rest/v1/'+CLOUD_CFG+'?on_conflict=k',{method:'POST',headers:cloudHdrs({'Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(rows)}).catch(()=>{});},900)}
-async function cloudPullCfg(){if(!cloudOn())return;try{const r=await fetch(CLOUD.url+'/rest/v1/'+CLOUD_CFG+'?select=k,data',{headers:cloudHdrs()});if(!r.ok)return;(await r.json()).forEach(row=>{if(row.k==='settings'&&row.data){SETTINGS=Object.assign({},SETTINGS_DEFAULT,row.data);saveSettings(true)}if(row.k==='links'&&row.data){LINKS=Object.assign({},LINKS,row.data);saveLinks(true)}});}catch(e){}}
-function cloudDelete(rids){if(!cloudOn()||TRIAL||!rids.length)return;fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?rid=in.('+rids.map(encodeURIComponent).join(',')+')',{method:'DELETE',headers:cloudHdrs()}).catch(()=>{});}
-async function cloudPull(quiet){if(!cloudOn())return;try{setCloudState('sync');const r=await fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?select=data&order=updated.desc',{headers:cloudHdrs()});if(!r.ok)throw new Error(r.status);const rows=await r.json();DATA=rows.map(x=>x.data);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}setCloudState('ok');S.sel=null;go(S.page);if(!quiet)toast('Pulled '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Cloud pull failed \u2014 check the URL and anon key')}}
-function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){if(TRIAL)setTrial(false);toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
+function cloudPushCfg(){if(!cloudOn()||!cloudUsable())return;clearTimeout(cfgTimer);cfgTimer=setTimeout(()=>{const rows=[{k:'settings',data:SETTINGS,updated:new Date().toISOString()},{k:'links',data:LINKS,updated:new Date().toISOString()}];api('/rest/v1/'+CLOUD_CFG+'?on_conflict=k',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)}).catch(()=>{});},900)}
+async function cloudPullCfg(){if(!cloudOn()||!cloudUsable())return;try{const r=await api('/rest/v1/'+CLOUD_CFG+'?select=k,data');if(!r.ok)return;(await r.json()).forEach(row=>{if(row.k==='settings'&&row.data){SETTINGS=Object.assign({},SETTINGS_DEFAULT,row.data);saveSettings(true)}if(row.k==='links'&&row.data){LINKS=Object.assign({},LINKS,row.data);saveLinks(true)}});}catch(e){}}
+function cloudDelete(rids){if(!cloudOn()||!cloudUsable()||!rids.length)return;api('/rest/v1/'+CLOUD_TABLE+'?rid=in.('+rids.map(encodeURIComponent).join(',')+')',{method:'DELETE',headers:{'Prefer':'return=minimal'}}).catch(()=>{});}
+async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{if(typeof lastPull!=='undefined')lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');cloudPush();if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=rows;try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}setCloudState('ok');S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
+function logImport(source,payload){if(!cloudOn()||!cloudUsable())return;api('/rest/v1/shipment_deck_imports',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify([{source:source,data:payload}])}).catch(()=>{});}
+function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){cloudDead=false;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
 const SETTINGS_DEFAULT={claimWindowDays:182,deadlineRiskDays:14,deadlineWarnDays:30,mscCheckDays:5,caseChaseDays:7,caseSlaDays:14,mscReductionPct:20,mscWaitDays:30};
 let SETTINGS=Object.assign({},SETTINGS_DEFAULT);
+let WHO='';try{WHO=localStorage.getItem('sd-who')||''}catch(e){}
+function setWho(v){WHO=(v||'').trim();try{localStorage.setItem('sd-who',WHO)}catch(e){}toast(WHO?'Changes will be tagged as '+WHO:'Name cleared')}
 const S={page:'active',sel:null,q:'',fStatus:'all',fDeadline:'any',fOwner:'any',fMissing:'any',tInvoice:false,tJack:false,t30:false,tFuOverdue:false,tUnassigned:false,_more:false,sort:'urgency',acFilter:'all',histSort:'gained',histSearch:'',lineQ:''};
 const now=()=>Date.now();
 const uid=()=>'r'+Math.random().toString(36).slice(2,9);
@@ -1196,17 +1230,15 @@ function evidence(s){return[
 /* suggested follow-up */
 function followUp(s){if(s.followUp)return s.followUp;const base=s.statusAt||s.updated||now();if(s.status==='mscpending')return new Date(base+(SETTINGS.mscCheckDays||5)*86400000).toISOString().slice(0,10);if(s.status==='caseopen'||s.status==='reimbpending')return new Date(base+(SETTINGS.caseChaseDays||7)*86400000).toISOString().slice(0,10);return ''}
 
-function save(){if(TRIAL)return;localStorage.setItem(LS_KEY,JSON.stringify(DATA));cloudPush()}
-function saveLinks(q){localStorage.setItem(LS_LINKS,JSON.stringify(LINKS));if(!q)cloudPushCfg()}
-function load(){
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}cloudPush()}
+function saveLinks(q){try{localStorage.setItem(LS_LINKS,JSON.stringify(LINKS))}catch(e){}if(!q)cloudPushCfg()}
+function load(){TRIAL=false;
   try{const l=localStorage.getItem(LS_LINKS);if(l)LINKS=Object.assign(LINKS,JSON.parse(l))}catch(e){}
   try{const g=localStorage.getItem(LS_SETTINGS);if(g)SETTINGS=Object.assign({},SETTINGS_DEFAULT,JSON.parse(g))}catch(e){}
-  TRIAL=localStorage.getItem(LS_TRIAL)==='1';
-  if(TRIAL){DATA=[];try{localStorage.removeItem(LS_KEY)}catch(e){}return;}
-  try{const raw=localStorage.getItem(LS_KEY);if(raw){DATA=JSON.parse(raw);return}}catch(e){}
-  DATA=[];save();
+  try{const raw=localStorage.getItem(LS_KEY);if(raw){DATA=JSON.parse(raw)||[];return}}catch(e){}
+  DATA=[];
 }
-function log(s,txt){s.log=s.log||[];s.log.unshift({ts:now(),txt});s.updated=now()}
+function log(s,txt){s.log=s.log||[];s.log.unshift({ts:now(),txt:txt,who:WHO||''});s.updated=now()}
 function toast(msg){const t=document.getElementById('toast');t.innerHTML=ic('check')+esc(msg);t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),1900)}
 function cp(e,t){e&&e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied '+t)}
 
@@ -1534,7 +1566,7 @@ function renderDetail(){
     +'<div class="kv"><span class="k">Reimb ID</span>'+(c.reimb?'<span class="chip" onclick="cp(event,\''+esc(c.reimb)+'\')">'+esc(c.reimb)+'</span>':'<span class="ev-no">awaiting</span>')+'</div>'
     +'<div class="kv"><span class="k">Amount'+(c.date?' · '+fmtD(c.date):'')+'</span><span style="display:flex;gap:8px;align-items:center"><b class="mono" style="color:'+(c.amt?'var(--green)':'var(--text4)')+'">'+(c.amt?money(c.amt):'—')+'</b><button class="rowx" onclick="delCase(\''+s.rid+'\','+i+')">'+ic('x')+'</button></span></div></div>').join('')
    :'<div class="hint" style="padding:4px 0">No case yet — cases open only after every MSC line is approved.</div>';
-  const logRows=(s.log||[]).slice(0,10).map(e=>{const am=actMeta(e.txt);return '<div class="tl-row" style="--tc:'+am.c+'"><div class="tl-ts">'+new Date(e.ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+(e.ts>now()-864e5?', '+new Date(e.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):'')+'</div>'+esc(e.txt)+'</div>'}).join('');
+  const logRows=(s.log||[]).slice(0,10).map(e=>{const am=actMeta(e.txt);return '<div class="tl-row" style="--tc:'+am.c+'"><div class="tl-ts">'+new Date(e.ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+(e.ts>now()-864e5?', '+new Date(e.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):'')+'</div>'+esc(e.txt)+(e.who?'<span class="tl-who">'+esc(e.who)+'</span>':'')+'</div>'}).join('');
 
   ensureAcc(s);
   m.innerHTML=''
@@ -1591,12 +1623,12 @@ function togglePop(){const p=document.getElementById('statusPop');if(p)p.style.d
 document.addEventListener('click',()=>{const p=document.getElementById('statusPop');if(p)p.style.display='none'});
 /* ═══════════ MUTATIONS ═══════════ */
 function refresh(){save();renderChrome();if(S.page==='active')renderActive();if(S.page==='overview')renderOverview();if(S.page==='actions')renderActions();if(S.page==='history')renderHistory()}
-function settleShipment(rid){const s=byId(rid);const open=s.lines.filter(l=>l.lstatus!=='reimbursed');const tot=s.lines.reduce((a,l)=>a+((+l.reimb>0)?+l.reimb:(l.miss||0)*(+l.cog||0)),0);if(!confirm('Settle the whole shipment?\n\n'+(open.length?open.length+' SKU'+(open.length!==1?'s':'')+' will be marked reimbursed at full claim value':'All SKUs already reimbursed')+' and the shipment moves to Reimbursed ('+money(tot)+' total).'))return;s.lines.forEach(l=>{if(l.lstatus!=='reimbursed'){l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';}});log(s,'Whole shipment settled \u2014 '+money(rec(s))+' reimbursed');s.status='reimbursed';s.statusAt=now();s.paidAt=s.paidAt||now();refresh();toast('Shipment settled \u2014 '+money(rec(s))+' recovered')}
+function settleShipment(rid){const s=byId(rid);const open=s.lines.filter(l=>l.lstatus!=='reimbursed');const tot=s.lines.reduce((a,l)=>a+((+l.reimb>0)?+l.reimb:(l.miss||0)*(+l.cog||0)),0);askConfirm({tone:'primary',icon:'check2',title:'Settle the whole shipment?',message:(open.length?'<b>'+open.length+'</b> SKU'+(open.length!==1?'s':'')+' will be marked reimbursed at full claim value.':'All SKUs are already reimbursed.')+'<br>'+esc(s.id)+' moves to <b>Reimbursed</b> \u2014 <b>'+money(tot)+'</b> total.',confirmLabel:'Settle shipment',onConfirm:function(){s.lines.forEach(l=>{if(l.lstatus!=='reimbursed'){l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';}});log(s,'Whole shipment settled \u2014 '+money(rec(s))+' reimbursed');s.status='reimbursed';s.statusAt=now();s.paidAt=s.paidAt||now();refresh();toast('Shipment settled \u2014 '+money(rec(s))+' recovered')}})}
 function changeStatus(rid,k){const s=byId(rid);if(s.status===k)return;log(s,'Status: '+STATUS[s.status].l+' → '+STATUS[k].l);s.status=k;s.statusAt=now();if(k==='reimbursed'||k==='partial')s.paidAt=s.paidAt||now();refresh();toast('Status → '+STATUS[k].l)}
 function setCog(rid,i,v){const s=byId(rid);s.lines[i].cog=parseFloat(v)||0;log(s,'COG updated on '+s.lines[i].asin+' → '+money(s.lines[i].cog));refresh()}
 function toggleLine(rid,i){const s=byId(rid);s.lines[i].excluded=!s.lines[i].excluded;log(s,(s.lines[i].excluded?'Excluded':'Included')+' line '+s.lines[i].asin);s.updated=now();save();if(S.page==='active')renderDetail()}
 function toggleShot(rid){const s=byId(rid);s.scShot=!s.scShot;log(s,s.scShot?'Screenshot marked attached':'Screenshot unmarked');refresh()}
-function delLine(rid,i){const s=byId(rid);const l=s.lines[i];if(!confirm('Remove this line'+(l.asin||l.sku?' ('+(l.asin||l.sku)+')':'')+'?'))return;log(s,'Line removed: '+(l.asin||l.sku||l.p||'line'));s.lines.splice(i,1);refresh()}
+function delLine(rid,i){const s=byId(rid),l=s.lines[i];askConfirm({title:'Remove this SKU line?',message:'<b>'+esc(l.p||l.asin||l.sku||'This line')+'</b>'+((l.asin||l.sku)?'<br><span class="cfm-sub">'+esc(l.asin||l.sku)+'</span>':'')+'<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove line',onConfirm:function(){log(s,'Line removed: '+(l.asin||l.sku||l.p||'line'));s.lines.splice(i,1);refresh();toast('Line removed')}})}
 function addLine(rid){if(ACC._sel!==rid){ACC._sel=rid}ACC.lines=true;addingLine=rid;renderDetail();setTimeout(()=>{const el=document.getElementById('nl-p');if(el)el.focus()},40)}
 function setInvoice(rid,v){const s=byId(rid);s.invoice=v.trim();log(s,v.trim()?'Invoice attached':'Invoice cleared');refresh()}
 function setField(rid,f,v){const s=byId(rid);s[f]=v;s.updated=now();save();if(f==='urgent'){renderQueue();renderChrome()}}
@@ -1604,8 +1636,14 @@ function clearUrgent(rid){const s=byId(rid);s.urgent='';log(s,'Urgent action cle
 function toggleEsc(rid){const s=byId(rid);s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');refresh();toast(s.escalated?'Escalated to Jack':'Back with the VA')}
 function setOwner(rid,v){const s=byId(rid);s.owner=v;s.updated=now();log(s,'Owner → '+v);refresh()}
 function addCase(rid){const s=byId(rid);const no=document.getElementById('cNo').value.trim();if(!no){toast('Case number needed');return}const reimb=document.getElementById('cReimb').value.trim();const amt=parseFloat(document.getElementById('cAmt').value)||null;s.cases.push({no,reimb,amt,date:amt?new Date().toISOString().slice(0,10):null});log(s,'Case logged: '+no+(amt?' · '+money(amt):''));if(amt)s.paidAt=s.paidAt||now();refresh();toast('Case logged')}
-function delCase(rid,i){const s=byId(rid);if(!confirm('Remove this case entry?'))return;log(s,'Case removed: '+s.cases[i].no);s.cases.splice(i,1);refresh()}
-function delShipment(rid){const s=byId(rid);if(!confirm('Delete '+s.id+' entirely?'))return;DATA=DATA.filter(x=>x.rid!==rid);cloudDelete([rid]);S.sel=null;refresh();toast('Deleted '+s.id)}
+function delCase(rid,i){const s=byId(rid);askConfirm({title:'Remove this case entry?',message:'Case <b>'+esc(s.cases[i].no||'(no number)')+'</b> will be removed from this shipment.<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove case',onConfirm:function(){log(s,'Case removed: '+s.cases[i].no);s.cases.splice(i,1);refresh();toast('Case removed')}})}
+let _cfm=null;
+function askConfirm(o){_cfm=o.onConfirm;const card=document.querySelector('#cfmOv .cfm-card');if(card)card.classList.toggle('neutral',o.tone==='primary');const gb=document.getElementById('cfmGo');gb.className='btn cfm-go'+(o.tone==='primary'?' pri':'');const ci=document.querySelector('#cfmOv .cfm-ic');if(ci)ci.setAttribute('data-ic-name',o.icon||'triangle');document.getElementById('cfmTitle').textContent=o.title||'Are you sure?';
+  document.getElementById('cfmMsg').innerHTML=o.message||'';gb.textContent=o.confirmLabel||'Delete permanently';const icw=document.querySelector('#cfmOv .cfm-ic');if(icw)icw.innerHTML=ic(o.icon||'triangle',22);
+  const ov=document.getElementById('cfmOv');ov.classList.add('open');hydrateIcons(ov);setTimeout(()=>{const b=document.getElementById('cfmGo');if(b)b.focus()},40)}
+function cfmClose(){const ov=document.getElementById('cfmOv');if(ov)ov.classList.remove('open');_cfm=null}
+function cfmGo(){const f=_cfm;cfmClose();if(f)f()}
+function delShipment(rid){const s=byId(rid);askConfirm({title:'Delete this shipment?',message:'<b>'+esc(s.id)+'</b> and its <b>'+s.lines.length+'</b> SKU line'+(s.lines.length!==1?'s':'')+' will be permanently deleted.<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Delete permanently',onConfirm:function(){DATA=DATA.filter(x=>x.rid!==rid);cloudDelete([rid]);S.sel=null;refresh();toast('Deleted '+s.id)}})}
 function acDone(rid,what){const s=byId(rid);const d=new Date(Date.now()+3*86400000);s.followUp=d.toISOString().slice(0,10);s.snoozedUntil=new Date(new Date().setHours(23,59,59)).getTime();log(s,(what||'Actioned')+' — next follow-up '+fmtDShort(s.followUp));s.updated=now();refresh();toast((what||'Done')+' · follow-up '+fmtDShort(s.followUp))}
 function markChecked(rid){const s=byId(rid);const d=new Date(Date.now()+(SETTINGS.mscCheckDays||5)*86400000);s.followUp=d.toISOString().slice(0,10);s.snoozedUntil=null;log(s,'Checked — still '+STATUS[s.status].l+'. Next follow-up '+fmtDShort(s.followUp));s.updated=now();refresh();toast(STATUS[s.status].l+' checked. Next follow-up set for '+fmtDShort(s.followUp))}
 function setFollowUp(rid){const s=byId(rid);const cur=followUp(s)||new Date(Date.now()+5*864e5).toISOString().slice(0,10);const ov=document.createElement('div');ov.className='mini-ov';ov.id='fuOv';ov.innerHTML='<div class="mini-card"><div class="mini-h">Set follow-up date</div><input type="date" id="fuDate" class="mini-date" value="'+cur+'"><div class="mini-btns"><button class="btn sm" onclick="closeFu()">Cancel</button><button class="btn sm pri" onclick="saveFu(\''+rid+'\')">Set follow-up</button></div></div>';ov.onclick=function(e){if(e.target===ov)closeFu()};document.body.appendChild(ov);setTimeout(()=>{const d=document.getElementById('fuDate');if(d)d.focus()},50)}
@@ -1962,10 +2000,13 @@ function saveAdd(){
   }else{const id=document.getElementById('mId').value.trim();if(!id){toast('Shipment ID needed');return}const lines=manualLines.filter(l=>(l.asin||l.sku)&&(l.miss||l.exc)).map(l=>Object.assign({},l,{cog:l.cog||cogFromSku(l.sku)||0}));if(!lines.length){toast('Add at least one line with a ± discrepancy');return}
     recNew={id,name:'',dest:'',closed:document.getElementById('mClosed').value||new Date().toISOString().slice(0,10),shipped:0,received:0,lines};
   }
-  if(DATA.find(s=>s.id===recNew.id)){if(!confirm(recNew.id+' already exists. Add anyway?'))return}
-  const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Unassigned',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
-  log(s,'Shipment issue logged · '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+' · potential '+money(pot(s)));
-  DATA.unshift(s);S.sel=s.rid;S.fStatus='all';closeOv('addOv');go('active');toast(s.id+' created');
+  const _create=function(){
+    const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Unassigned',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
+    log(s,'Shipment issue logged · '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+' · potential '+money(pot(s)));
+    DATA.unshift(s);S.sel=s.rid;S.fStatus='all';closeOv('addOv');go('active');toast(s.id+' created');logImport(addMode==='paste'?'amazon_paste':'csv',{shipment:s.id,lines:s.lines.length,potential:pot(s)});
+  };
+  if(DATA.find(x=>x.id===recNew.id)){askConfirm({tone:'primary',icon:'triangle',title:'Shipment already added',message:'<b>'+esc(recNew.id)+'</b> is already in your list. Add it again anyway?',confirmLabel:'Add anyway',onConfirm:_create});return}
+  _create();
 }
 
 /* ═══════════ EXPORT / IMPORT ═══════════ */
@@ -1976,17 +2017,18 @@ function exportCSV(){
   const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='shipment-deck-'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('CSV exported')
 }
-function loadSample(){if(DATA.length&&!confirm('Load 5 sample shipments? This replaces the current data.'))return;var N=now(),D=86400000,d=n=>new Date(N-n*D).toISOString().slice(0,10);var mk=o=>Object.assign({rid:uid(),name:'',dest:'',invoice:'',escalated:false,owner:'Sarah',followUp:'',jackNote:'',note:'',cases:[],log:[{ts:N-5*D,txt:'Shipment issue logged'}],createdAt:N-30*D,updated:N-2*D,paidAt:null,snoozedUntil:null,shipped:0,received:0,caseId:''},o);DATA=[mk({id:'FBA15SAMPLE1',status:'invoice',statusAt:N-2*D,closed:d(6),lines:[{p:'Sensodyne Repair & Protect Bundle',sku:'Amuk_8.67_150526_17.99_Repl1_02',asin:'B07F1VZSL6',fnsku:'X002M95FGJ',miss:3,exc:0,cog:8.67,lstatus:'needsmsc',reimb:0,msc:[]}]}),mk({id:'FBA15SAMPLE2',status:'mscpending',statusAt:N-6*D,closed:d(25),lines:[{p:'MAM Anti-Colic Bottle 130ml',sku:'Mifa_4.27_0306_0_Repl1_30',asin:'B015G74IM2',fnsku:'X002LX2AYL',miss:4,exc:0,cog:4.27,lstatus:'mscsub',reimb:0,msc:[{result:'submitted',cog:4.27,date:d(6)}]}]}),mk({id:'FBA15SAMPLE3',status:'caseopen',statusAt:N-16*D,closed:d(40),caseId:'12912411692',lines:[{p:'Dove Gradual Tanning Lotion 200ml',sku:'R9-ZB11-HCZU',asin:'B0GS6X448D',fnsku:'X002J8PTYL',miss:4,exc:0,cog:12.99,lstatus:'caseopen',reimb:0,caseId:'12912411692',msc:[{result:'approved',cog:12.99,date:d(20)}]}]}),mk({id:'FBA15SAMPLE4',status:'invoice',statusAt:N-1*D,closed:d(3),urgent:'Claim window closing',lines:[{p:'Braun Series 7 Beard Trimmer',sku:'Amuk_69.99_0706_100_Repl_01',asin:'B0DQWFQ51G',fnsku:'X002M33KIF',miss:1,exc:0,cog:69.99,lstatus:'needsmsc',reimb:0,msc:[]}]}),mk({id:'FBA15SAMPLE5',status:'reimbursed',statusAt:N-8*D,paidAt:N-8*D,closed:d(60),createdAt:N-70*D,lines:[{p:'Elgato HD60 X Capture Card',sku:'Amuk_94.99_0806_135_Repl_02',asin:'B09V1KJ3J4',fnsku:'X002M869MT',miss:2,exc:0,cog:94.99,lstatus:'reimbursed',reimb:189.98,reimbAt:N-8*D,msc:[{result:'approved',cog:94.99,date:d(30)}]}]})];S.sel=null;save();go('overview');toast('Sample data loaded \u2014 5 example shipments')}
+function loadSample(){if(DATA.length){askConfirm({tone:'primary',icon:'plus',title:'Load sample data?',message:'This replaces your current <b>'+DATA.length+'</b> shipment'+(DATA.length!==1?'s':'')+' with 5 examples.',confirmLabel:'Load samples',onConfirm:_loadSampleGo});return}_loadSampleGo()}
+function _loadSampleGo(){var N=now(),D=86400000,d=n=>new Date(N-n*D).toISOString().slice(0,10);var mk=o=>Object.assign({rid:uid(),name:'',dest:'',invoice:'',escalated:false,owner:'Sarah',followUp:'',jackNote:'',note:'',cases:[],log:[{ts:N-5*D,txt:'Shipment issue logged'}],createdAt:N-30*D,updated:N-2*D,paidAt:null,snoozedUntil:null,shipped:0,received:0,caseId:''},o);DATA=[mk({id:'FBA15SAMPLE1',status:'invoice',statusAt:N-2*D,closed:d(6),lines:[{p:'Sensodyne Repair & Protect Bundle',sku:'Amuk_8.67_150526_17.99_Repl1_02',asin:'B07F1VZSL6',fnsku:'X002M95FGJ',miss:3,exc:0,cog:8.67,lstatus:'needsmsc',reimb:0,msc:[]}]}),mk({id:'FBA15SAMPLE2',status:'mscpending',statusAt:N-6*D,closed:d(25),lines:[{p:'MAM Anti-Colic Bottle 130ml',sku:'Mifa_4.27_0306_0_Repl1_30',asin:'B015G74IM2',fnsku:'X002LX2AYL',miss:4,exc:0,cog:4.27,lstatus:'mscsub',reimb:0,msc:[{result:'submitted',cog:4.27,date:d(6)}]}]}),mk({id:'FBA15SAMPLE3',status:'caseopen',statusAt:N-16*D,closed:d(40),caseId:'12912411692',lines:[{p:'Dove Gradual Tanning Lotion 200ml',sku:'R9-ZB11-HCZU',asin:'B0GS6X448D',fnsku:'X002J8PTYL',miss:4,exc:0,cog:12.99,lstatus:'caseopen',reimb:0,caseId:'12912411692',msc:[{result:'approved',cog:12.99,date:d(20)}]}]}),mk({id:'FBA15SAMPLE4',status:'invoice',statusAt:N-1*D,closed:d(3),urgent:'Claim window closing',lines:[{p:'Braun Series 7 Beard Trimmer',sku:'Amuk_69.99_0706_100_Repl_01',asin:'B0DQWFQ51G',fnsku:'X002M33KIF',miss:1,exc:0,cog:69.99,lstatus:'needsmsc',reimb:0,msc:[]}]}),mk({id:'FBA15SAMPLE5',status:'reimbursed',statusAt:N-8*D,paidAt:N-8*D,closed:d(60),createdAt:N-70*D,lines:[{p:'Elgato HD60 X Capture Card',sku:'Amuk_94.99_0806_135_Repl_02',asin:'B09V1KJ3J4',fnsku:'X002M869MT',miss:2,exc:0,cog:94.99,lstatus:'reimbursed',reimb:189.98,reimbAt:N-8*D,msc:[{result:'approved',cog:94.99,date:d(30)}]}]})];S.sel=null;save();go('overview');toast('Sample data loaded \u2014 5 example shipments')}
 function exportJSON(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'}));a.download='shipment-deck-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Backup downloaded')}
 function importJSON(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const arr=JSON.parse(r.result);if(!Array.isArray(arr))throw 0;DATA=arr;S.sel=null;save();go(S.page);toast('Imported '+arr.length+' shipments')}catch(e){toast('That file could not be read')}};r.readAsText(f);inp.value=''}
 
 /* ═══════════ LINKS ═══════════ */
-function saveSettings(q){localStorage.setItem(LS_SETTINGS,JSON.stringify(SETTINGS));if(!q)cloudPushCfg()}
+function saveSettings(q){try{localStorage.setItem(LS_SETTINGS,JSON.stringify(SETTINGS))}catch(e){}if(!q)cloudPushCfg()}
 function setSetting(k,v){SETTINGS[k]=Math.max(0,parseInt(v)||0);saveSettings();renderChrome();toast('Saved')}
 function setLink(k,v){LINKS[k]=v.trim();saveLinks();toast('Link saved')}
 function setTrial(v){TRIAL=v;try{localStorage.setItem(LS_TRIAL,v?'1':'0')}catch(e){}if(!v){save()}else{try{localStorage.removeItem(LS_KEY)}catch(e){}}renderChrome();renderSettings();toast(v?'Trial mode on \u2014 data resets on refresh':'Saving on \u2014 shipments now persist in this browser')}
-function wipeData(){if(!confirm('Delete ALL saved shipments from this browser?\\n\\nThis cannot be undone. Use Backup first if you might want them back.'))return;if(cloudOn()&&!TRIAL){if(confirm('Also delete them from the shared cloud database for EVERYONE?\n\nCancel = clear this browser only (data re-syncs from the cloud).')){fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?rid=not.is.null',{method:'DELETE',headers:cloudHdrs()}).catch(()=>{});}}DATA=[];S.sel=null;save();go('overview');toast('All shipment data cleared')}
-function resetSettings(){if(!confirm('Reset all settings to defaults?'))return;SETTINGS=Object.assign({},SETTINGS_DEFAULT);saveSettings();renderSettings();renderChrome();toast('Settings reset')}
+function wipeData(){askConfirm({title:'Delete ALL data?',message:'Every shipment, SKU line and claim will be permanently deleted from this browser'+(cloudUsable()?' <b>and the shared database</b>':'')+'.<br><span class="cfm-warn">This cannot be undone. Export a backup first if unsure.</span>',confirmLabel:'Delete everything',onConfirm:function(){const rids=DATA.map(s=>s.rid);if(rids.length)cloudDelete(rids);DATA=[];S.sel=null;save();go('overview');toast('All shipment data cleared')}})}
+function resetSettings(){askConfirm({tone:'primary',icon:'rotate',title:'Reset settings?',message:'Claim window, thresholds and follow-up cadence go back to their defaults.',confirmLabel:'Reset settings',onConfirm:function(){SETTINGS=Object.assign({},SETTINGS_DEFAULT);saveSettings();renderSettings();renderChrome();toast('Settings reset')}})}
 function renderSettings(){
   const num=(k,lbl,desc,unit)=>'<div class="set-row"><div class="set-info"><div class="set-l">'+lbl+'</div><div class="set-d">'+desc+'</div></div><div class="set-ctrl"><input type="number" class="set-in" min="0" value="'+(SETTINGS[k])+'" onchange="setSetting(\''+k+'\',this.value)"><span class="set-u">'+(unit||'')+'</span></div></div>';
   const url=(k,lbl,ph)=>'<div class="set-row"><div class="set-info"><div class="set-l">'+lbl+'</div></div><div class="set-ctrl"><input type="url" class="set-in wide" value="'+esc(LINKS[k]||'')+'" placeholder="'+ph+'" onchange="setLink(\''+k+'\',this.value)"></div></div>';
@@ -2009,7 +2051,7 @@ function renderSettings(){
      +url('stk','STK','https://...')
      +url('sf','SF Reimbursements','https://...')
    +'</div>'
-   +'<div class="set-card"><div class="set-h">'+ic('ext',15)+'Cloud sync \u2014 SQL database</div>'
+   +'<div class="set-card"><div class="set-h">'+ic('user',15)+'You</div>'+'<div class="set-row"><div class="set-info"><div class="set-l">Your name</div><div class="set-d">Tags every change you make in the activity log, so you can tell who did what when you and the VAs share the same data.</div></div><div class="set-ctrl"><input class="set-in wide" value="'+esc(WHO)+'" placeholder="e.g. Sarah" onchange="setWho(this.value)"></div></div>'+'</div>'   +'<div class="set-card"><div class="set-h">'+ic('ext',15)+'Cloud sync \u2014 SQL database</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Supabase project URL</div><div class="set-d">Free Postgres database. Create a project at supabase.com, run the setup SQL, then paste the Project URL and anon key here. No login needed \u2014 anyone with this app + key shares the same data.</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-url" value="'+esc(CLOUD.url)+'" placeholder="https://xxxx.supabase.co"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Anon key</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-key" value="'+esc(CLOUD.key)+'" placeholder="eyJhbGciOi\u2026"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">'+(cloudOn()?'Connected':'Not connected')+'</div><div class="set-d">'+(cloudOn()?'Every change saves to Postgres. Data follows you across devices and browsers.':'Copy the setup SQL, run it in the Supabase SQL editor, then connect.')+'</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="cp(event,CLOUD_SQL)">'+ic('copy')+'Copy setup SQL</button><button class="btn sm pri" onclick="saveCloudCfg()">'+(cloudOn()?'Save':'Connect')+'</button>'+(cloudOn()?'<button class="btn sm" onclick="cloudPull()">Pull now</button>':'')+'</div></div>'
@@ -2017,7 +2059,6 @@ function renderSettings(){
    +'<div class="set-card"><div class="set-h">'+ic('receipt',15)+'Data &amp; backup</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Backup, restore &amp; export</div><div class="set-d">All data lives in this browser. Download a backup or export a CSV.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="exportJSON()">'+ic('ext')+'Backup</button><button class="btn sm" onclick="var f=document.getElementById(\'impFile\');if(f)f.click()">Import</button><button class="btn sm" onclick="exportCSV()">CSV</button></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Sample data</div><div class="set-d">Fill the app with 5 example shipments across every stage to explore. Perfect in trial mode.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="loadSample()">'+ic('plus')+'Load sample data</button></div></div>'
-     +'<div class="set-row"><div class="set-info"><div class="set-l">Trial mode</div><div class="set-d">When on, nothing is saved and every refresh wipes all data (with a banner up top). Turn off to keep shipments in this browser between sessions.</div></div><div class="set-ctrl"><button class="toggle'+(TRIAL?' on':'')+'" role="switch" aria-checked="'+TRIAL+'" onclick="setTrial('+(TRIAL?'false':'true')+')"><span class="knob"></span></button></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Clear all local data</div><div class="set-d">Permanently deletes every saved shipment from this browser. Back up first if unsure.</div></div><div class="set-ctrl set-btns"><button class="btn sm danger" onclick="wipeData()">'+ic('x')+'Clear all data</button></div></div>'
    +'</div>'
    +'<div class="set-foot"><button class="btn sm danger" onclick="resetSettings()">Reset settings to defaults</button></div>'
@@ -2039,10 +2080,15 @@ function setToggleIcon(){const sb=document.querySelector('.sidebar');document.ge
 function toggleSidebar(){const sb=document.querySelector('.sidebar');sb.classList.toggle('collapsed');setToggleIcon();localStorage.setItem(LS_SB,sb.classList.contains('collapsed')?'1':'0')}
 (function initSidebar(){if(localStorage.getItem(LS_SB)==='1')document.querySelector('.sidebar').classList.add('collapsed')})();
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
-document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape')document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-load();renderChrome();go('active');if(cloudOn()&&!TRIAL){cloudPullCfg();cloudPull(true);}
+load();renderChrome();go('active');if(cloudOn()){cloudPullCfg();cloudPull(true);}
+let lastPull=Date.now();
+function maybeRefresh(force){if(!cloudUsable())return;if(!force&&Date.now()-lastPull<20000)return;lastPull=Date.now();cloudPullCfg();cloudPull(true);}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')maybeRefresh()});
+window.addEventListener('focus',function(){maybeRefresh()});
+{const si=document.getElementById('syncInd');if(si){si.style.cursor='pointer';si.addEventListener('click',function(){if(!cloudUsable()){toast('Working offline \u2014 saved in this browser');return}toast('Refreshing\u2026');maybeRefresh(true)})}}
 </script>
 </body>
 </html>
