@@ -24,7 +24,7 @@
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.34);
   --shadow-lg:0 28px 70px rgba(0,0,0,.68);
   /* scale — tightened */
-  --h-header:60px; --w-side:170px;
+  --h-header:60px; --w-side:184px;
   --px:14px; --py:9px; --gap:4px; --gap2:7px; --gap3:9px;
   --ctrl:27px; --row:36px; --radius:7px; --radius-sm:6px; --radius-lg:11px;
   --sans:'Plus Jakarta Sans','Inter',system-ui,-apple-system,sans-serif;
@@ -985,7 +985,10 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 .msc-log{background:var(--blue)!important;border-color:var(--blue)!important;color:#fff!important;font-weight:700}
 .msc-log:hover{background:color-mix(in srgb,var(--blue) 86%,#000)!important;border-color:color-mix(in srgb,var(--blue) 86%,#000)!important}
 .msc-log .ic{color:#fff}
-.ver-badge{position:fixed;right:9px;bottom:7px;font-size:10px;font-family:var(--mono);font-weight:600;color:var(--text4);opacity:.6;z-index:6;pointer-events:none;letter-spacing:.03em}
+
+/* ============ v46 — sidebar label wrap fix ============ */
+.nav-i>span:not(.ic):not(.ct):not(.dot){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.sidebar.collapsed .nav-i>span:not(.ic):not(.ct):not(.dot){flex:none}
 </style>
 </head>
 <body>
@@ -1001,7 +1004,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v42</span></div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v46</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
@@ -2117,7 +2120,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v42';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v46';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 load();renderChrome();go('active');if(cloudOn()){cloudPullCfg();cloudPull(true);}
 let lastPull=Date.now();
 function maybeRefresh(force){if(!cloudUsable())return;if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
@@ -2125,6 +2128,5 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 window.addEventListener('focus',function(){maybeRefresh()});
 {const si=document.getElementById('syncInd');if(si){si.style.cursor='pointer';si.addEventListener('click',function(){if(!cloudUsable()){toast('Working offline \u2014 saved in this browser');return}toast('Refreshing\u2026');maybeRefresh(true)})}}
 </script>
-<div class="ver-badge">v45</div>
 </body>
 </html>
