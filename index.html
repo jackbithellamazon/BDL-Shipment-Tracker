@@ -937,6 +937,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
 
 /* ============ v37 — brand mark, collapsed sidebar, badges ============ */
 .sb-logo{width:29px;height:29px;border-radius:8px;background:var(--pri);border:none;color:var(--pri-ink);font-family:var(--sans);font-size:12.5px;font-weight:800;letter-spacing:-.03em;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.ver-pill{display:inline-block;margin-left:5px;font-size:8.5px;font-weight:800;letter-spacing:.02em;color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent);border:1px solid color-mix(in srgb,var(--green) 35%,transparent);border-radius:99px;padding:0 6px;vertical-align:1px}
 .sb-brand h1{font-size:13.5px;font-weight:800;letter-spacing:-.02em}
 .sb-brand .tag{letter-spacing:.1em;color:var(--text4)}
 /* collapsed: keep the brand mark visible (was hidden -> looked broken) */
@@ -983,7 +984,7 @@ tbody tr:hover{background:color-mix(in srgb,var(--hover) 55%,transparent)}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation</div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v42</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
@@ -1541,10 +1542,21 @@ function linesSummary(s){const miss=missUnits(s),exc=excUnits(s),noCog=s.lines.f
    +'<span>claim <b>'+money(pot(s))+'</b></span>'
    +(rec(s)>0?'<span><b style="color:var(--green)">'+money(rec(s))+'</b> reimbursed</span>':'')
    +(noCog?'<span class="ls-warn">'+ic('triangle',12)+'<b>'+noCog+'</b> need COG</span>':'')+'<span class="ls-tip">'+ic('arrow',11)+'each line is its own claim tracker · click a line to collapse it</span></div>';}
+let _lastDetailRid=null; // which shipment the detail pane last drew \u2014 used to keep scroll steady
 function renderDetail(){
   const m=document.getElementById('detail');
   const s=byId(S.sel);
-  if(!s){m.innerHTML='<div class="m-empty">'+ic('pkg')+'<div>'+(DATA.length?'Select a shipment from the list.':'No shipments yet \u2014 paste a Seller Central page, or explore with sample data.')+'</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn pri" onclick="openAdd()">'+ic('plus')+'New shipment</button>'+(DATA.length?'':'<button class="btn" onclick="loadSample()">'+ic('coins')+'Load sample data</button>')+'</div></div>';hydrateIcons(m);return}
+  // Preserve scroll ONLY when re-rendering the SAME shipment (i.e. after acting on a line \u2014
+  // MSC, checks, qty, status). Switching shipments should still land at the top.
+  // Capture the outer detail pane AND the inner issue-lines scroller, since either may hold
+  // Sarah's position while she works down a 50-SKU list. Without this, every click on a line
+  // action rebuilt #detail.innerHTML wholesale and bounced her back to the first item.
+  const _same = !!s && _lastDetailRid===S.sel;
+  const _dTop = _same ? m.scrollTop : 0;
+  const _ltEl = document.getElementById('linesTbody');
+  const _ltTop = (_same && _ltEl) ? _ltEl.scrollTop : 0;
+  const _restoreDetailScroll = ()=>{ m.scrollTop=_dTop; const l=document.getElementById('linesTbody'); if(l) l.scrollTop=_ltTop; };
+  if(!s){_lastDetailRid=null;m.innerHTML='<div class="m-empty">'+ic('pkg')+'<div>'+(DATA.length?'Select a shipment from the list.':'No shipments yet \u2014 paste a Seller Central page, or explore with sample data.')+'</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn pri" onclick="openAdd()">'+ic('plus')+'New shipment</button>'+(DATA.length?'':'<button class="btn" onclick="loadSample()">'+ic('coins')+'Load sample data</button>')+'</div></div>';hydrateIcons(m);return}
   const st=STATUS[s.status],w=win(s),p=pot(s),r=rec(s),hist=isHist(s),nR=s.lines.filter(l=>+l.reimb>0).length||s.cases.filter(c=>c.amt).length;
   const nx=s.escalated&&!hist?ESC_NEXT:NEXT[s.status];
   const waiting=['mscpending','reimbpending'].includes(s.status)&&!s.escalated;
@@ -1617,6 +1629,9 @@ function renderDetail(){
      +(s.escalated?'<div class="sec-l sm" style="margin:14px 0 6px">Jack’s comments</div><textarea class="note-t" placeholder="Jack’s notes back to the VA…" onchange="setField(\''+s.rid+'\',\'jackNote\',this.value)">'+esc(s.jackNote||'')+'</textarea>':'')
      +'<div class="sec-l sm" style="margin:14px 0 6px">VA note</div><textarea class="note-t" placeholder="Latest on this shipment…" onchange="setField(\''+s.rid+'\',\'note\',this.value)">'+esc(s.note||'')+'</textarea>');
   hydrateIcons(m);
+  _lastDetailRid=S.sel;
+  _restoreDetailScroll();              // hold Sarah's place synchronously…
+  requestAnimationFrame(_restoreDetailScroll); // …and again after layout settles
 }
 function focusInvoice(){const el=document.getElementById('invIn');if(el){el.focus();el.scrollIntoView({block:'center',behavior:'smooth'})}}
 function togglePop(){const p=document.getElementById('statusPop');if(p)p.style.display=p.style.display==='none'?'block':'none'}
@@ -2083,6 +2098,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
+const APP_VER='v42';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 load();renderChrome();go('active');if(cloudOn()){cloudPullCfg();cloudPull(true);}
 let lastPull=Date.now();
 function maybeRefresh(force){if(!cloudUsable())return;if(!force&&Date.now()-lastPull<20000)return;lastPull=Date.now();cloudPullCfg();cloudPull(true);}
