@@ -1167,6 +1167,43 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 .stag{padding:5px 11px;font-size:11px;color:var(--text4);font-weight:600}
 .stag .ic{width:11px;height:11px}
 .stag:not(.on){background:transparent}
+
+/* ===== v64 — undo toast, restore panel ===== */
+.toast-act{margin-left:10px;background:transparent;border:1px solid var(--line2);color:var(--text);border-radius:6px;padding:3px 10px;font-size:11.5px;font-weight:700;cursor:pointer}
+.toast-act:hover{background:var(--hover)}
+.del-row{display:flex;align-items:center;gap:12px;padding:9px 2px}
+.del-row+.del-row{border-top:1px solid var(--line)}
+.del-id{font-family:var(--mono);font-size:12.5px;color:var(--text);font-weight:600}
+.del-sub{font-size:11px;color:var(--text4);margin-top:2px}
+
+/* ===== v65 — per-SKU invoice board ===== */
+.inv-modal{max-width:820px}
+.inv-prog{padding:12px 0 10px}
+.invp-top{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text2)}
+.invp-top b{color:var(--text);font-family:var(--num);font-weight:800}
+.invp-left{margin-left:auto;color:var(--amber);font-weight:700;font-size:11.5px}
+.invp-done{margin-left:auto;color:var(--green);font-weight:700;font-size:11.5px;display:inline-flex;align-items:center;gap:5px}
+.invp-bar{height:6px;background:var(--input);border-radius:4px;overflow:hidden;margin-top:8px}
+.invp-bar i{display:block;height:100%;border-radius:4px;transition:width .18s ease}
+.inv-bulk{display:flex;gap:9px;align-items:flex-start;padding:10px 0 14px;border-bottom:1px solid var(--line)}
+.inv-bulk textarea{flex:1;min-height:62px;resize:vertical;background:var(--input);border:1px solid var(--line2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:12px;font-family:var(--mono);line-height:1.5}
+.inv-bulk textarea::placeholder{font-family:var(--sans);color:var(--text4)}
+.inv-bulk .btn{flex-shrink:0;margin-top:2px}
+.inv-rows{padding:6px 0 10px}
+.inv-row{display:flex;align-items:center;gap:11px;padding:9px 0}
+.inv-row+.inv-row{border-top:1px solid var(--line)}
+.inv-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.inv-row.has .inv-dot{background:var(--green)}
+.inv-main{flex:1;min-width:0;max-width:250px}
+.inv-p{font-size:12.5px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inv-ids{font-family:var(--mono);font-size:10.5px;color:var(--text4);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inv-in{flex:1.2;min-width:0;position:relative;display:flex;align-items:center}
+.inv-in input{width:100%;background:var(--input);border:1px solid var(--line2);border-radius:8px;padding:8px 30px 8px 11px;color:var(--text);font-size:12px;font-family:var(--mono)}
+.inv-in input::placeholder{font-family:var(--sans);color:var(--text4)}
+.inv-row.has .inv-in input{border-color:color-mix(in srgb,var(--green) 45%,var(--line2))}
+.inv-x{position:absolute;right:7px;background:transparent;border:none;color:var(--text4);cursor:pointer;padding:3px;border-radius:5px}
+.inv-x:hover{color:var(--red);background:var(--hover)}
+@media(max-width:640px){.inv-row{flex-wrap:wrap}.inv-main{max-width:none;flex-basis:100%}}
 </style>
 </head>
 <body>
@@ -1182,7 +1219,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v62</span></div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v65</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
@@ -1242,7 +1279,20 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 </div>
 
 <!-- ═══ ADD MODAL ═══ -->
-<div class="overlay" id="addOv">
+<div class="overlay" id="invOv"><div class="modal inv-modal">
+      <div class="mo-head">
+        <h2 id="invTitle">Invoices</h2>
+        <button class="mo-x" onclick="closeInvoices()"><span class="ic" data-ic="x"></span></button>
+      </div>
+      <div class="mo-body">
+        <div class="hint" style="margin-bottom:12px">One invoice link per SKU. Save what you have &mdash; come back for the rest.</div>
+        <div class="inv-prog" id="invProg"></div>
+        <div class="inv-bulk"><textarea id="invBulkBox" placeholder="Paste several invoice links here &mdash; one per line. They fill the empty SKUs top to bottom, and you can check them before saving."></textarea><button class="btn" onclick="invBulk()">Place links</button></div>
+        <div class="inv-rows" id="invRows"></div>
+      </div>
+      <div class="mo-foot"><button class="btn" onclick="closeInvoices()">Cancel</button><button class="btn pri" onclick="invSave()">Save invoices</button></div>
+    </div></div>
+  <div class="overlay" id="addOv">
   <div class="modal">
     <div class="mo-head">
       <h2>New shipment issue</h2>
@@ -1381,16 +1431,66 @@ let cloudDead=false;const cloudUsable=()=>cloudOn()&&!cloudDead;
 async function api(path,opts){opts=opts||{};const r=await fetch(CLOUD.url+path,Object.assign({},opts,{headers:cloudHdrs(opts.headers)}));if(r.status===401||r.status===403||r.status===404){cloudDead=true;setCloudState('local')}return r}
 function cloudHdrs(x){return Object.assign({'apikey':CLOUD.key,'Authorization':'Bearer '+CLOUD.key,'Content-Type':'application/json'},x||{})}
 let cloudTimer=null;
-function setCloudState(st){const si=document.getElementById('syncInd');if(!si)return;if(st==='local'||!cloudOn()){si.innerHTML='<span class="d"></span>Saved locally';si.classList.remove('trial');si.title='Saved in this browser';return}si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.classList.toggle('syncing',st==='sync');si.title=st==='err'?'Could not reach the database \u2014 click to retry':'Synced with Supabase \u2014 click to refresh';}
-function cloudPush(){if(!cloudOn()||!cloudUsable())return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{try{setCloudState('sync');
+function setCloudState(st){const si=document.getElementById('syncInd');if(!si)return;if(st==='local'||!cloudOn()){si.innerHTML='<span class="d"></span>Saved locally';si.classList.remove('trial');si.title='Saved in this browser';return}
+  const pend=(typeof DIRTY!=='undefined')?DIRTY.size:0;
+  /* v63: never let unsaved work look saved */
+  if(st==='err'&&pend){si.innerHTML='<span class="d"></span>'+pend+' unsaved';si.classList.add('trial');si.classList.remove('syncing');si.title=pend+' shipment'+(pend!==1?'s':'')+' not yet in the database \u2014 retrying automatically. Click to retry now. Keep this tab open.';return}
+  si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.classList.toggle('syncing',st==='sync');si.title=st==='err'?'Could not reach the database \u2014 click to retry':'Synced with Supabase \u2014 click to refresh';}
+/* v63 — rows awaiting a confirmed server write. A pull must never drop these. */
+const DIRTY=new Set();let pushRetry=0;let lastPushOk=0;
+function markDirty(rid){if(rid)DIRTY.add(rid);}
+function markAllDirty(){DATA.forEach(s=>DIRTY.add(s.rid));}
+/* mark only what changed since the last confirmed server write */
+function markChangedDirty(){DATA.forEach(s=>{if((+s.updated||0)>=lastPushOk)DIRTY.add(s.rid)});}
+function pendingCount(){return DIRTY.size}
+async function doPush(){
+  if(!cloudOn()||!cloudUsable())return false;
   const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
-  if(rows.length){const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});if(!r.ok)throw new Error('push '+r.status);}
-  setCloudState('ok');}catch(e){setCloudState('err')}},900)}
+  if(!rows.length){DIRTY.clear();setCloudState('ok');return true}
+  const sent=DATA.map(s=>s.rid);
+  try{setCloudState('sync');
+    const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
+    if(!r.ok)throw new Error('push '+r.status);
+    sent.forEach(rid=>DIRTY.delete(rid));pushRetry=0;lastPushOk=now();setCloudState(DIRTY.size?'err':'ok');return true;
+  }catch(e){
+    setCloudState('err');
+    /* keep rows dirty and retry with backoff so nothing is silently lost */
+    if(pushRetry<5){pushRetry++;clearTimeout(cloudTimer);cloudTimer=setTimeout(doPush,Math.min(15000,1000*Math.pow(2,pushRetry)));}
+    return false;
+  }
+}
+function cloudPush(immediate){if(!cloudOn()||!cloudUsable())return;clearTimeout(cloudTimer);if(immediate){doPush();return}cloudTimer=setTimeout(doPush,900)}
 const CLOUD_CFG='shipment_deck_config';let cfgTimer=null;
 function cloudPushCfg(){if(!cloudOn()||!cloudUsable())return;clearTimeout(cfgTimer);cfgTimer=setTimeout(()=>{const rows=[{k:'settings',data:SETTINGS,updated:new Date().toISOString()},{k:'links',data:LINKS,updated:new Date().toISOString()}];api('/rest/v1/'+CLOUD_CFG+'?on_conflict=k',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)}).catch(()=>{});},900)}
 async function cloudPullCfg(){if(!cloudOn()||!cloudUsable())return;try{const r=await api('/rest/v1/'+CLOUD_CFG+'?select=k,data');if(!r.ok)return;(await r.json()).forEach(row=>{if(row.k==='settings'&&row.data){SETTINGS=Object.assign({},SETTINGS_DEFAULT,row.data);saveSettings(true)}if(row.k==='links'&&row.data){LINKS=Object.assign({},LINKS,row.data);saveLinks(true)}});}catch(e){}}
-function cloudDelete(rids){if(!cloudOn()||!cloudUsable()||!rids.length)return;api('/rest/v1/'+CLOUD_TABLE+'?rid=in.('+rids.map(encodeURIComponent).join(',')+')',{method:'DELETE',headers:{'Prefer':'return=minimal'}}).catch(()=>{});}
-async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{if(typeof lastPull!=='undefined')lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');cloudPush();if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=rows;try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}setCloudState('ok');if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
+/* v64 — SOFT delete. The row is kept and stamped deleted_at so it can be restored.
+   Nothing is ever destroyed on the server by a click in this app. */
+function cloudDelete(rids){if(!cloudOn()||!cloudUsable()||!rids.length)return;
+  api('/rest/v1/'+CLOUD_TABLE+'?rid=in.('+rids.map(encodeURIComponent).join(',')+')',{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({deleted_at:new Date().toISOString()})}).catch(()=>{});}
+function cloudRestore(rid){if(!cloudOn()||!cloudUsable())return Promise.resolve(false);
+  return api('/rest/v1/'+CLOUD_TABLE+'?rid=eq.'+encodeURIComponent(rid),{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({deleted_at:null})}).then(r=>r.ok).catch(()=>false);}
+async function cloudListDeleted(){if(!cloudOn()||!cloudUsable())return [];
+  try{const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=rid,sid,deleted_at,data&deleted_at=not.is.null&order=deleted_at.desc');if(!r.ok)return [];return await r.json()}catch(e){return []}}
+/* v63 — merge server rows with local instead of blindly replacing.
+   Rules: a row still awaiting push (DIRTY) always wins; otherwise the newer
+   `updated` wins; local-only rows are KEPT, never dropped. This is what stopped
+   newly-added shipments vanishing on tab-switch / refresh. */
+function mergeRows(local,server){
+  const byRid=new Map();
+  const gone=(typeof RECENTLY_DELETED!=='undefined')?RECENTLY_DELETED:new Set();
+  (server||[]).forEach(r=>{if(r&&r.rid)byRid.set(r.rid,r)});
+  (local||[]).forEach(l=>{
+    if(!l||!l.rid)return;
+    if(gone.has(l.rid))return;                          /* deleted here -> stay deleted */
+    const srv=byRid.get(l.rid);
+    if(!srv){byRid.set(l.rid,l);return}                 /* local-only -> keep */
+    if(DIRTY.has(l.rid)){byRid.set(l.rid,l);return}      /* unsynced -> local wins */
+    const lu=+l.updated||0,su=+srv.updated||0;
+    byRid.set(l.rid,lu>su?l:srv);                        /* newest wins */
+  });
+  return Array.from(byRid.values()).sort((a,b)=>(+b.updated||0)-(+a.updated||0));
+}
+async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{if(typeof lastPull!=='undefined')lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(DIRTY.size)cloudPush(true);setCloudState(DIRTY.size?'err':'ok');if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
 function logImport(source,payload){if(!cloudOn()||!cloudUsable())return;api('/rest/v1/shipment_deck_imports',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify([{source:source,data:payload}])}).catch(()=>{});}
 function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){cloudDead=false;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
@@ -1420,7 +1520,7 @@ const ownerColor=n=>n==='Jack'?'var(--violet)':n==='Sarah'?'var(--blue)':'var(--
 const isSnoozed=s=>s.snoozedUntil&&s.snoozedUntil>now();
 /* evidence checklist state (derived + one stored flag) */
 function evidence(s){return[
-  {k:'invoice',l:'Invoice attached',on:!!s.invoice},
+  {k:'invoice',l:'Invoice attached',on:invDone(s)},
   {k:'shot',l:'Seller Central screenshot',on:!!s.scShot},
   {k:'msc',l:'MSC submitted',on:stepIndex(s.status)>=1&&!isHist(s)||['mscpending','mscapproved','mscreupdate','caseopen','reimbpending','reimbursed','partial'].includes(s.status)},
   {k:'case',l:'Case number logged',on:s.cases.length>0},
@@ -1429,7 +1529,7 @@ function evidence(s){return[
 /* suggested follow-up */
 function followUp(s){if(s.followUp)return s.followUp;const base=s.statusAt||s.updated||now();if(s.status==='mscpending')return new Date(base+(SETTINGS.mscCheckDays||5)*86400000).toISOString().slice(0,10);if(s.status==='caseopen'||s.status==='reimbpending')return new Date(base+(SETTINGS.caseChaseDays||7)*86400000).toISOString().slice(0,10);return ''}
 
-function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}cloudPush()}
+function save(immediate){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(immediate)markAllDirty();else markChangedDirty();cloudPush(immediate)}
 function saveLinks(q){try{localStorage.setItem(LS_LINKS,JSON.stringify(LINKS))}catch(e){}if(!q)cloudPushCfg()}
 function load(){TRIAL=false;
   try{const l=localStorage.getItem(LS_LINKS);if(l)LINKS=Object.assign(LINKS,JSON.parse(l))}catch(e){}
@@ -1438,6 +1538,14 @@ function load(){TRIAL=false;
   DATA=[];
 }
 function log(s,txt){s.log=s.log||[];s.log.unshift({ts:now(),txt:txt,who:WHO||''});s.updated=now()}
+function toastUndo(msg,label,fn){
+  const t=document.getElementById('toast');if(!t){toast(msg);return}
+  window.__undoFn=fn;
+  t.innerHTML=esc(msg)+' <button class="toast-act" onclick="window.__undoFn&&window.__undoFn();document.getElementById(\'toast\').classList.remove(\'on\')">'+esc(label)+'</button>';
+  t.classList.add('on');clearTimeout(window.__toastT);
+  window.__toastT=setTimeout(function(){t.classList.remove('on')},9000);
+}
+
 function toast(msg){const t=document.getElementById('toast');t.innerHTML=ic('check')+esc(msg);t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),1900)}
 function cp(e,t){e&&e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied '+t)}
 
@@ -1490,7 +1598,7 @@ function go(page){
   if(page==='overview')renderOverview();
   if(page==='active')renderActive();
   if(page==='actions')renderActions();
-  if(page==='history')renderHistory();if(page==='settings')renderSettings();
+  if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();}
 }
 function renderChrome(){
   const open=DATA.filter(s=>!isHist(s));
@@ -1624,12 +1732,12 @@ function renderQueue(){
     const dcls=w.days<=SETTINGS.deadlineRiskDays?'crit':w.days<=SETTINGS.deadlineWarnDays?'warn':'';
     const flags=(s.urgent?'<span class="fl fl-u" title="Urgent">'+ic('triangle',12)+'</span>':'')
       +(s.escalated?'<span class="fl fl-j" title="With Jack">'+ic('user',12)+'</span>':'')
-      +(!s.invoice?'<span class="fl fl-i" title="Invoice missing">'+ic('file',12)+'</span>':'');
+      +(!invDone(s)?'<span class="fl fl-i" title="Invoice missing">'+ic('file',12)+'</span>':'');
     const nextTxt=s.escalated?'Waiting on Jack':SHORTNEXT[s.status];
     const nextCls=s.escalated?'jack':(s.urgent||w.days<=SETTINGS.deadlineRiskDays)?'urg':'';
     return '<div class="item '+(S.sel===s.rid?'sel':'')+'" style="--sc:'+st.c+'" onclick="pick(\''+s.rid+'\')">'
      +'<div class="i-top"><span class="i-id">'+esc(s.id)+'</span><span class="i-flags">'+flags+'</span><span class="i-money risk">'+money(p)+'</span></div>'
-     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span> · '+esc(s.dest||'—')+(miss?' · '+miss+' missing':'')+' · <span class="i-own"><span class="av" style="--ac:'+ownerColor(own)+'">'+initials(own)+'</span>'+own+'</span></div>'
+     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span>'+(s.dest?' · '+esc(s.dest):'')+(miss?' · '+miss+' missing':'')+' <span class="i-own"><span class="av" style="--ac:'+ownerColor(own)+'">'+initials(own)+'</span>'+own+'</span></div>'
      +'<div class="i-foot"><span class="i-next '+nextCls+'">'+ic('arrow',12)+nextTxt+'</span>'
      +'<span class="i-days '+dcls+'">'+w.days+'d left</span></div></div>';
   }).join(''):'<div class="q-empty">'+ic('pkg')+(DATA.filter(s=>!isHist(s)).length?'Nothing matches those filters.<br>Clear them or adjust your search.':'No shipments yet.')+'</div>';
@@ -1776,7 +1884,7 @@ function renderDetail(){
   let nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button>';
   if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="cp(event,caseTemplate(\''+s.rid+'\'))">'+ic('copy')+'Copy case template</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'MSC paid \u2014 settle all</button>';
   else if(s.status==='mscpending')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" onclick="markChecked(\''+s.rid+'\')">'+ic('check')+'Mark checked</button><button class="btn" onclick="setFollowUp(\''+s.rid+'\')">'+ic('alarm')+'Set follow-up</button>';
-  else if(s.status==='invoice')nbtns='<button class="btn pri" onclick="focusInvoice()">'+ic('file')+'Add invoice link</button>';
+  else if(s.status==='invoice'){const _c=invCov(s);nbtns='<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
   if(['caseopen','reimbpending'].includes(s.status))nbtns+='<button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Reimbursed \u2014 settle all</button>';
   if(!hist)nbtns+='<button class="btn" onclick="toggleEsc(\''+s.rid+'\')">'+ic('user')+(s.escalated?'Return from Jack':'Escalate to Jack')+'</button>';
 
@@ -1802,7 +1910,7 @@ function renderDetail(){
    +'<div class="m-right">'
    +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
    +(['mscapproved','caseopen','reimbpending'].includes(s.status)?'<button class="btn sm" onclick="cp(event,caseTemplate(\''+s.rid+'\'))">'+ic('copy')+'Case template</button>':'')
-   +'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
+   +(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
    +(editingHdr===s.rid?hdrEditForm(s):'')+shipTags(s)
    /* next action hero */
    +'<div class="next '+(hist?'done':s.escalated?'jack':waiting?'wait':'')+'">'
@@ -1855,6 +1963,92 @@ function toggleLine(rid,i){const s=byId(rid);s.lines[i].excluded=!s.lines[i].exc
 function toggleShot(rid){const s=byId(rid);s.scShot=!s.scShot;log(s,s.scShot?'Screenshot marked attached':'Screenshot unmarked');refresh()}
 function delLine(rid,i){const s=byId(rid),l=s.lines[i];askConfirm({title:'Remove this SKU line?',message:'<b>'+esc(l.p||l.asin||l.sku||'This line')+'</b>'+((l.asin||l.sku)?'<br><span class="cfm-sub">'+esc(l.asin||l.sku)+'</span>':'')+'<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove line',onConfirm:function(){log(s,'Line removed: '+(l.asin||l.sku||l.p||'line'));s.lines.splice(i,1);refresh();toast('Line removed')}})}
 function addLine(rid){if(ACC._sel!==rid){ACC._sel=rid}ACC.lines=true;addingLine=rid;renderDetail();setTimeout(()=>{const el=document.getElementById('nl-p');if(el)el.focus()},40)}
+/* ===== v65 — per-ASIN invoice coverage =====
+   Sarah gets invoices per SKU and often has only some of them (5 of 7).
+   Two lines can share an ASIN but differ by SKU, so SKU is the unit.
+   Coverage is computed from the lines; s.invoice stays valid as a
+   whole-shipment fallback so older shipments keep working. */
+function invCov(s){
+  const lines=s.lines||[];
+  const have=lines.filter(l=>(l.invoice||'').trim()).length;
+  const need=lines.length;
+  const covered = need? (have>=need) : !!(s.invoice||'').trim();
+  return {have,need,missing:need-have,covered:covered||(!!(s.invoice||'').trim()&&have===0&&need===0)};
+}
+function invDone(s){
+  const c=invCov(s);
+  if(c.need) return c.have>=c.need;          /* per-line is the source of truth */
+  return !!(s.invoice||'').trim();           /* legacy shipments */
+}
+let INVDRAFT=null;
+function openInvoices(rid){
+  const s=byId(rid);if(!s)return;
+  INVDRAFT={rid:rid,vals:(s.lines||[]).map(l=>l.invoice||'')};
+  document.getElementById('invOv').classList.add('open');
+  renderInvBoard();
+}
+function closeInvoices(){document.getElementById('invOv').classList.remove('open');INVDRAFT=null}
+function invSetVal(i,v){if(INVDRAFT)INVDRAFT.vals[i]=v.trim();renderInvBoardStats()}
+function invBulk(){
+  if(!INVDRAFT)return;
+  const raw=document.getElementById('invBulkBox').value||'';
+  const urls=raw.split(/\s+/).map(x=>x.trim()).filter(x=>x.length>0);
+  if(!urls.length){toast('Paste some links first');return}
+  /* fill the SKUs that still have nothing, top to bottom */
+  let u=0;
+  for(let i=0;i<INVDRAFT.vals.length&&u<urls.length;i++){
+    if(!INVDRAFT.vals[i])INVDRAFT.vals[i]=urls[u++];
+  }
+  document.getElementById('invBulkBox').value='';
+  renderInvBoard();
+  toast(u+' link'+(u!==1?'s':'')+' placed — check them, then Save');
+  if(u<urls.length)toast((urls.length-u)+' extra link'+(urls.length-u!==1?'s':'')+' had nowhere to go');
+}
+function invClear(i){if(!INVDRAFT)return;INVDRAFT.vals[i]='';renderInvBoard()}
+function invSave(){
+  if(!INVDRAFT)return;
+  const s=byId(INVDRAFT.rid);if(!s){closeInvoices();return}
+  let changed=0;
+  (s.lines||[]).forEach((l,i)=>{const v=(INVDRAFT.vals[i]||'').trim();if((l.invoice||'')!==v){l.invoice=v;changed++}});
+  const c=invCov(s);
+  if(changed)log(s,'Invoices updated — '+c.have+' of '+c.need+' SKUs covered');
+  /* keep the shipment-level flag in step so existing filters/flags behave */
+  if(c.need&&c.have>=c.need&&!s.invoice)s.invoice=(s.lines.find(l=>l.invoice)||{}).invoice||'';
+  if(c.need&&c.have<c.need&&s.invoice&&!(s.lines||[]).some(l=>(l.invoice||'').trim()===s.invoice))s.invoice='';
+  s.updated=now();
+  closeInvoices();refresh();
+  toast(c.have>=c.need&&c.need?'All '+c.need+' invoices attached':c.have+' of '+c.need+' invoices saved');
+}
+function renderInvBoardStats(){
+  if(!INVDRAFT)return;
+  const s=byId(INVDRAFT.rid);if(!s)return;
+  const have=INVDRAFT.vals.filter(v=>(v||'').trim()).length,need=s.lines.length;
+  const el=document.getElementById('invProg');if(!el)return;
+  const pct=need?Math.round(have/need*100):0;
+  el.innerHTML='<div class="invp-top"><b>'+have+' of '+need+'</b> SKUs have an invoice'
+    +(have<need?'<span class="invp-left">'+(need-have)+' still needed</span>':'<span class="invp-done">'+ic('check',12)+'complete</span>')+'</div>'
+    +'<div class="invp-bar"><i style="width:'+pct+'%;background:'+(have>=need?'var(--green)':'var(--amber)')+'"></i></div>';
+  hydrateIcons(el);
+}
+function renderInvBoard(){
+  if(!INVDRAFT)return;
+  const s=byId(INVDRAFT.rid);if(!s)return;
+  document.getElementById('invTitle').textContent='Invoices · '+s.id;
+  const rows=(s.lines||[]).map((l,i)=>{
+    const v=INVDRAFT.vals[i]||'',has=!!v.trim();
+    return '<div class="inv-row'+(has?' has':'')+'">'
+      +'<span class="inv-dot"></span>'
+      +'<div class="inv-main"><div class="inv-p">'+esc(l.p||'(no name)')+'</div>'
+        +'<div class="inv-ids">'+esc([l.sku,l.asin].filter(Boolean).join(' · '))+'</div></div>'
+      +'<div class="inv-in"><input placeholder="paste this SKU’s invoice link…" value="'+esc(v)+'" oninput="invSetVal('+i+',this.value)">'
+        +(has?'<button class="inv-x" title="Clear" onclick="invClear('+i+')">'+ic('x',12)+'</button>':'')+'</div>'
+    +'</div>';
+  }).join('')||'<div class="hint" style="padding:14px">This shipment has no SKU lines yet.</div>';
+  document.getElementById('invRows').innerHTML=rows;
+  renderInvBoardStats();
+  hydrateIcons(document.getElementById('invOv'));
+}
+
 function setInvoice(rid,v){const s=byId(rid);s.invoice=v.trim();log(s,v.trim()?'Invoice attached':'Invoice cleared');refresh()}
 function shipTags(s){var esc2=s.escalated;var T=[{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
 function setShipTag(rid,k){var s=byId(rid);if(k==='escalated'){s.escalated=!s.escalated;}else{s.status=(s.status===k?'invoice':k);s.statusAt=now();}s.updated=now();refresh();}
@@ -1872,7 +2066,11 @@ function cfmClose(){const ov=document.getElementById('cfmOv');if(ov)ov.classList
 function cfmGo(){const f=_cfm;cfmClose();if(f)f()}
 function toggleHdrMenu(e,rid){e.stopPropagation();var m=document.getElementById('moreMenu-'+rid);if(!m)return;var wasOpen=m.classList.contains('on');closeHdrMenu();if(!wasOpen){m.classList.add('on');setTimeout(function(){document.addEventListener('click',closeHdrMenu,{once:true});},0);}}
 function closeHdrMenu(){document.querySelectorAll('.more-menu.on').forEach(function(m){m.classList.remove('on');});}
-function delShipment(rid){const s=byId(rid);const atRisk=Math.max(0,pot(s)-rec(s));askConfirm({tone:'danger',icon:'x',title:'Delete this shipment?',message:'<b>'+esc(s.id)+'</b> and its <b>'+s.lines.length+'</b> SKU line'+(s.lines.length!==1?'s':'')+' will be permanently deleted.'+(atRisk>0.01?'<br><span class="cfm-sub"><b>'+money(atRisk)+'</b> still unrecovered on this shipment.</span>':'')+'<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Delete permanently',onConfirm:function(){DATA=DATA.filter(x=>x.rid!==rid);cloudDelete([rid]);S.sel=null;refresh();toast('Deleted '+s.id)}})}
+function delShipment(rid){const s=byId(rid);const atRisk=Math.max(0,pot(s)-rec(s));askConfirm({tone:'danger',icon:'x',title:'Delete this shipment?',message:'<b>'+esc(s.id)+'</b> and its <b>'+s.lines.length+'</b> SKU line'+(s.lines.length!==1?'s':'')+' will be permanently deleted.'+(atRisk>0.01?'<br><span class="cfm-sub"><b>'+money(atRisk)+'</b> still unrecovered on this shipment.</span>':'')+'<br><span class="cfm-sub">Recoverable for 30 days from Settings \u203a Recently deleted.</span>',confirmLabel:'Delete shipment',onConfirm:function(){const snap=JSON.parse(JSON.stringify(s));RECENTLY_DELETED.add(rid);DATA=DATA.filter(x=>x.rid!==rid);cloudDelete([rid]);S.sel=null;refresh();UNDO={s:snap,at:now()};toastUndo('Deleted '+s.id,'Undo',function(){undoDelete()})}})}
+const RECENTLY_DELETED=new Set();let UNDO=null;
+function undoDelete(){if(!UNDO)return;const s=UNDO.s;UNDO=null;RECENTLY_DELETED.delete(s.rid);
+  if(!DATA.find(x=>x.rid===s.rid)){s.updated=now();DATA.unshift(s);markDirty(s.rid);}
+  cloudRestore(s.rid).then(function(){save(true)});save(true);S.sel=s.rid;refresh();toast('Restored '+s.id)}
 function acDone(rid,what){const s=byId(rid);const d=new Date(Date.now()+3*86400000);s.followUp=d.toISOString().slice(0,10);s.snoozedUntil=new Date(new Date().setHours(23,59,59)).getTime();log(s,(what||'Actioned')+' — next follow-up '+fmtDShort(s.followUp));s.updated=now();refresh();toast((what||'Done')+' · follow-up '+fmtDShort(s.followUp))}
 function markChecked(rid){const s=byId(rid);const d=new Date(Date.now()+(SETTINGS.mscCheckDays||5)*86400000);s.followUp=d.toISOString().slice(0,10);s.snoozedUntil=null;log(s,'Checked — still '+STATUS[s.status].l+'. Next follow-up '+fmtDShort(s.followUp));s.updated=now();refresh();toast(STATUS[s.status].l+' checked. Next follow-up set for '+fmtDShort(s.followUp))}
 function setFollowUp(rid){const s=byId(rid);const cur=followUp(s)||new Date(Date.now()+5*864e5).toISOString().slice(0,10);const ov=document.createElement('div');ov.className='mini-ov';ov.id='fuOv';ov.innerHTML='<div class="mini-card"><div class="mini-h">Set follow-up date</div><input type="date" id="fuDate" class="mini-date" value="'+cur+'"><div class="mini-btns"><button class="btn sm" onclick="closeFu()">Cancel</button><button class="btn sm pri" onclick="saveFu(\''+rid+'\')">Set follow-up</button></div></div>';ov.onclick=function(e){if(e.target===ov)closeFu()};document.body.appendChild(ov);setTimeout(()=>{const d=document.getElementById('fuDate');if(d)d.focus()},50)}
@@ -1892,7 +2090,7 @@ function primaryTask(s){
   if(s.urgent)return{title:s.urgent,sub:'Flagged urgent — handle before anything else.',ic:'triangle',bucket:'do',sev:0};
   if(w.days<0)return{title:'Window expired — review',sub:'The claim window has passed. Decide whether to write it off.',ic:'triangle',bucket:'do',sev:1};
   if(w.days<=SETTINGS.deadlineRiskDays)return{title:'Push before the window closes',sub:'Claim window closes '+fmtD(w.e)+' — '+w.days+' day'+(w.days!==1?'s':'')+' left.',ic:'alarm',bucket:'do',sev:1};
-  if(!s.invoice&&['invoice','mscreupdate'].includes(s.status))return{title:'Sort the invoice',sub:'Needed before MSC can be pushed. Locate it on the Mastersheets or supplier portal.',ic:'file',bucket:'do',sev:1};
+  if(!invDone(s)&&['invoice','mscreupdate'].includes(s.status)){const c=invCov(s);return{title:c.need&&c.have?'Invoices — '+c.missing+' SKU'+(c.missing!==1?'s':'')+' still needed':'Sort the invoices',sub:(c.need?c.have+' of '+c.need+' SKUs have an invoice. ':'')+'Needed before MSC can be pushed. Locate them on the Mastersheets or supplier portal.',ic:'file',bucket:'do',sev:2};}
   if(s.status==='mscapproved')return{title:'Open the case',sub:'All MSC lines approved — open the Seller Support case and log the number.',ic:'msg',bucket:'do',sev:1};
   if(fuOverdue(s))return{title:SHORTNEXT[s.status],sub:'Follow-up was due '+fmtDShort(s.followUp)+'.',ic:'alarm',bucket:'do',sev:2};
   if(s.status==='mscreupdate')return{title:'Reupdate MSC on Seller Central',sub:'Push through Manage Shipment Claims, then set MSC pending.',ic:'rotate',bucket:'do',sev:2};
@@ -1907,7 +2105,7 @@ function shipFlags(s){
   if(s.urgent)f.push({l:'Urgent',c:'var(--red)',ic:'triangle'});
   if(w.days<=SETTINGS.deadlineRiskDays&&w.days>=0)f.push({l:'Closing in '+w.days+'d',c:'var(--red)',ic:'alarm'});
   else if(w.days<=SETTINGS.deadlineWarnDays&&w.days>=0)f.push({l:w.days+'d window',c:'var(--amber)',ic:'clock'});
-  if(!s.invoice&&stepIndex(s.status)<2)f.push({l:'Invoice missing',c:'var(--amber)',ic:'file'});
+  if(!invDone(s)&&stepIndex(s.status)<2){const c=invCov(s);f.push({l:c.need&&c.have?'Invoices '+c.have+'/'+c.need:'Invoice missing',c:'var(--amber)',ic:'file'});}
   if(s.escalated)f.push({l:'With Jack',c:'var(--violet)',ic:'user'});
   return f;
 }
@@ -1993,7 +2191,7 @@ function renderOverview(){
   let thisM=0;DATA.forEach(s=>{const lr=s.lines.filter(l=>+l.reimb>0);if(lr.length){lr.forEach(l=>{if(l.reimbAt&&l.reimbAt>=mStart)thisM+=+l.reimb})}else{s.cases.forEach(c=>{if(c.amt&&c.date&&new Date(c.date).getTime()>=mStart)thisM+=c.amt})}});
   const bundles=acBundles().filter(b=>b.bucket==='do').slice(0,5);
   const waiting=acBundles().filter(b=>b.bucket==='wait').length;
-  const missingInv=open.filter(s=>!s.invoice).length;
+  const missingInv=open.filter(s=>!invDone(s)).length;
   /* pipeline bars */
   const maxStage=Math.max(1,...STAGES.map(stageMoney));
   const bars=STAGES.map(st=>{const v=stageMoney(st);return '<div class="bar-row" style="--bc:'+st.c+'"><span class="bar-l">'+st.l+'</span><span class="bar"><i style="width:'+(v/maxStage*100)+'%"></i></span><span class="bar-v">'+money(v)+'</span></div>'}).join('');
@@ -2236,7 +2434,7 @@ function saveAdd(){
   const _create=function(){
     const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Unassigned',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
     log(s,'Shipment issue logged · '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+' · potential '+money(pot(s)));
-    DATA.unshift(s);S.sel=s.rid;S.fStatus='all';closeOv('addOv');go('active');toast(s.id+' created');logImport(addMode==='paste'?'amazon_paste':'csv',{shipment:s.id,lines:s.lines.length,potential:pot(s)});
+    DATA.unshift(s);markDirty(s.rid);S.sel=s.rid;S.fStatus='all';save(true);closeOv('addOv');go('active');toast(s.id+' created');logImport(addMode==='paste'?'amazon_paste':'csv',{shipment:s.id,lines:s.lines.length,potential:pot(s)});
   };
   if(DATA.find(x=>x.id===recNew.id)){askConfirm({tone:'primary',icon:'triangle',title:'Shipment already added',message:'<b>'+esc(recNew.id)+'</b> is already in your list. Add it again anyway?',confirmLabel:'Add anyway',onConfirm:_create});return}
   _create();
@@ -2262,6 +2460,26 @@ function setLink(k,v){LINKS[k]=v.trim();saveLinks();toast('Link saved')}
 function setTrial(v){TRIAL=v;try{localStorage.setItem(LS_TRIAL,v?'1':'0')}catch(e){}if(!v){save()}else{try{localStorage.removeItem(LS_KEY)}catch(e){}}renderChrome();renderSettings();toast(v?'Trial mode on \u2014 data resets on refresh':'Saving on \u2014 shipments now persist in this browser')}
 function wipeData(){askConfirm({title:'Delete ALL data?',message:'Every shipment, SKU line and claim will be permanently deleted from this browser'+(cloudUsable()?' <b>and the shared database</b>':'')+'.<br><span class="cfm-warn">This cannot be undone. Export a backup first if unsure.</span>',confirmLabel:'Delete everything',onConfirm:function(){const rids=DATA.map(s=>s.rid);if(rids.length)cloudDelete(rids);DATA=[];S.sel=null;save();go('overview');toast('All shipment data cleared')}})}
 function resetSettings(){askConfirm({tone:'primary',icon:'rotate',title:'Reset settings?',message:'Claim window, thresholds and follow-up cadence go back to their defaults.',confirmLabel:'Reset settings',onConfirm:function(){SETTINGS=Object.assign({},SETTINGS_DEFAULT);saveSettings();renderSettings();renderChrome();toast('Settings reset')}})}
+async function renderDeleted(){
+  const el=document.getElementById('delList');if(!el)return;
+  el.innerHTML='<div class="hint" style="padding:10px 2px">Loading\u2026</div>';
+  const rows=await cloudListDeleted();
+  if(!rows.length){el.innerHTML='<div class="hint" style="padding:10px 2px">Nothing deleted. Anything you remove shows here and can be put back.</div>';return}
+  el.innerHTML=rows.map(function(r){
+    const d=r.data||{},n=(d.lines||[]).length,when=r.deleted_at?fmtDShort(new Date(r.deleted_at).getTime()):'';
+    return '<div class="del-row"><div style="flex:1;min-width:0"><div class="del-id">'+esc(r.sid||d.id||r.rid)+'</div>'
+     +'<div class="del-sub">'+n+' line'+(n!==1?'s':'')+(when?' \u00b7 deleted '+when:'')+'</div></div>'
+     +'<button class="btn sm" onclick="restoreDeleted(\''+r.rid+'\')">'+ic('rotate',13)+'Restore</button></div>';
+  }).join('');
+  hydrateIcons(el);
+}
+async function restoreDeleted(rid){
+  const ok=await cloudRestore(rid);
+  if(!ok){toast('Could not restore \u2014 check the connection');return}
+  RECENTLY_DELETED.delete(rid);
+  await cloudPull(true);renderDeleted();toast('Shipment restored');
+}
+
 function renderSettings(){
   const num=(k,lbl,desc,unit)=>'<div class="set-row"><div class="set-info"><div class="set-l">'+lbl+'</div><div class="set-d">'+desc+'</div></div><div class="set-ctrl"><input type="number" class="set-in" min="0" value="'+(SETTINGS[k])+'" onchange="setSetting(\''+k+'\',this.value)"><span class="set-u">'+(unit||'')+'</span></div></div>';
   const url=(k,lbl,ph)=>'<div class="set-row"><div class="set-info"><div class="set-l">'+lbl+'</div></div><div class="set-ctrl"><input type="url" class="set-in wide" value="'+esc(LINKS[k]||'')+'" placeholder="'+ph+'" onchange="setLink(\''+k+'\',this.value)"></div></div>';
@@ -2289,6 +2507,7 @@ function renderSettings(){
      +'<div class="set-row"><div class="set-info"><div class="set-l">Anon key</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-key" value="'+esc(CLOUD.key)+'" placeholder="eyJhbGciOi\u2026"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">'+(cloudOn()?'Connected':'Not connected')+'</div><div class="set-d">'+(cloudOn()?'Every change saves to Postgres. Data follows you across devices and browsers.':'Copy the setup SQL, run it in the Supabase SQL editor, then connect.')+'</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="cp(event,CLOUD_SQL)">'+ic('copy')+'Copy setup SQL</button><button class="btn sm pri" onclick="saveCloudCfg()">'+(cloudOn()?'Save':'Connect')+'</button>'+(cloudOn()?'<button class="btn sm" onclick="cloudPull()">Pull now</button>':'')+'</div></div>'
    +'</div>'
+   +'<div class="set-card"><div class="set-h">'+ic('rotate',15)+'Recently deleted</div>'+'<div class="set-row"><div class="set-info"><div class="set-d">Deleted shipments are kept on the server and can be put back. Nothing is destroyed by a click.</div></div></div>'+'<div style="padding:2px 15px 13px"><div id="delList"></div></div>'+'</div>'
    +'<div class="set-card"><div class="set-h">'+ic('receipt',15)+'Data &amp; backup</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Backup, restore &amp; export</div><div class="set-d">All data lives in this browser. Download a backup or export a CSV.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="exportJSON()">'+ic('ext')+'Backup</button><button class="btn sm" onclick="var f=document.getElementById(\'impFile\');if(f)f.click()">Import</button><button class="btn sm" onclick="exportCSV()">CSV</button></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Sample data</div><div class="set-d">Fill the app with 5 example shipments across every stage to explore. Perfect in trial mode.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="loadSample()">'+ic('plus')+'Load sample data</button></div></div>'
@@ -2316,12 +2535,21 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v62';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v65';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 load();renderChrome();go('active');{const _d=document.getElementById('detail');if(_d)_d.addEventListener('scroll',function(){const t=document.getElementById('activeTop');if(t)t.classList.toggle('compact',_d.scrollTop>60);},{passive:true});}
 if(cloudOn()){cloudPullCfg();cloudPull(true);}
 let lastPull=Date.now();
-function maybeRefresh(force){if(!cloudUsable())return;if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
-document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')maybeRefresh()});
+function maybeRefresh(force){if(!cloudUsable())return;if(DIRTY.size){cloudPush(true);if(!force)return}if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){maybeRefresh()}else{flushPush()}});
+window.addEventListener('pagehide',flushPush);
+window.addEventListener('beforeunload',function(e){flushPush();if(DIRTY.size){e.preventDefault();e.returnValue='';return ''}});
+/* send any unsynced rows immediately, surviving page teardown via keepalive */
+function flushPush(){
+  if(!cloudOn()||!cloudUsable()||!DIRTY.size||!DATA.length)return;
+  clearTimeout(cloudTimer);
+  const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
+  try{fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',keepalive:true,headers:cloudHdrs({'Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(rows)}).catch(function(){});}catch(e){}
+}
 window.addEventListener('focus',function(){maybeRefresh()});
 {const si=document.getElementById('syncInd');if(si){si.style.cursor='pointer';si.addEventListener('click',function(){if(!cloudUsable()){toast('Working offline \u2014 saved in this browser');return}toast('Refreshing\u2026');maybeRefresh(true)})}}
 </script>
