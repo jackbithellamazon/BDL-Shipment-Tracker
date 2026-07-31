@@ -1129,8 +1129,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 @media(max-width:1040px){.wfstrip .finbar{grid-template-columns:1fr 1fr}.wfstrip .finseg:nth-child(2){border-right:none}.wfstrip .finseg{border-bottom:1px solid var(--line)}.wfstrip .finseg:nth-last-child(-n+2){border-bottom:none}}
 @media(max-width:640px){.wfstrip .finbar{grid-template-columns:1fr}.wfstrip .finseg{border-right:none!important;border-bottom:1px solid var(--line)}.wfstrip .finseg:last-child{border-bottom:none}}
 /* filter area collapses on scroll to reclaim vertical space */
-#activeTop .pipe,#activeTop .status-tags{transition:opacity .12s ease}
-#activeTop.compact .pipe,#activeTop.compact .status-tags{display:none}
+
 
 
 /* ===== v58 — overflow menu + delete safety ===== */
@@ -1204,6 +1203,123 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 .inv-x{position:absolute;right:7px;background:transparent;border:none;color:var(--text4);cursor:pointer;padding:3px;border-radius:5px}
 .inv-x:hover{color:var(--red);background:var(--hover)}
 @media(max-width:640px){.inv-row{flex-wrap:wrap}.inv-main{max-width:none;flex-basis:100%}}
+
+/* ===== v66 — case message composer ===== */
+.case-modal{max-width:760px}
+.ctpl-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.ctpl{padding:6px 13px;border:1px solid var(--line2);background:transparent;color:var(--text3);border-radius:99px;font-size:11.5px;font-weight:600;cursor:pointer;transition:.12s}
+.ctpl:hover{background:var(--hover);color:var(--text2)}
+.ctpl.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.case-lines{display:flex;flex-direction:column;gap:1px;max-height:150px;overflow-y:auto;border:1px solid var(--line);border-radius:9px;padding:5px;margin-bottom:9px}
+.cml{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:6px;cursor:pointer;opacity:.45;transition:.12s}
+.cml.on{opacity:1}
+.cml:hover{background:var(--hover)}
+.cml input{accent-color:var(--blue);flex-shrink:0}
+.cml-t{flex:1;min-width:0;font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cml-i{font-family:var(--mono);font-size:10.5px;color:var(--text4);flex-shrink:0}
+.cml-n{font-family:var(--num);font-size:12px;font-weight:700;color:var(--red);width:30px;text-align:right;flex-shrink:0}
+.case-count{font-size:11px;color:var(--text4);margin-bottom:6px}
+.case-box{width:100%;min-height:250px;resize:vertical;background:var(--input);border:1px solid var(--line2);border-radius:9px;padding:12px 13px;color:var(--text);font-size:12.5px;font-family:var(--mono);line-height:1.62}
+
+/* ===== v67 — history dashboard + keyboard nav ===== */
+.i-jack{display:inline-flex;align-items:center;gap:4px;color:var(--violet);font-weight:600;font-size:11px}
+.i-jack .ic{width:11px;height:11px}
+.kbd-list{display:grid;gap:7px;margin-top:4px}
+.kbd-list>div{display:flex;align-items:center;gap:10px;font-size:12.5px}
+.kbd-list b{font-family:var(--mono);background:var(--input);border:1px solid var(--line2);border-radius:5px;padding:2px 7px;font-size:11px;min-width:26px;text-align:center;color:var(--text)}
+.kbd-list span{color:var(--text3)}
+.h-hero{display:flex;align-items:stretch;gap:0;background:linear-gradient(135deg,color-mix(in srgb,var(--green) 12%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--green) 30%,var(--line));border-radius:13px;overflow:hidden;margin-bottom:12px}
+.hh-main{padding:16px 20px;border-right:1px solid var(--line);min-width:250px}
+.hh-l{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-weight:700}
+.hh-v{font-family:var(--num);font-size:32px;font-weight:800;color:var(--green);letter-spacing:-.02em;line-height:1.1;margin-top:3px}
+.hh-s{font-size:11.5px;color:var(--text3);margin-top:4px}
+.hh-side{display:grid;grid-template-columns:repeat(3,1fr);flex:1;align-items:center}
+.hh-side>div{padding:16px 18px;text-align:left;border-right:1px solid var(--line)}
+.hh-side>div:last-child{border-right:none}
+.hs-v{font-family:var(--num);font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.hs-l{font-size:10.5px;color:var(--text3);margin-top:2px}
+.h-note{padding:12px 15px;border-radius:11px;font-size:12.5px;line-height:1.6;color:var(--text2);margin-bottom:10px;border:1px solid var(--line)}
+.h-note b{color:var(--text)}
+.h-note.good{background:color-mix(in srgb,var(--green) 9%,var(--surface));border-color:color-mix(in srgb,var(--green) 32%,var(--line))}
+.h-note.ok{background:color-mix(in srgb,var(--amber) 9%,var(--surface));border-color:color-mix(in srgb,var(--amber) 32%,var(--line))}
+.h-note.bad{background:color-mix(in srgb,var(--red) 9%,var(--surface));border-color:color-mix(in srgb,var(--red) 32%,var(--line))}
+.h-flight{display:flex;align-items:center;gap:9px;padding:10px 15px;border-radius:11px;background:color-mix(in srgb,var(--blue) 8%,var(--surface));border:1px solid color-mix(in srgb,var(--blue) 28%,var(--line));font-size:12.5px;color:var(--text2);margin-bottom:14px}
+.h-flight b{color:var(--text);font-family:var(--num);font-weight:800}
+.h-flight .ic{color:var(--blue);flex-shrink:0}
+.h-sec{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text4);font-weight:700;margin:16px 0 8px}
+.hk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.hk{padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--hc);border-radius:10px;background:var(--surface)}
+.hk-l{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);font-weight:700}
+.hk-v{font-family:var(--num);font-size:22px;font-weight:800;color:var(--hc);letter-spacing:-.02em;margin-top:3px;line-height:1.1}
+.hk-s{font-size:10.5px;color:var(--text4);margin-top:3px}
+.h-bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:20px 0 12px}
+.hc-row{display:grid;grid-template-columns:minmax(0,2.2fr) repeat(5,minmax(58px,.72fr)) auto;gap:11px;align-items:center;padding:10px 13px;border-left:3px solid var(--hc);border-bottom:1px solid var(--line);cursor:pointer;transition:.1s}
+.hc-row:hover{background:var(--hover)}
+.hc-item{min-width:0}
+.hc-p{font-size:12.5px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-ids{font-family:var(--mono);font-size:10px;color:var(--text4);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-n{text-align:right}
+.hc-n b{display:block;font-family:var(--num);font-size:12.5px;font-weight:700;color:var(--text2);letter-spacing:-.01em}
+.hc-n i{display:block;font-style:normal;font-size:9.5px;color:var(--text4);margin-top:1px}
+.mg-stats .of{font-size:11px;color:var(--text4);margin-left:6px}
+@media(max-width:1100px){.hc-row{grid-template-columns:minmax(0,1.6fr) repeat(3,1fr) auto}.hc-row .hc-n:nth-child(5),.hc-row .hc-n:nth-child(6){display:none}}
+@media(max-width:820px){.h-hero{flex-direction:column}.hh-main{border-right:none;border-bottom:1px solid var(--line)}}
+
+/* ===== v68 — invoice queue ===== */
+.ivq-hero{display:flex;align-items:center;gap:24px;padding:15px 18px;border:1px solid color-mix(in srgb,var(--amber) 30%,var(--line));background:color-mix(in srgb,var(--amber) 8%,var(--surface));border-radius:12px;margin-bottom:12px;flex-wrap:wrap}
+.ivq-l{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-weight:700}
+.ivq-v{font-family:var(--num);font-size:30px;font-weight:800;color:var(--amber);line-height:1.1;margin-top:2px}
+.ivq-s{font-size:11.5px;color:var(--text3);margin-top:3px}
+.ivq-hint{flex:1;min-width:240px;font-size:12px;color:var(--text3);line-height:1.6}
+.ivq-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:6px 2px 14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.ivq-bar #invqStat{font-size:12.5px;color:var(--text2)}
+.ivq-bar #invqStat b{font-family:var(--num);font-weight:800;color:var(--text)}
+.ivq-tog{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text3);cursor:pointer}
+.ivq-tog input{accent-color:var(--blue)}
+.ivq-bar .btn:last-child{margin-left:auto}
+.ivq-bar .btn:disabled{opacity:.45;cursor:default}
+.ivq-g{border:1px solid var(--line);border-radius:11px;margin-bottom:11px;overflow:hidden;background:var(--surface)}
+.ivq-gh{display:flex;align-items:center;gap:11px;padding:9px 13px;background:var(--raise);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ivq-gid{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text)}
+.ivq-gcov{font-family:var(--num);font-size:11px;font-weight:700;color:var(--amber);background:color-mix(in srgb,var(--amber) 15%,transparent);padding:2px 8px;border-radius:99px}
+.ivq-gcov.ok{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent)}
+.ivq-gd{font-size:11px;color:var(--text4)}
+.ivq-gdl{font-family:var(--num);font-size:11px;color:var(--text3);margin-left:auto}
+.ivq-gdl.warn{color:var(--amber)}.ivq-gdl.crit{color:var(--red)}
+.ivq-g .inv-row{padding:8px 13px}
+.ivq-g .inv-row+.inv-row{border-top:1px solid var(--line)}
+
+/* ===== v69 — grouped invoice backlog ===== */
+.bundle.blk{border-style:solid;background:color-mix(in srgb,var(--amber) 7%,var(--surface))}
+.bundle.blk .b-id{display:inline-flex;align-items:center;gap:6px;color:var(--amber);font-family:var(--sans);font-weight:700}
+.bundle.blk .b-act{font-weight:600;color:var(--text)}
+.ov-blk{display:flex;align-items:center;gap:12px;padding:13px 15px;margin-bottom:8px;border:1px solid color-mix(in srgb,var(--amber) 34%,var(--line));background:color-mix(in srgb,var(--amber) 9%,var(--surface));border-radius:11px;cursor:pointer;transition:.12s}
+.ov-blk:hover{background:color-mix(in srgb,var(--amber) 15%,var(--surface))}
+.ov-blk>.ic{color:var(--amber);flex-shrink:0}
+.ovb-t{flex:1;min-width:0;font-size:12.5px;color:var(--text2)}
+.ovb-t b{color:var(--text);font-family:var(--num);font-weight:800}
+.ovb-m{font-family:var(--num);font-size:13px;font-weight:700;color:var(--red)}
+.ovb-go{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--amber);flex-shrink:0}
+
+/* ===== v70 — COG completeness ===== */
+.i-nocog{font-family:var(--sans);font-size:10px;font-weight:700;color:var(--red);background:color-mix(in srgb,var(--red) 15%,transparent);padding:2px 7px;border-radius:99px;white-space:nowrap}
+.ivq-cog{width:104px;flex-shrink:0;position:relative}
+.ivq-cog input{width:100%;background:var(--input);border:1px solid color-mix(in srgb,var(--red) 45%,var(--line2));border-radius:8px;padding:8px 9px 8px 21px;color:var(--text);font-size:12px;font-family:var(--num);font-weight:700}
+.ivq-cog::before{content:'\00a3';position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:11.5px;color:var(--text4);z-index:1}
+.ivq-cog.ok input{border-color:color-mix(in srgb,var(--green) 42%,var(--line2))}
+
+/* ===== v72 — unified filter row ===== */
+.frow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 0 10px}
+.fsep{width:1px;height:17px;background:var(--line2);margin:0 4px;flex-shrink:0}
+.fchip{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border:1px solid var(--line);background:var(--surface);color:var(--text3);border-radius:99px;font-size:11.5px;font-weight:600;cursor:pointer;transition:.12s;white-space:nowrap}
+.fchip:hover{background:var(--hover);color:var(--text2);border-color:var(--line2)}
+.fchip .fdot{width:6px;height:6px;border-radius:50%;background:var(--tc);flex-shrink:0}
+.fchip .fct{font-family:var(--num);font-size:11px;font-weight:800;color:var(--text2);background:var(--input);padding:1px 6px;border-radius:99px;min-width:18px;text-align:center}
+.fchip.on{background:color-mix(in srgb,var(--tc) 16%,var(--surface));border-color:color-mix(in srgb,var(--tc) 48%,var(--line));color:var(--text)}
+.fchip.on .fct{background:color-mix(in srgb,var(--tc) 26%,var(--surface));color:var(--text)}
+.fchip.all{font-weight:700;color:var(--text2)}
+.fchip.all.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fchip.all.on .fct{background:color-mix(in srgb,var(--bg) 22%,transparent);color:var(--bg)}
 </style>
 </head>
 <body>
@@ -1219,13 +1335,14 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v65</span></div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v74</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
       <button class="nav-i" data-page="overview" onclick="go('overview')"><span class="ic" data-ic="layout"></span><span>Overview</span></button>
       <button class="nav-i" data-page="active" onclick="go('active')"><span class="ic" data-ic="list"></span><span>Active</span><span class="ct" id="nav-active">0</span></button>
       <button class="nav-i" data-page="actions" onclick="go('actions')"><span class="ic" data-ic="alert"></span><span>Action Centre</span><span class="dot" id="nav-actions-dot" style="display:none"></span></button>
+      <button class="nav-i" data-page="invoices" onclick="go('invoices')"><span class="ic" data-ic="file"></span><span>Invoices</span><span class="ct" id="nav-invq"></span></button>
       <button class="nav-i" data-page="history" onclick="go('history')"><span class="ic" data-ic="clock"></span><span>History</span><span class="ct" id="nav-history">0</span></button>
       <button class="nav-i" data-page="settings" onclick="go('settings')"><span class="ic" data-ic="gear"></span><span>Settings</span></button>
     </div>
@@ -1271,6 +1388,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
     <div class="page" id="page-actions"><div class="pad" id="actionsBody"></div></div>
 
     <!-- HISTORY -->
+    <div class="page" id="page-invoices"><div class="pad" id="invqBody"></div></div>
     <div class="page" id="page-history"><div class="pad" id="historyBody"></div></div>
 
     <!-- SETTINGS -->
@@ -1279,7 +1397,21 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 </div>
 
 <!-- ═══ ADD MODAL ═══ -->
-<div class="overlay" id="invOv"><div class="modal inv-modal">
+<div class="overlay" id="caseOv"><div class="modal case-modal">
+      <div class="mo-head">
+        <h2 id="caseTitle">Case message</h2>
+        <button class="mo-x" onclick="closeCaseMsg()"><span class="ic" data-ic="x"></span></button>
+      </div>
+      <div class="mo-body">
+        <div class="hint" style="margin-bottom:10px">One message covering every line. Cost price and claim value are deliberately left out.</div>
+        <div class="ctpl-row" id="caseTpls"></div>
+        <div class="case-lines" id="caseLines"></div>
+        <div class="case-count" id="caseCount"></div>
+        <textarea id="caseBox" class="case-box" spellcheck="false" oninput="caseOnEdit(this.value)"></textarea>
+      </div>
+      <div class="mo-foot"><button class="btn" onclick="closeCaseMsg()">Cancel</button><button class="btn pri" onclick="caseCopy()">Copy message</button></div>
+    </div></div>
+  <div class="overlay" id="invOv"><div class="modal inv-modal">
       <div class="mo-head">
         <h2 id="invTitle">Invoices</h2>
         <button class="mo-x" onclick="closeInvoices()"><span class="ic" data-ic="x"></span></button>
@@ -1406,7 +1538,7 @@ const STAGES=[
 const STEPS=[{l:'Invoice',ic:'file'},{l:'MSC',ic:'rotate'},{l:'Case',ic:'msg'},{l:'Reimbursed',ic:'check2'}];
 function stepIndex(status){return {invoice:0,mscreupdate:1,mscpending:1,mscapproved:1,caseopen:2,reimbpending:2,reimbursed:4,partial:4,expired:-1,writtenoff:-1}[status]}
 /* short imperative next-step */
-const SHORTNEXT={invoice:'Sort invoice',mscreupdate:'Reupdate MSC',mscpending:'Check MSC result',mscapproved:'Open the case',caseopen:'Chase the case',reimbpending:'Log reimbursement',reimbursed:'Nothing to do',partial:'Review shortfall',expired:'Written off',writtenoff:'Written off'};
+const SHORTNEXT={invoice:'Sort invoices',mscreupdate:'Reupdate MSC',mscpending:'Check MSC result',mscapproved:'Open the case',caseopen:'Chase the case',reimbpending:'Log reimbursement',reimbursed:'Nothing to do',partial:'Review shortfall',expired:'Written off',writtenoff:'Written off'};
 const NEXT={
   invoice:{t:'Sort the invoice',s:'Locate it on the Mastersheets or supplier portal, paste the link into Evidence, then move to Reupdate MSC.'},
   mscreupdate:{t:'Reupdate MSC on Seller Central',s:'Push the shipment through Manage Shipment Claims, then set the status to MSC pending.'},
@@ -1427,15 +1559,28 @@ const LS_CLOUD='sd-cloud';const normUrl=u=>(u||'').trim().replace(/\/+$/,'').rep
 try{const cc=localStorage.getItem(LS_CLOUD);if(cc)CLOUD=Object.assign(CLOUD,JSON.parse(cc))}catch(e){}
 const cloudOn=()=>!!(CLOUD.url&&CLOUD.key);
 const CLOUD_TABLE='shipment_deck';const CLOUD_SQL='-- ============================================================\n-- Shipment Deck - FBA reconciliation tracker\n-- Safe to run in a SHARED Supabase project: creates and touches\n-- ONLY the "shipment_deck" table. Re-runnable (idempotent).\n-- ============================================================\n\ncreate table if not exists public.shipment_deck (\n  rid        text primary key,\n  sid        text,\n  status     text,\n  updated    timestamptz default now(),\n  data       jsonb not null,\n  created_at timestamptz default now()\n);\n\ncomment on table public.shipment_deck is $$Shipment Deck app - one row per FBA shipment, full record in data jsonb$$;\n\n-- indexes: keep queries fast as the table grows\ncreate index if not exists shipment_deck_sid_idx     on public.shipment_deck (sid);\ncreate index if not exists shipment_deck_status_idx  on public.shipment_deck (status);\ncreate index if not exists shipment_deck_updated_idx on public.shipment_deck (updated desc);\ncreate index if not exists shipment_deck_data_gin    on public.shipment_deck using gin (data);\n\n-- row level security: open to the anon key (no login, by design)\nalter table public.shipment_deck enable row level security;\n\ndrop policy if exists "shipment_deck_anon_all" on public.shipment_deck;\ncreate policy "shipment_deck_anon_all"\n  on public.shipment_deck\n  for all\n  to anon, authenticated\n  using (true)\n  with check (true);\n\ngrant all on public.shipment_deck to anon, authenticated;\n\n-- shared app config (settings + links) so every device matches\ncreate table if not exists public.shipment_deck_config (\n  k text primary key,\n  data jsonb not null,\n  updated timestamptz default now()\n);\nalter table public.shipment_deck_config enable row level security;\ndrop policy if exists "shipment_deck_config_anon_all" on public.shipment_deck_config;\ncreate policy "shipment_deck_config_anon_all"\n  on public.shipment_deck_config\n  for all\n  to anon, authenticated\n  using (true)\n  with check (true);\ngrant all on public.shipment_deck_config to anon, authenticated;';
-let cloudDead=false;const cloudUsable=()=>cloudOn()&&!cloudDead;
-async function api(path,opts){opts=opts||{};const r=await fetch(CLOUD.url+path,Object.assign({},opts,{headers:cloudHdrs(opts.headers)}));if(r.status===401||r.status===403||r.status===404){cloudDead=true;setCloudState('local')}return r}
+let cloudDead=false,cloudFailAt=0,cloudFails=0;
+/* v73 — a failure must never be permanent. After a backoff we re-probe, so a
+   blip, a sleeping laptop or a brief outage recovers on its own. */
+function cloudBackoff(){return Math.min(120000,15000*Math.pow(2,Math.max(0,cloudFails-1)))}
+function cloudReady(){return !cloudDead||(Date.now()-cloudFailAt)>cloudBackoff()}
+const cloudUsable=()=>cloudOn()&&cloudReady();
+function cloudFailed(){cloudDead=true;cloudFailAt=Date.now();cloudFails++;}
+function cloudRecovered(){if(cloudDead||cloudFails){cloudDead=false;cloudFails=0;cloudFailAt=0;toast('Reconnected \u2014 syncing again');}setCloudState('ok');}
+async function api(path,opts){opts=opts||{};
+  let r;
+  try{ r=await fetch(CLOUD.url+path,Object.assign({},opts,{headers:cloudHdrs(opts.headers)})); }
+  catch(e){ cloudFailed(); throw e; }
+  if(r.status===401||r.status===403||r.status===404){cloudFailed();setCloudState('err');return r}
+  if(r.ok&&(cloudDead||cloudFails))cloudRecovered();
+  return r}
 function cloudHdrs(x){return Object.assign({'apikey':CLOUD.key,'Authorization':'Bearer '+CLOUD.key,'Content-Type':'application/json'},x||{})}
 let cloudTimer=null;
 function setCloudState(st){const si=document.getElementById('syncInd');if(!si)return;if(st==='local'||!cloudOn()){si.innerHTML='<span class="d"></span>Saved locally';si.classList.remove('trial');si.title='Saved in this browser';return}
   const pend=(typeof DIRTY!=='undefined')?DIRTY.size:0;
   /* v63: never let unsaved work look saved */
   if(st==='err'&&pend){si.innerHTML='<span class="d"></span>'+pend+' unsaved';si.classList.add('trial');si.classList.remove('syncing');si.title=pend+' shipment'+(pend!==1?'s':'')+' not yet in the database \u2014 retrying automatically. Click to retry now. Keep this tab open.';return}
-  si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.classList.toggle('syncing',st==='sync');si.title=st==='err'?'Could not reach the database \u2014 click to retry':'Synced with Supabase \u2014 click to refresh';}
+  si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.classList.toggle('syncing',st==='sync');si.title=st==='err'?('Could not reach the database. Retrying automatically'+(cloudFails?' (attempt '+cloudFails+')':'')+' \u2014 click to try now. Your work is saved on this device.'):'Synced with Supabase \u2014 click to refresh';}
 /* v63 — rows awaiting a confirmed server write. A pull must never drop these. */
 const DIRTY=new Set();let pushRetry=0;let lastPushOk=0;
 function markDirty(rid){if(rid)DIRTY.add(rid);}
@@ -1447,11 +1592,20 @@ async function doPush(){
   if(!cloudOn()||!cloudUsable())return false;
   const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
   if(!rows.length){DIRTY.clear();setCloudState('ok');return true}
+  /* drop dirty markers for rows that no longer exist, otherwise DIRTY can
+     never drain and the push would reschedule itself forever */
+  {const live=new Set(DATA.map(s=>s.rid));Array.from(DIRTY).forEach(function(rid){if(!live.has(rid))DIRTY.delete(rid)});}
   const sent=DATA.map(s=>s.rid);
   try{setCloudState('sync');
     const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
     if(!r.ok)throw new Error('push '+r.status);
-    sent.forEach(rid=>DIRTY.delete(rid));pushRetry=0;lastPushOk=now();setCloudState(DIRTY.size?'err':'ok');return true;
+    sent.forEach(rid=>DIRTY.delete(rid));pushRetry=0;lastPushOk=now();
+    /* v73 — rows edited WHILE this request was in flight are still dirty.
+       That is not an error, it just means another push is due. Reporting
+       'err' here is what pinned the badge on "Sync error" while the
+       database was perfectly healthy. */
+    if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}
+    return true;
   }catch(e){
     setCloudState('err');
     /* keep rows dirty and retry with backoff so nothing is silently lost */
@@ -1490,15 +1644,15 @@ function mergeRows(local,server){
   });
   return Array.from(byRid.values()).sort((a,b)=>(+b.updated||0)-(+a.updated||0));
 }
-async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{if(typeof lastPull!=='undefined')lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(DIRTY.size)cloudPush(true);setCloudState(DIRTY.size?'err':'ok');if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
+async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
 function logImport(source,payload){if(!cloudOn()||!cloudUsable())return;api('/rest/v1/shipment_deck_imports',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify([{source:source,data:payload}])}).catch(()=>{});}
-function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){cloudDead=false;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
+function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){cloudDead=false;cloudFails=0;cloudFailAt=0;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
 const SETTINGS_DEFAULT={claimWindowDays:182,deadlineRiskDays:14,deadlineWarnDays:30,mscCheckDays:5,caseChaseDays:7,caseSlaDays:14,mscReductionPct:20,mscWaitDays:30};
 let SETTINGS=Object.assign({},SETTINGS_DEFAULT);
 let WHO='';try{WHO=localStorage.getItem('sd-who')||''}catch(e){}
 function setWho(v){WHO=(v||'').trim();try{localStorage.setItem('sd-who',WHO)}catch(e){}toast(WHO?'Changes will be tagged as '+WHO:'Name cleared')}
-const S={page:'active',sel:null,q:'',fStatus:'all',fDeadline:'any',fOwner:'any',fMissing:'any',tInvoice:false,tJack:false,t30:false,tFuOverdue:false,tUnassigned:false,_more:false,sort:'urgency',acFilter:'all',histSort:'gained',histSearch:'',lineQ:''};
+const S={page:'active',sel:null,q:'',fStatus:'all',fDeadline:'any',fMissing:'any',tInvoice:false,tJack:false,t30:false,tFuOverdue:false,blkOpen:false,_more:false,sort:'urgency',acFilter:'all',histSort:'gained',histSearch:'',lineQ:''};
 const now=()=>Date.now();
 const uid=()=>'r'+Math.random().toString(36).slice(2,9);
 const money=v=>'£'+(+v||0).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -1514,9 +1668,7 @@ const fmtDShort=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month
 const daysSince=ts=>Math.floor((now()-ts)/86400000);
 const esc=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const byId=rid=>DATA.find(x=>x.rid===rid);
-const ownerOf=s=>s.escalated?'Jack':(s.owner||'Unassigned');
-const initials=n=>n==='Unassigned'?'?':n.slice(0,1).toUpperCase();
-const ownerColor=n=>n==='Jack'?'var(--violet)':n==='Sarah'?'var(--blue)':'var(--grey)';
+const ownerOf=s=>s.escalated?'Jack':'Sarah';
 const isSnoozed=s=>s.snoozedUntil&&s.snoozedUntil>now();
 /* evidence checklist state (derived + one stored flag) */
 function evidence(s){return[
@@ -1562,7 +1714,7 @@ function seed(){
       {p:'Sensodyne Repair & Protect Whitening Bundle 3×75 ml',sku:'Amuk_8.67_150526_17.99_Repl_02',asin:'B07F1VZSL6',fnsku:'X002M910PJ',miss:1,exc:0,cog:8.67},
       {p:'Dove Summer Revived Light to Medium 75ml Self Tan Kit',sku:'7W-5FBU-JNNK',asin:'B0DW4Y68XZ',fnsku:'X0028C1OOH',miss:0,exc:1,cog:5.12},
       {p:'Sensodyne Repair & Protect Multipack (Repl1)',sku:'Amuk_8.67_150526_17.99_Repl1_02',asin:'B07F1VZSL6',fnsku:'X002M95FGJ',miss:0,exc:1,cog:8.67}]}),
-   mk({id:'FBA15LS5DBFG',name:'FBA STA (22/06/2026)',dest:'LTN4',closed:'2026-06-28',status:'invoice',owner:'Unassigned',shipped:248,received:246,
+   mk({id:'FBA15LS5DBFG',name:'FBA STA (22/06/2026)',dest:'LTN4',closed:'2026-06-28',status:'invoice',owner:'Sarah',shipped:248,received:246,
      note:'Sort invoice from Superdrug for the Maybelline line before MSC.',
      lines:[
       {p:'Maybelline Brow Tint Gel, Tattoo Brow Peel-Off',sku:'Amuk_5.37_1504_9_PS_12',asin:'B07FHP3LDZ',fnsku:'X002K1MM2A',miss:1,exc:0,cog:5.37},
@@ -1598,22 +1750,22 @@ function go(page){
   if(page==='overview')renderOverview();
   if(page==='active')renderActive();
   if(page==='actions')renderActions();
-  if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();}
+  if(page==='invoices')renderInvQueue();if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();}
 }
 function renderChrome(){
   const open=DATA.filter(s=>!isHist(s));
   const atRisk=open.reduce((a,s)=>a+Math.max(0,pot(s)-rec(s)),0);
   const soon=open.filter(s=>win(s).days<=SETTINGS.deadlineRiskDays).length;
   const nextDl=open.length?Math.min(...open.map(s=>win(s).days)):null;
-  const titles={overview:'Overview',active:'Active shipments',actions:'Action Centre',history:'History',settings:'Settings'};
+  const titles={overview:'Overview',active:'Active shipments',actions:'Action Centre',invoices:'Invoices',history:'History',settings:'Settings'};
   document.getElementById('pageTitle').textContent=titles[S.page];
   let sub='';
   if(S.page==='active'||S.page==='overview')
     sub=open.length+' open · <b class="risk">'+money(atRisk)+'</b> at risk · <b class="warn">'+soon+'</b> deadline'+(soon!==1?'s':'')+' within '+SETTINGS.deadlineRiskDays+' days';
   else if(S.page==='actions'){const b=acBundles();sub=b.length+' shipment'+(b.length!==1?'s':'')+' need attention';}
-  else if(S.page==='history')sub=DATA.filter(isHist).length+' settled shipments';else if(S.page==='settings')sub='Tune claim windows, deadlines, follow-ups & links';
+  else if(S.page==='invoices'){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !(l.invoice||'').trim()}).length},0);sub=n+' SKU'+(n!==1?'s':'')+' still need an invoice';}else if(S.page==='history')sub=DATA.filter(isHist).length+' settled shipments';else if(S.page==='settings')sub='Tune claim windows, deadlines, follow-ups & links';
   document.getElementById('pageSub').innerHTML=sub;
-  {const na=document.getElementById('nav-active'),nh=document.getElementById('nav-history'),hn=DATA.filter(isHist).length;na.textContent=open.length;na.classList.toggle('zero',!open.length);nh.textContent=hn;nh.classList.toggle('zero',!hn);}
+  {const iq=document.getElementById('nav-invq');if(iq){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !(l.invoice||'').trim()}).length},0);iq.textContent=n;iq.classList.toggle('zero',!n);}const na=document.getElementById('nav-active'),nh=document.getElementById('nav-history'),hn=DATA.filter(isHist).length;na.textContent=open.length;na.classList.toggle('zero',!open.length);nh.textContent=hn;nh.classList.toggle('zero',!hn);}
   document.getElementById('nav-actions-dot').style.display=acBundles().length?'block':'none';
   {const ss=document.getElementById('sbStat');if(ss){ss.style.cursor='pointer';ss.onclick=function(){go('active')};}if(ss)ss.innerHTML='<div class="l">At risk</div><div class="v">'+money(atRisk)+'</div><div class="s">'+(open.length?open.length+' open · '+(nextDl<0?'deadline overdue':'next deadline '+nextDl+'d'):'All clear')+'</div>';}
   {const tb=document.getElementById('trialBanner');if(tb){tb.style.display=TRIAL?'flex':'none';tb.innerHTML=TRIAL?ic('triangle',13)+'<b>Trial mode</b> \u2014 nothing saved; refreshing clears everything. Turn saving on in Settings when ready.':'';}const si=document.getElementById('syncInd');if(si){if(cloudOn()&&!TRIAL){setCloudState('ok')}else{si.innerHTML='<span class="d"></span>'+(TRIAL?'Not saved':'Synced');si.classList.toggle('trial',TRIAL);si.title=TRIAL?'Trial mode':'Synced with local storage';}}}
@@ -1636,6 +1788,33 @@ function globalSearch(v){
 
 /* ═══════════ ACTIVE PAGE ═══════════ */
 function stageMoney(st){const rows=DATA.filter(s=>st.sts.includes(s.status));return st.k==='paid'?rows.reduce((a,s)=>a+rec(s),0):rows.reduce((a,s)=>a+pot(s),0)}
+/* ===== v72 — one filter row =====
+   The pipeline strip and the status-tag row were two stacked rows of
+   count-chips doing the same job. Merged into one, and the collapse-on-scroll
+   is gone: nothing moves while you scroll. */
+function filterRow(){
+  const open=DATA.filter(function(s){return !isHist(s)});
+  const cur=S.tagFilter||'all';
+  const stageDefs=STAGES.filter(function(st){return ['invoice','msc','case'].includes(st.k)});
+  const stages=stageDefs.map(function(st){
+    const n=DATA.filter(function(s){return st.sts.includes(s.status)}).length;
+    const on=S.fStatus!=='all'&&st.sts.includes(S.fStatus);
+    return '<button class="fchip'+(on?' on':'')+'" style="--tc:'+st.c+'" onclick="filterStage(\''+st.k+'\')">'
+      +'<span class="fdot"></span>'+st.l+'<span class="fct">'+n+'</span></button>';
+  }).join('');
+  const tagDefs=[
+    {k:'caseopen',l:'Case opened',c:'var(--violet)',n:open.filter(function(s){return s.status==='caseopen'}).length},
+    {k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',n:open.filter(function(s){return s.status==='reimbpending'}).length},
+    {k:'escalated',l:'Escalated to Jack',c:'var(--red)',n:open.filter(function(s){return s.escalated}).length}
+  ];
+  const tags=tagDefs.map(function(d){
+    return '<button class="fchip'+(cur===d.k?' on':'')+'" style="--tc:'+d.c+'" onclick="setTagFilter(&quot;'+d.k+'&quot;)">'
+      +'<span class="fdot"></span>'+d.l+'<span class="fct">'+d.n+'</span></button>';
+  }).join('');
+  const all='<button class="fchip all'+(cur==='all'&&S.fStatus==='all'?' on':'')+'" onclick="setTagFilter(&quot;all&quot;)">All<span class="fct">'+open.length+'</span></button>';
+  return '<div class="frow">'+all+'<span class="fsep"></span>'+stages+'<span class="fsep"></span>'+tags+'</div>';
+}
+
 function statusTags(){var rows=DATA.filter(function(s){return !isHist(s)});var cur=S.tagFilter||'all';var defs=[{k:'caseopen',l:'Case opened',c:'var(--violet)',n:rows.filter(function(s){return s.status==='caseopen'}).length},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',n:rows.filter(function(s){return s.status==='reimbpending'}).length},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',n:rows.filter(function(s){return s.escalated}).length}];return '<div class="status-tags"><button class="stag2'+(cur==='all'?' on':'')+'" onclick="setTagFilter(&quot;all&quot;)">All<span class="stc">'+rows.length+'</span></button>'+defs.map(function(d){return '<button class="stag2'+(cur===d.k?' on':'')+'" style="--tc:'+d.c+'" onclick="setTagFilter(&quot;'+d.k+'&quot;)">'+d.l+'<span class="stc">'+d.n+'</span></button>';}).join('')+'</div>';}
 function setTagFilter(k){S.tagFilter=k;if(k!=='all')S.fStatus='all';renderActive();}
 function pipelineStrip(){
@@ -1655,45 +1834,42 @@ function commandBar(){
   const statusOpts=['<option value="all">Status: All</option>']
     .concat(Object.keys(STATUS).filter(k=>!HISTORY_ST.includes(k)).map(k=>'<option value="'+k+'"'+(S.fStatus===k?' selected':'')+'>'+STATUS[k].l+'</option>')).join('');
   const dlOpts=[['any','Deadline: Any'],['14','Within 14 days'],['30','Within 30 days'],['exp','Expired']].map(o=>'<option value="'+o[0]+'"'+(S.fDeadline===o[0]?' selected':'')+'>'+o[1]+'</option>').join('');
-  const ownOpts=[['any','Owner: Anyone'],['Sarah','Sarah'],['Jack','Jack'],['Unassigned','Unassigned']].map(o=>'<option value="'+o[0]+'"'+(S.fOwner===o[0]?' selected':'')+'>'+o[1]+'</option>').join('');
+  /* v67 — owner/assignment removed: only Sarah works this deck */
   const missOpts=[['any','Missing: Any'],['invoice','Invoice missing'],['case','No case yet'],['reimb','No reimbursement']].map(o=>'<option value="'+o[0]+'"'+(S.fMissing===o[0]?' selected':'')+'>'+o[1]+'</option>').join('');
   const sortOpts=[['urgency','Most at risk'],['risk','£ high→low'],['closed','Newest closed'],['updated','Last updated'],['id','By ID']].map(o=>'<option value="'+o[0]+'"'+(S.sort===o[0]?' selected':'')+'>Sort: '+o[1]+'</option>').join('');
   const sel=(id,val,opts,on)=>'<span class="selwrap'+(on?' act':'')+'"><select onchange="'+id+'(this.value)">'+opts+'</select>'+ic('chevron',14)+'</span>';
-  const moreOn=S.tInvoice||S.tJack||S.t30||S.tFuOverdue||S.tUnassigned;
+  const moreOn=S.tInvoice||S.tJack||S.t30||S.tFuOverdue;
   return '<div class="cmdbar">'
    +sel('setFStatus','',statusOpts,S.fStatus!=='all')
    +sel('setFDeadline','',dlOpts,S.fDeadline!=='any')
-   +sel('setFOwner','',ownOpts,S.fOwner!=='any')
    +sel('setFMissing','',missOpts,S.fMissing!=='any')
    +sel('setSort','',sortOpts,false)
-   +'<button class="morebtn'+(moreOn||S._more?' act':'')+'" onclick="S._more=!S._more;renderActive()"><span>More filters'+(moreOn?' · '+[S.tInvoice,S.tJack,S.t30,S.tFuOverdue,S.tUnassigned].filter(Boolean).length:'')+'</span>'+ic('chevron',14)+'</button>'
+   +'<button class="morebtn'+(moreOn||S._more?' act':'')+'" onclick="S._more=!S._more;renderActive()"><span>More filters'+(moreOn?' · '+[S.tInvoice,S.tJack,S.t30,S.tFuOverdue].filter(Boolean).length:'')+'</span>'+ic('chevron',14)+'</button>'
    +'</div>'
-   +(S._more?'<div class="toggles">'+tgl('tInvoice','Invoice missing')+tgl('tJack','With Jack')+tgl('t30','Claim window under 30 days')+tgl('tFuOverdue','Follow-up overdue')+tgl('tUnassigned','Only unassigned')+'</div>':'')
+   +(S._more?'<div class="toggles">'+tgl('tInvoice','Invoice missing')+tgl('tJack','With Jack')+tgl('t30','Claim window under 30 days')+tgl('tFuOverdue','Follow-up overdue')+'</div>':'')
    +activeChips();
 }
 function tgl(key,label){return '<label class="tgl"><input type="checkbox" '+(S[key]?'checked':'')+' onchange="S.'+key+'=this.checked;renderActive()"><span class="box">'+ic('check',11)+'</span>'+label+'</label>'}
 function setFStatus(v){S.fStatus=v;renderActive()}
 function setFDeadline(v){S.fDeadline=v;renderActive()}
-function setFOwner(v){S.fOwner=v;renderActive()}
 function setFMissing(v){S.fMissing=v;renderActive()}
 function setSort(v){S.sort=v;renderActive()}
 function activeChips(){
   const chips=[];
   if(S.fStatus!=='all')chips.push(['Status: '+STATUS[S.fStatus].l,"setFStatus('all')"]);
   if(S.fDeadline!=='any')chips.push([{'14':'Within 14 days','30':'Within 30 days','exp':'Expired'}[S.fDeadline],"setFDeadline('any')"]);
-  if(S.fOwner!=='any')chips.push(['Owner: '+S.fOwner,"setFOwner('any')"]);
   if(S.fMissing!=='any')chips.push([{invoice:'Invoice missing',case:'No case yet',reimb:'No reimbursement'}[S.fMissing],"setFMissing('any')"]);
   if(S.tInvoice)chips.push(['Invoice missing',"(function(){S.tInvoice=false;renderActive()})()"]);
   if(S.tJack)chips.push(['With Jack',"(function(){S.tJack=false;renderActive()})()"]);
   if(S.t30)chips.push(['Window under 30 days',"(function(){S.t30=false;renderActive()})()"]);
   if(S.tFuOverdue)chips.push(['Follow-up overdue',"(function(){S.tFuOverdue=false;renderActive()})()"]);
-  if(S.tUnassigned)chips.push(['Only unassigned',"(function(){S.tUnassigned=false;renderActive()})()"]);
+  
   if(!chips.length)return '';
   return '<div class="chips">'+chips.map(c=>'<span class="chip-f">'+esc(c[0])+'<button onclick="'+c[1]+'">'+ic('x',13)+'</button></span>').join('')
    +'<button class="chip-clear" onclick="clearFilters()">Clear all</button></div>';
 }
-function clearFilters(){S.fStatus='all';S.fDeadline='any';S.fOwner='any';S.fMissing='any';S.tInvoice=S.tJack=S.t30=S.tFuOverdue=S.tUnassigned=false;renderActive()}
-function renderActive(){document.getElementById('activeTop').innerHTML=pipelineStrip()+commandBar()+statusTags();hydrateIcons(document.getElementById('activeTop'));renderQueue()}
+function clearFilters(){S.fStatus='all';S.fDeadline='any';S.fMissing='any';S.tInvoice=S.tJack=S.t30=S.tFuOverdue=false;renderActive()}
+function renderActive(){document.getElementById('activeTop').innerHTML=commandBar()+filterRow();hydrateIcons(document.getElementById('activeTop'));renderQueue()}
 function urgencyKey(s){if(s.status==='reimbursed'||s.status==='partial')return 9999;if(s.status==='expired'||s.status==='writtenoff')return 9000;return win(s).days}
 function activeRows(){
   return DATA.filter(s=>{
@@ -1704,7 +1880,7 @@ function activeRows(){
     if(S.fDeadline==='14'&&!(w.days<=SETTINGS.deadlineRiskDays&&w.days>=0))return false;
     if(S.fDeadline==='30'&&!(w.days<=SETTINGS.deadlineWarnDays&&w.days>=0))return false;
     if(S.fDeadline==='exp'&&w.days>=0)return false;
-    if(S.fOwner!=='any'&&ownerOf(s)!==S.fOwner)return false;
+    
     if(S.fMissing==='invoice'&&s.invoice)return false;
     if(S.fMissing==='case'&&s.cases.length)return false;
     if(S.fMissing==='reimb'&&s.cases.some(c=>c.reimb))return false;
@@ -1712,7 +1888,7 @@ function activeRows(){
     if(S.tJack&&!s.escalated)return false;
     if(S.t30&&win(s).days>30)return false;
     if(S.tFuOverdue&&!fuOverdue(s))return false;
-    if(S.tUnassigned&&ownerOf(s)!=='Unassigned')return false;
+    
     if(S.q){const blob=(s.id+' '+s.name+' '+s.lines.map(l=>l.asin+' '+l.fnsku+' '+(l.sku||'')+' '+l.p).join(' ')).toLowerCase();if(!blob.includes(S.q))return false}
     return true;
   }).sort((a,b)=>{
@@ -1723,6 +1899,60 @@ function activeRows(){
     return a.id.localeCompare(b.id);
   });
 }
+/* ===== v67 — work the queue without going back to the list ===== */
+function visibleQueue(){try{return activeRows()}catch(e){return []}}
+function stepShipment(dir){
+  const rows=visibleQueue();
+  if(!rows.length)return;
+  const ids=rows.map(function(x){return x.rid});
+  let i=ids.indexOf(S.sel);
+  if(i<0){i=dir>0?-1:0;}
+  let n=i+dir;
+  if(n<0)n=ids.length-1; if(n>=ids.length)n=0;
+  S.sel=ids[n];
+  if(S.page!=='active')go('active'); else renderActive();
+  const el=document.querySelector('.item.sel');if(el&&el.scrollIntoView)el.scrollIntoView({block:'nearest'});
+  const d=document.getElementById('detail');if(d)d.scrollTop=0;
+}
+function anyOverlayOpen(){return !!document.querySelector('.overlay.open')}
+function typingInField(e){
+  const t=e.target,n=t&&t.tagName;
+  return n==='INPUT'||n==='TEXTAREA'||n==='SELECT'||(t&&t.isContentEditable);
+}
+function showShortcuts(){
+  askConfirm({tone:'primary',icon:'msg',title:'Keyboard shortcuts',
+    message:'<div class="kbd-list">'
+      +'<div><b>J</b> / <b>&darr;</b><span>Next shipment</span></div>'
+      +'<div><b>K</b> / <b>&uarr;</b><span>Previous shipment</span></div>'
+      +'<div><b>I</b><span>Invoices for this shipment</span></div>'
+      +'<div><b>C</b><span>Case message</span></div>'
+      +'<div><b>/</b><span>Search</span></div>'
+      +'<div><b>Esc</b><span>Close a dialog</span></div>'
+      +'<div><b>?</b><span>This list</span></div>'
+      +'</div>',
+    confirmLabel:'Got it',onConfirm:function(){}});
+}
+document.addEventListener('keydown',function(e){
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(typingInField(e)){
+    if(e.key==='Escape'){e.target.blur();}
+    return;
+  }
+  if(e.key==='Escape'){
+    if(document.getElementById('invOv')&&document.getElementById('invOv').classList.contains('open')){closeInvoices();return}
+    if(document.getElementById('caseOv')&&document.getElementById('caseOv').classList.contains('open')){closeCaseMsg();return}
+    return;
+  }
+  if(anyOverlayOpen())return;
+  const k=e.key;
+  if(k==='j'||k==='J'||k==='ArrowDown'){e.preventDefault();stepShipment(1);return}
+  if(k==='k'||k==='K'||k==='ArrowUp'){e.preventDefault();stepShipment(-1);return}
+  if(k==='/'){e.preventDefault();const q=document.getElementById('searchInput')||document.querySelector('.search input');if(q)q.focus();return}
+  if(k==='?'){e.preventDefault();showShortcuts();return}
+  if((k==='i'||k==='I')&&S.sel&&S.page==='active'){e.preventDefault();openInvoices(S.sel);return}
+  if((k==='c'||k==='C')&&S.sel&&S.page==='active'){e.preventDefault();openCaseMsg(S.sel);return}
+});
+
 function renderQueue(){
   const rows=activeRows();
   if(!rows.find(s=>s.rid===S.sel))S.sel=rows[0]?rows[0].rid:null;
@@ -1736,8 +1966,8 @@ function renderQueue(){
     const nextTxt=s.escalated?'Waiting on Jack':SHORTNEXT[s.status];
     const nextCls=s.escalated?'jack':(s.urgent||w.days<=SETTINGS.deadlineRiskDays)?'urg':'';
     return '<div class="item '+(S.sel===s.rid?'sel':'')+'" style="--sc:'+st.c+'" onclick="pick(\''+s.rid+'\')">'
-     +'<div class="i-top"><span class="i-id">'+esc(s.id)+'</span><span class="i-flags">'+flags+'</span><span class="i-money risk">'+money(p)+'</span></div>'
-     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span>'+(s.dest?' · '+esc(s.dest):'')+(miss?' · '+miss+' missing':'')+' <span class="i-own"><span class="av" style="--ac:'+ownerColor(own)+'">'+initials(own)+'</span>'+own+'</span></div>'
+     +'<div class="i-top"><span class="i-id">'+esc(s.id)+'</span><span class="i-flags">'+flags+'</span><span class="i-money risk">'+((p<0.01&&(s.lines||[]).some(function(l){return ((l.miss||0)>0||(l.exc||0)>0)&&!(+l.cog>0)}))?'<span class="i-nocog">COG needed</span>':money(p))+'</span></div>'
+     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span>'+(s.dest?' · '+esc(s.dest):'')+(miss?' · '+miss+' missing':'')+(s.escalated?' <span class="i-jack">'+ic('user',11)+'Jack</span>':'')+'</div>'
      +'<div class="i-foot"><span class="i-next '+nextCls+'">'+ic('arrow',12)+nextTxt+'</span>'
      +'<span class="i-days '+dcls+'">'+w.days+'d left</span></div></div>';
   }).join(''):'<div class="q-empty">'+ic('pkg')+(DATA.filter(s=>!isHist(s)).length?'Nothing matches those filters.<br>Clear them or adjust your search.':'No shipments yet.')+'</div>';
@@ -1805,7 +2035,7 @@ function setMscAmt(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].cog=parseFlo
 function setMscDate(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].date=v;s.updated=now();save();renderDetail()}
 function delMsc(rid,i,ai){const s=byId(rid);s.lines[i].msc.splice(ai,1);s.updated=now();save();renderDetail()}
 function lineNext(s,l){const lst=l.lstatus||'needsmsc',cog=+l.cog||0,pct=SETTINGS.mscReductionPct||20,wait=SETTINGS.mscWaitDays||30,resub=cog*(1-pct/100);
- if(lst==='needsmsc')return{t:'Submit this SKU through MSC',s:'Open Seller Central → Manage Shipment Claims and submit at '+money(cog)+' COG.',c:'var(--amber)'};
+ if(lst==='needsmsc')return (+cog>0)?{t:'Submit this SKU through MSC',s:'Open Seller Central → Manage Shipment Claims and submit at '+money(cog)+' COG.',c:'var(--amber)'}:{t:'Set the COG before submitting',s:'This SKU has no cost price, so there is nothing to claim yet. Enter the \u00a3/unit below, then submit through MSC.',c:'var(--red)'};
  if(lst==='mscsub')return{t:'Waiting on Amazon’s MSC decision',s:'Check back in a few days, then log the result below.',c:'var(--blue)'};
  if(lst==='mscreview')return{t:'Amazon is reviewing the MSC',s:'Wait for their decision, then log it as approved, reduced or denied.',c:'var(--blue)'};
  if(lst==='needsdoc')return{t:'Amazon needs a document',s:'Upload the invoice / evidence they asked for, then it returns to review.',c:'var(--amber)'};
@@ -1815,7 +2045,83 @@ function lineNext(s,l){const lst=l.lstatus||'needsmsc',cog=+l.cog||0,pct=SETTING
  if(lst==='denied')return{t:'Resubmit at a lower COG',s:'Wait ~'+wait+' days, then resubmit MSC at '+money(resub)+' (−'+pct+'%).',c:'var(--red)'};
  if(lst==='caseopen')return{t:'Chase the Seller Support case',s:'Follow up until Amazon reimburses, then log the Reimb ID here.',c:'var(--violet)'};
  return{t:'Reimbursed — done',s:'This SKU is settled.'+(l.reimbId?' Reimb ID '+esc(l.reimbId)+'.':' Add the Reimb ID if you have it.'),c:'var(--green)'};}
-function copyLineCase(rid,i){const s=byId(rid),l=s.lines[i];const msg='Hi,\nPlease review the discrepancy for our missing units on shipment '+s.id+'.\n\n-Product: '+l.p+'\n-ASIN: '+l.asin+'\n-FNSKU: '+l.fnsku+'\n-Units missing: '+(l.miss||0)+'\n-COG per unit: '+money(l.cog||0)+'\n-Expected claim: '+money((l.miss||0)*(+l.cog||0))+'\n\nThanks';navigator.clipboard&&navigator.clipboard.writeText(msg);toast('MSC message copied · '+(l.asin||''))}
+/* ===== v66 — case message composer =====
+   One message for the WHOLE shipment (Sarah was copying line by line).
+   Never includes COG or expected claim — that is our cost basis and does
+   not belong in anything sent to Amazon. */
+const CASE_TPL={
+  msc:{l:'MSC submission',build:function(s,ls){
+    return 'Hi,\n\nPlease review the discrepancy for our missing units on shipment '+s.id+'.\n\n'+ls+'\n\nPlease confirm the reimbursement for the missing units.\n\nThanks';}},
+  open:{l:'Open a case',build:function(s,ls){
+    return 'Hi,\n\nCan you review the attached invoice and the discrepancy for our missing units on shipment '+s.id+'? Details are below.\n\n'+ls+'\n\nThe supplier invoice is attached as proof of purchase. Please reimburse the missing units.\n\nThanks';}},
+  chase:{l:'Chase a case',build:function(s,ls){
+    return 'Hi,\n\nFollowing up on '+(s.caseId?'case '+s.caseId:'our open case')+' regarding shipment '+s.id+'.\n\nWe have not had an update yet. The affected units are below.\n\n'+ls+'\n\nCould you give us a status update please?\n\nThanks';}},
+  appeal:{l:'Appeal a denial',build:function(s,ls){
+    return 'Hi,\n\nWe would like to appeal the decision on '+(s.caseId?'case '+s.caseId:'our case')+' for shipment '+s.id+'.\n\nThe units below were shipped and confirmed against our supplier invoice, but were not located at the fulfilment centre. The invoice is attached again for reference.\n\n'+ls+'\n\nPlease re-review this claim.\n\nThanks';}}
+};
+let CASEUI={rid:null,tpl:'open',excl:null,edited:null};
+function caseLineBlock(s,l){
+  const rows=[];
+  rows.push('-Product name: '+(l.p||''));
+  if(l.sku)rows.push('-SKU: '+l.sku);
+  if(l.asin)rows.push('-ASIN: '+l.asin);
+  if(l.fnsku)rows.push('-FNSKU: '+l.fnsku);
+  /* real numbers only — never placeholder text */
+  if(l.qtyExp!=null&&l.qtyExp!=='')rows.push('-Units expected: '+l.qtyExp);
+  if(l.qtyRec!=null&&l.qtyRec!=='')rows.push('-Units located: '+l.qtyRec);
+  if(l.miss>0)rows.push('-Units missing: '+l.miss);
+  if(l.exc>0)rows.push('-Units excess: '+l.exc);
+  return rows.join('\n');
+}
+function caseEligible(s){return (s.lines||[]).map(function(l,i){return{l:l,i:i}}).filter(function(x){return (x.l.miss||0)>0||(x.l.exc||0)>0});}
+function caseBuild(rid){
+  const s=byId(rid);if(!s)return '';
+  const ex=CASEUI.excl||new Set();
+  const picked=caseEligible(s).filter(function(x){return !ex.has(x.i)});
+  const ls=picked.map(function(x){return caseLineBlock(s,x.l)}).join('\n\n');
+  const t=CASE_TPL[CASEUI.tpl]||CASE_TPL.open;
+  return t.build(s,ls||'(no lines selected)');
+}
+function openCaseMsg(rid){
+  const s=byId(rid);if(!s)return;
+  CASEUI={rid:rid,tpl:(s.status==='mscapproved'||s.status==='caseopen'||s.status==='reimbpending')?'open':'msc',excl:new Set(),edited:null};
+  if(s.status==='caseopen'||s.status==='reimbpending')CASEUI.tpl='chase';
+  if((s.lines||[]).some(function(l){return l.lstatus==='denied'}))CASEUI.tpl='appeal';
+  document.getElementById('caseOv').classList.add('open');
+  renderCaseMsg();
+}
+function closeCaseMsg(){document.getElementById('caseOv').classList.remove('open');CASEUI={rid:null,tpl:'open',excl:null,edited:null}}
+function caseSetTpl(k){CASEUI.tpl=k;CASEUI.edited=null;renderCaseMsg()}
+function caseToggleLine(i){const ex=CASEUI.excl;if(ex.has(i))ex.delete(i);else ex.add(i);CASEUI.edited=null;renderCaseMsg()}
+function caseOnEdit(v){CASEUI.edited=v}
+function caseCopy(){
+  const box=document.getElementById('caseBox');const txt=box?box.value:caseBuild(CASEUI.rid);
+  if(navigator.clipboard)navigator.clipboard.writeText(txt);
+  const s=byId(CASEUI.rid);
+  if(s){const n=caseEligible(s).length-(CASEUI.excl?CASEUI.excl.size:0);log(s,'Case message copied ('+(CASE_TPL[CASEUI.tpl]||{}).l+', '+n+' line'+(n!==1?'s':'')+')');s.updated=now();save();}
+  toast('Message copied — paste it into Seller Support');
+  closeCaseMsg();
+}
+function renderCaseMsg(){
+  const s=byId(CASEUI.rid);if(!s)return;
+  document.getElementById('caseTitle').textContent='Case message · '+s.id;
+  document.getElementById('caseTpls').innerHTML=Object.keys(CASE_TPL).map(function(k){
+    return '<button class="ctpl'+(CASEUI.tpl===k?' on':'')+'" onclick="caseSetTpl(\''+k+'\')">'+CASE_TPL[k].l+'</button>';}).join('');
+  const items=caseEligible(s);
+  document.getElementById('caseLines').innerHTML=items.length?items.map(function(x){
+    const on=!CASEUI.excl.has(x.i);
+    return '<label class="cml'+(on?' on':'')+'"><input type="checkbox"'+(on?' checked':'')+' onchange="caseToggleLine('+x.i+')">'
+     +'<span class="cml-t">'+esc(x.l.p||'(no name)')+'</span>'
+     +'<span class="cml-i">'+esc(x.l.sku||x.l.asin||'')+'</span>'
+     +'<span class="cml-n">'+(x.l.miss>0?'-'+x.l.miss:'+'+x.l.exc)+'</span></label>';
+  }).join(''):'<div class="hint" style="padding:8px 2px">No lines with a discrepancy on this shipment.</div>';
+  const txt=CASEUI.edited!=null?CASEUI.edited:caseBuild(CASEUI.rid);
+  const box=document.getElementById('caseBox');if(box)box.value=txt;
+  const n=items.length-CASEUI.excl.size;
+  document.getElementById('caseCount').textContent=n+' line'+(n!==1?'s':'')+' in this message';
+}
+
+function copyLineCase(rid,i){const s=byId(rid),l=s.lines[i];const msg='Hi,\n\nPlease review the discrepancy for our missing units on shipment '+s.id+'.\n\n'+caseLineBlock(s,l)+'\n\nPlease confirm the reimbursement for the missing units.\n\nThanks';navigator.clipboard&&navigator.clipboard.writeText(msg);toast('Message copied \u00b7 '+(l.sku||l.asin||''))}
 function markLineReimbursed(rid,i){const s=byId(rid),l=s.lines[i];l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';log(s,'Marked reimbursed: '+(l.asin||l.p)+' · '+money(l.reimb));refresh()}
 function toggleChk(rid,i,k){const s=byId(rid);s.lines[i][k]=!s.lines[i][k];s.updated=now();save();renderDetail()}
 function setLineQty(rid,i){const s=byId(rid),l=s.lines[i];const e=document.getElementById('qe'+i).value,r=document.getElementById('qr'+i).value;l.qtyExp=(e===''?null:parseInt(e)||0);l.qtyRec=(r===''?null:parseInt(r)||0);if(l.qtyExp!=null&&l.qtyRec!=null){l.miss=Math.max(0,l.qtyExp-l.qtyRec);l.exc=Math.max(0,l.qtyRec-l.qtyExp)}s.updated=now();save();renderDetail()}
@@ -1882,9 +2188,9 @@ function renderDetail(){
   const fu=followUp(s);
   /* next-action buttons per status */
   let nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button>';
-  if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="cp(event,caseTemplate(\''+s.rid+'\'))">'+ic('copy')+'Copy case template</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'MSC paid \u2014 settle all</button>';
+  if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="openCaseMsg(\''+s.rid+'\')">'+ic('copy')+'Case message</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'MSC paid \u2014 settle all</button>';
   else if(s.status==='mscpending')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" onclick="markChecked(\''+s.rid+'\')">'+ic('check')+'Mark checked</button><button class="btn" onclick="setFollowUp(\''+s.rid+'\')">'+ic('alarm')+'Set follow-up</button>';
-  else if(s.status==='invoice'){const _c=invCov(s);nbtns='<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
+  else if(s.status==='invoice'){const _c=invCov(s);nbtns=(_c.need&&_c.have>=_c.need)?'<button class="btn pri" onclick="advanceToMsc(\''+s.rid+'\')">'+ic('arrow')+'Push to MSC</button>'+'<button class="btn" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+'Invoices '+_c.have+'/'+_c.need+'</button>':'<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
   if(['caseopen','reimbpending'].includes(s.status))nbtns+='<button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Reimbursed \u2014 settle all</button>';
   if(!hist)nbtns+='<button class="btn" onclick="toggleEsc(\''+s.rid+'\')">'+ic('user')+(s.escalated?'Return from Jack':'Escalate to Jack')+'</button>';
 
@@ -1905,11 +2211,11 @@ function renderDetail(){
    +'<div class="m-id">'+esc(s.id)+'<button class="copy" onclick="cp(event,\''+esc(s.id)+'\')">'+ic('copy',13)+'copy</button></div>'
    +'<div class="m-meta"><span class="statuspill" style="--sc:'+st.c+'" onclick="event.stopPropagation();togglePop()"><span class="d"></span>'+st.l+ic('chevron',13)+statusPop(s)+'</span>'
    +'<span>'+esc(s.name||'')+'</span><span class="dest">'+esc(s.dest||'—')+'</span><span>closed '+fmtD(s.closed)+'</span>'
-   +'<span style="display:inline-flex;align-items:center;gap:6px">'+ic('user',13)+ownerOf(s)+'</span>'
+   +(s.escalated?'<span style="display:inline-flex;align-items:center;gap:6px;color:var(--violet)">'+ic('user',13)+'With Jack</span>':'')
    +'</div></div>'
    +'<div class="m-right">'
    +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
-   +(['mscapproved','caseopen','reimbpending'].includes(s.status)?'<button class="btn sm" onclick="cp(event,caseTemplate(\''+s.rid+'\'))">'+ic('copy')+'Case template</button>':'')
+   +((s.lines&&s.lines.length)?'<button class="btn sm" onclick="openCaseMsg(&quot;'+s.rid+'&quot;)" title="Build one message covering every line">'+ic('copy')+'Case message</button>':'')
    +(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
    +(editingHdr===s.rid?hdrEditForm(s):'')+shipTags(s)
    /* next action hero */
@@ -1951,12 +2257,19 @@ function renderDetail(){
   _restoreDetailScroll();              // hold Sarah's place synchronously…
   requestAnimationFrame(_restoreDetailScroll); // …and again after layout settles
 }
-function focusInvoice(){const el=document.getElementById('invIn');if(el){el.focus();el.scrollIntoView({block:'center',behavior:'smooth'})}}
 function togglePop(){const p=document.getElementById('statusPop');if(p)p.style.display=p.style.display==='none'?'block':'none'}
 document.addEventListener('click',()=>{const p=document.getElementById('statusPop');if(p)p.style.display='none'});
 /* ═══════════ MUTATIONS ═══════════ */
 function refresh(){save();renderChrome();if(S.page==='active')renderActive();if(S.page==='overview')renderOverview();if(S.page==='actions')renderActions();if(S.page==='history')renderHistory()}
 function settleShipment(rid){const s=byId(rid);const open=s.lines.filter(l=>l.lstatus!=='reimbursed');const tot=s.lines.reduce((a,l)=>a+((+l.reimb>0)?+l.reimb:(l.miss||0)*(+l.cog||0)),0);askConfirm({tone:'primary',icon:'check2',title:'Settle the whole shipment?',message:(open.length?'<b>'+open.length+'</b> SKU'+(open.length!==1?'s':'')+' will be marked reimbursed at full claim value.':'All SKUs are already reimbursed.')+'<br>'+esc(s.id)+' moves to <b>Reimbursed</b> \u2014 <b>'+money(tot)+'</b> total.'+(tot<0.01?'<br><span class="cfm-warn">No claim value is recorded (\u00a30.00). Add COG or a reimbursement amount first, or confirm you\'re closing it with nothing recovered.</span>':''),confirmLabel:tot<0.01?'Mark reimbursed anyway':'Settle shipment',onConfirm:function(){s.lines.forEach(l=>{if(l.lstatus!=='reimbursed'){l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';}});log(s,'Whole shipment settled \u2014 '+money(rec(s))+' reimbursed');s.status='reimbursed';s.statusAt=now();s.paidAt=s.paidAt||now();refresh();toast('Shipment settled \u2014 '+money(rec(s))+' recovered')}})}
+function advanceToMsc(rid){
+  const s=byId(rid);if(!s)return;const c=invCov(s);
+  askConfirm({tone:'primary',icon:'arrow',title:'Push this shipment to MSC?',
+    message:'All <b>'+c.need+'</b> SKU'+(c.need!==1?'s':'')+' on <b>'+esc(s.id)+'</b> have an invoice.<br>It moves to <b>MSC pending</b> so it stops showing as invoice work.',
+    confirmLabel:'Push to MSC',
+    onConfirm:function(){log(s,'Invoices complete ('+c.have+'/'+c.need+') \u2014 moved to MSC pending');s.status='mscpending';s.statusAt=now();s.updated=now();markDirty(s.rid);refresh();toast(s.id+' \u2192 MSC pending')}});
+}
+
 function changeStatus(rid,k){const s=byId(rid);if(s.status===k)return;log(s,'Status: '+STATUS[s.status].l+' → '+STATUS[k].l);s.status=k;s.statusAt=now();if(k==='reimbursed'||k==='partial')s.paidAt=s.paidAt||now();refresh();toast('Status → '+STATUS[k].l)}
 function setCog(rid,i,v){const s=byId(rid);s.lines[i].cog=parseFloat(v)||0;log(s,'COG updated on '+s.lines[i].asin+' → '+money(s.lines[i].cog));refresh()}
 function toggleLine(rid,i){const s=byId(rid);s.lines[i].excluded=!s.lines[i].excluded;log(s,(s.lines[i].excluded?'Excluded':'Included')+' line '+s.lines[i].asin);s.updated=now();save();if(S.page==='active')renderDetail()}
@@ -2055,7 +2368,6 @@ function setShipTag(rid,k){var s=byId(rid);if(k==='escalated'){s.escalated=!s.es
 function setField(rid,f,v){const s=byId(rid);s[f]=v;s.updated=now();if(f==='caseId'&&v&&['invoice','mscreupdate','mscpending','mscapproved'].includes(s.status)){s.status='caseopen';s.statusAt=now();save();refresh();return;}save();if(f==='urgent'){renderQueue();renderChrome()}}
 function clearUrgent(rid){const s=byId(rid);s.urgent='';log(s,'Urgent action cleared');refresh()}
 function toggleEsc(rid){const s=byId(rid);s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');refresh();toast(s.escalated?'Escalated to Jack':'Back with the VA')}
-function setOwner(rid,v){const s=byId(rid);s.owner=v;s.updated=now();log(s,'Owner → '+v);refresh()}
 function addCase(rid){const s=byId(rid);const no=document.getElementById('cNo').value.trim();if(!no){toast('Case number needed');return}const reimb=document.getElementById('cReimb').value.trim();const amt=parseFloat(document.getElementById('cAmt').value)||null;s.cases.push({no,reimb,amt,date:amt?new Date().toISOString().slice(0,10):null});log(s,'Case logged: '+no+(amt?' · '+money(amt):''));if(amt)s.paidAt=s.paidAt||now();refresh();toast('Case logged')}
 function delCase(rid,i){const s=byId(rid);askConfirm({title:'Remove this case entry?',message:'Case <b>'+esc(s.cases[i].no||'(no number)')+'</b> will be removed from this shipment.<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove case',onConfirm:function(){log(s,'Case removed: '+s.cases[i].no);s.cases.splice(i,1);refresh();toast('Case removed')}})}
 let _cfm=null;
@@ -2079,7 +2391,6 @@ function snoozeCustom(rid){const s=byId(rid);const v=prompt('Snooze until (YYYY-
 function toggleSnzMenu(e,rid){e.stopPropagation();const m=document.getElementById('snzMenu-'+rid);if(!m)return;const open=m.classList.contains('on');closeSnzMenu();if(!open){m.classList.add('on');setTimeout(function(){document.addEventListener('click',closeSnzMenu,{once:true});},0);}}
 function closeSnzMenu(){document.querySelectorAll('.snz-menu.on').forEach(function(m){m.classList.remove('on');});}
 function unsnoozeAll(){DATA.forEach(s=>s.snoozedUntil=null);refresh();toast('Snoozed items restored')}
-function caseTemplate(rid){const s=byId(rid);const lines=s.lines.filter(l=>l.miss>0&&!l.excluded).map(l=>'-Product name: '+l.p+'\n-Size:\n-EAN:\n-ASIN: '+l.asin+'\n-FNSKU: '+l.fnsku+'\n-Units Expected: (shipped)\n-Units Located: (received)\n-Discrepancy: '+l.miss+' missing unit'+(l.miss!==1?'s':'')).join('\n\n');return 'Hi,\nCan you review the attached invoice and discrepancy for our missing units on shipment '+s.id+'? Please see details below.\n\n'+lines+'\n\nExpected claim: '+money(pot(s))+'\nThanks'}
 
 /* ═══════════ ACTION CENTRE (bundled by shipment) ═══════════ */
 function fuDate(s){return s.followUp?new Date(s.followUp):null}
@@ -2090,7 +2401,8 @@ function primaryTask(s){
   if(s.urgent)return{title:s.urgent,sub:'Flagged urgent — handle before anything else.',ic:'triangle',bucket:'do',sev:0};
   if(w.days<0)return{title:'Window expired — review',sub:'The claim window has passed. Decide whether to write it off.',ic:'triangle',bucket:'do',sev:1};
   if(w.days<=SETTINGS.deadlineRiskDays)return{title:'Push before the window closes',sub:'Claim window closes '+fmtD(w.e)+' — '+w.days+' day'+(w.days!==1?'s':'')+' left.',ic:'alarm',bucket:'do',sev:1};
-  if(!invDone(s)&&['invoice','mscreupdate'].includes(s.status)){const c=invCov(s);return{title:c.need&&c.have?'Invoices — '+c.missing+' SKU'+(c.missing!==1?'s':'')+' still needed':'Sort the invoices',sub:(c.need?c.have+' of '+c.need+' SKUs have an invoice. ':'')+'Needed before MSC can be pushed. Locate them on the Mastersheets or supplier portal.',ic:'file',bucket:'do',sev:2};}
+  if(invDone(s)&&['invoice','mscreupdate'].includes(s.status)&&(s.lines||[]).length)return{title:'Invoices done \u2014 push to MSC',sub:'All '+invCov(s).need+' SKU'+(invCov(s).need!==1?'s':'')+' have an invoice. Submit the MSC claim, then move this shipment on.',ic:'arrow',bucket:'do',sev:2};
+  if(!invDone(s)&&['invoice','mscreupdate'].includes(s.status)){const c=invCov(s);return{title:c.need?'Invoices — '+c.missing+' of '+c.need+' SKU'+(c.need!==1?'s':'')+' still needed':'Sort invoices',sub:(c.need?c.have+' of '+c.need+' SKUs have an invoice.':'Needed before MSC can be pushed.'),ic:'file',bucket:'do',sev:2};}
   if(s.status==='mscapproved')return{title:'Open the case',sub:'All MSC lines approved — open the Seller Support case and log the number.',ic:'msg',bucket:'do',sev:1};
   if(fuOverdue(s))return{title:SHORTNEXT[s.status],sub:'Follow-up was due '+fmtDShort(s.followUp)+'.',ic:'alarm',bucket:'do',sev:2};
   if(s.status==='mscreupdate')return{title:'Reupdate MSC on Seller Central',sub:'Push through Manage Shipment Claims, then set MSC pending.',ic:'rotate',bucket:'do',sev:2};
@@ -2105,7 +2417,7 @@ function shipFlags(s){
   if(s.urgent)f.push({l:'Urgent',c:'var(--red)',ic:'triangle'});
   if(w.days<=SETTINGS.deadlineRiskDays&&w.days>=0)f.push({l:'Closing in '+w.days+'d',c:'var(--red)',ic:'alarm'});
   else if(w.days<=SETTINGS.deadlineWarnDays&&w.days>=0)f.push({l:w.days+'d window',c:'var(--amber)',ic:'clock'});
-  if(!invDone(s)&&stepIndex(s.status)<2){const c=invCov(s);f.push({l:c.need&&c.have?'Invoices '+c.have+'/'+c.need:'Invoice missing',c:'var(--amber)',ic:'file'});}
+  if(!invDone(s)&&stepIndex(s.status)<2){const c=invCov(s);f.push({l:c.need?'Invoices '+c.have+'/'+c.need:'Invoice missing',c:'var(--amber)',ic:'file'});}
   if(s.escalated)f.push({l:'With Jack',c:'var(--violet)',ic:'user'});
   return f;
 }
@@ -2121,6 +2433,29 @@ function acBundles(){
     return{s,primary:pr,flags:shipFlags(s),m:pot(s),bucket:pr.bucket,dl:w.days};
   }).sort((a,b)=>a.primary.sev-b.primary.sev||b.m-a.m);
 }
+/* ===== v69 — one card for the whole invoice backlog =====
+   17 shipments each showing "Sort invoices" is 17 ways of saying the same
+   thing. Roll them into a single card that opens the invoice queue. */
+function invBacklog(){
+  const ships=DATA.filter(function(s){return !isHist(s)&&!invDone(s)&&stepIndex(s.status)<2&&!s.escalated});
+  let skus=0,risk=0;
+  ships.forEach(function(s){
+    const c=invCov(s);skus+=Math.max(0,c.need-c.have);
+    risk+=Math.max(0,pot(s)-rec(s));
+  });
+  return {ships:ships,n:ships.length,skus:skus,risk:risk};
+}
+function invBacklogCard(bl){
+  return '<div class="bundle blk" style="--bc:var(--amber)">'
+   +'<div class="b-top"><span class="b-id">'+ic('file',13)+'Invoices</span>'
+     +'<span class="b-act">'+bl.skus+' SKU'+(bl.skus!==1?'s':'')+' across '+bl.n+' shipment'+(bl.n!==1?'s':'')+'</span>'
+     +'<span class="b-right"><span class="b-money">'+money(bl.risk)+'</span></span></div>'
+   +'<div class="b-meta">Same job every time — paste a batch of links once instead of opening each shipment.</div>'
+   +'<div class="b-btns"><button class="btn sm pri" onclick="go(\'invoices\')">'+ic('arrow')+'Open invoice queue</button>'
+     +'<button class="btn sm" onclick="S.blkOpen=!S.blkOpen;renderActions()">'+(typeof S!=='undefined'&&S.blkOpen?'Hide the list':'Show all '+bl.n)+'</button></div>'
+  +'</div>';
+}
+
 function bundleCard(b){
   const s=b.s,w=win(s),wait=b.bucket==='wait';
   const tone=b.primary.sev===0?'var(--red)':wait?'var(--blue)':s.escalated?'var(--violet)':'var(--amber)';
@@ -2137,7 +2472,7 @@ function bundleCard(b){
   return '<div class="bundle" style="--bc:'+tone+'">'
    +'<div class="b-top"><span class="b-id">'+esc(s.id)+'</span><span class="b-act">'+esc(b.primary.title)+'</span>'
    +'<span class="b-right"><span class="b-dl '+(w.days<=SETTINGS.deadlineRiskDays?'crit':w.days<=SETTINGS.deadlineWarnDays?'warn':'')+'">'+dl+'</span><span class="b-money">'+money(b.m)+'</span></span></div>'
-   +'<div class="b-meta">'+STATUS[s.status].l+' · '+esc(s.dest||'—')+' · '+esc(b.primary.sub)+'</div>'
+   +'<div class="b-meta">'+STATUS[s.status].l+(s.dest?' · '+esc(s.dest):'')+' · '+esc(b.primary.sub)+'</div>'
    +(flags?'<div class="b-flags">'+flags+'</div>':'')
    +'<div class="b-btns">'+acts+'</div></div>';
 }
@@ -2167,7 +2502,15 @@ function renderActions(){
   const filt=(k,ic_,label,n)=>'<button class="acfilt'+(f===k?' on':'')+'" style="--tc:'+tcol[k]+'" onclick="setAcFilter(\''+k+'\')"><span class="ic chip">'+ic(ic_,15)+'</span><span class="n">'+n+'</span><span class="fl">'+label+'</span><span class="am">'+money(cm[k])+'</span></button>';
   const upHTML=upcoming.length?'<div class="ac-colhead" style="margin-top:16px">'+ic('clock')+'Upcoming deadlines<span class="cnt">30d</span></div><div class="ac-deadlines">'+upcoming.map(x=>'<div class="dl-row" onclick="S.sel=\''+x.s.rid+'\';go(\'active\')"><span class="dl-when '+(x.w.days<=SETTINGS.deadlineRiskDays?'crit':'warn')+'">'+x.w.days+'d</span><div><div class="dl-id">'+esc(x.s.id)+'</div><div class="dl-sub">'+fmtD(x.w.e)+' · '+STATUS[x.s.status].l+'</div></div><span class="dl-money">'+money(pot(x.s))+'</span></div>').join('')+'</div>':'';
   const rightEmpty=!waiting.length&&!upcoming.length&&!snoozedN;
-  const doNowCol='<div class="ac-colhead">'+ic('alert')+'Do now<span class="cnt">'+doNow.length+'</span></div>'+(doNow.length?doNow.map(bundleCard).join(''):'<div class="q-empty" style="padding:30px;border:1px dashed var(--border);border-radius:9px">Nothing here.</div>');
+  const _bl=invBacklog();
+  const _isInv=function(b){return !b.s.escalated&&!invDone(b.s)&&stepIndex(b.s.status)<2};
+  const _rest=doNow.filter(function(b){return !_isInv(b)});
+  const _invN=doNow.length-_rest.length;
+  const _grouped=(_invN>=3&&!S.blkOpen);
+  const _shown=_grouped?_rest:doNow;
+  const doNowCol='<div class="ac-colhead">'+ic('alert')+'Do now<span class="cnt">'+doNow.length+'</span></div>'
+    +(_grouped?invBacklogCard(_bl):(_invN>=3?invBacklogCard(_bl):''))
+    +(_shown.length?_shown.map(bundleCard).join(''):(_grouped?'':'<div class="q-empty" style="padding:30px;border:1px dashed var(--border);border-radius:9px">Nothing here.</div>'));
   const rightCol=rightEmpty?'':'<div><div class="ac-colhead">'+ic('hourglass')+'Waiting / scheduled<span class="cnt">'+waiting.length+'</span></div>'+(waiting.length?waiting.map(bundleCard).join(''):'<div class="q-empty" style="padding:30px;border:1px dashed var(--border);border-radius:9px">Nothing waiting.</div>')+(snoozedN?'<div class="snoozed-note">'+ic('alarm',15)+snoozedN+' shipment'+(snoozedN!==1?'s':'')+' snoozed. <button onclick="unsnoozeAll()">Restore</button></div>':'')+upHTML+'</div>';
   el.innerHTML=''
    +'<div class="ac-lead">Work top to bottom · <b class="mono" style="color:var(--red)">'+money(total)+'</b> at risk. Waiting items are separated on the right.</div>'
@@ -2189,7 +2532,8 @@ function renderOverview(){
   const soon=open.filter(s=>win(s).days<=SETTINGS.deadlineRiskDays).length;
   const mNow=new Date(),mStart=new Date(mNow.getFullYear(),mNow.getMonth(),1).getTime();
   let thisM=0;DATA.forEach(s=>{const lr=s.lines.filter(l=>+l.reimb>0);if(lr.length){lr.forEach(l=>{if(l.reimbAt&&l.reimbAt>=mStart)thisM+=+l.reimb})}else{s.cases.forEach(c=>{if(c.amt&&c.date&&new Date(c.date).getTime()>=mStart)thisM+=c.amt})}});
-  const bundles=acBundles().filter(b=>b.bucket==='do').slice(0,5);
+  const allDo=acBundles().filter(b=>b.bucket==='do');
+  const bundles=allDo.slice(0,6);
   const waiting=acBundles().filter(b=>b.bucket==='wait').length;
   const missingInv=open.filter(s=>!invDone(s)).length;
   /* pipeline bars */
@@ -2204,16 +2548,22 @@ function renderOverview(){
   const lost=DATA.filter(s=>s.status==='expired'||s.status==='writtenoff').reduce((a,s)=>a+pot(s),0);
   const rate=(recovered+lost)>0?Math.round(recovered/(recovered+lost)*100):null;
 
-  const tasks=bundles.length?bundles.map(b=>{const d=win(b.s).days;const uc=d<=SETTINGS.deadlineRiskDays?'var(--red)':d<=SETTINGS.deadlineWarnDays?'var(--amber)':STATUS[b.s.status].c;const own=ownerOf(b.s);
+  const ovBl=invBacklog();
+  const ovInv=allDo.filter(function(b){return !b.s.escalated&&!invDone(b.s)&&stepIndex(b.s.status)<2}).length;
+  const ovRest=bundles.filter(function(b){return b.s.escalated||invDone(b.s)||stepIndex(b.s.status)>=2});
+  const ovGroup=ovInv>=3;
+  const ovCard=ovGroup?'<div class="ov-blk" onclick="go(\'invoices\')">'+ic('file',16)+'<div class="ovb-t"><b>'+ovBl.skus+' invoice'+(ovBl.skus!==1?'s':'')+'</b> needed across <b>'+ovBl.n+'</b> shipments</div><div class="ovb-m">'+money(ovBl.risk)+'</div><span class="ovb-go">Open queue'+ic('arrow',13)+'</span></div>':'';
+  const tasksSrc=ovGroup?ovRest:bundles;
+  const tasks=ovCard+(tasksSrc.length?tasksSrc.map(b=>{const d=win(b.s).days;const uc=d<=SETTINGS.deadlineRiskDays?'var(--red)':d<=SETTINGS.deadlineWarnDays?'var(--amber)':STATUS[b.s.status].c;const own=ownerOf(b.s);
     return '<div class="task" style="--tc:'+uc+'" onclick="S.sel=\''+b.s.rid+'\';go(\'active\')">'
      +'<span class="task-bar"></span>'
-     +'<span class="tsk-av" style="--ac:'+ownerColor(own)+'">'+initials(own)+'</span>'
+     
      +'<div class="task-main"><div class="task-t">'+esc(b.primary.title)+'</div>'
-     +'<div class="task-sub"><span class="task-id">'+esc(b.s.id)+'</span> · '+STATUS[b.s.status].l+' · '+esc(b.s.dest||'—')+' · '+esc(own)+'</div></div>'
+     +'<div class="task-sub"><span class="task-id">'+esc(b.s.id)+'</span> · '+STATUS[b.s.status].l+(b.s.dest?' · '+esc(b.s.dest):'')+'</div></div>'
      +'<span class="task-money">'+money(b.m)+'</span>'
      +'<span class="task-dl '+(d<=SETTINGS.deadlineRiskDays?'crit':d<=SETTINGS.deadlineWarnDays?'warn':'')+'">'+(d<0?'exp':d+'d')+'</span>'
      +'<button class="btn sm pri" onclick="event.stopPropagation();S.sel=\''+b.s.rid+'\';go(\'active\')">Open</button></div>';}).join('')
-    :'<div class="ov2-empty">'+ic('check2',30)+'<div>Nothing needs doing right now.</div></div>';
+    :(ovGroup?'':'<div class="ov2-empty">'+ic('check2',30)+'<div>Nothing needs doing right now.</div></div>'));
   const sched=DATA.filter(s=>!isHist(s)).map(s=>({s,w:win(s)})).filter(x=>x.w.days<=SETTINGS.deadlineWarnDays).sort((a,b)=>a.w.days-b.w.days).slice(0,8);
   const schedHTML=sched.length?sched.map(x=>{const d=x.w.days,lbl=d<0?'Overdue':d===0?'Today':d+'d';return '<div class="dl-row" onclick="S.sel=\''+x.s.rid+'\';go(\'active\')"><span class="dl-when '+(d<=SETTINGS.deadlineRiskDays?'crit':'warn')+'">'+lbl+'</span><div style="flex:1;min-width:0"><div class="dl-id">'+esc(x.s.id)+'</div><div class="dl-sub">'+STATUS[x.s.status].l+' · '+fmtD(x.w.e)+'</div></div><span class="dl-money">'+money(pot(x.s))+'</span></div>'}).join(''):'<div class="hint" style="padding:12px 10px">No deadlines within 30 days.</div>';
   const bb=[];
@@ -2222,7 +2572,7 @@ function renderOverview(){
   if(waiting)bb.push('<b>'+waiting+'</b> waiting on Amazon');
   const briefLine=bb.length?bb.join('<span class="dotsep">·</span>'):'All clear — nothing outstanding.';
   const kpi=(icn,lbl,val,sub,tc,extra)=>'<div class="mtile'+(extra?' clickable':'')+'" style="--tc:'+tc+'"'+(extra||'')+'><div class="mt-l">'+ic(icn)+lbl+'</div><div class="mt-v">'+val+'</div><div class="mt-s">'+sub+'</div></div>';
-  const doRisk=bundles.reduce((a,b)=>a+b.m,0);
+  const doRisk=allDo.reduce((a,b)=>a+b.m,0);
   const _nowT=now();
   const _ageDefs=[{l:'0\u201330 days',lo:0,hi:30,c:'var(--green)'},{l:'31\u201360 days',lo:31,hi:60,c:'var(--blue)'},{l:'61\u2013120 days',lo:61,hi:120,c:'var(--amber)'},{l:'120+ days',lo:121,hi:1e9,c:'var(--red)'}];
   const _aged=_ageDefs.map(b=>{const items=open.filter(s=>{const d=Math.floor((_nowT-(s.createdAt||_nowT))/86400000);return d>=b.lo&&d<=b.hi;});return{l:b.l,c:b.c,n:items.length,m:items.reduce((a,s)=>a+Math.max(0,pot(s)-rec(s)),0)};});
@@ -2232,13 +2582,13 @@ function renderOverview(){
    +'<div class="ov2">'
    +'<div class="ov2-kpis">'
      +kpi('coins','At risk',money(atRisk),open.length+' open shipments','var(--red)',' onclick="go(\'active\')"')
-     +kpi('alert','Needs action',bundles.length,'to do today','var(--amber)',' onclick="go(\'actions\')"')
+     +kpi('alert','Needs action',allDo.length,'to do today','var(--amber)',' onclick="go(\'actions\')"')
      +kpi('alarm','Closing soon',soon,'within '+SETTINGS.deadlineRiskDays+' days',soon?'var(--red)':'var(--amber)',' onclick="go(\'active\')"')
      +kpi('check2','Recovered',money(thisM),money(recovered)+' all-time','var(--green)',' onclick="go(\'history\')"')
    +'</div>'
    +'<div class="ov2-main">'
      +'<div class="ov2-primary">'
-       +'<div class="ov2-head">'+ic('alert',15)+'<span class="ov2-title">Needs doing today</span><span class="ov2-cnt">'+bundles.length+'</span><span class="ov2-risk">'+money(doRisk)+' at risk</span></div>'
+       +'<div class="ov2-head">'+ic('alert',15)+'<span class="ov2-title">Needs doing today</span><span class="ov2-cnt">'+allDo.length+'</span><span class="ov2-risk">'+money(doRisk)+' at risk</span></div>'
        +'<div class="ov2-brief">'+briefLine+'</div>'
        +'<div class="ov2-tasks">'+tasks+'</div>'
      +'</div>'
@@ -2260,58 +2610,258 @@ function renderOverview(){
 /* ═══════════ HISTORY ═══════════ */
 function settled(){return DATA.filter(isHist)}
 function shipState(s){const r=rec(s),p=pot(s);if(s.status==='expired'||s.status==='writtenoff')return 'lost';if(s.status==='partial'||(r>0&&r<p-0.01))return 'partial';return 'win'}
+/* ===== v68 — cross-shipment invoice queue =====
+   Sarah collects invoices in batches from the supplier portal, and one batch
+   spans several shipments. Working shipment-by-shipment meant 17 near-identical
+   Action Centre cards. This is every outstanding SKU in one place. */
+let INVQ={draft:{},cog:{},hideDone:true};
+function invqRows(){
+  const rows=[];
+  DATA.filter(function(s){return !isHist(s)}).forEach(function(s){
+    (s.lines||[]).forEach(function(l,i){
+      const key=s.rid+':'+i;
+      const cur=(INVQ.draft[key]!==undefined)?INVQ.draft[key]:(l.invoice||'');
+      const ck='c'+key;
+      const ccur=(INVQ.cog[ck]!==undefined)?INVQ.cog[ck]:((+l.cog>0)?String(l.cog):'');
+      const needsCog=((l.miss||0)>0||(l.exc||0)>0)&&!(+ccur>0);
+      rows.push({s:s,l:l,i:i,key:key,ck:ck,val:cur,cog:ccur,needsCog:needsCog,had:!!(l.invoice||'').trim()});
+    });
+  });
+  return rows;
+}
+function invqSet(key,v){INVQ.draft[key]=v.trim();invqStats()}
+function invqSetCog(ck,v){INVQ.cog[ck]=v.trim();invqStats()}
+function invqClear(key){INVQ.draft[key]='';renderInvQueue()}
+function invqToggleDone(){INVQ.hideDone=!INVQ.hideDone;renderInvQueue()}
+function invqBulk(){
+  const box=document.getElementById('invqBulk');
+  const urls=(box.value||'').split(/\s+/).map(function(x){return x.trim()}).filter(function(x){return x.length>0});
+  if(!urls.length){toast('Paste some links first');return}
+  let u=0;
+  invqRows().forEach(function(r){
+    if(u>=urls.length)return;
+    if(!r.val){INVQ.draft[r.key]=urls[u++];}
+  });
+  box.value='';
+  renderInvQueue();
+  toast(u+' link'+(u!==1?'s':'')+' placed — check them, then Save');
+  if(u<urls.length)toast((urls.length-u)+' extra link'+(urls.length-u!==1?'s':'')+' had nowhere to go');
+}
+function invqSave(){
+  const touched={};let n=0;
+  invqRows().forEach(function(r){
+    const v=(INVQ.draft[r.key]!==undefined)?INVQ.draft[r.key]:null;
+    if(v!==null&&(r.l.invoice||'')!==v){r.l.invoice=v;touched[r.s.rid]=r.s;n++;}
+    const cv=INVQ.cog[r.ck];
+    if(cv!==undefined&&cv!==''&&(+cv>0)&&(+r.l.cog||0)!==(+cv)){r.l.cog=+cv;touched[r.s.rid]=r.s;n++;}
+  });
+  const ships=Object.keys(touched);
+  if(!n){toast('Nothing to save');return}
+  ships.forEach(function(rid){
+    const s=touched[rid];const c=invCov(s);
+    log(s,'Invoices updated — '+c.have+' of '+c.need+' SKUs covered');
+    s.updated=now();markDirty(rid);
+  });
+  INVQ.draft={};INVQ.cog={};
+  save(true);renderInvQueue();renderChrome();
+  toast(n+' invoice'+(n!==1?'s':'')+' saved across '+ships.length+' shipment'+(ships.length!==1?'s':''));
+}
+function invqStats(){
+  const rows=invqRows();
+  const need=rows.filter(function(r){return !r.val}).length;
+  const el=document.getElementById('invqStat');
+  const nc=rows.filter(function(r){return r.needsCog}).length;
+  if(el)el.innerHTML='<b>'+need+'</b> SKU'+(need!==1?'s':'')+' still need an invoice'+(nc?' &nbsp;·&nbsp; <b style="color:var(--red)">'+nc+'</b> need a COG':'');
+  const pend=rows.filter(function(r){return (INVQ.draft[r.key]!==undefined&&INVQ.draft[r.key]!==(r.l.invoice||''))||(INVQ.cog[r.ck]!==undefined&&INVQ.cog[r.ck]!==''&&(+INVQ.cog[r.ck]>0)&&(+r.l.cog||0)!==(+INVQ.cog[r.ck]));}).length;
+  const sb=document.getElementById('invqSaveBtn');
+  if(sb){sb.textContent=pend?('Save '+pend+' invoice'+(pend!==1?'s':'')):'Save invoices';sb.classList.toggle('pri',!!pend);sb.disabled=!pend;}
+}
+function renderInvQueue(){
+  const el=document.getElementById('invqBody');
+  const rows=invqRows();
+  const outstanding=rows.filter(function(r){return !r.val});
+  const ships={};outstanding.forEach(function(r){ships[r.s.rid]=1});
+  const atRisk=outstanding.reduce(function(a,r){return a+((r.l.miss||0)*(+r.l.cog||0))},0);
+
+  if(!rows.length){
+    el.innerHTML='<div class="q-empty" style="padding:60px">'+ic('check2')+'No open shipments with SKU lines.</div>';
+    hydrateIcons(el);return;
+  }
+  const show=INVQ.hideDone?rows.filter(function(r){return !r.val||r.needsCog}):rows;
+
+  /* group by shipment so she can see which claim each invoice belongs to */
+  const groups={};show.forEach(function(r){(groups[r.s.rid]=groups[r.s.rid]||[]).push(r)});
+  const gKeys=Object.keys(groups).sort(function(a,b){
+    const A=byId(a),B=byId(b);return win(A).days-win(B).days;   /* tightest deadline first */
+  });
+
+  const body=gKeys.map(function(rid){
+    const s=byId(rid),g=groups[rid],c=invCov(s),w=win(s);
+    const done=c.have>=c.need&&c.need>0;
+    return '<div class="ivq-g">'
+     +'<div class="ivq-gh"><span class="ivq-gid">'+esc(s.id)+'</span>'
+       +'<span class="ivq-gcov'+(done?' ok':'')+'">'+c.have+'/'+c.need+' invoices</span>'
+       +(s.dest?'<span class="ivq-gd">'+esc(s.dest)+'</span>':'')
+       +'<span class="ivq-gdl'+(w.days<=SETTINGS.deadlineRiskDays?' crit':w.days<=SETTINGS.deadlineWarnDays?' warn':'')+'">'+w.days+'d left</span>'
+       +'<button class="btn sm" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open shipment</button></div>'
+     +g.map(function(r){
+        const has=!!r.val;
+        return '<div class="inv-row'+(has?' has':'')+'">'
+         +'<span class="inv-dot"></span>'
+         +'<div class="inv-main"><div class="inv-p">'+esc(r.l.p||'(no name)')+'</div>'
+           +'<div class="inv-ids">'+esc([r.l.sku,r.l.asin].filter(Boolean).join(' · '))+'</div></div>'
+         +'<div class="inv-in"><input placeholder="paste this SKU’s invoice link…" value="'+esc(r.val)+'" oninput="invqSet(\''+r.key+'\',this.value)">'
+           +(has?'<button class="inv-x" title="Clear" onclick="invqClear(\''+r.key+'\')">'+ic('x',12)+'</button>':'')+'</div>'
+         +'<div class="ivq-cog'+((+r.cog>0)?' ok':'')+'"><input type="number" step="0.01" placeholder="COG" value="'+esc(r.cog)+'" title="Cost per unit \u2014 the claim is worth nothing without it" oninput="invqSetCog(\''+r.ck+'\',this.value)"></div>'
+        +'</div>';
+     }).join('')
+     +'</div>';
+  }).join('')||'<div class="q-empty" style="padding:50px">'+ic('check2')+'Every SKU has an invoice. Nice.</div>';
+
+  el.innerHTML=''
+   +'<div class="ivq-hero"><div><div class="ivq-l">Invoices outstanding</div>'
+     +'<div class="ivq-v">'+outstanding.length+'</div>'
+     +'<div class="ivq-s">across '+Object.keys(ships).length+' shipment'+(Object.keys(ships).length!==1?'s':'')+' · '+money(atRisk)+' at risk</div></div>'
+     +'<div class="ivq-hint">Paste a batch of links below — they fill the empty SKUs top to bottom, across every shipment. Check them, then save once.</div></div>'
+   +'<div class="inv-bulk" style="border-bottom:none;padding-bottom:8px"><textarea id="invqBulk" placeholder="Paste several invoice links — one per line."></textarea><button class="btn" onclick="invqBulk()">Place links</button></div>'
+   +'<div class="ivq-bar"><span id="invqStat"></span>'
+     +'<label class="ivq-tog"><input type="checkbox"'+(INVQ.hideDone?' checked':'')+' onchange="invqToggleDone()"> Only show SKUs still needing one</label>'
+     +'<button class="btn" id="invqSaveBtn" onclick="invqSave()">Save invoices</button></div>'
+   +body;
+  hydrateIcons(el);invqStats();
+}
+
 function renderHistory(){
   const worked=settled();
-  const wins=worked.filter(s=>rec(s)>0);
-  const recovered=worked.reduce((a,s)=>a+rec(s),0);
-  const reachedCOG=worked.filter(s=>rec(s)>=pot(s)-0.01&&rec(s)>0).length;
-  const writtenOff=worked.filter(s=>shipState(s)==='lost').reduce((a,s)=>a+pot(s),0);
-  const winRate=worked.length?Math.round(wins.length/worked.length*100):0;
-  const avgRec=worked.length?recovered/worked.length:0;
   const el=document.getElementById('historyBody');
-  if(!worked.length){el.innerHTML='<div class="q-empty" style="padding:60px">'+ic('pkg')+'No settled shipments yet.<br>As shipments get reimbursed or written off they land here.</div>';hydrateIcons(el);return}
-  /* group by month of paidAt||closed */
-  let list=worked.filter(s=>{if(!S.histSearch)return true;const b=(s.id+' '+s.name+' '+s.lines.map(l=>l.asin+l.fnsku+l.p).join(' ')).toLowerCase();return b.includes(S.histSearch)});
-  const gained=s=>rec(s)-pot(s);
-  list.sort((a,b)=>{if(S.histSort==='gained')return rec(b)-rec(a);if(S.histSort==='vscog')return gained(b)-gained(a);return (b.paidAt||new Date(b.closed).getTime())-(a.paidAt||new Date(a.closed).getTime())});
-  const groups={};list.forEach(s=>{const d=new Date(s.paidAt||s.closed);const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');(groups[key]=groups[key]||[]).push(s)});
-  const keys=Object.keys(groups).sort().reverse();
-  const mNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const groupH=keys.map((key,gi)=>{
-    const g=groups[key];const[y,mo]=key.split('-');
-    const gRec=g.reduce((a,s)=>a+rec(s),0),gWins=g.filter(s=>rec(s)>0).length,gRate=Math.round(gWins/g.length*100);
-    const overall=gRec-g.reduce((a,s)=>a+pot(s),0);
-    const rowsH=g.map(s=>{const state=shipState(s),r=rec(s),p=pot(s),gain=r-p;
-      const hc=state==='win'?'var(--green)':state==='partial'?'var(--amber)':'var(--red)';
-      const tag=state==='win'?'<span class="state-tag state-win">Recovered</span>':state==='partial'?'<span class="state-tag state-partial">Partial</span>':'<span class="state-tag state-lost">Written off</span>';
-      const prod=s.lines[0]?s.lines[0].p:'';
-      return '<div class="hrow-c" style="--hc:'+hc+'" onclick="S.sel=\''+s.rid+'\';go(\'active\')"><div><div class="hrow-id">'+esc(s.id)+'</div><div class="hrow-name">'+esc(prod)+(s.lines.length>1?' +'+(s.lines.length-1)+' more':'')+'</div></div>'
-       +'<div class="hrow-fin"><div><div class="n">'+money(p)+'</div><div class="nl">COG</div></div>'
-       +'<div><div class="n" style="color:'+(r?'var(--green)':'var(--text4)')+'">'+money(r)+'</div><div class="nl">Reimbursed</div></div>'
-       +'<div><div class="n" style="color:'+(gain>=0?'var(--green)':'var(--red)')+'">'+(gain>=0?'+':'')+money(gain)+'</div><div class="nl">vs COG</div></div></div>'+tag+'</div>';}).join('');
-    return '<div class="month-group"><div class="mg-head" onclick="const b=this.parentNode.querySelector(\'.mg-body\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'">'
-      +'<div><div class="mg-title">'+mNames[+mo-1]+' '+y+'</div><div class="mg-sub">'+g.length+' settled · '+gRate+'% win rate</div></div>'
-      +'<div class="mg-stats"><div class="rec">+'+money(gRec)+' recovered</div><div class="vs" style="color:'+(overall>=0?'var(--green)':'var(--red)')+'">'+(overall>=0?'+':'')+money(overall)+' vs COG</div></div></div>'
-      +'<div class="mg-body"'+(gi>1?' style="display:none"':'')+'>'+rowsH+'</div></div>';
-  }).join('');
-  /* trend gate: need 3+ settled months */
-  const trend=keys.length>=3?'':'<span class="trend-inline">'+ic('trend',14)+'Trend available after '+(3-keys.length)+' more settled month'+((3-keys.length)!==1?'s':'')+'.</span>';
 
-  const hk=(icn,lbl,val,sub,tc)=>'<div class="mtile hkpi" style="--tc:'+tc+'"><div class="mt-l">'+ic(icn)+lbl+'</div><div class="mt-v">'+val+'</div><div class="mt-s">'+sub+'</div></div>';
+  /* ---- flatten to CLAIM LINES: one settled SKU = one claim ---- */
+  const claims=[];
+  worked.forEach(function(s){
+    (s.lines||[]).forEach(function(l){
+      const claimed=(l.miss||0)*(+l.cog||0);
+      if(claimed<=0&&!(+l.reimb>0))return;
+      const paid=+l.reimb||0, tries=(l.msc||[]).length;
+      const when=l.reimbAt||s.paidAt||(s.closed?new Date(s.closed).getTime():s.updated);
+      let outcome='dead';
+      if(paid>=claimed-0.01&&paid>0)outcome='full';
+      else if(paid>0)outcome='partial';
+      claims.push({s:s,l:l,claimed:claimed,paid:paid,short:claimed-paid,tries:tries,when:when,outcome:outcome,
+                   days:(s.createdAt&&when)?Math.max(0,Math.round((when-s.createdAt)/86400000)):null});
+    });
+  });
+
+  if(!claims.length){
+    el.innerHTML='<div class="q-empty" style="padding:60px">'+ic('pkg')+'No settled claims yet.<br>Once a SKU is reimbursed or written off it lands here with the full recovery picture.</div>';
+    hydrateIcons(el);return;
+  }
+
+  /* ---- headline position ---- */
+  const claimedT=claims.reduce(function(a,c){return a+c.claimed},0);
+  const paidT=claims.reduce(function(a,c){return a+c.paid},0);
+  const shortT=claimedT-paidT;
+  const recRate=claimedT>0?Math.round(paidT/claimedT*100):0;
+  const full=claims.filter(function(c){return c.outcome==='full'});
+  const part=claims.filter(function(c){return c.outcome==='partial'});
+  const dead=claims.filter(function(c){return c.outcome==='dead'});
+  const won=full.length+part.length;
+  const winRate=claims.length?Math.round(won/claims.length*100):0;
+  const fullRate=claims.length?Math.round(full.length/claims.length*100):0;
+  const withTries=claims.filter(function(c){return c.outcome!=='dead'&&c.tries>0});
+  const avgTries=withTries.length?(withTries.reduce(function(a,c){return a+c.tries},0)/withTries.length):null;
+  const withDays=claims.filter(function(c){return c.outcome!=='dead'&&c.days!=null});
+  const avgDays=withDays.length?Math.round(withDays.reduce(function(a,c){return a+c.days},0)/withDays.length):null;
+  const biggest=claims.slice().sort(function(a,b){return b.paid-a.paid})[0];
+  const openClaims=DATA.filter(function(s){return !isHist(s)}).reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0);
+  const openN=DATA.filter(function(s){return !isHist(s)}).length;
+
+  const kpi=function(lbl,val,sub,c){return '<div class="hk" style="--hc:'+c+'"><div class="hk-l">'+lbl+'</div><div class="hk-v">'+val+'</div><div class="hk-s">'+sub+'</div></div>';};
+
+  /* ---- narrative ---- */
+  const tone=recRate>=80?'good':recRate>=50?'ok':'bad';
+  const narrative='<div class="h-note '+tone+'">'
+    +'<b>'+(recRate>=80?'Recovery is strong.':recRate>=50?'Recovery is mixed.':'Recovery is weak.')+'</b> '
+    +'Across <b>'+claims.length+'</b> settled SKU claim'+(claims.length!==1?'s':'')+' you claimed <b>'+money(claimedT)+'</b> and Amazon paid <b>'+money(paidT)+'</b> — that’s <b>'+recRate+'%</b> back. '
+    +(shortT>0.01?'<b>'+money(shortT)+'</b> was never recovered.':'Nothing was left on the table.')
+    +(dead.length?' <b>'+dead.length+'</b> claim'+(dead.length!==1?'s':'')+' came back with nothing.':'')
+    +'</div>';
+
+  const inflight=openN?'<div class="h-flight">'+ic('hourglass',15)+'<b>'+openN+'</b> shipment'+(openN!==1?'s':'')+' still open · <b>'+money(openClaims)+'</b> yet to be recovered — they land here once settled.</div>':'';
+
+  /* ---- month groups ---- */
+  const mNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const q=(S.histSearch||'').toLowerCase();
+  let list=claims.filter(function(c){
+    if(!q)return true;
+    return ((c.l.p||'')+' '+(c.l.sku||'')+' '+(c.l.asin||'')+' '+(c.l.fnsku||'')+' '+c.s.id).toLowerCase().indexOf(q)>-1;
+  });
+  const srt=S.histSort||'gained';
+  list.sort(function(a,b){
+    if(srt==='gained')return b.paid-a.paid;
+    if(srt==='vscog')return a.short-b.short;
+    return b.when-a.when;
+  });
+
+  const groups={};
+  list.forEach(function(c){const d=new Date(c.when);const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');(groups[key]=groups[key]||[]).push(c)});
+  const keys=Object.keys(groups).sort().reverse();
+
+  const groupH=keys.map(function(key){
+    const g=groups[key], parts=key.split('-');
+    const gC=g.reduce(function(a,c){return a+c.claimed},0), gP=g.reduce(function(a,c){return a+c.paid},0);
+    const gRate=gC>0?Math.round(gP/gC*100):0;
+    const rows=g.map(function(c){
+      const oc=c.outcome==='full'?'var(--green)':c.outcome==='partial'?'var(--amber)':'var(--red)';
+      const tag=c.outcome==='full'?'<span class="state-tag state-win">Full COG</span>':c.outcome==='partial'?'<span class="state-tag state-partial">Reduced</span>':'<span class="state-tag state-lost">Nothing</span>';
+      return '<div class="hc-row" style="--hc:'+oc+'" onclick="S.sel=\''+c.s.rid+'\';go(\'active\')">'
+       +'<div class="hc-item"><div class="hc-p">'+esc(c.l.p||'(no name)')+'</div>'
+         +'<div class="hc-ids">'+esc(c.l.sku||'')+(c.l.asin?' · '+esc(c.l.asin):'')+' · '+esc(c.s.id)+'</div></div>'
+       +'<div class="hc-n"><b>'+money(c.claimed)+'</b><i>claimed</i></div>'
+       +'<div class="hc-n"><b style="color:'+(c.paid>0?'var(--green)':'var(--text4)')+'">'+money(c.paid)+'</b><i>paid</i></div>'
+       +'<div class="hc-n"><b style="color:'+(c.short>0.01?'var(--red)':'var(--green)')+'">'+(c.short>0.01?'−'+money(c.short):'—')+'</b><i>short</i></div>'
+       +'<div class="hc-n"><b>'+(c.tries||'—')+'</b><i>MSC tries</i></div>'
+       +'<div class="hc-n"><b>'+(c.days!=null?c.days+'d':'—')+'</b><i>to pay</i></div>'
+       +tag+'</div>';
+    }).join('');
+    return '<div class="month-group"><div class="mg-head" onclick="const b=this.parentNode.querySelector(\'.mg-body\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'">'
+      +'<div><div class="mg-title">'+mNames[+parts[1]-1]+' '+parts[0]+'</div><div class="mg-sub">'+g.length+' claim'+(g.length!==1?'s':'')+' · '+gRate+'% recovered</div></div>'
+      +'<div class="mg-stats"><span class="rec">'+money(gP)+'</span><span class="of">of '+money(gC)+'</span></div></div>'
+      +'<div class="mg-body">'+rows+'</div></div>';
+  }).join('');
+
   el.innerHTML=''
-   +'<div class="ov2-kpis hkpis" style="grid-template-columns:repeat(5,1fr);margin-bottom:var(--gap3)">'
-   +hk('coins','Recovered',money(recovered),worked.length+' settled','var(--green)')
-   +hk('target','Win rate',winRate+'%','of settled claims',winRate>=50?'var(--green)':'var(--amber)')
-   +hk('receipt','Avg claim',money(avgRec),'per settled','var(--blue)')
-   +hk('check2','Full COG',reachedCOG+'/'+worked.length,'paid in full','var(--green)')
-   +hk('cx','Written off',money(writtenOff),writtenOff?'lost to expiry':'none lost',writtenOff?'var(--red)':'var(--text3)')
+   +'<div class="h-hero"><div class="hh-main"><div class="hh-l">Recovered all time</div><div class="hh-v">'+money(paidT)+'</div>'
+     +'<div class="hh-s">of '+money(claimedT)+' claimed · '+claims.length+' settled SKU claims</div></div>'
+     +'<div class="hh-side">'
+       +'<div><div class="hs-v" style="color:'+(recRate>=80?'var(--green)':recRate>=50?'var(--amber)':'var(--red)')+'">'+recRate+'%</div><div class="hs-l">recovered</div></div>'
+       +'<div><div class="hs-v" style="color:'+(shortT>0.01?'var(--red)':'var(--green)')+'">'+money(shortT)+'</div><div class="hs-l">never recovered</div></div>'
+       +'<div><div class="hs-v">'+openN+'</div><div class="hs-l">still open</div></div>'
+     +'</div></div>'
+   +narrative+inflight
+   +'<div class="h-sec">Claim outcomes</div>'
+   +'<div class="hk-row">'
+     +kpi('Win rate',winRate+'%',won+' of '+claims.length+' got something','var(--green)')
+     +kpi('Full COG',fullRate+'%',full.length+' paid in full','var(--green)')
+     +kpi('Reduced',part.length,'partly paid','var(--amber)')
+     +kpi('Nothing back',dead.length,'denied or expired','var(--red)')
+     +kpi('Biggest recovery',biggest?money(biggest.paid):'—',biggest&&biggest.paid>0?esc((biggest.l.sku||biggest.l.asin||'').slice(0,18)):'—','var(--blue)')
    +'</div>'
-   +'<div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;align-items:center">'
-   +'<span class="cmd-search" style="max-width:300px;flex:1">'+ic('search')+'<input placeholder="Search settled shipments…" value="'+esc(S.histSearch)+'" oninput="S.histSearch=this.value.toLowerCase();renderHistory()"></span>'
-   +'<span class="selwrap"><select onchange="S.histSort=this.value;renderHistory()"><option value="gained"'+(S.histSort==='gained'?' selected':'')+'>Sort: recovered</option><option value="vscog"'+(S.histSort==='vscog'?' selected':'')+'>Sort: vs COG</option><option value="newest"'+(S.histSort==='newest'?' selected':'')+'>Sort: newest</option></select>'+ic('chevron',14)+'</span>'
-   +trend
-   +'<button class="btn" onclick="exportCSV()" style="margin-left:auto">'+ic('receipt')+'Export CSV</button></div>'
-   +groupH;
+   +'<div class="h-sec">How the process runs</div>'
+   +'<div class="hk-row">'
+     +kpi('MSC attempts to win',avgTries!=null?avgTries.toFixed(1):'—','avg submissions per won claim','var(--violet)')
+     +kpi('Time to money',avgDays!=null?avgDays+'d':'—','shipment logged → paid','var(--blue)')
+     +kpi('Avg per claim',money(claims.length?paidT/claims.length:0),'across all settled','var(--green)')
+   +'</div>'
+   +'<div class="h-bar">'
+   +'<span class="cmd-search" style="max-width:320px;flex:1">'+ic('search')+'<input placeholder="Search SKU, ASIN, product, shipment…" value="'+esc(S.histSearch||'')+'" oninput="S.histSearch=this.value.toLowerCase();renderHistory()">'+'</span>'
+   +'<span class="selwrap"><select onchange="S.histSort=this.value;renderHistory()">'
+     +'<option value="gained"'+(srt==='gained'?' selected':'')+'>Sort: Most recovered</option>'
+     +'<option value="vscog"'+(srt==='vscog'?' selected':'')+'>Sort: Biggest shortfall</option>'
+     +'<option value="date"'+(srt==='date'?' selected':'')+'>Sort: Newest first</option>'
+   +'</select>'+ic('chevron',13)+'</span>'
+   +'<button class="btn sm" onclick="exportCSV()">'+ic('download',13)+'Export CSV</button>'
+   +'</div>'
+   +(groupH||'<div class="hint" style="padding:24px">Nothing matches that search.</div>');
   hydrateIcons(el);
 }
 /* ═══════════ ADD MODAL (3-step) ═══════════ */
@@ -2432,7 +2982,7 @@ function saveAdd(){
     recNew={id,name:'',dest:'',closed:document.getElementById('mClosed').value||new Date().toISOString().slice(0,10),shipped:0,received:0,lines};
   }
   const _create=function(){
-    const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Unassigned',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
+    const s={...recNew,rid:uid(),status:'invoice',statusAt:now(),invoice:'',scShot:false,urgent:'',escalated:false,owner:'Sarah',followUp:'',jackNote:'',note:'',cases:[],log:[],createdAt:now(),updated:now(),paidAt:null,firstOffer:null,snoozedUntil:null,sample:false};
     log(s,'Shipment issue logged · '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+' · potential '+money(pot(s)));
     DATA.unshift(s);markDirty(s.rid);S.sel=s.rid;S.fStatus='all';save(true);closeOv('addOv');go('active');toast(s.id+' created');logImport(addMode==='paste'?'amazon_paste':'csv',{shipment:s.id,lines:s.lines.length,potential:pot(s)});
   };
@@ -2535,11 +3085,20 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v65';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
-load();renderChrome();go('active');{const _d=document.getElementById('detail');if(_d)_d.addEventListener('scroll',function(){const t=document.getElementById('activeTop');if(t)t.classList.toggle('compact',_d.scrollTop>60);},{passive:true});}
-if(cloudOn()){cloudPullCfg();cloudPull(true);}
+const APP_VER='v74';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+load();renderChrome();go('active');
 let lastPull=Date.now();
+if(cloudOn()){cloudPullCfg();cloudPull(true);}
+
 function maybeRefresh(force){if(!cloudUsable())return;if(DIRTY.size){cloudPush(true);if(!force)return}if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
+/* v73 — heartbeat: retries pending work and re-probes after an error, so the
+   pill can never sit on "Sync error" while the database is actually fine. */
+setInterval(function(){
+  if(!cloudOn())return;
+  if(document.hidden)return;
+  if(DIRTY.size){ if(cloudUsable())cloudPush(true); return; }
+  if(cloudDead&&cloudReady())cloudPull(true);
+},30000);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){maybeRefresh()}else{flushPush()}});
 window.addEventListener('pagehide',flushPush);
 window.addEventListener('beforeunload',function(e){flushPush();if(DIRTY.size){e.preventDefault();e.returnValue='';return ''}});
