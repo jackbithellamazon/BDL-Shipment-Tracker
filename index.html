@@ -1104,12 +1104,12 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 .sku.col .sku-h{background:transparent}
 .sku.col:hover{border-color:color-mix(in srgb,var(--lc) 32%,var(--line))}
 .sku.col:hover .sku-h{background:color-mix(in srgb,var(--lc) 7%,var(--surface))}
-.sku.col .sku-h{display:grid;grid-template-columns:minmax(0,1fr) 46px 92px minmax(98px,auto) 22px;gap:10px;align-items:center}
+.sku.col .sku-h{display:grid;grid-template-columns:minmax(0,1fr) 52px 96px 118px 24px;gap:10px;align-items:center}
 .sku.col .sku-disc{text-align:right;min-width:0}
 .sku.col .sku-claim{text-align:right;justify-self:end}
 .sku.col .sku-st{justify-self:end}
 .sku.col .ld-chev{justify-self:center}
-.sku-colhead{display:grid;grid-template-columns:minmax(0,1fr) 46px 92px minmax(98px,auto) 22px;gap:10px;padding:2px 12px 7px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text4)}
+.sku-colhead{display:grid;grid-template-columns:minmax(0,1fr) 52px 96px 118px 24px;gap:10px;padding:2px 12px 7px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text4)}
 .sku-colhead span:nth-child(2),.sku-colhead span:nth-child(3),.sku-colhead span:nth-child(4){text-align:right}
 .sku.col .sku-t{font-size:12.5px;font-weight:600}
 .chead-l{flex-shrink:1;min-width:0}
@@ -1330,6 +1330,106 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 .m-meta{flex-wrap:wrap;row-gap:7px}
 .m-meta .ship-tags{margin:0 0 0 auto;padding:0;gap:6px}
 @media(max-width:900px){.m-meta .ship-tags{margin-left:0;width:100%}}
+
+/* ===== v78 — COG / SKU mismatch warning ===== */
+.cog-warn{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 12px;margin:0 0 10px;border:1px solid color-mix(in srgb,var(--amber) 45%,var(--line));background:color-mix(in srgb,var(--amber) 11%,var(--surface));border-radius:9px;font-size:12px;color:var(--text2);line-height:1.5}
+.cog-warn .ic{color:var(--amber);flex-shrink:0}
+.cog-warn b{color:var(--text);font-family:var(--num);font-weight:800}
+.cog-warn span{flex:1;min-width:200px}
+.cog-warn .btn{flex-shrink:0}
+
+/* ===== v80 — COG mismatch surfaced in the list ===== */
+.fl-c{color:var(--red)}
+.btn.warn{border-color:color-mix(in srgb,var(--red) 45%,var(--line2));color:var(--red)}
+.btn.warn:hover{background:color-mix(in srgb,var(--red) 14%,var(--surface))}
+
+/* ===== v81 — collapsed rows align across the whole list ===== */
+.sku.col .sku-st{justify-self:stretch;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.sku.col .sku-disc{text-align:right;min-width:0;padding-right:2px}
+.sku.col .sku-claim{text-align:right;justify-self:end;padding-right:2px}
+.sku-colhead>span:nth-child(2),.sku-colhead>span:nth-child(3){text-align:right}
+.sku-colhead>span:nth-child(4){text-align:center}
+
+/* ===== v81 — History: shipment first, SKUs inside ===== */
+.hship{border:1px solid var(--line);border-left:3px solid var(--hsc,var(--line2));border-radius:11px;margin-bottom:9px;background:var(--surface);overflow:hidden}
+.hship.win{--hsc:var(--green)} .hship.part{--hsc:var(--amber)} .hship.lost{--hsc:var(--red)}
+.hship-h{display:flex;align-items:center;gap:11px;padding:12px 14px;cursor:pointer;flex-wrap:wrap;transition:.12s}
+.hship-h:hover{background:var(--hover)}
+.hs-chev{color:var(--text3);display:inline-flex;transition:transform .16s ease}
+.hship-h.open .hs-chev{transform:rotate(180deg)}
+.hs-id{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+.hs-dest{font-size:11px;color:var(--text2);background:var(--input);padding:2px 8px;border-radius:99px}
+.hs-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.01em}
+.hs-badge.win{color:var(--green);background:color-mix(in srgb,var(--green) 18%,transparent)}
+.hs-badge.part{color:var(--amber);background:color-mix(in srgb,var(--amber) 18%,transparent)}
+.hs-badge.lost{color:var(--red);background:color-mix(in srgb,var(--red) 18%,transparent)}
+.hs-nums{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}
+.hs-nums span{text-align:right}
+.hs-nums b{display:block;font-family:var(--num);font-size:13.5px;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.hs-nums b.ok{color:var(--green)} .hs-nums b.bad{color:var(--red)} .hs-nums b.dim{color:var(--text3)}
+.hs-nums i{display:block;font-style:normal;font-size:10px;color:var(--text2);margin-top:2px}
+.hship-b{border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 45%,var(--surface))}
+.hsku-head,.hsku{display:grid;grid-template-columns:minmax(0,1fr) 92px 92px 92px 56px 56px 96px;gap:10px;align-items:center}
+.hsku-head{padding:8px 14px 6px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);font-weight:700;border-bottom:1px solid var(--line)}
+.hsku-head>span:not(:first-child){text-align:right}
+.hsku-head>span:last-child{text-align:center}
+.hsku{padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;border-left:2px solid transparent}
+.hsku:last-of-type{border-bottom:none}
+.hsku:hover{background:var(--hover)}
+.hsku.win{border-left-color:color-mix(in srgb,var(--green) 55%,transparent)}
+.hsku.part{border-left-color:color-mix(in srgb,var(--amber) 55%,transparent)}
+.hsku.lost{border-left-color:color-mix(in srgb,var(--red) 55%,transparent)}
+.hsku-p{min-width:0}
+.hsku-p .t{font-size:12.5px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hsku-p .m{font-family:var(--mono);font-size:10.5px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hsku .n{font-family:var(--num);font-size:12.5px;font-weight:700;color:var(--text);text-align:right}
+.hsku .n.ok{color:var(--green)} .hsku .n.bad{color:var(--red)} .hsku .n.dim{color:var(--text3)}
+.hsku-o{font-size:10px;font-weight:700;text-align:center;padding:3px 8px;border-radius:99px}
+.hsku-o.win{color:var(--green);background:color-mix(in srgb,var(--green) 16%,transparent)}
+.hsku-o.part{color:var(--amber);background:color-mix(in srgb,var(--amber) 16%,transparent)}
+.hsku-o.lost{color:var(--red);background:color-mix(in srgb,var(--red) 16%,transparent)}
+.hship-f{padding:9px 14px;font-size:11.5px;color:var(--text2);border-top:1px solid var(--line)}
+.hship-f b{color:var(--text);font-family:var(--num);font-weight:800}
+/* contrast: grey-on-black was unreadable */
+.mg-sub,.hc-ids,.invp-top,.age-l{color:var(--text2)}
+@media(max-width:1100px){.hsku-head,.hsku{grid-template-columns:minmax(0,1fr) 84px 84px 84px 86px}
+ .hsku-head>span:nth-child(5),.hsku-head>span:nth-child(6),.hsku .n:nth-of-type(4),.hsku .n:nth-of-type(5){display:none}}
+
+/* ===== v83 — safety nets ===== */
+.err-banner{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:300;display:flex;align-items:flex-start;gap:12px;max-width:min(720px,94vw);padding:13px 15px;background:var(--raise);border:1px solid color-mix(in srgb,var(--red) 55%,var(--line2));border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+.err-banner .eb-ic{color:var(--red);flex-shrink:0;margin-top:1px}
+.eb-t{flex:1;min-width:0;font-size:12.5px;color:var(--text2);line-height:1.55}
+.eb-t b{color:var(--text)}
+.eb-code{margin-top:7px;font-family:var(--mono);font-size:10.5px;color:var(--text3);background:var(--input);border:1px solid var(--line);border-radius:7px;padding:7px 9px;word-break:break-all;max-height:80px;overflow:auto}
+.err-banner .btn{flex-shrink:0}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:99px;white-space:nowrap}
+.chk.ok{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent)}
+.chk.bad{color:var(--red);background:color-mix(in srgb,var(--red) 15%,transparent)}
+.bak-row{display:flex;align-items:center;gap:12px;padding:9px 2px}
+.bak-row+.bak-row{border-top:1px solid var(--line)}
+.bak-when{font-size:12.5px;color:var(--text);font-weight:600}
+.bak-sub{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* ===== v85 — report a problem + approved-gap ===== */
+.rpt-in{width:100%;min-height:70px;resize:vertical;background:var(--input);border:1px solid var(--line2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:12.5px;font-family:var(--sans)}
+.rpt-out{margin-top:10px;max-height:220px;overflow:auto;background:var(--input);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:var(--mono);font-size:10.5px;line-height:1.55;color:var(--text2);white-space:pre-wrap;text-align:left}
+.gap-note{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;margin:0 0 10px;border:1px solid color-mix(in srgb,var(--blue) 40%,var(--line));background:color-mix(in srgb,var(--blue) 10%,var(--surface));border-radius:9px;font-size:12px;color:var(--text2);line-height:1.5}
+.gap-note .ic{color:var(--blue);flex-shrink:0;margin-top:1px}
+.gap-note b{color:var(--text);font-family:var(--num);font-weight:800}
+
+/* ===== v85b — approved-below-cost strip ===== */
+.ov-gap{display:flex;align-items:center;gap:12px;padding:12px 15px;margin-bottom:8px;border:1px solid color-mix(in srgb,var(--blue) 34%,var(--line));background:color-mix(in srgb,var(--blue) 9%,var(--surface));border-radius:11px;cursor:pointer;transition:.12s}
+.ov-gap:hover{background:color-mix(in srgb,var(--blue) 15%,var(--surface))}
+.ov-gap>.ic{color:var(--blue);flex-shrink:0}
+.ovg-t{flex:1;min-width:0;font-size:12.5px;color:var(--text2);line-height:1.5}
+.ovg-t b{color:var(--text);font-family:var(--num);font-weight:800}
+.ovg-m{font-family:var(--num);font-size:15px;font-weight:800;color:var(--blue)}
+.ovg-go{font-size:10.5px;color:var(--text2);flex-shrink:0}
+
+/* ===== v86 — cost-price backlog ===== */
+.bundle.blk.cogblk{background:color-mix(in srgb,var(--red) 7%,var(--surface))}
+.bundle.blk.cogblk .b-id{color:var(--red)}
+.bundle.blk.cogblk .b-money{color:var(--red);font-family:var(--sans);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -1345,7 +1445,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v77</span></div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v86</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
@@ -1377,6 +1477,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
       </div>
       <div class="chead-r">
         <div class="sync" id="syncInd" title="Synced"><span class="d"></span>Synced</div>
+        <button class="iconbtn" onclick="openReport()" title="Something doesn&#39;t look right? Send Jack a report"><span class="ic" data-ic="triangle"></span></button>
         <button class="iconbtn" onclick="toggleTheme()" title="Toggle theme"><span class="ic" data-ic="theme"></span></button>
         <button class="btn pri" onclick="openAdd()"><span class="ic" data-ic="plus"></span>New shipment</button>
       </div>
@@ -1592,7 +1693,15 @@ function setCloudState(st){const si=document.getElementById('syncInd');if(!si)re
   if(st==='err'&&pend){si.innerHTML='<span class="d"></span>'+pend+' unsaved';si.classList.add('trial');si.classList.remove('syncing');si.title=pend+' shipment'+(pend!==1?'s':'')+' not yet in the database \u2014 retrying automatically. Click to retry now. Keep this tab open.';return}
   si.innerHTML='<span class="d"></span>'+(st==='err'?'Sync error':st==='sync'?'Syncing\u2026':'Cloud \u00b7 SQL');si.classList.toggle('trial',st==='err');si.classList.toggle('syncing',st==='sync');si.title=st==='err'?('Could not reach the database. Retrying automatically'+(cloudFails?' (attempt '+cloudFails+')':'')+' \u2014 click to try now. Your work is saved on this device.'):'Synced with Supabase \u2014 click to refresh';}
 /* v63 — rows awaiting a confirmed server write. A pull must never drop these. */
-const DIRTY=new Set();let pushRetry=0;let lastPushOk=0;
+const LS_DIRTY='sd-dirty-v1';
+/* v79 — DIRTY is persisted. Previously lastPushOk started at 0, so the FIRST
+   save of every session marked every row changed (undoing the v76 scoping and
+   bringing back the overwrite risk). We could not simply start it at now(),
+   because that blanket-dirty was also what protected unsynced offline edits
+   across a reload. Persisting the set gives us both. */
+const DIRTY=new Set((function(){try{return JSON.parse(localStorage.getItem(LS_DIRTY))||[]}catch(e){return []}})());
+function saveDirty(){try{localStorage.setItem(LS_DIRTY,JSON.stringify(Array.from(DIRTY)))}catch(e){}}
+let pushRetry=0;let lastPushOk=Date.now();
 function markDirty(rid){if(rid)DIRTY.add(rid);}
 function markAllDirty(){DATA.forEach(s=>DIRTY.add(s.rid));}
 /* mark only what changed since the last confirmed server write */
@@ -1603,7 +1712,7 @@ async function doPush(){
   if(!DATA.length){DIRTY.clear();setCloudState('ok');return true}
   /* drop dirty markers for rows that no longer exist, otherwise DIRTY can
      never drain and the push would reschedule itself forever */
-  {const live=new Set(DATA.map(s=>s.rid));Array.from(DIRTY).forEach(function(rid){if(!live.has(rid))DIRTY.delete(rid)});}
+  {const live=new Set(DATA.map(s=>s.rid));let pruned=false;Array.from(DIRTY).forEach(function(rid){if(!live.has(rid)){DIRTY.delete(rid);pruned=true}});if(pruned)saveDirty();}
   /* v76 — push ONLY what this browser changed. Uploading every row meant a
      stale copy here could silently overwrite someone else's newer edit. */
   if(!DIRTY.size){setCloudState('ok');return true}
@@ -1614,7 +1723,7 @@ async function doPush(){
   try{setCloudState('sync');
     const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
     if(!r.ok)throw new Error('push '+r.status);
-    sent.forEach(rid=>DIRTY.delete(rid));pushRetry=0;lastPushOk=now();
+    sent.forEach(rid=>DIRTY.delete(rid));saveDirty();pushRetry=0;lastPushOk=now();
     /* v73 — rows edited WHILE this request was in flight are still dirty.
        That is not an error, it just means another push is due. Reporting
        'err' here is what pinned the badge on "Sync error" while the
@@ -1696,7 +1805,7 @@ function evidence(s){return[
 /* suggested follow-up */
 function followUp(s){if(s.followUp)return s.followUp;const base=s.statusAt||s.updated||now();if(s.status==='mscpending')return new Date(base+(SETTINGS.mscCheckDays||5)*86400000).toISOString().slice(0,10);if(s.status==='caseopen'||s.status==='reimbpending')return new Date(base+(SETTINGS.caseChaseDays||7)*86400000).toISOString().slice(0,10);return ''}
 
-function save(immediate){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(immediate)markAllDirty();else markChangedDirty();cloudPush(immediate)}
+function save(immediate){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(immediate)markAllDirty();else markChangedDirty();saveDirty();cloudPush(immediate)}
 function saveLinks(q){try{localStorage.setItem(LS_LINKS,JSON.stringify(LINKS))}catch(e){}if(!q)cloudPushCfg()}
 function load(){TRIAL=false;
   try{const l=localStorage.getItem(LS_LINKS);if(l)LINKS=Object.assign(LINKS,JSON.parse(l))}catch(e){}
@@ -1765,7 +1874,7 @@ function go(page){
   if(page==='overview')renderOverview();
   if(page==='active')renderActive();
   if(page==='actions')renderActions();
-  if(page==='invoices')renderInvQueue();if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();}
+  if(page==='invoices')renderInvQueue();if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();if(typeof renderBackups==='function')renderBackups();if(typeof selfCheckBadge==='function')selfCheckBadge();}
 }
 function renderChrome(){
   const open=DATA.filter(s=>!isHist(s));
@@ -1977,7 +2086,8 @@ function renderQueue(){
     const dcls=w.days<=SETTINGS.deadlineRiskDays?'crit':w.days<=SETTINGS.deadlineWarnDays?'warn':'';
     const flags=(s.urgent?'<span class="fl fl-u" title="Urgent">'+ic('triangle',12)+'</span>':'')
       +(s.escalated?'<span class="fl fl-j" title="With Jack">'+ic('user',12)+'</span>':'')
-      +(!invDone(s)?'<span class="fl fl-i" title="Invoice missing">'+ic('file',12)+'</span>':'');
+      +(!invDone(s)?'<span class="fl fl-i" title="Invoice missing">'+ic('file',12)+'</span>':'')
+      +(cogIssues(s)?'<span class="fl fl-c" title="A COG does not match its SKU">'+ic('triangle',12)+'</span>':'');
     const nextTxt=s.escalated?'Waiting on Jack':SHORTNEXT[s.status];
     const nextCls=s.escalated?'jack':(s.urgent||w.days<=SETTINGS.deadlineRiskDays)?'urg':'';
     return '<div class="item '+(S.sel===s.rid?'sel':'')+'" style="--sc:'+st.c+'" onclick="pick(\''+s.rid+'\')">'
@@ -2049,6 +2159,23 @@ function setMsc(rid,i,ai,v){const s=byId(rid),l=s.lines[i];l.msc[ai].result=v;va
 function setMscAmt(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].cog=parseFloat(v)||0;s.updated=now();save();renderDetail()}
 function setMscDate(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].date=v;s.updated=now();save();renderDetail()}
 function delMsc(rid,i,ai){const s=byId(rid);s.lines[i].msc.splice(ai,1);s.updated=now();save();renderDetail()}
+/* v78 — surface (never silently rewrite) a COG that contradicts its SKU */
+function cogMismatch(l){
+  const fromSku=cogFromSku(l.sku);
+  if(!fromSku)return 0;
+  const cur=+l.cog||0;
+  if(cur&&Math.abs(cur-fromSku)>0.005)return fromSku;
+  return 0;
+}
+function applySkuCog(rid,i){
+  const s=byId(rid),l=s.lines[i],v=cogFromSku(l.sku);
+  if(!v)return;
+  const was=+l.cog||0;
+  l.cog=v;s.updated=now();markDirty(s.rid);
+  log(s,'COG corrected from SKU: '+(l.sku||'')+' — '+money(was)+' → '+money(v));
+  save();refresh();toast('COG set to '+money(v));
+}
+
 function lineNext(s,l){const lst=l.lstatus||'needsmsc',cog=+l.cog||0,pct=SETTINGS.mscReductionPct||20,wait=SETTINGS.mscWaitDays||30,resub=cog*(1-pct/100);
  if(lst==='needsmsc')return (+cog>0)?{t:'Submit this SKU through MSC',s:'Open Seller Central → Manage Shipment Claims and submit at '+money(cog)+' COG.',c:'var(--amber)'}:{t:'Set the COG before submitting',s:'This SKU has no cost price, so there is nothing to claim yet. Enter the \u00a3/unit below, then submit through MSC.',c:'var(--red)'};
  if(lst==='mscsub')return{t:'Waiting on Amazon’s MSC decision',s:'Check back in a few days, then log the result below.',c:'var(--blue)'};
@@ -2192,6 +2319,11 @@ function setLineQty(rid,i){const s=byId(rid),l=s.lines[i];const e=document.getEl
 const MOREOPEN=new Set();
 function toggleMore(k,o){if(o)MOREOPEN.add(k);else MOREOPEN.delete(k)}
 function shipIds(s){if(!s.reimbId){var rl=s.lines.find(function(l){return l.reimbId});if(rl)s.reimbId=rl.reimbId;}var cu=s.caseId?'https://sellercentral.amazon.co.uk/cu/case-dashboard/view-case?caseID='+encodeURIComponent(s.caseId):'';return '<div class="ship-ids">'+'<div class="sid-f"><label>Case ID \u00b7 whole shipment</label><div class="sid-row">'+'<input value="'+esc(s.caseId||'')+'" placeholder="one case number for every line" onchange="setField(&quot;'+s.rid+'&quot;,&quot;caseId&quot;,this.value)">'+(s.caseId?'<a class="sid-btn" href="'+cu+'" target="_blank" rel="noopener" title="Open this case in Amazon">'+ic('ext',13)+'</a><button class="sid-btn" title="Copy case ID" onclick="cp(event,&quot;'+esc(s.caseId)+'&quot;)">'+ic('copy',13)+'</button>':'')+'</div></div>'+'<div class="sid-f"><label>Reimbursement ID</label><div class="sid-row">'+'<input value="'+esc(s.reimbId||'')+'" placeholder="reimb ID for the shipment" onchange="setField(&quot;'+s.rid+'&quot;,&quot;reimbId&quot;,this.value)">'+(s.reimbId?'<button class="sid-btn" title="Copy reimb ID" onclick="cp(event,&quot;'+esc(s.reimbId)+'&quot;)">'+ic('copy',13)+'</button>':'')+'</div></div>'+'</div>';}
+/* v81 — compact status wording for the collapsed row: the long labels
+   ("Reduced MSC approved") forced that row's grid wider than its neighbours,
+   which is why the columns did not line up. */
+const LSTAT_SHORT={needsmsc:'Needs MSC',mscsub:'Submitted',mscreview:'In review',needsdoc:'Needs doc',mscapproved:'Approved',mscreduced:'Reduced',denied:'Denied',caseopen:'Case open',reimbpending:'Awaiting pay',reimbursed:'Reimbursed'};
+
 function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog||0),reimb=+l.reimb||0,short=claim-reimb,lst=l.lstatus||'needsmsc',cur=LSTAT[lst]||LSTAT.needsmsc,nx=lineNext(s,l),col=(rid+':'+i)!==S.expLine,needCog=(l.miss>0||l.exc>0)&&!(+l.cog>0);
   const disc=l.miss?('−'+l.miss):(l.exc?('+'+l.exc):'0'),discCls=l.miss?'miss':l.exc?'exc':'zero';
   const hd='<div class="sku-h" onclick="toggleLineExp(\''+rid+'\','+i+')">'
@@ -2201,7 +2333,7 @@ function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog|
      +'<span class="chip" onclick="cp(event,\''+esc(l.asin)+'\')"><span class="k">ASIN</span>'+esc(l.asin)+'</span>'
      +'<span class="chip" onclick="cp(event,\''+esc(l.fnsku)+'\')"><span class="k">FNSKU</span>'+esc(l.fnsku)+'</span></div></div>'
    +'<div class="sku-disc"><div class="sku-disc-n '+discCls+'">'+disc+'</div><div class="sku-disc-l">disc.</div></div>'+'<div class="sku-claim">'+money(claim)+'</div>'
-   +'<span class="sku-st">'+cur.l+'</span><span class="ld-chev">'+ic('chevron',13)+'</span></div>';
+   +'<span class="sku-st" title="'+esc(cur.l)+'">'+esc(LSTAT_SHORT[lst]||cur.l)+'</span><span class="ld-chev">'+ic('chevron',13)+'</span></div>';
   if(col)return '<div class="sku col" style="--lc:'+cur.c+'">'+hd+'</div>';
   const sOpts=Object.keys(LSTAT).map(k=>'<option value="'+k+'"'+(lst===k?' selected':'')+'>'+LSTAT[k].l+'</option>').join('');
   const rOpt=v=>[['submitted','submitted'],['under_review','under review'],['needs_doc','needs document'],['approved','approved'],['reduced','reduced approved'],['denied','denied'],['error','error']].map(o=>'<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>').join('');
@@ -2213,6 +2345,8 @@ function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog|
    +'<div class="ld-next" style="--nc:'+nx.c+'"><div class="ld-next-t">'+ic('arrow',13)+'<span>'+nx.t+'</span></div><div class="ld-next-s">'+nx.s+'</div></div>'
    +'<div class="ld-top"><span class="selwrap sm"><select onchange="setLineField(\''+rid+'\','+i+',\'lstatus\',this.value)">'+sOpts+'</select>'+ic('chevron',13)+'</span><span class="ld-acts"><button class="mini-btn" onclick="openLink(\'sc\')">'+ic('ext',13)+'MSC portal</button><button class="mini-btn" onclick="copyLineCase(\''+rid+'\','+i+')">'+ic('copy',13)+'Copy message</button>'+(lst!=='reimbursed'?'<button class="mini-btn ld-done" onclick="markLineReimbursed(\''+rid+'\','+i+')">'+ic('check',13)+'Mark reimbursed</button>':'')+'</span></div>'+'<div class="sku-chks"><button class="chk'+(l.chkMsc?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkMsc\')">MSC checked</button><button class="chk'+(l.chkInv?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkInv\')">Invoice checked</button><button class="chk'+(l.chkSub?' on':'')+'" onclick="toggleChk(\''+rid+'\','+i+',\'chkSub\')">Submitted</button></div>'
       +'<div class="money-panel"><div class="mp-fig"><span class="mp-l">Claim</span><span class="mp-v">'+money(claim)+'</span></div><div class="mp-fig"><span class="mp-l">Reimbursed</span><input class="mp-in" type="number" step="0.01" value="'+(l.reimb||'')+'" placeholder="0.00" onchange="setLineField(\''+rid+'\','+i+',\'reimb\',this.value)"></div><div class="mp-fig"><span class="mp-l">Shortfall</span><span class="mp-v" style="color:'+(short>0.01?'var(--red)':'var(--green)')+'">'+money(short)+'</span></div></div>'
+   +(function(){var _m=cogMismatch(l);return _m?'<div class="cog-warn">'+ic('triangle',14)+'<span>'+((cogFromSku(l.sku)>0&&(l.miss||0)>1&&Math.abs((+l.cog||0)-cogFromSku(l.sku)*(l.miss||0))<0.02)?'This looks like the <b>total for all '+(l.miss||0)+' units</b> in the per-unit box \u2014 the units are already counted separately, so the claim is doubled. ':'')+'COG is <b>'+money(+l.cog||0)+'</b> but the SKU says <b>'+money(_m)+'</b>. '+'Claim would be '+money((l.miss||0)*_m)+' instead of '+money((l.miss||0)*(+l.cog||0))+'.</span>'+'<button class="btn sm" onclick="applySkuCog(\''+rid+'\','+i+')">Use '+money(_m)+'</button></div>':''})()
+   +(function(){var _g=approvedGap(l);return _g>0.005?'<div class="gap-note">'+ic('coins',13)+'<span>Amazon approved <b>'+money((l.msc||[]).filter(function(m){return /approved|reduced/.test(m.result||'')&&+m.cog>0}).slice(-1)[0].cog)+'</b> per unit against your cost of <b>'+money(+l.cog||0)+'</b> \u2014 <b>'+money(_g)+'</b> short. Re-submit to push for the full amount.</span></div>':''})()
    +'<div class="ld-grid recon">'+F('Units expected','<input type="number" id="qe'+i+'" value="'+(l.qtyExp!=null?l.qtyExp:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('Units located','<input type="number" id="qr'+i+'" value="'+(l.qtyRec!=null?l.qtyRec:'')+'" placeholder="—" onchange="setLineQty(\''+rid+'\','+i+')">')+F('COG £/unit','<input class="'+(needCog?'need':'')+'" type="number" step="0.01" value="'+(l.cog||'')+'" onchange="setCog(\''+rid+'\','+i+',this.value)">')+F('Next MSC update',IN('nextUpdate',l.nextUpdate,'','date'))+'</div>'
    +'<div class="ld-msc msc-block"><div class="ld-lbl">MSC submissions <span class="cnt">'+((l.msc||[]).length)+'</span><button class="mini-btn ld-log msc-log" onclick="logMsc(\''+rid+'\','+i+')">'+ic('plus',13)+'Log MSC submission</button></div>'+att+'</div>'
    +'<details class="ld-more"'+(MOREOPEN.has(rid+':'+i)?' open':'')+' ontoggle="toggleMore(&quot;'+rid+':'+i+'&quot;,this.open)"><summary>'+ic('chevron',12)+'Invoice &amp; evidence</summary>'
@@ -2254,7 +2388,7 @@ function renderDetail(){
   let nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button>';
   if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="openCaseMsg(\''+s.rid+'\')">'+ic('copy')+'Case message</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'MSC paid \u2014 settle all</button>';
   else if(s.status==='mscpending')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" onclick="markChecked(\''+s.rid+'\')">'+ic('check')+'Mark checked</button><button class="btn" onclick="setFollowUp(\''+s.rid+'\')">'+ic('alarm')+'Set follow-up</button>';
-  else if(s.status==='invoice'){const _c=invCov(s);nbtns=(_c.need&&_c.have>=_c.need)?'<button class="btn pri" onclick="advanceToMsc(\''+s.rid+'\')">'+ic('arrow')+'Push to MSC</button>'+'<button class="btn" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+'Invoices '+_c.have+'/'+_c.need+'</button>':'<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
+  else if(s.status==='invoice'){const _c=invCov(s);nbtns=cogNeeded(s)?'<button class="btn pri" onclick="go(&quot;invoices&quot;)">'+ic('triangle')+'Set cost on '+cogNeeded(s)+' SKU'+(cogNeeded(s)!==1?'s':'')+'</button>':(_c.need&&_c.have>=_c.need)?'<button class="btn pri" onclick="advanceToMsc(\''+s.rid+'\')">'+ic('arrow')+'Push to MSC</button>'+'<button class="btn" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+'Invoices '+_c.have+'/'+_c.need+'</button>':'<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
   if(['caseopen','reimbpending'].includes(s.status))nbtns+='<button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Reimbursed \u2014 settle all</button>';
   if(!hist)nbtns+='<button class="btn" onclick="toggleEsc(\''+s.rid+'\')">'+ic('user')+(s.escalated?'Return from Jack':'Escalate to Jack')+'</button>';
 
@@ -2265,7 +2399,7 @@ function renderDetail(){
     +'<div class="kv"><span class="k">Case no</span><span class="chip" onclick="cp(event,\''+esc(c.no)+'\')">'+esc(c.no)+'</span></div>'
     +'<div class="kv"><span class="k">Reimb ID</span>'+(c.reimb?'<span class="chip" onclick="cp(event,\''+esc(c.reimb)+'\')">'+esc(c.reimb)+'</span>':'<span class="ev-no">awaiting</span>')+'</div>'
     +'<div class="kv"><span class="k">Amount'+(c.date?' · '+fmtD(c.date):'')+'</span><span style="display:flex;gap:8px;align-items:center"><b class="mono" style="color:'+(c.amt?'var(--green)':'var(--text4)')+'">'+(c.amt?money(c.amt):'—')+'</b><button class="rowx" onclick="delCase(\''+s.rid+'\','+i+')">'+ic('x')+'</button></span></div></div>').join('')
-   :'<div class="hint" style="padding:4px 0">No case yet — cases open only after every MSC line is approved.</div>';
+   :(s.caseId?'<div class="hint" style="padding:4px 0">Case <b>'+esc(s.caseId)+'</b> is open on this shipment. Log the reimbursement below once Amazon pays.</div>':'<div class="hint" style="padding:4px 0">No case yet — cases open only after every MSC line is approved.</div>');
   const logRows=(s.log||[]).slice(0,10).map(e=>{const am=actMeta(e.txt);return '<div class="tl-row" style="--tc:'+am.c+'"><div class="tl-ts">'+new Date(e.ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+(e.ts>now()-864e5?', '+new Date(e.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):'')+'</div>'+esc(e.txt)+(e.who?'<span class="tl-who">'+esc(e.who)+'</span>':'')+'</div>'}).join('');
 
   ensureAcc(s);
@@ -2281,7 +2415,7 @@ function renderDetail(){
    +'<div class="m-right">'
    +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
    +((s.lines&&s.lines.length)?'<button class="btn sm" onclick="openCaseMsg(&quot;'+s.rid+'&quot;)" title="Build one message covering every line">'+ic('copy')+'Case message</button>':'')
-   +(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
+   +(cogIssues(s)?'<button class="btn sm warn" onclick="fixAllCog(&quot;'+s.rid+'&quot;)" title="A COG disagrees with its SKU">'+ic('triangle')+'COG check ('+cogIssues(s)+')</button>':'')+(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
    +(editingHdr===s.rid?hdrEditForm(s):'')
    /* next action hero */
    +'<div class="next '+(hist?'done':s.escalated?'jack':waiting?'wait':'')+'">'
@@ -2327,7 +2461,9 @@ document.addEventListener('click',()=>{const p=document.getElementById('statusPo
 function refresh(){save();renderChrome();if(S.page==='active')renderActive();if(S.page==='overview')renderOverview();if(S.page==='actions')renderActions();if(S.page==='history')renderHistory()}
 function settleShipment(rid){const s=byId(rid);const open=s.lines.filter(l=>l.lstatus!=='reimbursed');const tot=s.lines.reduce((a,l)=>a+((+l.reimb>0)?+l.reimb:(l.miss||0)*(+l.cog||0)),0);askConfirm({tone:'primary',icon:'check2',title:'Settle the whole shipment?',message:(open.length?'<b>'+open.length+'</b> SKU'+(open.length!==1?'s':'')+' will be marked reimbursed at full claim value.':'All SKUs are already reimbursed.')+'<br>'+esc(s.id)+' moves to <b>Reimbursed</b> \u2014 <b>'+money(tot)+'</b> total.'+(tot<0.01?'<br><span class="cfm-warn">No claim value is recorded (\u00a30.00). Add COG or a reimbursement amount first, or confirm you\'re closing it with nothing recovered.</span>':''),confirmLabel:tot<0.01?'Mark reimbursed anyway':'Settle shipment',onConfirm:function(){s.lines.forEach(l=>{if(l.lstatus!=='reimbursed'){l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';}});log(s,'Whole shipment settled \u2014 '+money(rec(s))+' reimbursed');s.status='reimbursed';s.statusAt=now();s.paidAt=s.paidAt||now();refresh();toast('Shipment settled \u2014 '+money(rec(s))+' recovered')}})}
 function advanceToMsc(rid){
-  const s=byId(rid);if(!s)return;const c=invCov(s);
+  const s=byId(rid);if(!s)return;
+  if(cogNeeded(s)){toast(cogNeeded(s)+' SKU'+(cogNeeded(s)!==1?'s have':' has')+' no cost price \u2014 set it first');go('invoices');return}
+  const c=invCov(s);
   askConfirm({tone:'primary',icon:'arrow',title:'Push this shipment to MSC?',
     message:'All <b>'+c.need+'</b> SKU'+(c.need!==1?'s':'')+' on <b>'+esc(s.id)+'</b> have an invoice.<br>It moves to <b>MSC pending</b> so it stops showing as invoice work.',
     confirmLabel:'Push to MSC',
@@ -2465,6 +2601,7 @@ function primaryTask(s){
   if(s.urgent)return{title:s.urgent,sub:'Flagged urgent — handle before anything else.',ic:'triangle',bucket:'do',sev:0};
   if(w.days<0)return{title:'Window expired — review',sub:'The claim window has passed. Decide whether to write it off.',ic:'triangle',bucket:'do',sev:1};
   if(w.days<=SETTINGS.deadlineRiskDays)return{title:'Push before the window closes',sub:'Claim window closes '+fmtD(w.e)+' — '+w.days+' day'+(w.days!==1?'s':'')+' left.',ic:'alarm',bucket:'do',sev:1};
+  if(cogNeeded(s)&&['invoice','mscreupdate'].includes(s.status))return{title:'Cost price missing on '+cogNeeded(s)+' SKU'+(cogNeeded(s)!==1?'s':''),sub:'Those lines are worth \u00a30 until a \u00a3/unit is set, so they cannot be claimed. Set them, then push to MSC.',ic:'triangle',bucket:'do',sev:1};
   if(invDone(s)&&['invoice','mscreupdate'].includes(s.status)&&(s.lines||[]).length)return{title:'Invoices done \u2014 push to MSC',sub:'All '+invCov(s).need+' SKU'+(invCov(s).need!==1?'s':'')+' have an invoice. Submit the MSC claim, then move this shipment on.',ic:'arrow',bucket:'do',sev:2};
   if(!invDone(s)&&['invoice','mscreupdate'].includes(s.status)){const c=invCov(s);return{title:c.need?'Invoices — '+c.missing+' of '+c.need+' SKU'+(c.need!==1?'s':'')+' still needed':'Sort invoices',sub:(c.need?c.have+' of '+c.need+' SKUs have an invoice.':'Needed before MSC can be pushed.'),ic:'file',bucket:'do',sev:2};}
   if(s.status==='mscapproved')return{title:'Open the case',sub:'All MSC lines approved — open the Seller Support case and log the number.',ic:'msg',bucket:'do',sev:1};
@@ -2476,12 +2613,42 @@ function primaryTask(s){
   if(s.status==='reimbpending'||s.status==='caseopen')return{title:'Awaiting reimbursement',sub:'Case is with Amazon'+(fuFuture(s)?' · follow up '+fmtDShort(s.followUp):'')+'.',ic:'hourglass',bucket:'wait',sev:5};
   return{title:SHORTNEXT[s.status],sub:NEXT[s.status].s,ic:'arrow',bucket:'do',sev:3};
 }
+/* v80 — a wrong COG must be visible from the LIST, not only after expanding
+   the one SKU it happens to be on. */
+/* v85 — where Amazon approved LESS than our cost. Not a data fault: this is
+   the gap the MSC re-submission process exists to close. */
+function approvedGap(l){
+  const cog=+l.cog||0;if(!(cog>0))return 0;
+  const ap=(l.msc||[]).filter(function(m){return /approved|reduced/.test(m.result||'')&&+m.cog>0});
+  if(!ap.length)return 0;
+  const last=+ap[ap.length-1].cog;
+  return last<cog-0.005?(cog-last)*Math.max(1,(l.miss||0)):0;
+}
+function shipApprovedGap(s){
+  return (s.lines||[]).reduce(function(a,l){return a+approvedGap(l)},0);
+}
+
+function cogIssues(s){
+  return (s.lines||[]).filter(function(l){return cogMismatch(l)>0}).length;
+}
+function fixAllCog(rid){
+  const s=byId(rid);if(!s)return;
+  const bad=(s.lines||[]).map(function(l,i){return{l:l,i:i,v:cogMismatch(l)}}).filter(function(x){return x.v>0});
+  if(!bad.length)return;
+  askConfirm({tone:'primary',icon:'triangle',title:'Correct '+bad.length+' COG'+(bad.length!==1?'s':'')+' from the SKU?',
+    message:bad.map(function(x){return '<b>'+esc(x.l.sku||'')+'</b><br><span class="cfm-sub">'+money(+x.l.cog||0)+' → '+money(x.v)+'</span>'}).join('<br><br>'),
+    confirmLabel:'Correct '+(bad.length>1?'them':'it'),
+    onConfirm:function(){bad.forEach(function(x){const was=+x.l.cog||0;x.l.cog=x.v;log(s,'COG corrected from SKU: '+(x.l.sku||'')+' — '+money(was)+' → '+money(x.v));});
+      s.updated=now();markDirty(s.rid);save();refresh();toast(bad.length+' COG'+(bad.length!==1?'s':'')+' corrected');}});
+}
+
 function shipFlags(s){
   const w=win(s),f=[];
   if(s.urgent)f.push({l:'Urgent',c:'var(--red)',ic:'triangle'});
   if(w.days<=SETTINGS.deadlineRiskDays&&w.days>=0)f.push({l:'Closing in '+w.days+'d',c:'var(--red)',ic:'alarm'});
   else if(w.days<=SETTINGS.deadlineWarnDays&&w.days>=0)f.push({l:w.days+'d window',c:'var(--amber)',ic:'clock'});
   if(!invDone(s)&&stepIndex(s.status)<2){const c=invCov(s);f.push({l:c.need?'Invoices '+c.have+'/'+c.need:'Invoice missing',c:'var(--amber)',ic:'file'});}
+  {const ci=cogIssues(s);if(ci)f.push({l:'COG check ('+ci+')',c:'var(--red)',ic:'triangle'});}
   if(s.escalated)f.push({l:'With Jack',c:'var(--violet)',ic:'user'});
   return f;
 }
@@ -2500,6 +2667,27 @@ function acBundles(){
 /* ===== v69 — one card for the whole invoice backlog =====
    17 shipments each showing "Sort invoices" is 17 ways of saying the same
    thing. Roll them into a single card that opens the invoice queue. */
+/* v86 — a SKU with no cost price cannot be claimed at all. Treat it as its own
+   blocking job rather than letting it hide behind the invoice task. */
+function cogNeeded(s){
+  return (s.lines||[]).filter(function(l){return ((l.miss||0)>0||(l.exc||0)>0)&&!(+l.cog>0)}).length;
+}
+function cogBacklog(){
+  const ships=DATA.filter(function(s){return !isHist(s)&&cogNeeded(s)>0});
+  let skus=0;
+  ships.forEach(function(s){skus+=cogNeeded(s)});
+  return {ships:ships,n:ships.length,skus:skus};
+}
+function cogBacklogCard(bl){
+  return '<div class="bundle blk cogblk" style="--bc:var(--red)">'
+   +'<div class="b-top"><span class="b-id">'+ic('triangle',13)+'Cost price missing</span>'
+     +'<span class="b-act">'+bl.skus+' SKU'+(bl.skus!==1?'s':'')+' across '+bl.n+' shipment'+(bl.n!==1?'s':'')+'</span>'
+     +'<span class="b-right"><span class="b-money">blocked</span></span></div>'
+   +'<div class="b-meta">These claims are worth \u00a30 until a \u00a3/unit is set \u2014 they cannot be submitted to MSC.</div>'
+   +'<div class="b-btns"><button class="btn sm pri" onclick="go(\'invoices\')">'+ic('arrow')+'Set the costs</button></div>'
+  +'</div>';
+}
+
 function invBacklog(){
   const ships=DATA.filter(function(s){return !isHist(s)&&!invDone(s)&&stepIndex(s.status)<2&&!s.escalated});
   let skus=0,risk=0;
@@ -2572,7 +2760,9 @@ function renderActions(){
   const _invN=doNow.length-_rest.length;
   const _grouped=(_invN>=3&&!S.blkOpen);
   const _shown=_grouped?_rest:doNow;
+  const _cbl=cogBacklog();
   const doNowCol='<div class="ac-colhead">'+ic('alert')+'Do now<span class="cnt">'+doNow.length+'</span></div>'
+    +(_cbl.skus?cogBacklogCard(_cbl):'')
     +(_grouped?invBacklogCard(_bl):(_invN>=3?invBacklogCard(_bl):''))
     +(_shown.length?_shown.map(bundleCard).join(''):(_grouped?'':'<div class="q-empty" style="padding:30px;border:1px dashed var(--border);border-radius:9px">Nothing here.</div>'));
   const rightCol=rightEmpty?'':'<div><div class="ac-colhead">'+ic('hourglass')+'Waiting / scheduled<span class="cnt">'+waiting.length+'</span></div>'+(waiting.length?waiting.map(bundleCard).join(''):'<div class="q-empty" style="padding:30px;border:1px dashed var(--border);border-radius:9px">Nothing waiting.</div>')+(snoozedN?'<div class="snoozed-note">'+ic('alarm',15)+snoozedN+' shipment'+(snoozedN!==1?'s':'')+' snoozed. <button onclick="unsnoozeAll()">Restore</button></div>':'')+upHTML+'</div>';
@@ -2612,13 +2802,19 @@ function renderOverview(){
   const lost=DATA.filter(s=>s.status==='expired'||s.status==='writtenoff').reduce((a,s)=>a+pot(s),0);
   const rate=(recovered+lost)>0?Math.round(recovered/(recovered+lost)*100):null;
 
+  /* v85 — Amazon approving under our cost is money still on the table. */
+  let gapN=0,gapT=0;
+  DATA.forEach(function(s){(s.lines||[]).forEach(function(l){const g=approvedGap(l);if(g>0.005){gapN++;gapT+=g}})});
+  const gapStrip=gapN?'<div class="ov-gap" onclick="S.fStatus=\'all\';go(\'active\')">'+ic('coins',16)
+    +'<div class="ovg-t">Amazon approved <b>under your cost</b> on <b>'+gapN+'</b> SKU'+(gapN!==1?'s':'')+' \u2014 re-submitting could recover more.</div>'
+    +'<div class="ovg-m">'+money(gapT)+'</div><span class="ovg-go">still short</span></div>':'';
   const ovBl=invBacklog();
   const ovInv=allDo.filter(function(b){return !b.s.escalated&&!invDone(b.s)&&stepIndex(b.s.status)<2}).length;
   const ovRest=bundles.filter(function(b){return b.s.escalated||invDone(b.s)||stepIndex(b.s.status)>=2});
   const ovGroup=ovInv>=3;
   const ovCard=ovGroup?'<div class="ov-blk" onclick="go(\'invoices\')">'+ic('file',16)+'<div class="ovb-t"><b>'+ovBl.skus+' invoice'+(ovBl.skus!==1?'s':'')+'</b> needed across <b>'+ovBl.n+'</b> shipments</div><div class="ovb-m">'+money(ovBl.risk)+'</div><span class="ovb-go">Open queue'+ic('arrow',13)+'</span></div>':'';
   const tasksSrc=ovGroup?ovRest:bundles;
-  const tasks=ovCard+(tasksSrc.length?tasksSrc.map(b=>{const d=win(b.s).days;const uc=d<=SETTINGS.deadlineRiskDays?'var(--red)':d<=SETTINGS.deadlineWarnDays?'var(--amber)':STATUS[b.s.status].c;const own=ownerOf(b.s);
+  const tasks=gapStrip+ovCard+(tasksSrc.length?tasksSrc.map(b=>{const d=win(b.s).days;const uc=d<=SETTINGS.deadlineRiskDays?'var(--red)':d<=SETTINGS.deadlineWarnDays?'var(--amber)':STATUS[b.s.status].c;const own=ownerOf(b.s);
     return '<div class="task" style="--tc:'+uc+'" onclick="S.sel=\''+b.s.rid+'\';go(\'active\')">'
      +'<span class="task-bar"></span>'
      
@@ -2735,7 +2931,8 @@ function invqStats(){
   const need=rows.filter(function(r){return !r.val}).length;
   const el=document.getElementById('invqStat');
   const nc=rows.filter(function(r){return r.needsCog}).length;
-  if(el)el.innerHTML='<b>'+need+'</b> SKU'+(need!==1?'s':'')+' still need an invoice'+(nc?' &nbsp;·&nbsp; <b style="color:var(--red)">'+nc+'</b> need a COG':'');
+  const mism=rows.filter(function(r){return cogMismatch(r.l)>0}).length;
+  if(el)el.innerHTML='<b>'+need+'</b> SKU'+(need!==1?'s':'')+' still need an invoice'+(nc?' &nbsp;·&nbsp; <b style="color:var(--red)">'+nc+'</b> need a COG':'')+(mism?' &nbsp;·&nbsp; <b style="color:var(--red)">'+mism+'</b> COG'+(mism!==1?'s':'')+' disagree with the SKU':'');
   const pend=rows.filter(function(r){return (INVQ.draft[r.key]!==undefined&&INVQ.draft[r.key]!==(r.l.invoice||''))||(INVQ.cog[r.ck]!==undefined&&INVQ.cog[r.ck]!==''&&(+INVQ.cog[r.ck]>0)&&(+r.l.cog||0)!==(+INVQ.cog[r.ck]));}).length;
   const sb=document.getElementById('invqSaveBtn');
   if(sb){sb.textContent=pend?('Save '+pend+' invoice'+(pend!==1?'s':'')):'Save invoices';sb.classList.toggle('pri',!!pend);sb.disabled=!pend;}
@@ -2823,7 +3020,9 @@ function renderHistory(){
   /* ---- headline position ---- */
   const claimedT=claims.reduce(function(a,c){return a+c.claimed},0);
   const paidT=claims.reduce(function(a,c){return a+c.paid},0);
-  const shortT=claimedT-paidT;
+  const shortRaw=claimedT-paidT;
+  const shortT=Math.max(0,shortRaw);   /* Amazon can overpay; a negative shortfall is meaningless */
+  const overpaid=shortRaw<-0.005?-shortRaw:0;
   const recRate=claimedT>0?Math.round(paidT/claimedT*100):0;
   const full=claims.filter(function(c){return c.outcome==='full'});
   const part=claims.filter(function(c){return c.outcome==='partial'});
@@ -2846,7 +3045,7 @@ function renderHistory(){
   const narrative='<div class="h-note '+tone+'">'
     +'<b>'+(recRate>=80?'Recovery is strong.':recRate>=50?'Recovery is mixed.':'Recovery is weak.')+'</b> '
     +'Across <b>'+claims.length+'</b> settled SKU claim'+(claims.length!==1?'s':'')+' you claimed <b>'+money(claimedT)+'</b> and Amazon paid <b>'+money(paidT)+'</b> — that’s <b>'+recRate+'%</b> back. '
-    +(shortT>0.01?'<b>'+money(shortT)+'</b> was never recovered.':'Nothing was left on the table.')
+    +(shortT>0.01?'<b>'+money(shortT)+'</b> was never recovered.':(overpaid?'Nothing was left on the table \u2014 Amazon actually paid <b>'+money(overpaid)+'</b> over.':'Nothing was left on the table.'))
     +(dead.length?' <b>'+dead.length+'</b> claim'+(dead.length!==1?'s':'')+' came back with nothing.':'')
     +'</div>';
 
@@ -2874,23 +3073,65 @@ function renderHistory(){
     const g=groups[key], parts=key.split('-');
     const gC=g.reduce(function(a,c){return a+c.claimed},0), gP=g.reduce(function(a,c){return a+c.paid},0);
     const gRate=gC>0?Math.round(gP/gC*100):0;
-    const rows=g.map(function(c){
-      const oc=c.outcome==='full'?'var(--green)':c.outcome==='partial'?'var(--amber)':'var(--red)';
-      const tag=c.outcome==='full'?'<span class="state-tag state-win">Full COG</span>':c.outcome==='partial'?'<span class="state-tag state-partial">Reduced</span>':'<span class="state-tag state-lost">Nothing</span>';
-      return '<div class="hc-row" style="--hc:'+oc+'" onclick="S.sel=\''+c.s.rid+'\';go(\'active\')">'
-       +'<div class="hc-item"><div class="hc-p">'+esc(c.l.p||'(no name)')+'</div>'
-         +'<div class="hc-ids">'+esc(c.l.sku||'')+(c.l.asin?' · '+esc(c.l.asin):'')+' · '+esc(c.s.id)+'</div></div>'
-       +'<div class="hc-n"><b>'+money(c.claimed)+'</b><i>claimed</i></div>'
-       +'<div class="hc-n"><b style="color:'+(c.paid>0?'var(--green)':'var(--text4)')+'">'+money(c.paid)+'</b><i>paid</i></div>'
-       +'<div class="hc-n"><b style="color:'+(c.short>0.01?'var(--red)':'var(--green)')+'">'+(c.short>0.01?'−'+money(c.short):'—')+'</b><i>short</i></div>'
-       +'<div class="hc-n"><b>'+(c.tries||'—')+'</b><i>MSC tries</i></div>'
-       +'<div class="hc-n"><b>'+(c.days!=null?c.days+'d':'—')+'</b><i>to pay</i></div>'
-       +tag+'</div>';
-    }).join('');
+
+    /* v81 — group the month's claims BY SHIPMENT: the question is
+       "how did this shipment go", with its SKUs underneath. */
+    const byShip={};
+    g.forEach(function(c){(byShip[c.s.rid]=byShip[c.s.rid]||{s:c.s,rows:[]}).rows.push(c)});
+    const ships=Object.keys(byShip).map(function(rid){
+      const b=byShip[rid], s=b.s;
+      const claimed=b.rows.reduce(function(a,c){return a+c.claimed},0);
+      const paid=b.rows.reduce(function(a,c){return a+c.paid},0);
+      const short=claimed-paid;
+      const rate=claimed>0?Math.round(paid/claimed*100):0;
+      const tries=b.rows.filter(function(c){return c.tries>0});
+      const avgTries=tries.length?(tries.reduce(function(a,c){return a+c.tries},0)/tries.length):null;
+      const days=b.rows.filter(function(c){return c.days!=null});
+      const avgDays=days.length?Math.round(days.reduce(function(a,c){return a+c.days},0)/days.length):null;
+      const full=b.rows.filter(function(c){return c.outcome==='full'}).length;
+      const dead=b.rows.filter(function(c){return c.outcome==='dead'}).length;
+      const tone=rate>=100?'win':rate>0?'part':'lost';
+      const badge=tone==='win'?'<span class="hs-badge win">'+(rate>100?rate+'% \u2014 paid over':'Full recovery')+'</span>'
+                 :tone==='part'?'<span class="hs-badge part">'+rate+'% recovered</span>'
+                 :'<span class="hs-badge lost">Nothing recovered</span>';
+      return {sortKey:paid, html:'<div class="hship '+tone+'">'
+        +'<div class="hship-h" onclick="var b=this.parentNode.querySelector(&quot;.hship-b&quot;);var o=b.style.display===&quot;none&quot;;b.style.display=o?&quot;block&quot;:&quot;none&quot;;this.classList.toggle(&quot;open&quot;,o)">'
+          +'<span class="hs-chev">'+ic('chevron',14)+'</span>'
+          +'<div class="hs-id">'+esc(s.id)+'</div>'
+          +(s.dest?'<span class="hs-dest">'+esc(s.dest)+'</span>':'')
+          +badge
+          +'<div class="hs-nums">'
+            +'<span><b>'+money(claimed)+'</b><i>claimed</i></span>'
+            +'<span><b class="ok">'+money(paid)+'</b><i>recovered</i></span>'
+            +'<span><b class="'+(short>0.01?'bad':'dim')+'">'+(short>0.01?'−'+money(short):'—')+'</b><i>short</i></span>'
+            +'<span><b>'+b.rows.length+'</b><i>SKU'+(b.rows.length!==1?'s':'')+'</i></span>'
+            +'<span><b>'+(avgTries!=null?avgTries.toFixed(1):'—')+'</b><i>MSC tries</i></span>'
+            +'<span><b>'+(avgDays!=null?avgDays+'d':'—')+'</b><i>to pay</i></span>'
+          +'</div>'
+        +'</div>'
+        +'<div class="hship-b" style="display:none">'
+          +'<div class="hsku-head"><span>SKU</span><span>Claimed</span><span>Paid</span><span>Short</span><span>Tries</span><span>Days</span><span>Outcome</span></div>'
+          +b.rows.map(function(c){
+            const oc=c.outcome==='full'?'win':c.outcome==='partial'?'part':'lost';
+            return '<div class="hsku '+oc+'" onclick="S.sel=\''+c.s.rid+'\';go(\'active\')">'
+             +'<div class="hsku-p"><div class="t">'+esc(c.l.p||'(no name)')+'</div><div class="m">'+esc(c.l.sku||'')+(c.l.asin?' · '+esc(c.l.asin):'')+'</div></div>'
+             +'<span class="n">'+money(c.claimed)+'</span>'
+             +'<span class="n ok">'+money(c.paid)+'</span>'
+             +'<span class="n '+(c.short>0.01?'bad':'dim')+'">'+(c.short>0.01?'−'+money(c.short):'—')+'</span>'
+             +'<span class="n">'+(c.tries||'—')+'</span>'
+             +'<span class="n">'+(c.days!=null?c.days+'d':'—')+'</span>'
+             +'<span class="hsku-o '+oc+'">'+(c.outcome==='full'?'Full COG':c.outcome==='partial'?'Reduced':'Nothing')+'</span>'
+            +'</div>';
+          }).join('')
+          +(full||dead?'<div class="hship-f">'+(full?'<b>'+full+'</b> paid in full':'')+(full&&dead?' · ':'')+(dead?'<b>'+dead+'</b> recovered nothing':'')+'</div>':'')
+        +'</div>'
+      +'</div>'};
+    }).sort(function(a,b){return b.sortKey-a.sortKey}).map(function(x){return x.html}).join('');
+
     return '<div class="month-group"><div class="mg-head" onclick="const b=this.parentNode.querySelector(\'.mg-body\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'">'
-      +'<div><div class="mg-title">'+mNames[+parts[1]-1]+' '+parts[0]+'</div><div class="mg-sub">'+g.length+' claim'+(g.length!==1?'s':'')+' · '+gRate+'% recovered</div></div>'
+      +'<div><div class="mg-title">'+mNames[+parts[1]-1]+' '+parts[0]+'</div><div class="mg-sub">'+Object.keys(byShip).length+' shipment'+(Object.keys(byShip).length!==1?'s':'')+' · '+g.length+' SKU claim'+(g.length!==1?'s':'')+' · '+gRate+'% recovered</div></div>'
       +'<div class="mg-stats"><span class="rec">'+money(gP)+'</span><span class="of">of '+money(gC)+'</span></div></div>'
-      +'<div class="mg-body">'+rows+'</div></div>';
+      +'<div class="mg-body">'+ships+'</div></div>';
   }).join('');
 
   el.innerHTML=''
@@ -2898,7 +3139,7 @@ function renderHistory(){
      +'<div class="hh-s">of '+money(claimedT)+' claimed · '+claims.length+' settled SKU claims</div></div>'
      +'<div class="hh-side">'
        +'<div><div class="hs-v" style="color:'+(recRate>=80?'var(--green)':recRate>=50?'var(--amber)':'var(--red)')+'">'+recRate+'%</div><div class="hs-l">recovered</div></div>'
-       +'<div><div class="hs-v" style="color:'+(shortT>0.01?'var(--red)':'var(--green)')+'">'+money(shortT)+'</div><div class="hs-l">never recovered</div></div>'
+       +'<div><div class="hs-v" style="color:'+(shortT>0.01?'var(--red)':'var(--green)')+'">'+money(shortT)+'</div><div class="hs-l">'+(overpaid?'never recovered ('+money(overpaid)+' overpaid)':'never recovered')+'</div></div>'
        +'<div><div class="hs-v">'+openN+'</div><div class="hs-l">still open</div></div>'
      +'</div></div>'
    +narrative+inflight
@@ -2953,7 +3194,10 @@ function pickSource(t){
   document.getElementById('addSave').style.display=t==='manual'?'inline-flex':(pending?'inline-flex':'none');
   setStep(t==='manual'?2:1);
 }
-function cogFromSku(sku){if(!sku)return 0;const parts=sku.split('_');if(parts.length>1&&/^\d+(\.\d+)?$/.test(parts[1])){const v=parseFloat(parts[1]);if(v>0&&v<2000)return v}return 0}
+/* v78 — the convention is prefix<sep>COG<sep>date... and the separator is not
+   always an underscore. 'Amg-135.68_1603_...' was splitting on '_' only, so
+   field[1] came out as the DATE (1603) instead of the price (135.68). */
+function cogFromSku(sku){if(!sku)return 0;const parts=String(sku).split(/[_-]/);if(parts.length>1&&/^\d+(\.\d+)?$/.test(parts[1])){const v=parseFloat(parts[1]);if(v>0&&v<2000)return v}return 0}
 function parseSCDate(str){const m=str.match(/(\d{1,2})\s+([A-Za-z]{3})\s+(\d{2,4})/);if(!m)return '';const yr=m[3].length===2?'20'+m[3]:m[3];const d=new Date(m[1]+' '+m[2]+' '+yr);return isNaN(d)?'':d.toISOString().slice(0,10)}
 function parseRecon(raw){const lines=[];raw.split(/[\t\r\n]+/).forEach(seg=>{seg=seg.trim();if(!seg)return;if(/^[\d+\-−.\s]+$/.test(seg))seg.split(/\s+/).forEach(x=>{if(x)lines.push(x)});else lines.push(seg)});const items=[];let cur=null,gotTitle=false,nums=[],disc=null;
  const isMsku=L=>/^[A-Za-z0-9][\w.\-]{4,}$/.test(L)&&L.indexOf(':')<0&&!/^-?\d+$/.test(L)&&/[_\-]/.test(L)&&L.indexOf(' ')<0&&!/^(ASIN|FNSKU|EAN|UPC|SKU|Size|New|Used|Condition)/i.test(L);
@@ -3121,6 +3365,7 @@ function renderSettings(){
      +'<div class="set-row"><div class="set-info"><div class="set-l">Anon key</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-key" value="'+esc(CLOUD.key)+'" placeholder="eyJhbGciOi\u2026"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">'+(cloudOn()?'Connected':'Not connected')+'</div><div class="set-d">'+(cloudOn()?'Every change saves to Postgres. Data follows you across devices and browsers.':'Copy the setup SQL, run it in the Supabase SQL editor, then connect.')+'</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="cp(event,CLOUD_SQL)">'+ic('copy')+'Copy setup SQL</button><button class="btn sm pri" onclick="saveCloudCfg()">'+(cloudOn()?'Save':'Connect')+'</button>'+(cloudOn()?'<button class="btn sm" onclick="cloudPull()">Pull now</button>':'')+'</div></div>'
    +'</div>'
+   +'<div class="set-card"><div class="set-h">'+ic('shield',15)+'Safety net</div>'+'<div class="set-row"><div class="set-info"><div class="set-l">Data health</div><div class="set-d">Checks every SKU for impossible values, COGs that disagree with the SKU, and shipments settled with unfinished lines.</div></div><div class="set-ctrl" id="chkBadge"></div></div>'+'<div class="set-row"><div class="set-info"><div class="set-l">Automatic backups</div><div class="set-d">A snapshot is kept each time the app opens \u2014 the last 5 are stored in this browser. Restoring takes a backup of the current state first.</div></div></div>'+'<div style="padding:2px 15px 13px"><div id="bakList"></div></div>'+'</div>'
    +'<div class="set-card"><div class="set-h">'+ic('rotate',15)+'Recently deleted</div>'+'<div class="set-row"><div class="set-info"><div class="set-d">Deleted shipments are kept on the server and can be put back. Nothing is destroyed by a click.</div></div></div>'+'<div style="padding:2px 15px 13px"><div id="delList"></div></div>'+'</div>'
    +'<div class="set-card"><div class="set-h">'+ic('receipt',15)+'Data &amp; backup</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Backup, restore &amp; export</div><div class="set-d">All data lives in this browser. Download a backup or export a CSV.</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="exportJSON()">'+ic('ext')+'Backup</button><button class="btn sm" onclick="var f=document.getElementById(\'impFile\');if(f)f.click()">Import</button><button class="btn sm" onclick="exportCSV()">CSV</button></div></div>'
@@ -3149,10 +3394,155 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v77';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v86';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+
+/* ═══════════ v83 — SAFETY NETS ═══════════
+   Bugs cannot be eliminated. These make them visible, reportable and
+   survivable instead of silent — which is how every real bug this app has
+   had managed to hide. */
+
+/* 1. nothing fails silently any more */
+let ERRS=[];
+/* v85 — Sarah's own bug report. Anything that "looks wrong" becomes a single
+   copyable message with enough context for Jack to forward on. */
+function openReport(){
+  const s=S.sel?byId(S.sel):null;
+  askConfirm({tone:'primary',icon:'msg',title:'Something doesn’t look right?',
+    message:'Describe what looks wrong in your own words. The app adds the technical detail automatically.'
+      +'<div style="margin-top:10px"><textarea id="rptWhat" class="rpt-in" placeholder="e.g. the claim on this SKU looks doubled…"></textarea></div>'
+      +(s?'<div class="cfm-sub" style="margin-top:8px">Includes shipment <b>'+esc(s.id)+'</b> and its SKUs.</div>':'<div class="cfm-sub" style="margin-top:8px">Open a shipment first if the problem is on a specific one.</div>'),
+    confirmLabel:'Build the message',
+    onConfirm:function(){
+      const what=(document.getElementById('rptWhat')||{}).value||'(not described)';
+      buildReport(what,s);
+    }});
+  setTimeout(function(){const t=document.getElementById('rptWhat');if(t)t.focus()},60);
+}
+function buildReport(what,s){
+  const L=[];
+  L.push('SHIPMENT DECK — PROBLEM REPORT');
+  L.push('what looks wrong: '+what);
+  L.push('when: '+new Date().toLocaleString('en-GB'));
+  L.push('version: '+(typeof APP_VER!=='undefined'?APP_VER:'?')+'   page: '+S.page);
+  L.push('shipments: '+DATA.length+' ('+DATA.filter(function(x){return !isHist(x)}).length+' active / '+settled().length+' history)');
+  L.push('sync: '+(cloudOn()?(cloudDead?'DOWN (retrying)':'connected'):'local only')+'   unsaved: '+DIRTY.size);
+  if(s){
+    L.push('');
+    L.push('SHIPMENT '+s.id+'  ['+(STATUS[s.status]||{l:s.status}).l+']');
+    L.push('  dest '+(s.dest||'-')+'   closed '+(s.closed||'-')+'   case '+(s.caseId||'-')+'   reimb id '+(s.reimbId||'-'));
+    L.push('  claim '+money(pot(s))+'   paid '+money(rec(s)));
+    (s.lines||[]).forEach(function(l,i){
+      L.push('  ['+(i+1)+'] '+(l.p||'').slice(0,60));
+      L.push('      sku '+(l.sku||'-')+'  asin '+(l.asin||'-'));
+      L.push('      miss '+(l.miss||0)+'  exc '+(l.exc||0)+'  cog '+(+l.cog||0)+'  (sku says '+(cogFromSku(l.sku)||'-')+')');
+      L.push('      claim '+money((l.miss||0)*(+l.cog||0))+'  paid '+money(+l.reimb||0)+'  status '+(l.lstatus||'-'));
+      if((l.msc||[]).length)L.push('      msc: '+l.msc.map(function(m){return m.result+'@'+(m.cog||'-')}).join(', '));
+    });
+    L.push('  recent activity:');
+    (s.log||[]).slice(0,5).forEach(function(e){L.push('    '+new Date(e.ts).toLocaleDateString('en-GB')+' '+e.txt)});
+  }
+  const chk=selfCheck();
+  if(chk.length){L.push('');L.push('DATA CHECKS ('+chk.length+'):');chk.slice(0,8).forEach(function(p){L.push('  '+p.s.id+' — '+p.why+(p.sku?' ['+p.sku+']':''))});}
+  if(ERRS.length){L.push('');L.push('RECENT ERRORS:');ERRS.slice(-3).forEach(function(e){L.push('  '+e.kind+': '+e.msg)});}
+  const text=L.join('\n');
+  askConfirm({tone:'primary',icon:'copy',title:'Send this to Jack',
+    message:'Copy this and send it over — it has everything needed to work out what happened.'
+      +'<div class="rpt-out">'+esc(text)+'</div>',
+    confirmLabel:'Copy it',
+    onConfirm:function(){if(navigator.clipboard)navigator.clipboard.writeText(text);toast('Copied — send it to Jack')}});
+}
+
+function reportError(kind,msg,extra){
+  const rec={t:new Date().toISOString(),kind:kind,msg:String(msg||'').slice(0,400),extra:String(extra||'').slice(0,400),ver:(typeof APP_VER!=='undefined'?APP_VER:'?')};
+  ERRS.push(rec);if(ERRS.length>20)ERRS.shift();
+  try{localStorage.setItem('sd-errors',JSON.stringify(ERRS))}catch(e){}
+  showErrBanner(rec);
+}
+function showErrBanner(rec){
+  let el=document.getElementById('errBanner');
+  if(!el){el=document.createElement('div');el.id='errBanner';el.className='err-banner';document.body.appendChild(el);}
+  const text=rec.kind+': '+rec.msg+(rec.extra?' | '+rec.extra:'')+' | '+rec.ver;
+  el.innerHTML='<span class="eb-ic">'+ic('triangle',16)+'</span>'
+   +'<div class="eb-t"><b>Something went wrong on this screen.</b><br>'
+   +'Your data is safe and still saved. Send this to Jack so he can fix it:'
+   +'<div class="eb-code">'+esc(text)+'</div></div>'
+   +'<button class="btn sm" onclick="cp(event,'+JSON.stringify(text).replace(/"/g,'&quot;')+')">Copy</button>'
+   +'<button class="btn sm" onclick="document.getElementById(\'errBanner\').remove()">Dismiss</button>';
+  hydrateIcons(el);
+}
+window.addEventListener('error',function(e){reportError('Error',e.message,(e.filename||'')+':'+(e.lineno||''))});
+window.addEventListener('unhandledrejection',function(e){reportError('Promise',(e.reason&&e.reason.message)||e.reason,'')});
+
+/* 2. rolling local backups — a way back if data ever goes wrong */
+const LS_BAK='sd-backups-v1';
+function readBaks(){try{return JSON.parse(localStorage.getItem(LS_BAK))||[]}catch(e){return []}}
+function makeBackup(reason,force){
+  if(!DATA.length&&!force)return;   /* nothing to protect, unless explicitly asked */
+  try{
+    const baks=readBaks();
+    const last=baks[baks.length-1];
+    const body=JSON.stringify(DATA);
+    if(last&&last.body===body)return;            /* nothing changed */
+    baks.push({ts:Date.now(),reason:reason||'auto',n:DATA.length,body:body});
+    while(baks.length>5)baks.shift();            /* keep the last 5 */
+    localStorage.setItem(LS_BAK,JSON.stringify(baks));
+  }catch(e){/* quota — not worth breaking the app over */}
+}
+function restoreBackup(i){
+  const baks=readBaks(),b=baks[i];if(!b)return;
+  askConfirm({tone:'danger',icon:'rotate',title:'Restore this backup?',
+    message:'Replaces the current <b>'+DATA.length+'</b> shipment'+(DATA.length!==1?'s':'')+' with the <b>'+b.n+'</b> saved on '+new Date(b.ts).toLocaleString('en-GB')+'.<br><span class="cfm-warn">A backup of the current state is taken first, so this is reversible.</span>',
+    confirmLabel:'Restore',
+    onConfirm:function(){
+      makeBackup('before-restore',true);
+      try{DATA=JSON.parse(b.body)}catch(e){toast('That backup could not be read');return}
+      markAllDirty();save(true);S.sel=null;refresh();renderSettings();renderBackups();
+      toast('Restored '+DATA.length+' shipments');
+    }});
+}
+function renderBackups(){
+  const el=document.getElementById('bakList');if(!el)return;
+  const baks=readBaks().slice().reverse();
+  el.innerHTML=baks.length?baks.map(function(b,ri){
+    const i=readBaks().length-1-ri;
+    return '<div class="bak-row"><div><div class="bak-when">'+new Date(b.ts).toLocaleString('en-GB')+'</div>'
+      +'<div class="bak-sub">'+b.n+' shipment'+(b.n!==1?'s':'')+' · '+esc(b.reason)+' · '+(b.body.length/1024).toFixed(0)+' KB</div></div>'
+      +'<button class="btn sm" onclick="restoreBackup('+i+')">Restore</button></div>';
+  }).join(''):'<div class="hint" style="padding:8px 2px">No backups yet — one is taken automatically each time you open the app.</div>';
+}
+
+/* 3. startup self-check: catch bad data before it becomes a wrong claim */
+function selfCheck(){
+  const problems=[];
+  DATA.forEach(function(s){
+    (s.lines||[]).forEach(function(l){
+      const claim=(l.miss||0)>0||(l.exc||0)>0;
+      if(cogMismatch(l)>0){
+        const sk=cogFromSku(l.sku),ms=(l.miss||0);
+        if(sk>0&&ms>1&&Math.abs((+l.cog||0)-sk*ms)<0.02)
+          problems.push({s:s,why:'COG looks like the total for all '+ms+' units, not the price of one',sku:l.sku});
+        else problems.push({s:s,why:'COG disagrees with the SKU',sku:l.sku});
+      }
+      if(claim&&(+l.cog||0)<0)problems.push({s:s,why:'negative COG',sku:l.sku});
+      /* v85 — Amazon paying over the claim is a GOOD outcome, not a fault. */
+      if((l.miss||0)<0||(l.exc||0)<0)problems.push({s:s,why:'negative units',sku:l.sku});
+    });
+    if(isHist(s)&&(s.lines||[]).some(function(l){return ((l.miss||0)>0||(l.exc||0)>0)&&l.lstatus!=='reimbursed'})&&s.status!=='expired'&&s.status!=='writtenoff')
+      problems.push({s:s,why:'in History but a SKU is unsettled',sku:''});
+  });
+  return problems;
+}
+function selfCheckBadge(){
+  const p=selfCheck();
+  const el=document.getElementById('chkBadge');if(!el)return p;
+  el.innerHTML=p.length?'<span class="chk bad">'+ic('triangle',13)+p.length+' data check'+(p.length!==1?'s':'')+'</span>':'<span class="chk ok">'+ic('check',13)+'Data looks healthy</span>';
+  hydrateIcons(el);return p;
+}
+
 load();renderChrome();go('active');
 let lastPull=Date.now();
 reconcileAll(true);
+makeBackup('startup');
 if(cloudOn()){cloudPullCfg();cloudPull(true);}
 
 function maybeRefresh(force){if(!cloudUsable())return;if(DIRTY.size){cloudPush(true);if(!force)return}if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
