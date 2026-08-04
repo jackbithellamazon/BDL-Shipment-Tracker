@@ -1320,6 +1320,16 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
 .fchip.all{font-weight:700;color:var(--text2)}
 .fchip.all.on{background:var(--text);color:var(--bg);border-color:var(--text)}
 .fchip.all.on .fct{background:color-mix(in srgb,var(--bg) 22%,transparent);color:var(--bg)}
+
+/* ===== v77 — claim window folded into its own cell ===== */
+.finseg.cw .cwmini{height:4px;background:var(--input);border-radius:3px;overflow:hidden;margin:6px 0 4px}
+.finseg.cw .cwmini i{display:block;height:100%;background:var(--fc);border-radius:3px;min-width:3px;transition:width .25s ease}
+.wfstrip .step-note:empty{display:none}
+
+/* ===== v77b — quick flags live on the meta row ===== */
+.m-meta{flex-wrap:wrap;row-gap:7px}
+.m-meta .ship-tags{margin:0 0 0 auto;padding:0;gap:6px}
+@media(max-width:900px){.m-meta .ship-tags{margin-left:0;width:100%}}
 </style>
 </head>
 <body>
@@ -1335,7 +1345,7 @@ input,select,textarea{transition:border-color .12s,box-shadow .12s}
   <div class="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">SD</div>
-      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v74</span></div></div>
+      <div><h1>Shipment Deck</h1><div class="tag">Reconciliation <span class="ver-pill" id="verPill">v77</span></div></div>
       <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse"><span class="ic" id="sbToggleIc"></span></button>
     </div>
     <div class="sb-nav">
@@ -1590,12 +1600,17 @@ function markChangedDirty(){DATA.forEach(s=>{if((+s.updated||0)>=lastPushOk)DIRT
 function pendingCount(){return DIRTY.size}
 async function doPush(){
   if(!cloudOn()||!cloudUsable())return false;
-  const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
-  if(!rows.length){DIRTY.clear();setCloudState('ok');return true}
+  if(!DATA.length){DIRTY.clear();setCloudState('ok');return true}
   /* drop dirty markers for rows that no longer exist, otherwise DIRTY can
      never drain and the push would reschedule itself forever */
   {const live=new Set(DATA.map(s=>s.rid));Array.from(DIRTY).forEach(function(rid){if(!live.has(rid))DIRTY.delete(rid)});}
-  const sent=DATA.map(s=>s.rid);
+  /* v76 — push ONLY what this browser changed. Uploading every row meant a
+     stale copy here could silently overwrite someone else's newer edit. */
+  if(!DIRTY.size){setCloudState('ok');return true}
+  const sent=Array.from(DIRTY);
+  const sendSet=new Set(sent);
+  const rows=DATA.filter(s=>sendSet.has(s.rid)).map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
+  if(!rows.length){DIRTY.clear();setCloudState('ok');return true}
   try{setCloudState('sync');
     const r=await api('/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
     if(!r.ok)throw new Error('push '+r.status);
@@ -1644,7 +1659,7 @@ function mergeRows(local,server){
   });
   return Array.from(byRid.values()).sort((a,b)=>(+b.updated||0)-(+a.updated||0));
 }
-async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
+async function cloudPull(quiet){if(!cloudOn()||!cloudUsable())return;try{lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);reconcileAll(true);try{localStorage.setItem(LS_KEY,JSON.stringify(DATA))}catch(e){}if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
 function logImport(source,payload){if(!cloudOn()||!cloudUsable())return;api('/rest/v1/shipment_deck_imports',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify([{source:source,data:payload}])}).catch(()=>{});}
 function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};try{localStorage.setItem(LS_CLOUD,JSON.stringify(CLOUD))}catch(e){}if(cloudOn()){cloudDead=false;cloudFails=0;cloudFailAt=0;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
@@ -2028,9 +2043,9 @@ function startEditHdr(rid){editingHdr=rid;renderDetail()}
 function cancelEditHdr(){editingHdr=null;renderDetail()}
 function saveHdr(rid){const s=byId(rid);if(!s)return;const id=document.getElementById('eh-id').value.trim();const cl=document.getElementById('eh-closed').value;if(id)s.id=id;if(cl)s.closed=cl;editingHdr=null;s.updated=now();save();refresh();toast('Shipment updated')}
 function hdrEditForm(s){return '<div class="hdr-edit"><div class="f-field"><label>Shipment ID</label><input id="eh-id" value="'+esc(s.id)+'"></div><div class="f-field"><label>Date closed</label><input id="eh-closed" type="date" value="'+esc(s.closed||'')+'"></div><button class="btn pri sm" onclick="saveHdr(&quot;'+s.rid+'&quot;)">Save</button><button class="btn sm" onclick="cancelEditHdr()">Cancel</button></div>';}
-function setLineField(rid,i,f,v){const s=byId(rid);if(f==='reimb'){v=parseFloat(v)||0;s.lines[i].reimbAt=v>0?now():null;}s.lines[i][f]=v;s.updated=now();save();renderDetail()}
+function setLineField(rid,i,f,v){const s=byId(rid);if(f==='reimb'){v=parseFloat(v)||0;s.lines[i].reimbAt=v>0?now():null;}s.lines[i][f]=v;s.updated=now();if(f==='lstatus'||f==='reimb'){if(afterLineChange(s)){save();refresh();return}}save();renderDetail()}
 function logMsc(rid,i){const s=byId(rid);const l=s.lines[i];l.msc=l.msc||[];l.msc.push({result:'submitted',cog:+l.cog||0,date:new Date().toISOString().slice(0,10)});if(!l.lstatus||l.lstatus==='needsmsc')l.lstatus='mscsub';log(s,'MSC logged for '+(l.asin||l.p));refresh()}
-function setMsc(rid,i,ai,v){const s=byId(rid),l=s.lines[i];l.msc[ai].result=v;var mp={submitted:'mscsub',under_review:'mscreview',needs_doc:'needsdoc',approved:'mscapproved',reduced:'mscreduced',denied:'denied'};if(mp[v])l.lstatus=mp[v];s.updated=now();save();renderDetail()}
+function setMsc(rid,i,ai,v){const s=byId(rid),l=s.lines[i];l.msc[ai].result=v;var mp={submitted:'mscsub',under_review:'mscreview',needs_doc:'needsdoc',approved:'mscapproved',reduced:'mscreduced',denied:'denied'};if(mp[v])l.lstatus=mp[v];s.updated=now();if(afterLineChange(s)){save();refresh();return}save();renderDetail()}
 function setMscAmt(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].cog=parseFloat(v)||0;s.updated=now();save();renderDetail()}
 function setMscDate(rid,i,ai,v){const s=byId(rid);s.lines[i].msc[ai].date=v;s.updated=now();save();renderDetail()}
 function delMsc(rid,i,ai){const s=byId(rid);s.lines[i].msc.splice(ai,1);s.updated=now();save();renderDetail()}
@@ -2122,7 +2137,56 @@ function renderCaseMsg(){
 }
 
 function copyLineCase(rid,i){const s=byId(rid),l=s.lines[i];const msg='Hi,\n\nPlease review the discrepancy for our missing units on shipment '+s.id+'.\n\n'+caseLineBlock(s,l)+'\n\nPlease confirm the reimbursement for the missing units.\n\nThanks';navigator.clipboard&&navigator.clipboard.writeText(msg);toast('Message copied \u00b7 '+(l.sku||l.asin||''))}
-function markLineReimbursed(rid,i){const s=byId(rid),l=s.lines[i];l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';log(s,'Marked reimbursed: '+(l.asin||l.p)+' · '+money(l.reimb));refresh()}
+/* ===== v75 — a shipment follows its SKUs =====
+   Sarah marks each SKU reimbursed but the shipment status never moved, so a
+   fully-paid shipment sat in Active forever. Now: once every SKU with a
+   discrepancy is reimbursed the shipment settles itself and drops into
+   History; re-open a SKU and it comes straight back to Active. */
+function syncShipmentState(s){
+  if(!s||!(s.lines||[]).length)return false;
+  if(s.status==='expired'||s.status==='writtenoff')return false;   /* a manual write-off stays put */
+  const claimLines=s.lines.filter(function(l){return (l.miss||0)>0||(l.exc||0)>0});
+  if(!claimLines.length)return false;
+  const allDone=claimLines.every(function(l){return l.lstatus==='reimbursed'});
+  if(allDone){
+    const claim=claimLines.reduce(function(a,l){return a+(l.miss||0)*(+l.cog||0)},0);
+    const paid=claimLines.reduce(function(a,l){return a+(+l.reimb||0)},0);
+    const st=(paid>=claim-0.01)?'reimbursed':'partial';
+    if(s.status===st)return false;
+    log(s,'All '+claimLines.length+' SKU'+(claimLines.length!==1?'s':'')+' reimbursed — moved to History'+(st==='partial'?' (partial — '+money(claim-paid)+' short)':''));
+    s.status=st;s.statusAt=now();s.paidAt=s.paidAt||now();s.updated=now();
+    return st;
+  }
+  if(isHist(s)){                                   /* a SKU was re-opened */
+    const back=s.caseId?'caseopen':'reimbpending';
+    log(s,'A SKU was re-opened — shipment returned to Active');
+    s.status=back;s.statusAt=now();s.paidAt=null;s.updated=now();
+    return 'reopened';
+  }
+  return false;
+}
+/* Shipments that were already fully reimbursed before this rule existed still
+   need to move. Sweep on load and after every pull so nothing is stranded. */
+function reconcileAll(quiet){
+  let moved=0;
+  DATA.forEach(function(s){ if(syncShipmentState(s)){moved++;markDirty(s.rid);} });
+  if(moved){
+    save(true);
+    if(!quiet)toast(moved+' shipment'+(moved!==1?'s':'')+' settled — moved to History');
+  }
+  return moved;
+}
+
+function afterLineChange(s){
+  const r=syncShipmentState(s);
+  if(r==='reimbursed')toast(s.id+' fully reimbursed — moved to History');
+  else if(r==='partial')toast(s.id+' settled short — moved to History');
+  else if(r==='reopened')toast(s.id+' back in Active');
+  if(r)markDirty(s.rid);
+  return r;
+}
+
+function markLineReimbursed(rid,i){const s=byId(rid),l=s.lines[i];l.reimb=(l.miss||0)*(+l.cog||0);l.reimbAt=now();l.lstatus='reimbursed';log(s,'Marked reimbursed: '+(l.asin||l.p)+' · '+money(l.reimb));afterLineChange(s);refresh()}
 function toggleChk(rid,i,k){const s=byId(rid);s.lines[i][k]=!s.lines[i][k];s.updated=now();save();renderDetail()}
 function setLineQty(rid,i){const s=byId(rid),l=s.lines[i];const e=document.getElementById('qe'+i).value,r=document.getElementById('qr'+i).value;l.qtyExp=(e===''?null:parseInt(e)||0);l.qtyRec=(r===''?null:parseInt(r)||0);if(l.qtyExp!=null&&l.qtyRec!=null){l.miss=Math.max(0,l.qtyExp-l.qtyRec);l.exc=Math.max(0,l.qtyRec-l.qtyExp)}s.updated=now();save();renderDetail()}
 const MOREOPEN=new Set();
@@ -2210,14 +2274,15 @@ function renderDetail(){
    +'<div class="m-head"><div>'
    +'<div class="m-id">'+esc(s.id)+'<button class="copy" onclick="cp(event,\''+esc(s.id)+'\')">'+ic('copy',13)+'copy</button></div>'
    +'<div class="m-meta"><span class="statuspill" style="--sc:'+st.c+'" onclick="event.stopPropagation();togglePop()"><span class="d"></span>'+st.l+ic('chevron',13)+statusPop(s)+'</span>'
-   +'<span>'+esc(s.name||'')+'</span><span class="dest">'+esc(s.dest||'—')+'</span><span>closed '+fmtD(s.closed)+'</span>'
+   +(s.name?'<span>'+esc(s.name)+'</span>':'')+(s.dest?'<span class="dest">'+esc(s.dest)+'</span>':'')+'<span>closed '+fmtD(s.closed)+'</span>'
    +(s.escalated?'<span style="display:inline-flex;align-items:center;gap:6px;color:var(--violet)">'+ic('user',13)+'With Jack</span>':'')
+   +shipTags(s)
    +'</div></div>'
    +'<div class="m-right">'
    +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
    +((s.lines&&s.lines.length)?'<button class="btn sm" onclick="openCaseMsg(&quot;'+s.rid+'&quot;)" title="Build one message covering every line">'+ic('copy')+'Case message</button>':'')
    +(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
-   +(editingHdr===s.rid?hdrEditForm(s):'')+shipTags(s)
+   +(editingHdr===s.rid?hdrEditForm(s):'')
    /* next action hero */
    +'<div class="next '+(hist?'done':s.escalated?'jack':waiting?'wait':'')+'">'
    +(s.urgent&&!hist?'<div class="next-warn">'+ic('triangle',13)+'<span>'+esc(s.urgent)+'</span><button onclick="clearUrgent(\''+s.rid+'\')" title="Clear">'+ic('x',13)+'</button></div>':'')
@@ -2230,14 +2295,13 @@ function renderDetail(){
    +stepper(s)
    +(hist?'':'<div class="step-note">'+(s.status==='mscpending'?'MSC pending <b>'+daysSince(s.statusAt)+' days</b> · '+(fu?'follow up '+fmtDShort(fu):'due for a check'):
        win(s).days<=SETTINGS.deadlineRiskDays?'Claim window closes <b>'+fmtD(w.e)+'</b> — '+w.days+' days left':
-       'Currently at the '+STEPS[Math.max(0,stepIndex(s.status))].l+' stage'+(fu?' · next follow-up '+fmtDShort(fu):''))+'</div>')
+             (fu?'Next follow-up '+fmtDShort(fu):''))+'</div>')
    +'<div class="finbar">'
    +'<div class="finseg" style="--fc:var(--blue)"><div class="l">Potential claim</div><div class="v">'+money(p)+'</div><div class="s">'+missT+' missing'+(excT?' · +'+excT+' excess':'')+'</div></div>'
    +'<div class="finseg" style="--fc:var(--green)"><div class="l">Amazon reimbursed</div><div class="v">'+money(r)+'</div><div class="s">'+(nR||'no')+' reimbursement'+(nR===1?'':'s')+'</div></div>'
    +'<div class="finseg" style="--fc:'+(p-r>0.01?'var(--red)':'var(--green)')+'"><div class="l">Still at risk</div><div class="v">'+money(Math.max(0,p-r))+'</div><div class="s">of '+money(cogTotal(s))+' shipment COG</div></div>'
-   +'<div class="finseg" style="--fc:'+(hist?'var(--text4)':w.days<=SETTINGS.deadlineRiskDays?'var(--red)':'var(--amber)')+'"><div class="l">Claim window</div><div class="v">'+(hist?(s.status==='reimbursed'||s.status==='partial'?'Closed':'Expired'):w.days+'d')+'</div><div class="s">'+(hist?'—':'closes '+fmtD(w.e))+'</div></div>'
+   +'<div class="finseg cw" style="--fc:'+(hist?'var(--text4)':w.days<=SETTINGS.deadlineRiskDays?'var(--red)':w.days<=SETTINGS.deadlineWarnDays?'var(--amber)':'var(--blue)')+'"><div class="l">Claim window</div><div class="v">'+(hist?(s.status==='reimbursed'||s.status==='partial'?'Closed':'Expired'):w.days+'d')+'</div>'+(hist?'<div class="s">\u2014</div>':'<div class="cwmini"><i style="width:'+Math.min(100,Math.max(2,w.used))+'%"></i></div><div class="s">day '+Math.max(0,(SETTINGS.claimWindowDays||182)-Math.max(0,w.days))+' of '+(SETTINGS.claimWindowDays||182)+' \u00b7 closes '+fmtD(w.e)+'</div>')+'</div>'
    +'</div></div>'
-   +cwBar(s)
    /* accordions */
    +accSection('lines','Issue lines · '+esc(s.id),s.lines.length,ACC.lines,
      linesSummary(s)+shipIds(s)+(s.lines.length>7?'<div class="line-search">'+ic('search',14)+'<input placeholder="Filter these lines by product, ASIN or FNSKU…" value="'+esc(S.lineQ||'')+'" oninput="filterLines(this.value)"></div>':'')+(s.lines.length?'<div class="sku-colhead"><span>Product</span><span>Miss</span><span>Claim</span><span>Status</span><span></span></div>':'')+'<div class="lines-scroll" id="linesTbody">'+(lineRows||'<div class="hint" style="padding:14px">No lines yet.</div>')+'</div>'+(addingLine===s.rid?newLineForm(s.rid):''),
@@ -3085,9 +3149,10 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v74';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v77';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 load();renderChrome();go('active');
 let lastPull=Date.now();
+reconcileAll(true);
 if(cloudOn()){cloudPullCfg();cloudPull(true);}
 
 function maybeRefresh(force){if(!cloudUsable())return;if(DIRTY.size){cloudPush(true);if(!force)return}if(!force){if(Date.now()-lastPull<20000)return;const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;if(document.querySelector('.overlay.open'))return;}lastPull=Date.now();cloudPullCfg();cloudPull(true);}
@@ -3106,7 +3171,8 @@ window.addEventListener('beforeunload',function(e){flushPush();if(DIRTY.size){e.
 function flushPush(){
   if(!cloudOn()||!cloudUsable()||!DIRTY.size||!DATA.length)return;
   clearTimeout(cloudTimer);
-  const rows=DATA.map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
+  const _snd=new Set(DIRTY);
+  const rows=DATA.filter(s=>_snd.has(s.rid)).map(s=>({rid:s.rid,sid:s.id,status:s.status,updated:new Date(s.updated||now()).toISOString(),data:s}));
   try{fetch(CLOUD.url+'/rest/v1/'+CLOUD_TABLE+'?on_conflict=rid',{method:'POST',keepalive:true,headers:cloudHdrs({'Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(rows)}).catch(function(){});}catch(e){}
 }
 window.addEventListener('focus',function(){maybeRefresh()});
