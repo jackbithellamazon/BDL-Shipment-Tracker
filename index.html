@@ -1802,6 +1802,134 @@ body.dense .hsku{padding:7px 14px}
 .jack-ask b{color:var(--text);font-weight:600}
 .jack-ask .ic{color:var(--violet);vertical-align:-2px;margin-right:5px}
 @media(max-width:860px){.ac-split{grid-template-columns:1fr}}
+
+/* ═══ v0.2 — Pipeline page ═══ */
+.oc-note{margin-left:auto;font-size:11.5px;font-weight:500;color:var(--text3)}
+.oc-sub{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);
+        margin:20px 0 8px;padding-top:13px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:9px}
+.oc-hint{font-size:11px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--text4)}
+.pholds{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin:4px 0 18px}
+.phold{background:color-mix(in srgb,var(--hc) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--hc) 26%,var(--line));
+       border-left:3px solid var(--hc);border-radius:var(--radius);padding:11px 13px}
+.ph-n{font-family:var(--num);font-size:23px;font-weight:700;color:var(--hc);font-variant-numeric:tabular-nums;line-height:1.1}
+.ph-l{font-size:12px;font-weight:600;color:var(--text2);margin-top:2px}
+.ph-m{font-family:var(--num);font-size:12px;font-weight:600;color:var(--text3);margin-top:3px;font-variant-numeric:tabular-nums}
+.pst-head,.pst{display:grid;grid-template-columns:26px minmax(0,1fr) 74px 116px 92px 62px;gap:11px;align-items:center}
+.pst-head{padding:0 4px 7px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text4);
+          border-bottom:1px solid var(--line)}
+.pst{padding:10px 4px;border-bottom:1px solid var(--line)}
+.pst.empty{opacity:.42}
+.pst.tot{border-bottom:none;border-top:1px solid var(--line2);margin-top:2px}
+.pst.tot .pst-l{font-weight:700}
+.pst-n{font-family:var(--num);font-size:11px;font-weight:700;color:var(--text4);text-align:center}
+.pst-l{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3}
+.pst-m{font-size:11.5px;color:var(--text3);margin-top:2px;line-height:1.4}
+.pst-hold{font-size:11.5px;font-weight:700;color:var(--hc)}
+.pst-c{font-family:var(--num);font-size:13px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.pst-c i{font-style:normal;font-size:11px;font-weight:500;color:var(--text3)}
+.pst-v{font-family:var(--num);font-size:13px;font-weight:600;color:var(--text2);text-align:right;font-variant-numeric:tabular-nums}
+.pst-go{text-align:right}
+.pipe-note{display:flex;gap:9px;align-items:flex-start;background:var(--surface2);border:1px solid var(--line);
+           border-radius:9px;padding:11px 13px;margin-top:16px;font-size:11.5px;line-height:1.55;color:var(--text3)}
+.pipe-note svg{flex-shrink:0;margin-top:2px;color:var(--text4)}
+.pipe-warn{display:flex;gap:9px;align-items:center;background:color-mix(in srgb,var(--red) 10%,var(--surface));
+           border:1px solid color-mix(in srgb,var(--red) 30%,var(--line));border-radius:9px;padding:11px 13px;
+           margin-top:14px;font-size:12px;color:var(--text2)}
+.pwins{display:flex;gap:7px;margin:2px 0 16px;flex-wrap:wrap}
+.pwin{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:12px;
+      font-weight:600;color:var(--text3);cursor:pointer;transition:.12s}
+.pwin:hover{color:var(--text2);border-color:var(--line2)}
+.pwin.on{background:var(--surface);border-color:var(--accent,var(--blue));color:var(--text)}
+.pstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:11px;margin-bottom:14px}
+.pstats>div{background:var(--surface2);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.ps-v{font-family:var(--num);font-size:20px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;line-height:1.15}
+.ps-l{font-size:11px;color:var(--text3);margin-top:2px}
+.pwho{font-size:12px;color:var(--text2);padding:9px 12px;background:var(--surface2);border:1px solid var(--line);
+      border-radius:9px}
+.wrow{display:grid;grid-template-columns:46px minmax(0,1fr);gap:11px;align-items:center;padding:9px 2px;border-bottom:1px solid var(--line)}
+.wn{font-family:var(--num);font-size:17px;font-weight:700;color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
+.wl{font-size:13px;font-weight:600;color:var(--text)}
+.wnote{font-size:11.5px;color:var(--text3);margin-top:1px;line-height:1.4}
+.sit{display:grid;grid-template-columns:118px 66px minmax(0,1fr);gap:11px;align-items:center;padding:7px 2px;
+     border-bottom:1px solid var(--line);font-size:12.5px}
+.sit-t{font-family:var(--num);font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.sit-d{font-family:var(--num);color:var(--text3);font-variant-numeric:tabular-nums}
+.sit-n{color:var(--text3)}
+.nr{display:grid;grid-template-columns:118px minmax(0,1fr) 84px;gap:11px;align-items:center;padding:8px 2px;
+    border-bottom:1px solid var(--line);cursor:pointer}
+.nr:hover{background:var(--surface2)}
+.nr-id{font-family:var(--num);font-size:12px;font-weight:600;color:var(--text2)}
+.nr-t{font-size:12.5px;color:var(--text)}
+.nr-m{font-family:var(--num);font-size:12.5px;font-weight:600;color:var(--text2);text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:900px){
+  .pst-head,.pst{grid-template-columns:22px minmax(0,1fr) 92px 74px}
+  .pst-head span:nth-child(3),.pst-hold,.pst-go{display:none}
+}
+
+.pcross{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.pcross-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);
+          margin-bottom:9px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.pcx{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--surface2);
+     border:1px solid var(--line);border-left:3px solid var(--hc);border-radius:9px;padding:9px 12px;
+     margin-bottom:7px;cursor:pointer;transition:.12s}
+.pcx:hover{border-color:var(--line2);background:var(--surface)}
+.pcx-l{font-size:12.5px;font-weight:600;color:var(--text)}
+.pcx-n{margin-left:auto;font-family:var(--num);font-size:12px;font-weight:600;color:var(--hc);font-variant-numeric:tabular-nums}
+
+/* ═══ v0.25 — Pipeline, tightened. Every row now earns its full width. ═══ */
+.pgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+@media(max-width:980px){.pgrid{grid-template-columns:1fr;gap:4px}}
+.pholds{gap:8px;margin:2px 0 14px}
+.phold{padding:9px 11px}
+.ph-n{font-size:21px}
+.ph-l{font-size:11.5px}
+.ph-m{font-size:11.5px;margin-top:1px}
+.pst{padding:7px 4px}
+.pst-m{font-size:11px;margin-top:1px}
+.pst-l{font-size:13px}
+.pcross{margin-top:13px;padding-top:12px}
+.pcross-h{margin-bottom:8px}
+.pcx{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;margin-bottom:0;padding:8px 11px;align-items:start}
+.pcxs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.pcx-l{font-size:12px;line-height:1.3}
+.pcx-n{margin-left:0;font-size:11.5px}
+.pipe-note{padding:9px 12px;margin-top:13px;font-size:11px}
+.pwins{margin:2px 0 12px}
+.pwin{padding:5px 12px}
+.pstats{gap:8px;margin-bottom:11px}
+.pstats>div{padding:8px 11px}
+.ps-v{font-size:18px}
+.pwho{font-size:11.5px;padding:8px 11px}
+.oc-sub{margin:16px 0 6px;padding-top:11px}
+/* work rows — count, label, proportion, shipments */
+.wrow{grid-template-columns:34px minmax(0,1fr) 68px 52px;gap:10px;padding:7px 2px}
+.wn{font-size:15px}
+.wl{font-size:12.5px}
+.wnote{font-size:11px;line-height:1.35}
+.wbar{height:5px;border-radius:3px;background:var(--surface2);border:1px solid var(--line);overflow:hidden;display:block}
+.wbar i{display:block;height:100%;background:var(--blue);border-radius:3px}
+.wsh{font-family:var(--num);font-size:11px;color:var(--text3);text-align:right;font-variant-numeric:tabular-nums}
+/* sittings — one strip across the day, then a dense list */
+.sstrip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:center;margin-bottom:9px}
+.ss-e{font-family:var(--num);font-size:10.5px;color:var(--text4);font-variant-numeric:tabular-nums}
+.ss-bar{position:relative;height:16px;background:var(--surface2);border:1px solid var(--line);border-radius:5px}
+.ss-bar i{position:absolute;top:2px;bottom:2px;background:var(--green);border-radius:3px;min-width:3px}
+.sits{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:6px}
+.sit{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:baseline;padding:5px 9px;
+     background:var(--surface2);border:1px solid var(--line);border-radius:7px;font-size:11.5px}
+.sit-t{font-family:var(--num);font-weight:600;color:var(--text2);font-variant-numeric:tabular-nums}
+.sit-d{font-family:var(--num);color:var(--text4);font-size:10.5px;font-variant-numeric:tabular-nums}
+.sit-n{font-family:var(--num);font-weight:700;color:var(--text3);font-variant-numeric:tabular-nums}
+.nr{grid-template-columns:minmax(0,1fr) 74px;gap:9px;padding:6px 2px;row-gap:0}
+.nr-id{grid-column:1;font-size:11px;color:var(--text3)}
+.nr-t{grid-column:1;grid-row:2;font-size:12px;line-height:1.3}
+.nr-m{grid-column:2;grid-row:1/3;font-size:12px}
+
+.wempty{display:flex;gap:11px;align-items:flex-start;background:var(--surface2);border:1px solid var(--line);
+        border-radius:9px;padding:13px 15px;font-size:12px;line-height:1.55;color:var(--text3)}
+.wempty b{color:var(--text2)}
+.wempty svg{flex-shrink:0;margin-top:2px;color:var(--text4)}
+.wempty .btn{margin-left:auto;flex-shrink:0;align-self:center}
 </style>
 </head>
 <body>
@@ -1824,6 +1952,7 @@ body.dense .hsku{padding:7px 14px}
       <button class="nav-i" data-page="overview" onclick="go('overview')"><span class="ic" data-ic="layout"></span><span>Overview</span></button>
       <button class="nav-i" data-page="active" onclick="go('active')"><span class="ic" data-ic="list"></span><span>Active</span><span class="ct" id="nav-active">0</span></button>
       <button class="nav-i" data-page="actions" onclick="go('actions')"><span class="ic" data-ic="alert"></span><span>Action Centre</span><span class="ct urgent" id="nav-actions">0</span></button>
+      <button class="nav-i" data-page="pipeline" onclick="go('pipeline')"><span class="ic" data-ic="list"></span><span>Pipeline</span></button>
       <button class="nav-i" data-page="invoices" onclick="go('invoices')"><span class="ic" data-ic="file"></span><span>Invoices</span><span class="ct" id="nav-invq"></span></button>
       <button class="nav-i" data-page="history" onclick="go('history')"><span class="ic" data-ic="clock"></span><span>History</span><span class="ct" id="nav-history">0</span></button>
       <button class="nav-i" data-page="settings" onclick="go('settings')"><span class="ic" data-ic="gear"></span><span>Settings</span></button>
@@ -1835,7 +1964,7 @@ body.dense .hsku{padding:7px 14px}
     </div>
     <div class="sb-foot">
       <button id="themeBtn" onclick="toggleTheme()" title="Switch theme"><span class="ic" data-ic="theme"></span><span class="lbl">Theme</span></button>
-      <span class="sb-ver" id="verPill">v99</span>
+      <span class="sb-ver" id="verPill">v0.25</span>
     </div>
   </div>
 
@@ -1876,6 +2005,7 @@ body.dense .hsku{padding:7px 14px}
     <div class="page" id="page-actions"><div class="pad" id="actionsBody"></div></div>
 
     <!-- HISTORY -->
+    <div class="page" id="page-pipeline"><div class="pad" id="pipelineBody"></div></div>
     <div class="page" id="page-invoices"><div class="pad" id="invqBody"></div></div>
     <div class="page" id="page-history"><div class="pad" id="historyBody"></div></div>
 
@@ -2007,6 +2137,8 @@ const STATUS={
   invoice:{l:'Sorting invoice',c:'var(--amber)',ic:'file'},
   mscreupdate:{l:'Reupdate MSC',c:'var(--blue)',ic:'rotate'},
   mscpending:{l:'MSC pending',c:'var(--blue)',ic:'hourglass'},
+  mscdenied:{l:'MSC denied',c:'var(--red)',ic:'cx'},
+  underreview:{l:'Under review',c:'var(--blue)',ic:'hourglass'},
   mscapproved:{l:'MSC approved',c:'var(--green)',ic:'check2'},
   caseopen:{l:'Case opened',c:'var(--violet)',ic:'msg'},
   reimbpending:{l:'Reimb pending',c:'var(--blue)',ic:'hourglass'},
@@ -2018,19 +2150,21 @@ const STATUS={
 const HISTORY_ST=['reimbursed','partial','expired','writtenoff'];
 const STAGES=[
   {k:'invoice',l:'Invoice',c:'var(--amber)',sts:['invoice']},
-  {k:'msc',l:'MSC',c:'var(--blue)',sts:['mscreupdate','mscpending','mscapproved']},
+  {k:'msc',l:'MSC',c:'var(--blue)',sts:['mscreupdate','mscpending','mscdenied','underreview','mscapproved']},
   {k:'case',l:'Case',c:'var(--violet)',sts:['caseopen','reimbpending']},
   {k:'paid',l:'Paid',c:'var(--green)',sts:['reimbursed','partial']},
   {k:'lost',l:'Lost',c:'var(--red)',sts:['expired','writtenoff']}
 ];
 const STEPS=[{l:'Invoice',ic:'file'},{l:'MSC',ic:'rotate'},{l:'Case',ic:'msg'},{l:'Reimbursed',ic:'check2'}];
-function stepIndex(status){return {invoice:0,mscreupdate:1,mscpending:1,mscapproved:1,caseopen:2,reimbpending:2,reimbursed:4,partial:4,expired:-1,writtenoff:-1}[status]}
+function stepIndex(status){return {invoice:0,mscreupdate:1,mscpending:1,mscdenied:1,underreview:1,mscapproved:1,caseopen:2,reimbpending:2,reimbursed:4,partial:4,expired:-1,writtenoff:-1}[status]}
 /* short imperative next-step */
-const SHORTNEXT={invoice:'Sort invoices',mscreupdate:'Reupdate MSC',mscpending:'Check MSC result',mscapproved:'Open the case',caseopen:'Chase the case',reimbpending:'Log reimbursement',reimbursed:'Nothing to do',partial:'Review shortfall',expired:'Written off',writtenoff:'Written off'};
+const SHORTNEXT={invoice:'Sort invoices',mscreupdate:'Reupdate MSC',mscpending:'Check MSC result',mscdenied:'Resubmit or write off',underreview:'Check the review',mscapproved:'Open the case',caseopen:'Chase the case',reimbpending:'Log reimbursement',reimbursed:'Nothing to do',partial:'Review shortfall',expired:'Written off',writtenoff:'Written off'};
 const NEXT={
   invoice:{t:'Sort the invoice',s:'Locate it on the Mastersheets or supplier portal, paste the link into Evidence, then move to Reupdate MSC.'},
   mscreupdate:{t:'Reupdate MSC on Seller Central',s:'Push the shipment through Manage Shipment Claims, then set the status to MSC pending.'},
   mscpending:{t:'Check MSC result',s:'Amazon usually decides within about 5 days. Do not open a case until every line is approved.'},
+  mscdenied:{t:'MSC denied — resubmit or write off',s:'Amazon rejected the claim. Reupdate MSC with the invoice and any extra evidence, or close it out if there is nothing more to send.'},
+  underreview:{t:'Under review with Amazon',s:'Amazon has the claim open for review. Nothing to do until they come back — check again on the follow-up date.'},
   mscapproved:{t:'Open the case',s:'All MSC lines approved. Open the Seller Support case (use Copy case template) and log the case number.'},
   caseopen:{t:'Chase the case',s:'Follow up on the open case and log the reimbursement ID when Amazon issues it.'},
   reimbpending:{t:'Log the reimbursement',s:'Capture the reimbursement ID and amount when it lands, then mark Reimbursed.'},
@@ -2190,7 +2324,13 @@ function load(){TRIAL=false;
   try{const raw=localStorage.getItem(LS_KEY);if(raw){DATA=JSON.parse(raw)||[];return}}catch(e){}
   DATA=[];
 }
-function log(s,txt){s.log=s.log||[];s.log.unshift({ts:now(),txt:txt,who:WHO||''});s.updated=now()}
+function log(s,txt,to){s.log=s.log||[];
+  /* v0.2 — `at` is the stage this happened in, `to` the stage it moved to.
+     Both are needed to replay the board as it stood on a past date. Older
+     entries carry neither and can never be reconstructed. */
+  const e={ts:now(),txt:txt,who:WHO||'',at:s.status||''};
+  if(to)e.to=to;
+  s.log.unshift(e);s.updated=now()}
 function toastUndo(msg,label,fn){
   const t=document.getElementById('toast');if(!t){toast(msg);return}
   window.__undoFn=fn;
@@ -2251,6 +2391,7 @@ function go(page){
   if(page==='overview')renderOverview();
   if(page==='active')renderActive();
   if(page==='actions')renderActions();
+  if(page==='pipeline')renderPipeline();
   if(page==='invoices')renderInvQueue();if(page==='history')renderHistory();if(page==='settings'){renderSettings();if(typeof renderDeleted==='function')renderDeleted();if(typeof renderBackups==='function')renderBackups();if(typeof selfCheckBadge==='function')selfCheckBadge();}
 }
 function renderChrome(){
@@ -2317,6 +2458,8 @@ function filterRow(){
       +'<span class="fdot"></span>'+st.l+'<span class="fct">'+n+'</span></button>';
   }).join('');
   const tagDefs=[
+    {k:'mscdenied',l:'MSC denied',c:'var(--red)',n:open.filter(function(s){return s.status==='mscdenied'}).length},
+    {k:'underreview',l:'Under review',c:'var(--blue)',n:open.filter(function(s){return s.status==='underreview'}).length},
     {k:'caseopen',l:'Case opened',c:'var(--violet)',n:open.filter(function(s){return s.status==='caseopen'}).length},
     {k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',n:open.filter(function(s){return s.status==='reimbpending'}).length},
     {k:'escalated',l:'Escalated to Jack',c:'var(--red)',n:open.filter(function(s){return s.escalated}).length}
@@ -2329,7 +2472,8 @@ function filterRow(){
   return '<div class="frow">'+all+'<span class="fsep"></span>'+stages+'<span class="fsep"></span>'+tags+'</div>';
 }
 
-function statusTags(){var rows=DATA.filter(function(s){return !isHist(s)});var cur=S.tagFilter||'all';var defs=[{k:'caseopen',l:'Case opened',c:'var(--violet)',n:rows.filter(function(s){return s.status==='caseopen'}).length},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',n:rows.filter(function(s){return s.status==='reimbpending'}).length},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',n:rows.filter(function(s){return s.escalated}).length}];return '<div class="status-tags"><button class="stag2'+(cur==='all'?' on':'')+'" onclick="setTagFilter(&quot;all&quot;)">All<span class="stc">'+rows.length+'</span></button>'+defs.map(function(d){return '<button class="stag2'+(cur===d.k?' on':'')+'" style="--tc:'+d.c+'" onclick="setTagFilter(&quot;'+d.k+'&quot;)">'+d.l+'<span class="stc">'+d.n+'</span></button>';}).join('')+'</div>';}
+/* v0.15 — statusTags() deleted: it was an unused twin of filterRow()'s tag
+   chips, and editing it changed nothing on screen. */
 function setTagFilter(k){S.tagFilter=k;if(k!=='all')S.fStatus='all';renderActive();}
 function pipelineStrip(){
   const stages=STAGES.filter(st=>['invoice','msc','case'].includes(st.k)).map(st=>{
@@ -3084,7 +3228,7 @@ function renderInvBoard(){
 }
 
 function setInvoice(rid,v){const s=byId(rid);s.invoice=v.trim();log(s,v.trim()?'Invoice attached':'Invoice cleared');refresh()}
-function shipTags(s){var esc2=s.escalated;var T=[{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
+function shipTags(s){var esc2=s.escalated;var T=[{k:'mscdenied',l:'MSC denied',c:'var(--red)',on:s.status==='mscdenied'},{k:'underreview',l:'Under review',c:'var(--blue)',on:s.status==='underreview'},{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
 function setShipTag(rid,k){var s=byId(rid);if(k==='escalated'){s.escalated=!s.escalated;}else{s.status=(s.status===k?'invoice':k);s.statusAt=now();}s.updated=now();refresh();}
 function setField(rid,f,v){const s=byId(rid);s[f]=v;s.updated=now();if(f==='caseId'&&v&&['invoice','mscreupdate','mscpending','mscapproved'].includes(s.status)){s.status='caseopen';s.statusAt=now();save();refresh();return;}save();if(f==='urgent'){renderQueue();renderChrome()}}
 function clearUrgent(rid){const s=byId(rid);s.urgent='';log(s,'Urgent action cleared');refresh()}
@@ -3147,6 +3291,7 @@ function primaryTask(s){
   if(cogNeeded(s)&&['invoice','mscreupdate'].includes(s.status))return{title:'Cost price missing on '+cogNeeded(s)+' SKU'+(cogNeeded(s)!==1?'s':''),sub:'Those lines are worth \u00a30 until a \u00a3/unit is set, so they cannot be claimed. Set them, then push to MSC.',ic:'triangle',bucket:'do',sev:1,band:8};
   if(invDone(s)&&['invoice','mscreupdate'].includes(s.status)&&(s.lines||[]).length)return{title:'Invoices done \u2014 push to MSC',sub:'All '+invCov(s).need+' SKU'+(invCov(s).need!==1?'s':'')+' have an invoice. Submit the MSC claim, then move this shipment on.',ic:'arrow',bucket:'do',sev:2,band:9};
   if(!invDone(s)&&['invoice','mscreupdate'].includes(s.status)){const c=invCov(s);return{title:c.need?'Invoices — '+c.missing+' of '+c.need+' SKU'+(c.need!==1?'s':'')+' still needed':'Sort invoices',sub:(c.need?c.have+' of '+c.need+' SKUs have an invoice.':'Needed before MSC can be pushed.'),ic:'file',bucket:'do',sev:2,band:9};}
+  if(s.status==='mscdenied')return{title:'MSC denied — resubmit or write off',sub:'Amazon rejected this claim. Reupdate MSC with the invoice and any extra evidence, or close it out.',ic:'triangle',bucket:'do',sev:1,band:7};
   if(s.status==='mscapproved')return{title:'Open the case',sub:'All MSC lines approved — open the Seller Support case and log the number.',ic:'msg',bucket:'do',sev:1,band:2};
   if(lineHas(s,'mscreduced')&&invDone(s)&&!cogNeeded(s)&&stepIndex(s.status)>=1)return{title:'Reduced approval — claim or push back',sub:'Amazon approved below your cost on at least one SKU. Take it, or re-submit for the rest.',ic:'coins',bucket:'do',sev:1,band:3};
   if(lineHas(s,'needsdoc'))return{title:'Amazon wants a document',sub:'A SKU is blocked until the requested evidence is supplied.',ic:'file',bucket:'do',sev:1,band:6};
@@ -3155,6 +3300,7 @@ function primaryTask(s){
   if(s.status==='mscreupdate')return{title:'Reupdate MSC on Seller Central',sub:'Push through Manage Shipment Claims, then set MSC pending.',ic:'rotate',bucket:'do',sev:2,band:7};
   if(s.status==='mscpending'&&days>=SETTINGS.mscCheckDays&&!fuFuture(s))return{title:'Check MSC result',sub:'MSC pending '+days+' days — Amazon has probably decided. Do not open a case until every line is approved.',ic:'rotate',bucket:'do',sev:2,band:5};
   if((s.status==='caseopen'||s.status==='reimbpending')&&!rec(s)&&days>=SETTINGS.caseChaseDays&&!fuFuture(s))return{title:'Chase the case',sub:days+' days without a reimbursement — follow up on Seller Support.',ic:'msg',bucket:'do',sev:2,band:5};
+  if(s.status==='underreview')return{title:'Under review with Amazon',sub:'With Amazon '+days+' day'+(days!==1?'s':'')+(fuFuture(s)?' · next check '+fmtDShort(s.followUp):'')+'. Nothing to do until they come back.',ic:'hourglass',bucket:'wait',sev:5,band:10};
   if(s.status==='mscpending')return{title:'Waiting on MSC decision',sub:'Submitted '+days+' day'+(days!==1?'s':'')+' ago'+(fuFuture(s)?' · next check '+fmtDShort(s.followUp):'')+'.',ic:'hourglass',bucket:'wait',sev:5,band:10};
   if(s.status==='reimbpending'||s.status==='caseopen')return{title:'Awaiting reimbursement',sub:'Case is with Amazon'+(fuFuture(s)?' · follow up '+fmtDShort(s.followUp):'')+'.',ic:'hourglass',bucket:'wait',sev:5,band:10};
   return{title:SHORTNEXT[s.status],sub:NEXT[s.status].s,ic:'arrow',bucket:'do',sev:3,band:9};
@@ -3374,6 +3520,15 @@ function stepAction(s){
       log(s,'Submitted to MSC — all '+c.need+' SKU'+(c.need!==1?'s':'')+' invoiced');
       s.status='mscpending';s.statusAt=now();s.followUp=isoIn(SETTINGS.mscCheckDays||5);
       commitStep(s,'Moved to MSC pending · check back '+fmtDShort(s.followUp));}};
+  if(s.status==='mscdenied')
+    return {label:'Resubmitted to MSC',ic:'rotate',kind:'advance',run:function(){
+      log(s,'MSC resubmitted after a denial');s.status='mscpending';s.statusAt=now();
+      s.followUp=isoIn(SETTINGS.mscCheckDays||5);
+      commitStep(s,'Back to MSC pending · check '+fmtDShort(s.followUp));}};
+  if(s.status==='underreview')
+    return {label:'Checked — still under review',ic:'check',kind:'touch',run:function(){
+      log(s,'Checked — Amazon still has it under review');s.followUp=isoIn(SETTINGS.mscCheckDays||5);
+      commitStep(s,'Next check '+fmtDShort(s.followUp));}};
   if(s.status==='mscpending')
     return {label:'Checked — still pending',ic:'check',kind:'touch',run:function(){
       log(s,'Checked MSC — still pending');s.followUp=isoIn(SETTINGS.mscCheckDays||5);
@@ -3543,6 +3698,244 @@ function renderOverview(){
      +'</div>'
    +'</div>';
   hydrateIcons(document.getElementById('overviewBody'));
+}
+
+/* ═══════════ v0.2 — PIPELINE: "where are we up to" + "what's been done" ═══════════
+   Both views are derived from live data and the append-only log. Nothing is
+   precomputed and no new fields are stored. Adapted from the Removals Tracker
+   spec (28 Aug) — the holder split is the part that earns its keep. */
+function coolLeft(s){return (SETTINGS.mscWaitDays||30)-daysSinceStatus(s)}
+const HOLD={SARAH:{l:'Sarah',c:'var(--amber)'},AMAZON:{l:'Amazon',c:'var(--blue)'},
+            JACK:{l:'Jack',c:'var(--violet)'},NOBODY:{l:'Nobody',c:'var(--text4)'}};
+/* Journey order, first match wins. Jack and snoozed sit first so work that
+   genuinely cannot move never gets counted as Sarah's queue. */
+const PIPE=[
+ {k:'jack',l:'With Jack',hold:'JACK',m:function(s){return !!s.escalated},
+  means:function(s){return s.note?'Asked: '+s.note:'Escalated — she cannot move until it is answered.'}},
+ {k:'snoozed',l:'Snoozed',hold:'NOBODY',m:function(s){return isSnoozed(s)},
+  means:function(s){return 'Deliberately parked — back '+fmtDShort(s.snoozedUntil)+'.'}},
+ {k:'cog',l:'Cost price missing',hold:'SARAH',
+  m:function(s){return cogNeeded(s)&&['invoice','mscreupdate'].indexOf(s.status)>=0},
+  means:function(){return 'Worth £0 until a £/unit is set, so nothing can be claimed yet.'}},
+ {k:'inv',l:'Chasing invoices',hold:'SARAH',
+  m:function(s){return !invDone(s)&&['invoice','mscreupdate'].indexOf(s.status)>=0},
+  means:function(){return 'Needs the supplier invoice before MSC will look at it.'}},
+ {k:'ready',l:'Ready to push to MSC',hold:'SARAH',
+  m:function(s){return invDone(s)&&['invoice','mscreupdate'].indexOf(s.status)>=0},
+  means:function(){return 'Everything is in place — submit through Manage Shipment Claims.'}},
+ {k:'mscwait',l:'Waiting on MSC decision',hold:'AMAZON',
+  m:function(s){return s.status==='mscpending'||s.status==='underreview'},
+  means:function(){return 'Submitted. Amazon usually comes back within '+(SETTINGS.mscCheckDays||5)+' days.'}},
+ {k:'cool',l:'Denied — cooling off',hold:'NOBODY',
+  m:function(s){return s.status==='mscdenied'&&coolLeft(s)>0},
+  means:function(s){return 'Amazon will not accept a resubmission for another '+Math.ceil(coolLeft(s))+' days. Normal, not stuck.'}},
+ {k:'resub',l:'Denied — resubmit now',hold:'SARAH',
+  m:function(s){return s.status==='mscdenied'},
+  means:function(){return 'The wait is over — resubmit at a lower cost, or write it off.'}},
+ {k:'open',l:'Approved — open the case',hold:'SARAH',
+  m:function(s){return s.status==='mscapproved'},
+  means:function(){return 'Every line approved. Raise the Seller Support case.'}},
+ {k:'case',l:'Case with Amazon',hold:'AMAZON',
+  m:function(s){return s.status==='caseopen'||s.status==='reimbpending'},
+  means:function(){return 'Raised and waiting on the reimbursement to land.'}}
+];
+function pipeStage(s){for(var i=0;i<PIPE.length;i++)if(PIPE[i].m(s))return PIPE[i];return null}
+
+
+/* ═══ View B — reconstructing the day from the log ═══ */
+const WORK=[
+ {l:'MSC results logged',re:/^MSC logged for/,note:'read off Seller Central and recorded against the SKU'},
+ {l:'Case messages written',re:/^Case message copied/,note:'composed by hand and copied into Seller Support'},
+ {l:'Cost prices filled in',re:/^COG updated/,note:'the £/unit that makes a claim worth anything'},
+ {l:'Reimbursements logged',re:/^(Marked reimbursed|Whole shipment settled|All \d+ SKU)/,note:'money confirmed as landed'},
+ {l:'Shipments logged',re:/^Shipment issue logged/,note:'new discrepancies entered from the STK'},
+ {l:'Invoices attached',re:/^Invoice/,note:'supplier invoice linked to the SKU'},
+ {l:'Lines edited',re:/^(Line added|Line removed)/,note:'SKUs added to or taken off a shipment'},
+ {l:'Stage moves',re:/^(Submitted to MSC|Chased|Checked|MSC resubmitted|Seller Support case|Escalated|Returned|Snoozed|Moved)/,note:'shipment pushed along the pipeline'}
+];
+function workKind(t){for(var i=0;i<WORK.length;i++)if(WORK[i].re.test(t))return WORK[i];return null}
+function actionsIn(hours){
+  /* 0 = today from midnight. A rolling 24h quietly spans two days, which is
+     why "today" needs a window of its own. */
+  var since=hours?Date.now()-hours*3600e3:new Date().setHours(0,0,0,0);
+  var out=[];
+  DATA.forEach(function(s){(s.log||[]).forEach(function(e){
+    if(!e||!e.ts||e.ts<since)return;
+    out.push({s:s,ts:e.ts,txt:e.txt||'',who:e.who||'',kind:workKind(e.txt||'')});
+  })});
+  return out.sort(function(a,b){return a.ts-b.ts});
+}
+function sittings(times,gapMins){
+  gapMins=gapMins||20;
+  var t=times.slice().sort(function(a,b){return a-b}),out=[],run=[];
+  if(!t.length)return out;
+  run=[t[0]];
+  for(var i=1;i<t.length;i++){
+    if(t[i]-t[i-1]>gapMins*60e3){out.push(run);run=[]}
+    run.push(t[i]);
+  }
+  if(run.length)out.push(run);
+  return out.map(function(r){return {from:r[0],to:r[r.length-1],n:r.length}});
+}
+function hm(ms){var m=Math.round(ms/60000);return m<60?m+'m':Math.floor(m/60)+'h '+(m%60)+'m'}
+function clk(t){return new Date(t).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
+
+/* An empty "today" is honest but a dead landing — on a Monday the last real
+   day of work was Saturday. Say when that was and offer the jump, rather than
+   silently widening the window (which would make the total a lie). */
+function emptyWork(){
+  var last=0;DATA.forEach(function(s){(s.log||[]).forEach(function(e){if(e.ts>last)last=e.ts})});
+  var msg='<div class="wempty">'+ic('clock',15)+'<div><b>Nothing logged in this window.</b><br>'
+    +'That means nothing was <i>recorded</i> — it does not mean nothing was done.';
+  if(last){
+    var d=Math.floor((Date.now()-last)/86400000);
+    msg+='<br>Last activity was '+fmtDShort(last)+(d?' · '+d+' day'+(d!==1?'s':'')+' ago':'')+'.';
+    msg+='</div><button class="btn sm" onclick="setPipeWin(168)">Show last 7 days</button>';
+  } else msg+='</div>';
+  return msg+'</div>';
+}
+let PIPEWIN=0;   /* 0 = today, else hours */
+function setPipeWin(v){PIPEWIN=+v;renderPipeline()}
+
+function renderPipeline(){
+  var open=DATA.filter(function(s){return !isHist(s)});
+  /* ── View A ── */
+  var seen=new Set(),rows='';
+  var tot={n:0,u:0,v:0},byHold={SARAH:0,AMAZON:0,JACK:0,NOBODY:0},vHold={SARAH:0,AMAZON:0,JACK:0,NOBODY:0};
+  PIPE.forEach(function(st,idx){
+    var list=open.filter(function(s){return !seen.has(s.rid)&&st.m(s)});
+    list.forEach(function(s){seen.add(s.rid)});
+    var u=list.reduce(function(a,s){return a+missUnits(s)},0);
+    var v=list.reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0);
+    tot.n+=list.length;tot.u+=u;tot.v+=v;byHold[st.hold]+=list.length;vHold[st.hold]+=v;
+    var H=HOLD[st.hold];
+    rows+='<div class="pst'+(list.length?'':' empty')+'" style="--hc:'+H.c+'">'
+      +'<span class="pst-n">'+(idx+1)+'</span>'
+      +'<div class="pst-main"><div class="pst-l">'+esc(st.l)+'</div>'
+        +'<div class="pst-m">'+esc(list.length?st.means(list[0]):'Nothing here right now.')+'</div></div>'
+      +'<span class="pst-hold">'+esc(H.l)+'</span>'
+      +'<span class="pst-c">'+(list.length?list.length+(u?' <i>· '+u+' units</i>':''):'—')+'</span>'
+      +'<span class="pst-v">'+(v?money(v):'—')+'</span>'
+      +'<span class="pst-go">'+(list.length?'<button class="btn sm" onclick="pipeOpen(\''+st.k+'\')">Open</button>':'')+'</span>'
+      +'</div>';
+  });
+  var missed=open.filter(function(s){return !seen.has(s.rid)});
+  var missHTML=missed.length?'<div class="pipe-warn">'+ic('triangle',14)+'<b>'+missed.length+'</b> shipment'+(missed.length!==1?'s':'')
+      +' match no stage — they are not counted above: '+missed.slice(0,6).map(function(s){return esc(s.id)}).join(', ')+'</div>':'';
+
+  var cbl=cogBacklog(), ibl=invBacklog();
+  var cross=[];
+  if(cbl.skus)cross.push(['No cost price',cbl.skus+' SKUs across '+cbl.n+' shipments','var(--red)',"go('invoices')"]);
+  if(ibl.skus)cross.push(['Invoice outstanding',ibl.skus+' SKUs across '+ibl.n+' shipments','var(--amber)',"go('invoices')"]);
+  var dyi=open.filter(inDanger).length;
+  if(dyi)cross.push(['Claim window closing',dyi+' shipment'+(dyi!==1?'s':''),'var(--red)',"go('active')"]);
+  var gapN=0;open.forEach(function(s){(s.lines||[]).forEach(function(l){if(approvedGap(l)>0.005)gapN++})});
+  if(gapN)cross.push(['Approved under our cost',gapN+' SKU'+(gapN!==1?'s':''),'var(--blue)',"go('actions')"]);
+  var crossHTML=cross.length?'<div class="pcross"><div class="pcross-h">Cuts across every stage'
+    +'<span class="oc-hint">already counted in a stage above — listed here because the stage alone hides them</span></div>'
+    +'<div class="pcxs">'+cross.map(function(c){return '<button class="pcx" style="--hc:'+c[2]+'" onclick="'+c[3]+'">'
+      +'<span class="pcx-l">'+esc(c[0])+'</span><span class="pcx-n">'+esc(c[1])+'</span></button>'}).join('')
+    +'</div></div>':'';
+  var holdCards=['SARAH','AMAZON','JACK','NOBODY'].map(function(k){
+    var H=HOLD[k];
+    return '<div class="phold" style="--hc:'+H.c+'"><div class="ph-n">'+byHold[k]+'</div>'
+      +'<div class="ph-l">'+(k==='SARAH'?'Ours to move':k==='AMAZON'?'Waiting on Amazon':k==='JACK'?'With Jack':'Nobody can act')+'</div>'
+      +'<div class="ph-m">'+money(vHold[k])+'</div></div>';
+  }).join('');
+  var actionable=byHold.SARAH, pctA=tot.n?Math.round(actionable/tot.n*100):0;
+
+  /* ── View B ── */
+  var acts=actionsIn(PIPEWIN);
+  var times=acts.map(function(a){return a.ts});
+  var sits=sittings(times);
+  var active=sits.reduce(function(a,r){return a+(r.to-r.from)},0);
+  var groups={};
+  acts.forEach(function(a){var k=a.kind?a.kind.l:'Other logged actions';(groups[k]=groups[k]||[]).push(a)});
+  var order=WORK.map(function(w){return w.l}).concat(['Other logged actions']);
+  var wMax=Math.max.apply(null,[1].concat(Object.keys(groups).map(function(k){return groups[k].length})));
+  var gHTML=order.filter(function(k){return groups[k]}).map(function(k){
+    var w=WORK.filter(function(x){return x.l===k})[0];
+    var ships=new Set(groups[k].map(function(a){return a.s.rid})).size;
+    return '<div class="wrow"><span class="wn">'+groups[k].length+'</span>'
+      +'<div class="wmain"><div class="wl">'+esc(k)+'</div>'
+        +'<div class="wnote">'+esc(w?w.note:'not matched to a known job')+'</div></div>'
+      +'<span class="wbar"><i style="width:'+(groups[k].length/wMax*100).toFixed(1)+'%"></i></span>'
+      +'<span class="wsh">'+ships+' ship'+(ships!==1?'s':'')+'</span></div>';
+  }).join('')||emptyWork();
+
+  var whoSet={};acts.forEach(function(a){whoSet[a.who||'']=(whoSet[a.who||'']||0)+1});
+  var named=Object.keys(whoSet).filter(function(k){return k});
+  var whoLine=named.length
+    ? named.map(function(k){return '<b>'+esc(k)+'</b> '+whoSet[k]}).join(' · ')+(whoSet['']?' · <span class="hint">'+whoSet['']+' unattributed</span>':'')
+    : '<span class="hint">Not recorded. Set a name in Settings and every entry from then on is tagged — old entries cannot be backfilled.</span>';
+
+  var sitHTML='<div class="hint" style="padding:10px 2px">No activity in this window.</div>';
+  if(sits.length){
+    /* one strip across the working day, blocks placed where they actually fell */
+    var lo=sits[0].from, hi=sits[sits.length-1].to, span=Math.max(1,hi-lo);
+    var sMax=Math.max.apply(null,sits.map(function(r){return r.n}));
+    var strip=sits.map(function(r){
+      var l=(r.from-lo)/span*100, w2=Math.max(1.6,(r.to-r.from)/span*100);
+      return '<i style="left:'+l.toFixed(2)+'%;width:'+w2.toFixed(2)+'%;opacity:'+(0.45+0.55*r.n/sMax).toFixed(2)+'" title="'+clk(r.from)+'–'+clk(r.to)+' · '+r.n+' actions"></i>';
+    }).join('');
+    sitHTML='<div class="sstrip"><span class="ss-e">'+clk(lo)+'</span><span class="ss-bar">'+strip+'</span><span class="ss-e">'+clk(hi)+'</span></div>'
+      +'<div class="sits">'+sits.map(function(r){
+        return '<div class="sit"><span class="sit-t">'+clk(r.from)+'–'+clk(r.to)+'</span>'
+          +'<span class="sit-d">'+(r.to-r.from>=60000?hm(r.to-r.from):'&lt;1m')+'</span>'
+          +'<span class="sit-n">'+r.n+'</span></div>';
+      }).join('')+'</div>';
+  }
+
+  var notReached=DATA.filter(function(s){return !isHist(s)&&actionRank(s)<=WORK_MAX&&!wakesInDays(s)})
+    .filter(function(s){return !acts.some(function(a){return a.s.rid===s.rid})})
+    .sort(priCmp).slice(0,6);
+  var nrHTML=notReached.length?notReached.map(function(s){
+    return '<div class="nr" onclick="S.sel=\''+s.rid+'\';go(\'active\')"><span class="nr-id">'+esc(s.id)+'</span>'
+      +'<span class="nr-t">'+esc(primaryTask(s).title)+'</span>'
+      +'<span class="nr-m">'+money(Math.max(0,pot(s)-rec(s)))+'</span></div>';
+  }).join(''):'<div class="hint" style="padding:10px 2px">Everything actionable has been touched in this window.</div>';
+
+  var winBtns=[[0,'Today'],[24,'24 hours'],[168,'7 days'],[720,'30 days']].map(function(o){
+    return '<button class="pwin'+(PIPEWIN===o[0]?' on':'')+'" onclick="setPipeWin('+o[0]+')">'+o[1]+'</button>';
+  }).join('');
+
+  document.getElementById('pipelineBody').innerHTML=''
+   +'<div class="ocard"><div class="oc-head">Where are we up to<span class="oc-cnt">'+tot.n+' live</span>'
+     +'<span class="oc-note">'+actionable+' of '+tot.n+' ('+pctA+'%) are actually ours to move</span></div>'
+     +'<div class="pholds">'+holdCards+'</div>'
+     +'<div class="pst-head"><span></span><span>Stage</span><span>Holder</span><span>Now</span><span>Value</span><span></span></div>'
+     +rows
+     +'<div class="pst tot"><span class="pst-n"></span><div class="pst-main"><div class="pst-l">Total live</div></div>'
+       +'<span class="pst-hold"></span><span class="pst-c">'+tot.n+' <i>· '+tot.u+' units</i></span>'
+       +'<span class="pst-v">'+money(tot.v)+'</span><span class="pst-go"></span></div>'
+     +missHTML+crossHTML
+     +'<div class="pipe-note">'+ic('clock',13)+'Movement against a past date is not shown: entries logged before today do not record which stage they were in, so it cannot be reconstructed honestly. From v0.2 every entry records its stage, so this becomes possible once a week or two has built up.</div>'
+   +'</div>'
+   +'<div class="ocard"><div class="oc-head">What has been done<span class="oc-cnt">'+acts.length+'</span>'
+     +'<span class="oc-note">'+(PIPEWIN?'last '+(PIPEWIN>=24?(PIPEWIN/24)+' days':PIPEWIN+'h'):'today, from midnight')+'</span></div>'
+     +'<div class="pwins">'+winBtns+'</div>'
+     +'<div class="pstats"><div><div class="ps-v">'+acts.length+'</div><div class="ps-l">actions logged</div></div>'
+       +'<div><div class="ps-v">'+sits.length+'</div><div class="ps-l">sittings</div></div>'
+       +'<div><div class="ps-v">'+(active?hm(active):'—')+'</div><div class="ps-l">active at it</div></div>'
+       +'<div><div class="ps-v">'+new Set(acts.map(function(a){return a.s.rid})).size+'</div><div class="ps-l">shipments touched</div></div></div>'
+     +'<div class="pwho">Logged by: '+whoLine+'</div>'
+     +'<div class="pgrid">'
+       +'<div><div class="oc-sub">The work</div>'+gHTML+'</div>'
+       +'<div><div class="oc-sub">Sittings<span class="oc-hint">gaps of 20 min or more split them</span></div>'+sitHTML
+         +'<div class="oc-sub">Not reached yet<span class="oc-hint">actionable, untouched in this window</span></div>'+nrHTML+'</div>'
+     +'</div>'
+     +'<div class="pipe-note">'+ic('triangle',13)+'<b>Active at it</b> is time between logged actions with the long gaps taken out. It is a floor, not hours worked — reading, thinking and anything done outside this app leave no trace here.</div>'
+   +'</div>';
+  hydrateIcons(document.getElementById('pipelineBody'));
+}
+function pipeOpen(k){
+  var st=PIPE.filter(function(x){return x.k===k})[0];if(!st)return;
+  var seen=new Set(),hit=null;
+  DATA.filter(function(s){return !isHist(s)}).forEach(function(s){
+    if(hit)return;
+    for(var i=0;i<PIPE.length;i++){if(PIPE[i].m(s)){if(PIPE[i].k===k)hit=s;return}}
+  });
+  if(hit){S.sel=hit.rid;go('active')}
 }
 
 /* ═══════════ HISTORY ═══════════ */
@@ -4087,7 +4480,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v99';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v0.25';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 
 /* ═══════════ v83 — SAFETY NETS ═══════════
    Bugs cannot be eliminated. These make them visible, reportable and
