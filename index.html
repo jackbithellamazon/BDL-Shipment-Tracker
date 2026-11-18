@@ -2104,6 +2104,218 @@ html{text-rendering:optimizeLegibility;font-kerning:normal;-webkit-font-smoothin
 .fd-sr{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center;font-size:12px;color:var(--text2);padding:3px 0}
 .fd-sr b{color:var(--amber);font-variant-numeric:tabular-nums}
 </style>
+<style>
+/* ═══════════ v0.55 — readability, no slashed zeros, Sarah's list, view-only Overview ═══════════ */
+/* no monospace anywhere: its zero has a slash. Same font as the text, numbers lined up instead. */
+:root{--mono:var(--sans)}
+body,input,textarea,select,button{font-variant-numeric:tabular-nums}
+/* no faint grey on the dark background */
+:root:not([data-theme="light"]){--text3:#dfe6ef;--text4:#cdd6e2}
+::placeholder{color:var(--text4);opacity:.9}
+/* History: the whole row says how it went */
+.hship.win>.hship-h{background:linear-gradient(90deg,color-mix(in srgb,var(--green) 17%,transparent),color-mix(in srgb,var(--green) 4%,transparent))}
+.hship.part>.hship-h{background:linear-gradient(90deg,color-mix(in srgb,var(--amber) 16%,transparent),color-mix(in srgb,var(--amber) 4%,transparent))}
+.hship.lost>.hship-h{background:linear-gradient(90deg,color-mix(in srgb,var(--red) 14%,transparent),color-mix(in srgb,var(--red) 3%,transparent))}
+
+/* who chip in the sidebar */
+.who-chip{display:flex;align-items:center;gap:9px;margin:8px 10px 0;padding:8px 9px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+.who-chip small{display:block;font-size:11px;color:var(--text4);line-height:1.2}
+.who-chip b{font-size:12.5px;color:var(--text)}
+.wc-av{width:24px;height:24px;border-radius:50%;background:var(--amber);color:#111;font-weight:800;font-size:11px;display:grid;place-items:center;flex:none}
+.wc-av.sm{width:20px;height:20px;font-size:10px}
+
+/* colour helper: each block sets --c, the rest is mixed from it */
+.c-red{--c:var(--red)}.c-amber{--c:var(--amber)}.c-green{--c:var(--green)}.c-blue{--c:var(--blue)}.c-violet{--c:var(--violet)}.c-cyan{--c:#4fdcf5}.c-white{--c:var(--text)}.c-grey{--c:var(--grey)}
+.sl,.ov3{--cb:color-mix(in srgb,var(--c,var(--blue)) 12%,transparent);--cl:color-mix(in srgb,var(--c,var(--blue)) 42%,transparent)}
+.sl *,.ov3 *{--cb:color-mix(in srgb,var(--c,var(--blue)) 12%,transparent);--cl:color-mix(in srgb,var(--c,var(--blue)) 42%,transparent)}
+
+/* ── Sarah's list ── */
+.sl{font-size:13.5px}
+.sl-cnts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.sl-cnt{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-align:left;box-shadow:inset 0 2px 0 var(--c);transition:background .15s,border-color .15s}
+.sl-cnt:hover{background:var(--raise);border-color:var(--line2)}
+.sl-cnt .n{font-size:24px;font-weight:780;color:var(--c);min-width:34px}
+.sl-cnt .l{display:block;font-size:13.5px;font-weight:650;color:var(--text)}
+.sl-cnt .m{display:block;font-size:11.5px;color:var(--text4)}
+.sl-cols{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:14px;align-items:start}
+.sl-sec{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.sl-sh{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sl-sh h2{font-size:15px;font-weight:750;color:var(--text);white-space:nowrap;margin:0}
+.sl-pill{font-size:11.5px;font-weight:750;padding:1px 8px;border-radius:20px;background:var(--cb);color:var(--c)}
+.sl-why{font-size:12.5px;color:var(--text3)}
+.sl-sp{flex:1}
+.sl-amt{font-weight:750;color:var(--c)}
+.sl-tog{font-size:12.5px;font-weight:650;color:var(--blue)}
+.sl-bar2{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:9px 14px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,var(--surface))}
+.sl-prog{display:flex;align-items:center;gap:9px;margin-right:8px;font-size:12.5px;color:var(--text3)}
+.sl-prog b{color:var(--text)}
+.sl-prog .tr{width:110px;height:7px;border-radius:4px;background:var(--raise);overflow:hidden}
+.sl-prog .tr i{display:block;height:100%;background:var(--green);border-radius:4px;transition:width .3s}
+.sl-chip{font-size:12.5px;font-weight:650;padding:4px 10px;border-radius:20px;border:1px solid var(--line2);color:var(--text3)}
+.sl-chip:hover{background:var(--hover)}
+.sl-chip b{color:var(--text);margin-left:4px}
+.sl-chip.on{background:var(--text);border-color:var(--text);color:var(--bg)}
+.sl-chip.on b{color:var(--bg)}
+.sl-list{display:flex;flex-direction:column;gap:6px;padding:8px}
+.sl-empty{display:flex;align-items:center;gap:8px;padding:14px;color:var(--text3);font-size:13px}
+.sl-card{border:1px solid var(--line);border-radius:10px;background:var(--raise);overflow:hidden;transition:border-color .15s,background .15s,opacity .2s}
+.sl-card:hover{border-color:var(--cl)}
+.sl-card.open{border-color:var(--cl)}
+.sl-card.busy{opacity:.45;pointer-events:none}
+.sl-row{display:grid;grid-template-columns:4px 34px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 10px 9px 0;cursor:pointer}
+.sl-bar{align-self:stretch;background:var(--c)}
+.sl-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--cb);color:var(--c)}
+.sl-q{min-width:0}
+.sl-t{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.35}
+.sl-t b{font-weight:800}
+.sl-s{font-size:12.5px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-s b{color:var(--text);font-weight:650}
+.sl-s.dim{color:var(--text4)}
+.sl-s b.late{color:var(--red)}.sl-s b.soon{color:var(--amber)}
+.sl-kind{color:var(--c);font-weight:750;margin-right:6px}
+.sl-sep{color:var(--text4);margin:0 6px}
+.sl-conf{font-size:11.5px;font-weight:700;padding:0 7px;border-radius:20px;border:1px solid}
+.sl-conf.ok{color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent);border-color:color-mix(in srgb,var(--green) 40%,transparent)}
+.sl-conf.warn{color:var(--amber);background:color-mix(in srgb,var(--amber) 12%,transparent);border-color:color-mix(in srgb,var(--amber) 40%,transparent)}
+.sl-conf.bad{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border-color:color-mix(in srgb,var(--red) 42%,transparent)}
+.sl-m{text-align:right;white-space:nowrap;min-width:84px}
+.sl-m .v{font-size:15px;font-weight:780;color:var(--c)}
+.sl-m .k{font-size:11.5px;color:var(--text4)}
+.sl-acts{display:flex;gap:6px;align-items:center}
+.sl-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:7px;border:1px solid var(--line2);color:var(--text);white-space:nowrap;background:transparent;transition:background .15s,border-color .15s}
+.sl-btn:hover{background:var(--hover)}
+.sl-btn.yes{background:var(--green);border-color:var(--green);color:#06150d;min-width:112px;justify-content:center}
+.sl-btn.yes:hover{filter:brightness(1.08)}
+.sl-btn.no{min-width:60px;justify-content:center}
+.sl-btn.no:hover{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.sl-btn.go{background:var(--text);border-color:var(--text);color:var(--bg)}
+.sl-btn.ghost{border-color:transparent}
+.sl-chev{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:var(--text3);border:1px solid transparent}
+.sl-chev:hover{background:var(--hover);border-color:var(--line2);color:var(--text)}
+.sl-chev .ic{transition:transform .2s}
+.sl-card.open .sl-chev .ic{transform:rotate(180deg)}
+.sl-proof{display:none;padding:12px 12px 12px 50px;border-top:1px solid var(--line)}
+.sl-card.open .sl-proof{display:block}
+.sl-pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sl-pbox,.sl-pwhy{background:color-mix(in srgb,var(--bg) 70%,var(--surface));border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.sl-pbox h4,.sl-pwhy h4{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);margin:0 0 7px}
+.sl-pbox h4 i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.sl-pwhy{margin-top:10px}
+.sl-pwhy ul{list-style:none;margin:0;padding:0}
+.sl-pwhy li{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--text2);margin:4px 0}
+.sl-pwhy li.ok .ic{color:var(--green)}.sl-pwhy li.wn .ic{color:var(--amber)}
+.sl-kv{display:grid;grid-template-columns:140px 1fr;gap:3px 10px;font-size:12.5px;margin:6px 0 0}
+.sl-kv dt{color:var(--text4)}
+.sl-kv dd{margin:0;color:var(--text);font-weight:600}
+.sl-kv dd.ok{color:var(--green)}.sl-kv dd.warn{color:var(--amber)}.sl-kv dd.bad{color:var(--red)}
+.sl-pt{width:100%;border-collapse:collapse;font-size:12.5px}
+.sl-pt th{text-align:left;font-weight:650;color:var(--text4);padding:3px 6px;border-bottom:1px solid var(--line)}
+.sl-pt td{color:var(--text);padding:5px 6px;border-bottom:1px solid var(--line)}
+.sl-pt .r{text-align:right}.sl-pt td.bad{color:var(--red);font-weight:750}
+.sl-bad{color:var(--red);font-weight:600;font-size:12.5px}
+.sl-links{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.sl-links .lbl{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);margin-right:4px}
+.sl-lk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:650;padding:5px 10px;border-radius:7px;background:var(--surface);border:1px solid var(--line2);color:var(--text);text-decoration:none;white-space:nowrap}
+.sl-lk:hover{background:var(--hover);border-color:color-mix(in srgb,var(--blue) 45%,transparent)}
+.sl-lk .ic{color:var(--blue)}
+.sl-after{margin-top:10px;font-size:12.5px;color:var(--text3)}
+.sl-after b{color:var(--text)}
+.sl-quote{font-size:13.5px;color:var(--text);background:color-mix(in srgb,var(--bg) 70%,var(--surface));border-left:3px solid var(--violet);padding:8px 12px;border-radius:0 8px 8px 0}
+.sl-quote mark{background:color-mix(in srgb,var(--violet) 18%,transparent);color:var(--violet);padding:0 3px;border-radius:3px;font-weight:700}
+.sl-quote mark.r{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}
+.sl-deny{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--red) 42%,transparent);background:color-mix(in srgb,var(--red) 10%,transparent);border-radius:10px;font-size:12.5px;color:var(--text)}
+.sl-deny select,.sl-deny input,.sl-in{background:var(--input);border:1px solid var(--line2);border-radius:7px;padding:6px 9px;font-size:12.5px;color:var(--text)}
+.sl-deny input{flex:1;min-width:180px}
+.sl-in{width:240px;margin:0 6px}
+.sl-jrow .sl-row{grid-template-columns:4px 34px minmax(0,1fr) 330px}
+.sl-jrow .sl-s{white-space:normal}
+.sl-reply{display:flex;gap:6px;align-items:flex-start}
+.sl-reply textarea{flex:1;height:34px;resize:vertical;background:var(--input);border:1px solid var(--line2);border-radius:7px;padding:7px 9px;font-size:12.5px;color:var(--text)}
+.sl-reply .sl-btn.yes{min-width:0}
+.sl-mini{display:grid;grid-template-columns:4px 1fr auto 96px;gap:10px;align-items:center;padding:7px 10px 7px 0;cursor:pointer;font-size:12.5px;color:var(--text2)}
+.sl-mini b{color:var(--text)}
+.sl-mt{color:var(--text4)}
+.sl-mv{text-align:right;font-weight:700;color:var(--text)}
+.sl-done{border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,var(--surface))}
+.sl-dh{padding:9px 14px;font-weight:750;color:var(--text);font-size:13px}
+.sl-dh span{font-weight:500;color:var(--text4);margin-left:8px;font-size:12px}
+.sl-dr{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:7px 14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--text3)}
+.sl-dr button{color:var(--blue);font-weight:650}
+.sl-rail .sl-sec{padding:12px 14px}
+.sl-rh{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.sl-rkv{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--text2)}
+.sl-rkv:first-of-type{border-top:0}
+.sl-rkv b{font-size:15px;color:var(--c)}
+.sl-note{font-size:11.5px;color:var(--text4);margin-top:8px;line-height:1.45}
+.sl-cal{display:flex;flex-direction:column}
+.sl-day{display:grid;grid-template-columns:48px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
+.sl-day:first-child{border-top:0}
+.sl-day .dd{display:flex;flex-direction:column;align-items:center;border-radius:8px;background:var(--raise);padding:4px 0;height:fit-content}
+.sl-day .dd b{font-size:15px;color:var(--text);line-height:1.1}
+.sl-day .dd small{font-size:10.5px;color:var(--text4);text-transform:uppercase;letter-spacing:.03em}
+.sl-day.busy .dd{background:color-mix(in srgb,var(--violet) 14%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--violet) 42%,transparent)}
+.sl-day.busy .dd b{color:var(--violet)}
+.sl-day .ids{display:flex;flex-wrap:wrap;gap:4px;align-content:center}
+.sl-day .ids button{font-size:11.5px;font-weight:650;color:var(--text);background:var(--raise);border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+.sl-day .ids button:hover{border-color:var(--line2);background:var(--hover)}
+.sl-day .ids i{font-style:normal;font-size:10px;color:var(--violet);margin-left:4px}
+
+/* ── Overview, view only ── */
+.ov3-note{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text3);margin-bottom:12px}
+.ov3-note b{color:var(--text)}.ov3-note a,.ov3-ro a{color:var(--blue);text-decoration:none;font-weight:650}
+.ov3-ks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px}
+.ov3-k{padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);box-shadow:inset 0 2px 0 var(--c)}
+.ov3-k .l{font-size:12.5px;color:var(--text3);font-weight:650}
+.ov3-k .v{font-size:22px;font-weight:780;color:var(--c);margin:2px 0}
+.ov3-k .s{font-size:11.5px;color:var(--text4)}
+.ov3-g{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.ov3-c{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ov3-c h3{font-size:13.5px;font-weight:750;color:var(--text);margin:0 0 10px;display:flex;justify-content:space-between}
+.ov3-c h3 span{font-size:12.5px;color:var(--text4);font-weight:500}
+.ov3-stack{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px;margin:4px 0 10px;background:var(--raise)}
+.ov3-stack i{display:block;background:var(--c)}
+.ov3-leg{display:grid;grid-template-columns:10px 1fr auto auto;gap:5px 8px;align-items:center;font-size:12.5px;color:var(--text2)}
+.ov3-leg i{width:9px;height:9px;border-radius:3px;background:var(--c)}
+.ov3-leg .a{color:var(--text);font-weight:750;text-align:right}
+.ov3-leg .n{color:var(--text4);text-align:right;min-width:56px}
+.ov3-wk{display:flex;align-items:flex-end;gap:6px;height:112px;padding-top:6px}
+.ov3-wk div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;justify-content:flex-end;height:100%}
+.ov3-wk i{display:block;width:100%;background:var(--green);border-radius:4px 4px 2px 2px}
+.ov3-wk span{font-size:10.5px;color:var(--text4)}
+.ov3-wk b{font-size:10.5px;color:var(--text)}
+.ov3-hb{display:grid;grid-template-columns:58px 1fr 108px;gap:8px;align-items:center;font-size:12.5px;color:var(--text2);margin:6px 0}
+.ov3-hb .tr{height:8px;border-radius:4px;background:var(--raise);overflow:hidden}
+.ov3-hb .tr i{display:block;height:100%;background:var(--c);border-radius:4px}
+.ov3-hb .a{text-align:right;color:var(--text);font-weight:650}
+.ov3-ro{font-size:11.5px;color:var(--text4);margin-top:10px}
+
+@media (max-width:1150px){.sl-cols{grid-template-columns:1fr}.sl-cnts,.ov3-ks{grid-template-columns:repeat(3,1fr)}.ov3-g{grid-template-columns:1fr}.sl-pgrid{grid-template-columns:1fr}}
+@media (max-width:760px){.sl-cnts,.ov3-ks{grid-template-columns:repeat(2,1fr)}.sl-row,.sl-jrow .sl-row{grid-template-columns:4px 34px minmax(0,1fr)}.sl-m,.sl-acts,.sl-reply{grid-column:3}.sl-m{text-align:left}.sl-proof{padding-left:12px}.sl-acts{flex-wrap:wrap}.sl-s{white-space:normal}}
+
+code,kbd,pre,samp{font-family:var(--sans)}
+.sl-cnts>*,.sl-cols>*,.sl-main,.sl-rail,.ov3-ks>*,.ov3-g>*{min-width:0}
+.sl-cnt{overflow:hidden}.sl-cnt .l,.sl-cnt .m{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:760px){.sl-cnt .m{white-space:normal}.sl-reply{flex-wrap:wrap}.sl-in{width:100%;margin:4px 0}}
+.sidebar.collapsed .who-chip{padding:6px;justify-content:center;margin:8px 6px 0}.sidebar.collapsed .who-chip>span:not(.wc-av){display:none}
+
+.wc-out{margin-left:auto;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:var(--text4)}
+.wc-out:hover{background:var(--hover);color:var(--red)}
+.sidebar.collapsed .wc-out{display:none}
+.sd-signin{position:fixed;inset:0;z-index:100000;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+.si-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line2);border-radius:14px;padding:26px 24px;box-shadow:0 30px 80px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:12px}
+.si-logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#8b6cff,#3fb8f0);color:#fff;font-weight:800;display:grid;place-items:center}
+.si-card h2{font-size:19px;color:var(--text);margin:0}
+.si-card p{font-size:13px;color:var(--text3);margin:0;line-height:1.5}
+.si-card p b{color:var(--text)}
+.si-card label{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:650;color:var(--text2)}
+.si-card input{background:var(--input);border:1px solid var(--line2);border-radius:8px;padding:10px 11px;font-size:14px;color:var(--text)}
+.si-card input:focus{outline:none;border-color:var(--blue)}
+.si-err{min-height:16px;font-size:12.5px;color:var(--red);font-weight:600}
+.si-go{background:var(--text);color:var(--bg);font-weight:750;border-radius:9px;padding:11px;font-size:14px}
+.si-go:disabled{opacity:.6}
+.si-foot{font-size:11.5px;color:var(--text4);line-height:1.45}
+
+</style>
 </head>
 <body>
 
@@ -2124,20 +2336,21 @@ html{text-rendering:optimizeLegibility;font-kerning:normal;-webkit-font-smoothin
     <div class="sb-nav">
       <button class="nav-i" data-page="overview" onclick="go('overview')"><span class="ic" data-ic="layout"></span><span>Overview</span></button>
       <button class="nav-i" data-page="active" onclick="go('active')"><span class="ic" data-ic="list"></span><span>Active</span><span class="ct" id="nav-active">0</span></button>
-      <button class="nav-i" data-page="actions" onclick="go('actions')"><span class="ic" data-ic="alert"></span><span>Action Centre</span><span class="ct urgent" id="nav-actions">0</span></button>
+      <button class="nav-i" data-page="actions" onclick="go('actions')"><span class="ic" data-ic="alert"></span><span>Sarah’s list</span><span class="ct urgent" id="nav-actions">0</span></button>
       <button class="nav-i" data-page="pipeline" onclick="go('pipeline')"><span class="ic" data-ic="list"></span><span>Pipeline</span></button>
       <button class="nav-i" data-page="invoices" onclick="go('invoices')"><span class="ic" data-ic="file"></span><span>Invoices</span><span class="ct" id="nav-invq"></span></button>
       <button class="nav-i" data-page="history" onclick="go('history')"><span class="ic" data-ic="clock"></span><span>History</span><span class="ct" id="nav-history">0</span></button>
       <button class="nav-i" data-page="settings" onclick="go('settings')"><span class="ic" data-ic="gear"></span><span>Settings</span></button>
     </div>
     <div class="sb-stat" id="sbStat"></div>
+    <div class="who-chip" id="whoChip"></div>
     <div class="sb-tools">
       <div class="sb-sec">Quick links</div>
       <div id="quickLinks"></div>
     </div>
     <div class="sb-foot">
       <button id="themeBtn" onclick="toggleTheme()" title="Switch theme"><span class="ic" data-ic="theme"></span><span class="lbl">Theme</span></button>
-      <span class="sb-ver" id="verPill">v0.5</span>
+      <span class="sb-ver" id="verPill">v0.55</span>
     </div>
   </div>
 
@@ -2598,14 +2811,15 @@ function mergeRows(local,server){
     if(!l||!l.rid)return;
     if(gone.has(l.rid))return;                          /* deleted here -> stay deleted */
     const srv=byRid.get(l.rid);
-    if(!srv){byRid.set(l.rid,l);return}                 /* local-only -> keep */
+    if(!srv){if(SRV_GONE.has(l.rid)&&!DIRTY.has(l.rid))return;   /* v0.55 — deleted on the other laptop */
+      byRid.set(l.rid,l);return}                 /* local-only -> keep */
     if(DIRTY.has(l.rid)){byRid.set(l.rid,l);return}      /* unsynced -> local wins */
     const lu=+l.updated||0,su=+srv.updated||0;
     byRid.set(l.rid,lu>su?l:srv);                        /* newest wins */
   });
   return Array.from(byRid.values()).sort((a,b)=>(+b.updated||0)-(+a.updated||0));
 }
-async function cloudPull(quiet){if(!BOOTED||!cloudOn()||!cloudUsable())return;try{lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);reconcileAll(true);persistData();if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);makeBackup('daily');if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
+async function cloudPull(quiet){if(!BOOTED||!cloudOn()||!cloudUsable())return;try{lastPull=Date.now();setCloudState('sync');const r=await api('/rest/v1/'+CLOUD_TABLE+'?select=data&deleted_at=is.null&order=updated.desc');if(!r.ok)throw new Error(r.status);const rows=(await r.json()).map(x=>x.data).filter(Boolean);try{const g=await api('/rest/v1/'+CLOUD_TABLE+'?select=rid&deleted_at=not.is.null');if(g.ok)SRV_GONE=new Set((await g.json()).map(function(x){return x.rid}))}catch(e){}if(!rows.length&&DATA.length){setCloudState('ok');markAllDirty();cloudPush(true);if(!quiet)toast('Database was empty \u2014 uploaded your '+DATA.length+' local shipment'+(DATA.length!==1?'s':''));return}DATA=mergeRows(DATA,rows);reconcileAll(true);persistData();PULLED=true;setTimeout(function(){try{autoAttachInvoices();applyRecv()}catch(e){}},80);if(DIRTY.size){setCloudState('sync');cloudPush();}else{setCloudState('ok');}if(S.sel&&!DATA.find(x=>x.rid===S.sel))S.sel=null;go(S.page);makeBackup('daily');if(!quiet)toast('Loaded '+DATA.length+' shipment'+(DATA.length!==1?'s':'')+' from the database')}catch(e){setCloudState('err');if(!quiet)toast('Could not reach the database')}}
 function logImport(source,payload){if(!cloudOn()||!cloudUsable())return;api('/rest/v1/shipment_deck_imports',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify([{source:source,data:payload}])}).catch(()=>{});}
 function saveCloudCfg(){const u=normUrl(document.getElementById('cl-url').value),k=(document.getElementById('cl-key').value||'').trim();CLOUD={url:u,key:k};lsSet(LS_CLOUD,JSON.stringify(CLOUD));if(cloudOn()){cloudDead=false;cloudFails=0;cloudFailAt=0;toast('Cloud SQL connected \u2014 pulling data');cloudPull(true)}else{toast('Cloud sync disconnected');renderChrome()}renderSettings()}
 let DATA=[],LINKS={sc:'https://sellercentral.amazon.co.uk/myc/msc',stk:'',sf:''};
@@ -2731,16 +2945,16 @@ function renderChrome(){
   const atRisk=open.reduce((a,s)=>a+Math.max(0,pot(s)-rec(s)),0);
   const soon=open.filter(s=>dlRisk(s)<=SETTINGS.deadlineRiskDays).length;
   const _dls=open.map(dlRisk).filter(isFinite);const nextDl=_dls.length?Math.min(..._dls):null;
-  const titles={overview:'Overview',active:'Active shipments',actions:'Action Centre',pipeline:'Pipeline',invoices:'Invoices',history:'History',settings:'Settings'};
+  const titles={overview:'Overview',active:'Active shipments',actions:'Sarah\u2019s list',pipeline:'Pipeline',invoices:'Invoices',history:'History',settings:'Settings'};
   document.getElementById('pageTitle').textContent=titles[S.page];
   let sub='';
   if(S.page==='active'||S.page==='overview')
     sub=open.length+' open · <b class="risk">'+money(atRisk)+'</b> at risk · <b class="warn">'+soon+'</b> deadline'+(soon!==1?'s':'')+' within '+SETTINGS.deadlineRiskDays+' days';
-  else if(S.page==='actions'){const b=acBundles();sub=b.length+' shipment'+(b.length!==1?'s':'')+' need attention';}
-  else if(S.page==='invoices'){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !invHas(l.invoice)}).length},0);sub=n+' SKU'+(n!==1?'s':'')+' still need an invoice';}else if(S.page==='history')sub=DATA.filter(isHist).length+' settled shipments';else if(S.page==='settings')sub='Tune claim windows, deadlines, follow-ups & links';else if(S.page==='pipeline')sub='Where every shipment is up to, and what has been done';
+  else if(S.page==='actions'){sub=slSub();}
+  else if(S.page==='invoices'){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !invHas(l.invoice)&&(!INVQ.deniedOnly||invMatters(s,l))}).length},0);sub=n+' SKU'+(n!==1?'s':'')+' still need an invoice';}else if(S.page==='history')sub=DATA.filter(isHist).length+' settled shipments';else if(S.page==='settings')sub='Tune claim windows, deadlines, follow-ups & links';else if(S.page==='pipeline')sub='Where every shipment is up to, and what has been done';
   document.getElementById('pageSub').innerHTML=sub;
   renderSysBars();
-  {const iq=document.getElementById('nav-invq');if(iq){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !invHas(l.invoice)}).length},0);iq.textContent=n;iq.classList.toggle('zero',!n);}const na=document.getElementById('nav-active'),nh=document.getElementById('nav-history'),hn=DATA.filter(isHist).length;na.textContent=open.length;na.classList.toggle('zero',!open.length);nh.textContent=hn;nh.classList.toggle('zero',!hn);}
+  {const iq=document.getElementById('nav-invq');if(iq){const n=DATA.filter(function(x){return !isHist(x)}).reduce(function(a,s){return a+(s.lines||[]).filter(function(l){return !invHas(l.invoice)&&(!INVQ.deniedOnly||invMatters(s,l))}).length},0);iq.textContent=n;iq.classList.toggle('zero',!n);}const na=document.getElementById('nav-active'),nh=document.getElementById('nav-history'),hn=DATA.filter(isHist).length;na.textContent=open.length;na.classList.toggle('zero',!open.length);nh.textContent=hn;nh.classList.toggle('zero',!hn);}
   
   {const ss=document.getElementById('sbStat');
    if(ss){
@@ -2754,10 +2968,10 @@ function renderChrome(){
       +'<div class="sbm-foot">'+open.length+' open'+(nextDl==null?'':' \u00b7 '+(nextDl<0?'deadline overdue':'next in '+nextDl+'d'))+'</div>';
    }
    const ac=document.getElementById('nav-actions');
-   if(ac){const n=acBundles().filter(function(b){return b.bucket==='do'}).length;ac.textContent=n;ac.classList.toggle('zero',!n);}
+   if(ac){const n=slCount();ac.textContent=n;ac.classList.toggle('zero',!n);}
   }
   {const tb=document.getElementById('trialBanner');if(tb){tb.style.display=TRIAL?'flex':'none';tb.innerHTML=TRIAL?ic('triangle',13)+'<b>Trial mode</b> \u2014 nothing saved; refreshing clears everything. Turn saving on in Settings when ready.':'';}const si=document.getElementById('syncInd');if(si){if(cloudOn()&&!TRIAL){setCloudState('ok')}else{si.innerHTML='<span class="d"></span>'+(TRIAL?'Not saved':'Synced');si.classList.toggle('trial',TRIAL);si.title=TRIAL?'Trial mode':'Synced with local storage';}}}
-  renderQuickLinks();
+  renderQuickLinks();try{renderWhoChip()}catch(e){}
 }
 function renderQuickLinks(){
   const ql=document.getElementById('quickLinks');if(!ql)return;
@@ -3010,7 +3224,7 @@ function activeRows(){
     if(S.t30&&win(s).days>30)return false;
     if(S.tFuOverdue&&!fuOverdue(s))return false;
     
-    if(S.q){const blob=(s.id+' '+s.name+' '+s.lines.map(l=>l.asin+' '+l.fnsku+' '+(l.sku||'')+' '+l.p).join(' ')).toLowerCase();if(!blob.includes(S.q))return false}
+    if(S.q){const blob=(s.id+' '+s.name+' '+(s.caseId||'')+' '+(s.caseIds||[]).join(' ')+' '+(s.reimbId||'')+' '+(s.note||'')+' '+s.lines.map(l=>l.asin+' '+l.fnsku+' '+(l.sku||'')+' '+l.p+' '+(l.reimbId||'')+' '+(l.amzPays||[]).map(function(p){return p.id+' '+(p.case||'')}).join(' ')).join(' ')).toLowerCase();if(!blob.includes(S.q))return false}
     return true;
   }).sort((a,b)=>{
     if(S.sort==='action')return priCmp(a,b);
@@ -3625,19 +3839,19 @@ function setShipTag(rid,k){var s=byId(rid);
     s.status=to;s.statusAt=now();
     if(to==='mscdenied'&&denialDefault(s))toast('Re-update reminder set for '+fmtDShort(s.followUp)+' \u2014 change it on the shipment');}
   s.updated=now();refresh();}
-function setField(rid,f,v){const s=byId(rid);if(f==='caseId'||f==='reimbId')v=String(v||'').trim();if(f==='caseId'){const o=String(s.caseId||'').trim(),nv=String(v||'').trim();if(o&&nv&&o!==nv){s.caseIds=s.caseIds||[];if(s.caseIds.indexOf(o)<0)s.caseIds.push(o)}}s[f]=v;s.updated=now();if(f==='caseId'&&v&&['invoice','mscreupdate','mscpending','mscapproved'].includes(s.status)){log(s,'Case ID logged — moved to Case opened','caseopen');s.status='caseopen';s.statusAt=now();save();refresh();return;}save();if(f==='urgent'){renderQueue();renderChrome()}}
+function setField(rid,f,v){const s=byId(rid);if(f==='caseId'||f==='reimbId')v=String(v||'').trim();if(f==='caseId'){const o=String(s.caseId||'').trim(),nv=String(v||'').trim();if(o&&nv&&o!==nv){s.caseIds=s.caseIds||[];if(s.caseIds.indexOf(o)<0)s.caseIds.push(o)}}s[f]=v;s.updated=now();if(f==='note')s.noteAt=now();if(f==='caseId'&&v&&['invoice','mscreupdate','mscpending','mscapproved'].includes(s.status)){log(s,'Case ID logged — moved to Case opened','caseopen');s.status='caseopen';s.statusAt=now();save();refresh();return;}save();if(f==='urgent'){renderQueue();renderChrome()}}
 function clearUrgent(rid){const s=byId(rid);s.urgent='';log(s,'Urgent action cleared');refresh()}
 /* v97 — "what does she need Jack to do". Escalating now captures the ask, so
    the With-Jack queue is a list of questions, not a list of flags. */
 function askJack(rid){
   const s=byId(rid);if(!s)return;
   askConfirm({tone:'primary',icon:'user',title:'Send to Jack',
-    message:'What do you need him to decide or do?'
+    message:'What do you need Jack to decide or do? <span style="color:var(--text3)">(You can leave it empty.)</span>'
       +'<div style="margin-top:10px"><textarea id="jackAsk" class="rpt-in" placeholder="e.g. Amazon only approved £63.50 against our £68.16 — push back or accept?"></textarea></div>',
     confirmLabel:'Send to Jack',
     onConfirm:function(){
       const q=((document.getElementById('jackAsk')||{}).value||'').trim();
-      s.escalated=true;s.note=q||s.note;s.updated=now();
+      s.escalated=true;if(q){s.jackQ=q;s.jackQAt=now()}s.updated=now();
       log(s,'Sent to Jack'+(q?': '+q:''));markDirty(s.rid);save();refresh();
       toast(esc(s.id)+' sent to Jack');
     }});
@@ -3649,7 +3863,7 @@ function jackDone(rid){
   log(s,'Returned from Jack');markDirty(s.rid);save();refresh();toast(esc(s.id)+' back with Sarah');
 }
 
-function toggleEsc(rid){const s=byId(rid);s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');refresh();toast(s.escalated?'Escalated to Jack':'Back with the VA')}
+function toggleEsc(rid){const s=byId(rid);if(!s.escalated){askJack(rid);return}s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');refresh();toast(s.escalated?'Escalated to Jack':'Back with the VA')}
 function addCase(rid){const s=byId(rid);const no=document.getElementById('cNo').value.trim();if(!no){toast('Case number needed');return}const reimb=document.getElementById('cReimb').value.trim();const amt=parseFloat(document.getElementById('cAmt').value)||null;s.cases.push({no,reimb,amt,date:amt?new Date().toISOString().slice(0,10):null});log(s,'Case logged: '+no+(amt?' · '+money(amt):''));if(amt)s.paidAt=s.paidAt||now();refresh();toast('Case logged')}
 function delCase(rid,i){const s=byId(rid);askConfirm({title:'Remove this case entry?',message:'Case <b>'+esc(s.cases[i].no||'(no number)')+'</b> will be removed from this shipment.<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove case',onConfirm:function(){log(s,'Case removed: '+s.cases[i].no);s.cases.splice(i,1);refresh();toast('Case removed')}})}
 let _cfm=null;
@@ -3821,7 +4035,7 @@ function bundleCard(b){
    +'<div class="b-btns">'+acts+'</div></div>';
 }
 function setAcFilter(k){S.acFilter=S.acFilter===k?'all':k;renderActions()}
-function renderActions(){
+function renderActionsOld(){
   const el=document.getElementById('actionsBody');
   const all=DATA.filter(function(s){return !isHist(s)});
   if(!all.length){el.innerHTML='<div class="q-empty" style="padding:70px">'+ic('check2')+'All clear — nothing needs a touch today.</div>';hydrateIcons(el);return}
@@ -4041,7 +4255,7 @@ function caseIdsHtml(s){const ids=s.caseIds||[];
 /* 4. "last worked on" — the app already logs every check, chase and MSC;
    showing it means no more "as of 05/11 – WIP" typed by hand */
 const TOUCH_RE=/^(Checked|Chased|MSC logged|MSC resubmitted|Status:|Moved to|Case message copied|Document sent|Seller Support case|Submitted to MSC|Case ID logged|Re-update)/;
-function lastTouched(s){let t=0;(s.log||[]).forEach(function(e){if(e.ts>t&&TOUCH_RE.test(e.txt||''))t=e.ts});return t}
+function lastTouched(s){let t=0;(s.log||[]).forEach(function(e){if(e.ts>t&&TOUCH_RE.test(e.txt||''))t=e.ts});return Math.max(t,+s.noteAt||0,noteAsOf(s))}
 function checkedToday(rid){const s=byId(rid);log(s,'Checked on Seller Central — no change');s.updated=now();refresh();toast(esc(s.id)+' · checked today')}
 
 /* 5. MSC price — Amazon answers on the spot, so Sarah lowers the price and
@@ -4245,11 +4459,11 @@ async function loadFindings(){
   if(!cloudOn()||!cloudUsable())return;
   try{const r=await fetch(CLOUD.url+'/rest/v1/'+FIND_TABLE+'?select=*&status=in.(open,info)&order=created_at.desc&limit=500',{headers:cloudHdrs()});
     if(!r.ok){FIND={state:'missing',rows:[]};return}
-    FIND={state:'ok',rows:await r.json()};findRefresh();}catch(e){}
+    FIND={state:'ok',rows:await r.json()};try{applyRecv()}catch(e){}findRefresh();}catch(e){}
 }
 function findOpen(k){return FIND.rows.filter(function(f){return f.status==='open'&&(!k||f.kind===k)})}
 function findInfo(){return FIND.rows.filter(function(f){return f.status==='info'&&f.kind==='week'}).sort(function(a,b){return String(b.id).localeCompare(String(a.id))})[0]}
-function findRefresh(){try{if(S.page==='overview')renderOverview();else if(S.page==='active')renderQueue();if(document.getElementById('fdOv'))renderFindings()}catch(e){}}
+function findRefresh(){try{if(S.page==='overview')renderOverview();else if(S.page==='actions')renderActions();else if(S.page==='active')renderQueue();if(document.getElementById('fdOv'))renderFindings()}catch(e){}}
 async function decideFinding(f,status,note){
   try{const r=await fetch(CLOUD.url+'/rest/v1/'+FIND_TABLE+'?id=eq.'+encodeURIComponent(f.id),{method:'PATCH',headers:cloudHdrs({'Prefer':'return=minimal'}),
       body:JSON.stringify({status:status,note:note||null,decided_by:WHO||'Sarah',decided_at:new Date().toISOString(),updated_at:new Date().toISOString()})});
@@ -4309,7 +4523,7 @@ function findBanner(){if(FIND.state!=='ok')return '';
   const tot=c.new+c.pay+c.claw;if(!tot&&!c.short)return '';
   const bits=[];if(c.new)bits.push('<b>'+c.new+'</b> new short shipment'+(c.new!==1?'s':''));if(c.pay)bits.push('<b>'+c.pay+'</b> payment'+(c.pay!==1?'s':'')+' to check');
   if(c.claw)bits.push('<b>'+c.claw+'</b> clawback'+(c.claw!==1?'s':''));if(c.short)bits.push('<b>'+c.short+'</b> paid short');
-  return '<div class="fd-ban" onclick="openFindings()">'+ic('bell',16)+'<span class="fd-txt"><b>From the Sellerfuse check:</b> '+bits.join(' · ')+'</span><span class="nh-go">Review'+ic('arrow',12)+'</span></div>';}
+  return '<div class="fd-ban" onclick="go(\'actions\')">'+ic('bell',16)+'<span class="fd-txt"><b>From the Sellerfuse check:</b> '+bits.join(' · ')+'</span><span class="nh-go">Review'+ic('arrow',12)+'</span></div>';}
 function weekLine(){const w=findInfo();if(!w)return '';const d=w.detail||{};
   return '<div class="fd-week">'+ic('trend',14)+'<span>'+esc(w.title||'This week')+': Amazon paid <b>'+money(+d.paid||0)+'</b>'
    +' · <b>'+money(+d.waiting||0)+'</b> waiting for Sarah to approve'+(d.short?' · <b>'+d.short+'</b> paid short':'')+(d.deadlines?' · <b>'+d.deadlines+'</b> deadline'+(d.deadlines!==1?'s':'')+' next week':'')+'</span></div>';}
@@ -4354,8 +4568,440 @@ function renderFindings(){const el=document.getElementById('fdBody');if(!el)retu
   const html=sec('new')+sec('pay')+sec('claw')+sec('short');
   el.innerHTML=html||'<div class="q-empty" style="padding:40px">'+ic('check2',26)+'All done — nothing waiting from the Sellerfuse check.</div>';hydrateIcons(el);}
 
+/* ═══════════ v0.55 — who's who, Sarah's list, view-only Overview (18 Nov 2026) ═══════════
+   Built from Jack's 18 Nov audit. The data showed Sarah never used the Action Centre's
+   buttons (0 presses in four months): she works shipment by shipment and keeps her diary in
+   the Notes box ("Reupdate Dec 4, Deadline Feb 21, as of 18/11 - WP"). So the list below reads
+   her own dates, and everything Sellerfuse finds is a card she checks and says yes or no to.
+   Nothing here changes a shipment until she presses a button, except two things that are
+   certain: an invoice link that matches the SKU exactly on the purchase sheet, and Amazon's
+   first-receipt date. */
+
+/* ── who is using it (Jack, 18 Nov: "Sarah logs in as Sarah, Jack as Jack") ──
+   1. the Deck's own sign-in on this laptop (PrepHub email + password, checked by PrepHub's login server)
+   2. otherwise the PrepHub sign-in already in this Chrome (same website, same storage)
+   3. otherwise the sign-in screen. Nobody uses the Deck unnamed. The password is never kept,
+      only the name and email that the login server sends back. */
+const PH_AUTH={url:'https://vsekpaibspetreadkxyi.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzZWtwYWlic3BldHJlYWRreHlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDE0NzcsImV4cCI6MjA5NDI3NzQ3N30.DVDI1nsBTyDbRPJDw_fcc7oohmH94erM07626xC4MtY'};
+function nameFromUser(u){u=u||{};const m=u.user_metadata||{};let n=String(m.name||m.full_name||'').trim();
+  if(!n){const lp=String(u.email||'').toLowerCase().split('@')[0]||'';n=lp.split(/[._-]+/).filter(Boolean).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' ')}
+  const f=n.match(/^(jack|sarah|becki|mera|suz)/i);return f?f[1].charAt(0).toUpperCase()+f[1].slice(1).toLowerCase():n}
+function prephubUser(){try{const raw=localStorage.getItem('bdl-prephub-auth');if(!raw)return null;let j=JSON.parse(raw);if(j&&j.currentSession)j=j.currentSession;return (j&&j.user&&j.user.email)?j.user:null}catch(e){return null}}
+function prephubName(){return nameFromUser(prephubUser())}
+function deckUser(){try{const j=JSON.parse(localStorage.getItem('sd-auth')||'null');return j&&j.user&&j.user.email?j.user:null}catch(e){return null}}
+let WHO_SRC='',WHO_EMAIL='';WHO='';
+(function(){const d=deckUser();if(d){WHO=nameFromUser(d);WHO_SRC='deck';WHO_EMAIL=d.email;return}
+  let noPh=false;try{noPh=localStorage.getItem('sd-auth-noph')==='1'}catch(e){}
+  const p=noPh?null:prephubUser();if(p){WHO=nameFromUser(p);WHO_SRC='prephub';WHO_EMAIL=p.email}})();
+function isJack(){return /^jack/i.test(WHO||'')}
+function renderWhoChip(){const el=document.getElementById('whoChip');if(!el)return;
+  el.innerHTML='<span class="wc-av">'+esc((WHO||'?').charAt(0))+'</span><span><small>Signed in</small><b>'+esc(WHO||'Nobody')+'</b></span><button class="wc-out" title="Sign out or switch person" onclick="event.stopPropagation();signOutDeck()">'+ic('x',11)+'</button>';
+  el.title=WHO?(WHO_EMAIL+' \u00b7 every action is signed with this name'):'Sign in';}
+function signOutDeck(){askConfirm({tone:'primary',icon:'user',title:'Sign out of the Shipment Deck?',message:'Signed in as <b>'+esc(WHO)+'</b>'+(WHO_EMAIL?' ('+esc(WHO_EMAIL)+')':'')+'. The next person signs in with their own PrepHub email and password. PrepHub itself stays signed in.',confirmLabel:'Sign out',onConfirm:function(){
+  flushPush();lsSet('sd-auth-noph','1');try{localStorage.removeItem('sd-auth')}catch(e){}setTimeout(function(){location.reload()},250)}})}
+function showSignIn(){if(WHO||document.getElementById('sdSignIn'))return;const ov=document.createElement('div');ov.id='sdSignIn';ov.className='sd-signin';
+  ov.innerHTML='<form class="si-card" onsubmit="event.preventDefault();doSignIn()"><div class="si-logo">SD</div><h2>Sign in to the Shipment Deck</h2>'
+   +'<p>Use your <b>PrepHub</b> email and password, so everything you do here is signed with your name.</p>'
+   +'<label>Email<input id="siEmail" type="email" autocomplete="username" required></label>'
+   +'<label>Password<input id="siPass" type="password" autocomplete="current-password" required></label>'
+   +'<div class="si-err" id="siErr"></div><button class="si-go" id="siGo" type="submit">Sign in</button>'
+   +'<div class="si-foot">Same login as PrepHub. Your password is checked by PrepHub\u2019s login server and never saved here.</div></form>';
+  document.body.appendChild(ov);setTimeout(function(){const e=document.getElementById('siEmail');if(e)e.focus()},50)}
+async function doSignIn(){const em=(document.getElementById('siEmail').value||'').trim(),pw=document.getElementById('siPass').value||'',err=document.getElementById('siErr'),btn=document.getElementById('siGo');
+  if(!em||!pw){err.textContent='Enter your email and password';return}btn.disabled=true;btn.textContent='Signing in\u2026';err.textContent='';
+  try{const r=await fetch(PH_AUTH.url+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':PH_AUTH.key,'Content-Type':'application/json'},body:JSON.stringify({email:em,password:pw})});
+    const j=await r.json().catch(function(){return{}});
+    if(!r.ok||!j.user){err.textContent=(r.status===400||r.status===401)?'That email or password isn\u2019t right \u2014 it\u2019s the same as your PrepHub login.':'Sign-in didn\u2019t work ('+r.status+'). Try again.';btn.disabled=false;btn.textContent='Sign in';return}
+    const u={id:j.user.id,email:j.user.email,user_metadata:j.user.user_metadata||{}};
+    lsSet('sd-auth',JSON.stringify({user:u,at:new Date().toISOString()}));try{localStorage.removeItem('sd-auth-noph')}catch(e){}
+    WHO=nameFromUser(u);WHO_SRC='deck';WHO_EMAIL=u.email;document.getElementById('sdSignIn').remove();renderChrome();go(S.page);toast('Signed in as '+WHO);
+  }catch(e){err.textContent='Couldn\u2019t reach the sign-in server. Check the internet and try again.';btn.disabled=false;btn.textContent='Sign in'}}
+if(!WHO){if(document.body)setTimeout(showSignIn,0);else document.addEventListener('DOMContentLoaded',showSignIn)}
+
+/* ── sync: rows deleted on the other laptop stay deleted ── */
+let SRV_GONE=new Set();
+let PULLED=false;
+
+/* ── "last touched": her note edits, and the "as of 18/11" she writes in it ── */
+function noteAsOf(s){const m=String(s.note||'').match(/as of\s*(\d{1,2})\s*[\/.]\s*(\d{1,2})/i);if(!m)return 0;
+  const t=new Date();let d=new Date(t.getFullYear(),+m[2]-1,+m[1],12);if(d-t>7*864e5)d=new Date(t.getFullYear()-1,+m[2]-1,+m[1],12);return d.getTime()}
+
+/* ── money that Amazon actually paid, by its own date ── */
+function amzPaidAt(l){const d=(l.amzPays||[]).filter(function(p){return +p.amt>0&&p.date}).map(function(p){return String(p.date).slice(0,10)}).sort().pop();return d?new Date(d+'T12:00:00').getTime():0}
+
+/* ── invoices: where Amazon actually needs one ── */
+function invMatters(s,l){const st=l.lstatus||'';if(st==='denied'||st==='needsdoc')return true;
+  if(!st||st==='none')return ['invoice','mscreupdate','needsdoc','mscdenied','mscpending'].indexOf(s.status)>=0;return false}
+/* exact SKU + exactly one link on the purchase sheet = certain, so it goes straight in (logged) */
+function autoAttachInvoices(){if(PS.state!=='ok'||!BOOTED||(cloudOn()&&!PULLED))return 0;let n=0;
+  DATA.filter(function(s){return !isHist(s)}).forEach(function(s){let k=0;
+    (s.lines||[]).forEach(function(l){if(invHas(l.invoice))return;const p=psFor(l);if(p.sure.length!==1)return;l.invoice=p.sure[0].link;k++});
+    if(k){s.log=s.log||[];s.log.unshift({ts:now(),txt:'Invoice'+(k!==1?'s':'')+' attached from the purchase sheet · '+k+' SKU'+(k!==1?'s':'')+' (exact SKU match)',who:'Purchase sheet',at:s.status||''});s.updated=now();markDirty(s.rid);n+=k}});
+  if(n){save();renderChrome();if(S.page==='actions')renderActions();if(S.page==='invoices')renderInvQueue();toast(n+' invoice'+(n!==1?'s':'')+' attached from the purchase sheet')}return n}
+{const _lps=loadPurchaseSheet;loadPurchaseSheet=async function(){const r=await _lps.apply(this,arguments);try{autoAttachInvoices()}catch(e){}try{if(S.page==='actions')renderActions()}catch(e){}return r}}
+
+/* ── Sellerfuse: first-receipt dates are facts, so they go straight in ── */
+function applyRecv(){if(FIND.state!=='ok'||!BOOTED||(cloudOn()&&!PULLED))return;
+  FIND.rows.filter(function(f){return f.kind==='recv'&&f.status==='info'}).forEach(function(f){const d=f.detail||{};const s=shipByFbaOrRid(d);
+    if(s&&!s.firstRecv&&d.first_received){s.firstRecv=d.first_received;s.log=s.log||[];s.log.unshift({ts:now(),txt:'First receipt '+fmtD(d.first_received)+' from Sellerfuse — Amazon’s deadline about '+fmtD(d.deadline||''),who:'Sellerfuse',at:s.status||''});s.updated=now();markDirty(s.rid);save()}
+    if(s||!d.shipment)decideFinding(f,'done','applied');});}
+if(typeof FIND_KIND==='object'){FIND_KIND.found=FIND_KIND.found||{l:'Units Amazon found',c:'var(--blue)',ic:'search'};FIND_KIND.cog=FIND_KIND.cog||{l:'Cost price missing',c:'var(--amber)',ic:'coins'};FIND_KIND.line=FIND_KIND.line||{l:'Missing line',c:'var(--red)',ic:'plus'};FIND_KIND.unpaid=FIND_KIND.unpaid||{l:'Marked paid, never paid',c:'var(--red)',ic:'alert'}}
+
+/* ── re-pasting a shipment that's already in the Deck ── */
+function repasteDiff(ex,nw){const ch=[],add=[];(nw.lines||[]).forEach(function(n){const i=lineBySku(ex,n.sku);if(i<0){add.push(n);return}const o=ex.lines[i];if((+o.miss||0)!==(+n.miss||0)||(+o.exc||0)!==(+n.exc||0))ch.push({i:i,o:o,n:n})});
+  const gone=(ex.lines||[]).filter(function(o){return !(nw.lines||[]).some(function(n){return String(n.sku||'').trim()===String(o.sku||'').trim()})});return{ch:ch,add:add,gone:gone}}
+function repasteMsg(ex,nw){const d=repasteDiff(ex,nw);
+  const bits=d.ch.map(function(c){return '<li>'+esc(c.o.sku)+': missing '+(+c.o.miss||0)+' → <b>'+(+c.n.miss||0)+'</b></li>'})
+   .concat(d.add.map(function(n){return '<li>New line: <b>'+esc(n.sku)+'</b> · '+(+n.miss||0)+' missing</li>'}));
+  return 'Update <b>'+esc(ex.id)+'</b> instead of adding a second copy? Your notes, MSC tries, case numbers and history all stay.'
+   +(bits.length?'<ul style="margin:8px 0 0 18px">'+bits.join('')+'</ul>':'<div style="margin-top:8px;color:var(--text3)">The paste matches what’s there — nothing would change.</div>')
+   +(d.gone.length?'<div style="margin-top:6px;color:var(--text3)">'+d.gone.length+' line'+(d.gone.length!==1?'s are':' is')+' not in this paste. They stay as they are.</div>':'')
+   +'<div style="margin-top:12px"><button class="btn sm" onclick="cfmClose();window.__sdCreate&&window.__sdCreate()">Add as a separate copy instead</button></div>'}
+function repasteUpdate(ex,nw){const d=repasteDiff(ex,nw);const bits=[];
+  d.ch.forEach(function(c){bits.push(c.o.sku+' '+(+c.o.miss||0)+'→'+(+c.n.miss||0));c.o.miss=+c.n.miss||0;c.o.exc=+c.n.exc||0;if(!(+c.o.cog>0)&&+c.n.cog>0)c.o.cog=+c.n.cog});
+  d.add.forEach(function(n){ex.lines.push({p:n.p||'',sku:n.sku||'',asin:n.asin||'',fnsku:n.fnsku||'',miss:+n.miss||0,exc:+n.exc||0,cog:+n.cog||cogFromSku(n.sku)||0});bits.push('added '+n.sku)});
+  ['shipped','received','closed','name','dest'].forEach(function(k){if(nw[k])ex[k]=nw[k]});
+  log(ex,'Updated from a new paste'+(bits.length?' · '+bits.join(', '):' · no changes'));ex.updated=now();markDirty(ex.rid);
+  if(PS.state==='ok')autoAttachInvoices();
+  S.sel=ex.rid;S.fStatus='all';save(true);closeOv('addOv');go('active');toast(ex.id+' updated — history kept')}
+
+/* ══════════════════════ SARAH'S LIST ══════════════════════ */
+const SL={open:new Set(),undo:[],items:{},deny:null,showWait:false,chip:'all'};
+function todayISO(){return ymd(new Date())}
+function dFromToday(iso){const a=new Date(String(iso).slice(0,10)+'T00:00:00'),b=new Date();b.setHours(0,0,0,0);return Math.round((a-b)/864e5)}
+function planDate(s){if(s.followUp)return{d:String(s.followUp).slice(0,10),src:'box'};if(s.status==='mscdenied'){const r=noteReupdate(s);if(r)return{d:r,src:'note'}}return null}
+function lineVal(l){return (l.found?0:(l.miss||0))*(+l.cog||0)}
+function approvedUnpaid(s){return (s.lines||[]).filter(function(l){return ['mscapproved','mscreduced'].indexOf(l.lstatus)>=0&&!(+l.reimb>0)&&!l.found&&(l.miss||0)>0})}
+function lastApproval(l){const ok=(l.msc||[]).filter(function(m){return m.result==='approved'||m.result==='reduced'}).map(function(m){return String(m.date||'').slice(0,10)}).filter(Boolean).sort();return ok.length?ok[ok.length-1]:''}
+function sumVal(ls){return ls.reduce(function(a,l){return a+lineVal(l)},0)}
+function noteHash(t){t=String(t||'');let h=0;for(let i=0;i<t.length;i++){h=(h*31+t.charCodeAt(i))|0}return String(h)}
+function scCaseLink(c){return c?'<a class="sl-lk" href="'+esc(caseUrl(c))+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+ic('ext',12)+'Case '+esc(c)+'</a>':''}
+function scMscLink(){return '<a class="sl-lk" href="'+esc(LINKS.sc||'https://sellercentral.amazon.co.uk/myc/msc')+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+ic('ext',12)+'Manage Shipment Claims</a>'}
+function sfReimbLink(){return LINKS.sf?'<a class="sl-lk" href="'+esc(LINKS.sf)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+ic('ext',12)+'Reimbursements in Sellerfuse</a>':''}
+function copyBtn(v,label){return v?'<button class="sl-lk" onclick="cp(event,&quot;'+esc(v)+'&quot;)">'+ic('copy',12)+esc(label||('Copy '+v))+'</button>':''}
+function openShipBtn(s){return s?'<button class="sl-lk" onclick="event.stopPropagation();S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">'+ic('arrow',12)+'Open '+esc(s.id)+' in the Deck</button>':''}
+function kv(rows){return '<dl class="sl-kv">'+rows.filter(Boolean).map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[2]?' class="'+r[2]+'"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl>'}
+function pbox(title,inner){return '<div class="sl-pbox"><h4><i></i>'+title+'</h4>'+inner+'</div>'}
+function whyList(rows){return '<div class="sl-pwhy"><h4>Why it’s on your list</h4><ul>'+rows.map(function(r){return '<li class="'+r[0]+'">'+ic(r[0]==='ok'?'check2':'alert',14)+'<span>'+r[1]+'</span></li>'}).join('')+'</ul></div>'}
+function links(arr){const a=arr.filter(Boolean);return a.length?'<div class="sl-links"><span class="lbl">Check it yourself</span>'+a.join('')+'</div>':''}
+
+/* one card per thing to check */
+function slFromFinding(f){const d=f.detail||{},s=shipByFbaOrRid(d);const it={key:'f:'+f.id,f:f,rid:s?s.rid:null,sid:d.shipment||d.id||''};
+  if(f.kind==='new'){const L=d.lines||[];const dl=d.deadline?dFromToday(d.deadline):null;
+    it.c=(dl!=null&&dl<=14)?'red':'violet';it.ic='pkg';it.kind='New short shipment';
+    it.conf=dl!=null?(dl<=14?['bad','deadline in '+dl+' day'+(dl!==1?'s':'')]:['ok','deadline about '+fmtDShort(d.deadline)]):null;
+    it.title='<b>'+esc(d.id)+'</b> Add it? '+esc(L.length?(L[0].miss+' × '+(L[0].p||L[0].sku).slice(0,60)):'')+(L.length>1?' and '+(L.length-1)+' more':'');
+    const inv=PS.state==='ok'?L.filter(function(l){return psFor(l).sure.length===1}).length:null;
+    it.sub='Closed '+(d.closed?fmtDShort(d.closed):'')+' · not in the Deck yet'+(inv!=null?' · '+inv+' of '+L.length+' invoice'+(L.length!==1?'s':'')+' on the purchase sheet':'');
+    it.money=+d.value||0;it.mk='our cost';it.yes='Add';it.no='Not a claim';
+    it.reasons=['Not a claim','Already claimed somewhere else','Units turned up','Other'];
+    it.proof=function(){return '<div class="sl-pgrid">'
+      +pbox('What Amazon says · via Sellerfuse','<table class="sl-pt"><tr><th>Product</th><th>SKU</th><th class="r">Missing</th><th class="r">Cost each</th></tr>'+L.map(function(l){return '<tr><td>'+esc((l.p||'').slice(0,70))+'</td><td>'+esc(l.sku)+'</td><td class="r bad">'+esc(l.miss)+'</td><td class="r">'+money(l.cog)+'</td></tr>'}).join('')+'</table>'
+        +kv([['Sent / received',esc(d.shipped||'?')+' / '+esc(d.received||'?')],['First received',d.first_received?fmtD(d.first_received):'?'],['Claim deadline',d.deadline?'≈ '+fmtD(d.deadline)+' (first receipt + 182 days)':'?',dl!=null&&dl<=14?'bad':'']]))
+      +pbox('What we have',kv([['In the Deck?','No, never added','warn'],['Our cost','From the SKU, which beats Sellerfuse’s'],['Invoices',inv==null?'Purchase sheet not read yet':inv+' of '+L.length+' found, attached when you add it',inv===L.length?'ok':'warn']]))
+      +'</div>'+whyList([['ok','Amazon closed this shipment short, counted per product, so a SKU swap inside one product isn’t counted.'],['ok','Not already in the Deck, and never marked “Not a claim”.'],['wn','The deadline is an estimate. Check the real date in Seller Central.']])
+      +links([scMscLink(),copyBtn(d.id,'Copy '+d.id)])+'<div class="sl-after">Pressing <b>Add</b> creates the shipment with its lines, costs, invoices and deadline.</div>'};
+    it.doYes=function(){return findApprove(f.id)};
+  }else if(f.kind==='pay'){const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;const cost=l?lineVal(l):0;
+    const caseOn=s&&d.case&&cases_on(s).indexOf(String(d.case))>=0;
+    it.c='green';it.ic='coins';it.kind=d.stock?'Stock replaced':'Payment';
+    it.conf=!s?['bad','shipment not in the Deck']:caseOn?['ok','sure: case number matches']:['warn','check: matched by SKU, the case number is new'];
+    it.title='<b>'+esc(d.shipment)+'</b> Amazon '+(d.stock?'replaced ':'paid ')+esc(((d.product||d.sku)+'').slice(0,60))+(d.units?' × '+esc(d.units):'');
+    it.sub='Reimbursement ID <b>'+esc(d.reimb_id||'?')+'</b> · '+(d.date?fmtDShort(d.date):'')+(d.case?' · case '+esc(d.case):'');
+    it.money=+d.amount||0;it.mk=l?(+d.amount>=cost-0.01?'= our cost':'our cost '+money(cost)):'';it.yes='Yes, record it';it.no='No';
+    it.reasons=['Not this shipment','Already recorded','Amount is wrong','Other'];
+    it.proof=function(){return '<div class="sl-pgrid">'
+      +pbox('What Amazon paid · via Sellerfuse',kv([['Reimbursement ID',esc(d.reimb_id||'?')],['Date',d.date?fmtD(d.date):'?'],['Case',esc(d.case||'none')],['SKU',esc(d.sku)],['Units · amount',esc(d.units||0)+' · '+money(+d.amount||0),'ok']]))
+      +pbox('What the Deck has',l?kv([['Line',esc((l.p||l.sku||'').slice(0,60))],['Status',esc((LSTAT[l.lstatus]&&LSTAT[l.lstatus].l)||l.lstatus||'not set')],['Missing · our cost',esc(l.miss||0)+' · '+money(cost)],['Typed as paid',+l.reimb>0?money(+l.reimb):'nothing yet'],['Case numbers',cases_on(s).map(function(c){return esc(c)+(c===String(d.case)?' ✓':'')}).join(', ')||'none',caseOn?'ok':'warn']]):'<div class="sl-bad">No line with SKU '+esc(d.sku)+' on this shipment</div>')
+      +'</div>'+links([scCaseLink(d.case),sfReimbLink(),copyBtn(d.reimb_id,'Copy reimbursement ID'),openShipBtn(s)])
+      +'<div class="sl-after">Pressing <b>Yes</b> records Amazon’s real amount and reimbursement ID on the line'+(caseOn?'':' and adds the case number')+'.</div>'};
+    it.doYes=function(){return findApprove(f.id)};
+  }else if(f.kind==='claw'){it.c='blue';it.ic='rotate';it.kind='Clawback';it.conf=s?['ok','reverses our payment']:['bad','shipment not in the Deck'];
+    it.title='<b>'+esc(d.shipment)+'</b> Amazon found the units and took '+money(Math.abs(+d.amount||0))+' back';
+    it.sub=esc(((d.product||d.sku)+'').slice(0,60))+(d.units?' × '+esc(d.units):'')+' · reverses reimbursement '+esc(d.claws_back||'?')+' · nothing left to claim';
+    it.money=Math.abs(+d.amount||0);it.mk='taken back';it.yes='Close the line';it.no='No';it.reasons=['Not this shipment','Already recorded','Other'];
+    it.proof=function(){return kv([['Taken back',money(Math.abs(+d.amount||0))+' on '+(d.date?fmtD(d.date):'?')],['Reverses',esc(d.claws_back||'?')],['Clawback ID',esc(d.reimb_id||'?')],['SKU on the clawback',esc(d.claw_sku||d.sku)]])
+      +links([sfReimbLink(),copyBtn(d.reimb_id,'Copy clawback ID'),openShipBtn(s)])};
+    it.doYes=function(){return findApprove(f.id)};
+  }else if(f.kind==='found'){const red=Math.max(0,(+d.claimed||0)-(+d.now||0));
+    it.c='blue';it.ic='search';it.kind='Units Amazon found';it.conf=['warn','claim gets smaller'];
+    it.title='<b>'+esc(d.shipment)+'</b> Amazon now counts '+esc(d.now)+' missing, not '+esc(d.claimed);
+    it.sub=esc((d.product||d.asin||'').slice(0,70))+' · '+esc(d.asin||'');
+    it.money=red*(+d.cost||0);it.mk='off the claim';it.yes='Lower the claim';it.no='No';it.reasons=['Amazon is wrong, keep claiming','Already changed','Other'];
+    it.proof=function(){return kv([['Product',esc(d.product||'')],['You claimed',esc(d.claimed)+' units'],['Amazon now says missing',esc(d.now)+' units','warn'],['Checked',d.at?fmtD(d.at):'']])+links([scMscLink(),openShipBtn(s)])};
+    it.doYes=function(){return slApplyFound(f)};
+  }else if(f.kind==='line'){const dl=d.deadline?dFromToday(d.deadline):null;
+    it.c='red';it.ic='plus';it.kind='Missing line';it.conf=d.dropped_on?['bad','probably left out by accident']:['warn','Amazon shows it short, the Deck doesn\u2019t have it'];
+    it.title='<b>'+esc(d.shipment)+'</b> Add '+esc(d.miss)+' \u00d7 '+esc(((d.product||d.sku||d.asin)+'').slice(0,60))+'?';
+    it.sub=esc(d.sku||'')+' \u00b7 '+esc(d.asin||'')+(d.deadline?' \u00b7 deadline about '+fmtDShort(d.deadline):'');
+    it.money=(+d.miss||0)*(+d.cost||0);it.mk='our cost';it.yes='Add the line';it.no='No';it.reasons=['Already claimed or paid','Units turned up','Left out on purpose','Other'];
+    it.proof=function(){return kv([['Product',esc(d.product||'')],['SKU \u00b7 ASIN',esc(d.sku||'')+' \u00b7 '+esc(d.asin||'')],['Amazon says missing',esc(d.miss),'bad'],['Our cost each',money(+d.cost||0)+' (from the SKU)'],['First received',d.first_received?fmtD(d.first_received):'?'],['Deadline',d.deadline?'\u2248 '+fmtD(d.deadline)+(dl!=null?' \u00b7 '+dl+' days':''):'?',dl!=null&&dl<=14?'bad':'']])
+      +whyList([['ok','Sellerfuse shows this product short on the shipment.']].concat(d.dropped_on?[['wn','It was on the copy of this shipment that was deleted on <b>'+fmtD(d.dropped_on)+'</b>, and it\u2019s missing from the new paste \u2014 so it was most likely left out by accident.']]:[]).concat([['wn','It isn\u2019t one of the Deck\u2019s lines and no payment for it was found. If it was left out on purpose, say no and pick why.']]))+links([scMscLink(),copyBtn(d.asin,'Copy '+d.asin),openShipBtn(s)])};
+    it.doYes=function(){return slApplyLine(f)};
+  }else if(f.kind==='unpaid'){const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;
+    it.c='red';it.ic='alert';it.kind='Marked paid, never paid';it.conf=['bad','no Amazon payment found'];
+    it.title='<b>'+esc(d.shipment)+'</b> Marked paid '+money(+d.typed||0)+', but Amazon never paid it';
+    it.sub=esc(((d.product||d.sku)+'').slice(0,60))+(d.miss?' \u00d7 '+esc(d.miss):'')+(d.settled?' \u00b7 marked paid '+fmtDShort(d.settled):'');
+    it.money=+d.typed||0;it.mk='still owed';it.yes='Reopen it';it.no='No';it.reasons=['Amazon did pay \u2014 I can see it in Seller Central','Paid as stock','Other'];
+    it.proof=function(){return '<div class="sl-pgrid">'
+      +pbox('What the Deck says',kv([['Line',esc((d.product||'').slice(0,60))],['SKU \u00b7 ASIN',esc(d.sku)+' \u00b7 '+esc(d.asin)],['Marked paid',money(+d.typed||0)+(d.settled?' on '+fmtD(d.settled):''),'warn'],['How',l&&(l.amzPays||[]).length?'From Sellerfuse':'Typed in, or settled with \u201cReimbursed \u2014 settle all\u201d']]))
+      +pbox('What Amazon paid \u00b7 via Sellerfuse',kv([['Payments for this product','<b>None</b> since '+fmtD(d.since),'bad'],['Checked',d.checked?fmtD(d.checked):'']]))
+      +'</div>'+whyList([['ok','Sellerfuse has every Amazon reimbursement on the account, and there is none for this product since the shipment arrived.'],['wn','Check Seller Central \u2192 Reimbursements for '+esc(d.asin)+' first. If it really wasn\u2019t paid, reopen it and claim again.']])
+      +links([sfReimbLink(),copyBtn(d.asin,'Copy '+d.asin),scMscLink(),openShipBtn(s)])
+      +'<div class="sl-after">Pressing <b>Reopen it</b> puts the line back to approved and not paid, and the shipment back into Active.</div>'};
+    it.doYes=function(){return slApplyUnpaid(f)};
+  }else if(f.kind==='cog'){it.c='amber';it.ic='coins';it.kind='Cost price missing';it.conf=['warn','from Sellerfuse'];
+    it.title='<b>'+esc(d.shipment)+'</b> Use Sellerfuse’s cost '+money(+d.cost||0)+' for '+esc(d.sku);
+    it.sub='The line is worth £0 until it has a cost · yours always wins once it’s filled in';it.money=(+d.cost||0)*(+d.miss||0);it.mk='claim value';it.yes='Use '+money(+d.cost||0);it.no='No';it.reasons=['Wrong cost','I’ll set it myself','Other'];
+    it.proof=function(){return kv([['SKU',esc(d.sku)],['Sellerfuse cost a unit',money(+d.cost||0)],['Missing',esc(d.miss||0)]])+links([openShipBtn(s)])};
+    it.doYes=function(){return slApplyCog(f)};
+  }
+  it.doNo=function(why){return decideFinding(f,'denied',why).then(function(ok){if(ok&&s){log(s,'Said no to a Sellerfuse card ('+(FIND_KIND[f.kind]||{}).l+'): '+why);markDirty(s.rid);save()}return ok})};
+  return it}
+function cases_on(s){return [String(s.caseId||'').trim()].concat(s.caseIds||[]).map(function(c){return String(c).trim()}).filter(Boolean)}
+async function slApplyFound(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn’t in the list');return}
+  let cut=Math.max(0,(+d.claimed||0)-(+d.now||0));if(!cut)return;if(!(await decideFinding(f,'approved')))return;
+  (s.lines||[]).filter(function(l){return (l.asin||'')===d.asin&&!l.found&&(l.miss||0)>0}).sort(function(a,b){return (b.miss||0)-(a.miss||0)}).forEach(function(l){if(!cut)return;const n=Math.min(cut,l.miss||0);l.miss-=n;cut-=n});
+  log(s,'Amazon found units on '+d.asin+': missing '+d.claimed+' → '+d.now+' (from Sellerfuse)');s.updated=now();markDirty(s.rid);save();refresh();toast('Claim lowered on '+s.id)}
+async function slApplyLine(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn\u2019t in the list');return}
+  if((s.lines||[]).some(function(l){return l.asin===d.asin})){await decideFinding(f,'approved','already a line');toast('That product is already a line');return}
+  if(!(await decideFinding(f,'approved')))return;
+  const l={p:d.product||'',sku:d.sku||'',asin:d.asin||'',fnsku:'',miss:+d.miss||0,exc:0,cog:+d.cost||cogFromSku(d.sku)||0};
+  if(PS.state==='ok'){const p=psFor(l);if(p.sure.length===1)l.invoice=p.sure[0].link}
+  s.lines.push(l);log(s,'Line added from Sellerfuse: '+(d.sku||d.asin)+' \u00b7 '+l.miss+' missing \u00b7 '+money(l.miss*l.cog));s.updated=now();markDirty(s.rid);save();refresh();toast('Line added to '+s.id)}
+async function slApplyUnpaid(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn\u2019t in the list');return}const i=lineBySku(s,d.sku);if(i<0){toast('No line with that SKU');return}
+  if(!(await decideFinding(f,'approved')))return;const l=s.lines[i];const last=(l.msc||[]).map(function(m){return m.result}).filter(Boolean).pop();
+  const was=+l.reimb||0;l.lstatus=last==='reduced'?'mscreduced':'mscapproved';l.reimb=0;l.reimbAt=null;l.reimbId='';
+  log(s,'Reopened '+(l.sku||l.asin)+': it was marked paid '+money(was)+' but Amazon never paid it (Sellerfuse has no payment)');s.updated=now();markDirty(s.rid);afterLineChange(s);save();refresh();toast(s.id+' reopened')}
+async function slApplyCog(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn’t in the list');return}const i=lineBySku(s,d.sku);if(i<0){toast('No line with that SKU');return}
+  if(+s.lines[i].cog>0){await decideFinding(f,'approved','already had a cost');toast('That line already has a cost — yours stays');return}
+  if(!(await decideFinding(f,'approved')))return;s.lines[i].cog=+d.cost||0;log(s,'Cost '+money(+d.cost||0)+' on '+d.sku+' from Sellerfuse');s.updated=now();markDirty(s.rid);save();refresh();toast('Cost set on '+s.id)}
+
+function slFromNote(r){const s=r.s,it={key:'n:'+s.rid,rid:s.rid,sid:s.id,c:'violet',ic:'file',kind:'From your note'};
+  let ru=r.ru;const clash=r.dl&&ru&&ru>r.dl,past=r.dl&&r.dl<todayISO()&&!win(s).met;
+  if(clash||(ru&&r.dl&&ru>=r.dl))ru=todayISO();
+  const est=s.firstRecv?ymd(new Date(new Date(s.firstRecv).getTime()+182*864e5)):'';
+  it.conf=clash?['bad','re-update is after the deadline']:past?['bad','deadline has passed']:['ok','dates read from your note'];
+  it.title='<b>'+esc(s.id)+'</b> Use the dates in your note?';
+  it.sub=[r.dl?'Deadline box: <b>'+fmtDShort(r.dl)+'</b>':'',r.ru?'re-update: <b>'+(ru!==r.ru?'today, not '+fmtDShort(r.ru):fmtDShort(ru))+'</b>':'',r.cs.length?r.cs.length+' case number'+(r.cs.length!==1?'s':''):''].filter(Boolean).join(' · ');
+  it.money=pot(s)-rec(s);it.mk='at stake';it.yes='Yes, use them';it.no='No';it.reasons=['Wrong date in my note','Already done','Other'];
+  it.proof=function(){let q=esc(s.note||'');q=q.replace(/(re-?up?date[^,;\-]{0,14}|reudate[^,;\-]{0,14})/ig,'<mark>$1</mark>').replace(/(dead ?line[^,;\-]{0,16})/ig,'<mark class="r">$1</mark>');
+    return '<div class="sl-quote">“'+q+'”</div><div class="sl-pwhy"><h4>What changes</h4><ul>'
+      +(r.dl?'<li class="ok">'+ic('check2',14)+'<span>Amazon deadline box: empty → <b>'+fmtD(r.dl)+'</b>'+(est?' · Sellerfuse’s first receipt says about <b>'+fmtD(est)+'</b>':'')+'</span></li>':'')
+      +(r.ru?'<li class="'+(ru!==r.ru?'wn':'ok')+'">'+ic(ru!==r.ru?'alert':'check2',14)+'<span>'+(ru!==r.ru?fmtD(r.ru)+' is after the deadline, so the re-update moves to <b>today</b>':'Re-update date: <b>'+fmtD(ru)+'</b> — it comes back to Due now on the day')+'</span></li>':'')
+      +(r.cs.length?'<li class="ok">'+ic('check2',14)+'<span>Case numbers added: '+r.cs.map(esc).join(', ')+'</span></li>':'')
+      +'<li class="ok">'+ic('check2',14)+'<span>Your note stays exactly as it is.</span></li></ul></div>'+links([openShipBtn(s)])};
+  it.doYes=function(){const bits=[];if(r.dl){s.amzDeadline=r.dl;bits.push('deadline '+fmtD(r.dl))}if(r.ru){s.followUp=ru;bits.push('re-update '+fmtD(ru))}
+    if(r.cs.length){s.caseIds=(s.caseIds||[]).concat(r.cs);bits.push(r.cs.length+' case number'+(r.cs.length!==1?'s':''))}
+    log(s,'Moved from notes: '+bits.join(', '));s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
+  it.doNo=function(why){s.nhSkip=noteHash(s.note);log(s,'Note dates not moved: '+why);s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
+  return it}
+function slFromInv(s,i,l,e){const it={key:'i:'+s.rid+':'+i,rid:s.rid,sid:s.id,c:'amber',ic:'file',kind:'Invoice'};
+  it.conf=['warn','check: same product, different SKU'];it.title='<b>'+esc(s.id)+'</b> Is this the invoice for '+esc((l.p||l.sku||'').slice(0,50))+'?';
+  it.sub=esc(psLabel(e))+' · '+esc(LSTAT[l.lstatus]?LSTAT[l.lstatus].l:'not sent yet');it.money=lineVal(l);it.mk='on this line';it.yes='Yes, use it';it.no='No';it.reasons=['Different order','Other'];
+  it.proof=function(){return kv([['Our SKU',esc(l.sku)],['Sheet row',esc(psLabel(e))],['ASIN',esc(l.asin||'')]])+links([invPdf(e.link)?'<a class="sl-lk" href="'+esc(e.link)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+ic('ext',12)+'Open the invoice</a>':'',openShipBtn(s)])};
+  it.doYes=function(){l.invoice=e.link;log(s,'Invoice from the purchase sheet (same ASIN): '+(l.sku||l.asin));s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
+  it.doNo=function(why){l.invSkip=e.link;log(s,'Purchase-sheet invoice not used for '+(l.sku||'')+': '+why);s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
+  return it}
+function slChecks(){const out=[];
+  if(FIND.state==='ok')FIND.rows.filter(function(f){return f.status==='open'&&['new','pay','claw','found','cog','line','unpaid'].indexOf(f.kind)>=0}).forEach(function(f){out.push(slFromFinding(f))});
+  harvestNotes().filter(function(r){return r.s.nhSkip!==noteHash(r.s.note)&&!r.s.escalated}).forEach(function(r){out.push(slFromNote(r))});
+  if(PS.state==='ok')DATA.filter(function(s){return !isHist(s)}).forEach(function(s){(s.lines||[]).forEach(function(l,i){if(invHas(l.invoice)||!invMatters(s,l))return;const p=psFor(l);if(p.sure.length||p.maybe.length!==1)return;if(l.invSkip===p.maybe[0].link)return;out.push(slFromInv(s,i,l,p.maybe[0]))})});
+  const rank=function(x){if(x.c==='red')return 0;if(x.f){return {unpaid:0.7,line:0.8,pay:1,claw:2,found:3,new:4,cog:5}[x.f.kind]||6}return x.key.indexOf('n:')===0?(x.conf&&x.conf[0]==='bad'?0.5:7):8};
+  out.sort(function(a,b){return (rank(a)-rank(b))||((b.money||0)-(a.money||0))});
+  return out}
+function slShortMonths(){if(FIND.state!=='ok')return [];const rows=findOpen('short'),m={};rows.forEach(function(f){(m[shortMonth(f)]=m[shortMonth(f)]||[]).push(f)});return Object.keys(m).sort().map(function(k){return{m:k,rows:m[k]}})}
+
+/* what each open shipment needs from her today */
+function slClass(s){if(isHist(s))return null;if(s.escalated)return{k:'jack'};
+  if(s.snoozedUntil&&s.snoozedUntil>now())return{k:'wait',why:'Snoozed until '+fmtDShort(s.snoozedUntil)};
+  const w=win(s),items=[];
+  if(s.jackReplyNew)items.push({t:'Jack replied',sub:'“'+esc(s.jackNote||'')+'”',sev:0,c:'amber',ic:'user',act:'jackseen'});
+  if(s.urgent)items.push({t:esc(s.urgent),sub:'Flagged urgent',sev:0,c:'red',ic:'triangle'});
+  if(!w.met&&w.days<0)items.push({t:'Deadline passed',sub:'Amazon’s window closed '+fmtD(w.e)+(w.set?'':' (estimate)')+' — decide: write it off, or open a case anyway',sev:0,c:'red',ic:'alarm'});
+  else if(!w.met&&w.days<=(SETTINGS.deadlineRiskDays||14))items.push({t:'Deadline in '+w.days+' day'+(w.days!==1?'s':''),sub:'Amazon closes the claim '+fmtD(w.e)+(w.set?'':' (estimate)'),sev:1,c:'red',ic:'alarm',link:'msc'});
+  const cn=cogNeeded(s);if(cn)items.push({t:'Cost price missing on '+cn+' SKU'+(cn!==1?'s':''),sub:'Those lines are worth £0 until a cost is set',sev:2,c:'amber',ic:'coins'});
+  const p=planDate(s);
+  if(s.status==='mscdenied'){
+    if(p&&p.d>todayISO()&&!items.length)return{k:'coming',d:p.d,src:p.src,t:'Re-update MSC'};
+    if(!p||p.d<=todayISO()){const den=(s.lines||[]).filter(function(l){return l.lstatus==='denied'}),au=approvedUnpaid(s);const late=p?-dFromToday(p.d):null;
+      items.push({t:'Re-update MSC',sub:(p?(late>0?'<b class="late">Was due '+fmtDShort(p.d)+' · '+late+' day'+(late!==1?'s':'')+' late</b>':'<b class="soon">Due today</b>')+(p.src==='note'?' (from your note)':''):'No re-update date yet')
+        +' · '+den.length+' denied line'+(den.length!==1?'s':'')+(au.length?' · '+au.length+' approved line'+(au.length!==1?'s':'')+' ('+money(sumVal(au))+') waiting on this':''),
+        sev:(p&&late>0)?1:2,c:(p&&late>0)?'red':'amber',ic:'rotate',late:late||0,money:sumVal(den),mk:'denied',link:'msc'});}
+  }else if(s.status==='needsdoc')items.push({t:'Amazon wants a document',sub:'Send the invoice or evidence they asked for',sev:1,c:'amber',ic:'file',link:'msc',money:pot(s)-rec(s),mk:'at stake'});
+  else if(s.status==='mscapproved')items.push({t:'Open the case',sub:'All MSC lines approved — open the Seller Support case and log the number',sev:1,c:'blue',ic:'msg',money:pot(s)-rec(s),mk:'to claim'});
+  else if(['invoice','mscreupdate','mscpending'].indexOf(s.status)>=0){const t=primaryTask(s);if(t.bucket==='do')items.push({t:esc(t.title),sub:esc(t.sub),sev:2,c:'blue',ic:t.ic||'arrow',link:'msc',money:pot(s)-rec(s),mk:'to claim'})}
+  else if(['caseopen','reimbpending','underreview'].indexOf(s.status)>=0){
+    const old=approvedUnpaid(s).filter(function(l){const d=lastApproval(l);return d&&dFromToday(d)<=-14});
+    const fu=s.followUp&&String(s.followUp).slice(0,10)<=todayISO();
+    if(s.status!=='underreview'&&old.length&&daysSince(s.statusAt||s.updated||now())>=14&&!(s.followUp&&String(s.followUp).slice(0,10)>todayISO()))
+      items.push({t:'Check the reimbursement ID',sub:old.length+' approved line'+(old.length!==1?'s':'')+' with no payment 14+ days after approval · look for the reimbursement in Seller Central',sev:2,c:'violet',ic:'coins',money:sumVal(old),mk:'not paid yet',link:'case'});
+    else if(fu)items.push({t:s.status==='underreview'?'Check the MSC review':'Chase the case',sub:'Follow-up was due '+fmtDShort(s.followUp),sev:2,c:'amber',ic:'msg',link:'case',money:pot(s)-rec(s),mk:'waiting'});
+  }
+  if(items.length)return{k:'due',items:items};
+  if(p&&p.d>todayISO())return{k:'coming',d:p.d,src:p.src,t:STATUS[s.status]?STATUS[s.status].l:s.status};
+  return{k:'wait'}}
+function slBuckets(){const due=[],coming=[],jack=[],wait=[];
+  DATA.filter(function(s){return !isHist(s)}).forEach(function(s){const c=slClass(s);if(!c)return;
+    if(c.k==='due')c.items.forEach(function(it){due.push(Object.assign({s:s},it))});else if(c.k==='coming')coming.push({s:s,d:c.d,src:c.src,t:c.t});else if(c.k==='jack')jack.push(s);else wait.push({s:s,why:c.why})});
+  due.sort(function(a,b){return (a.sev-b.sev)||((b.late||0)-(a.late||0))||((b.money||0)-(a.money||0))});
+  coming.sort(function(a,b){return a.d.localeCompare(b.d)});return{due:due,coming:coming,jack:jack,wait:wait}}
+function slCount(){try{const b=slBuckets();return slChecks().length+slShortMonths().length+b.due.length}catch(e){return 0}}
+function slSub(){try{const n=slChecks().length,d=slBuckets().due.length;return '<b>'+n+'</b> to check · <b class="warn">'+d+'</b> due now'+(WHO?' · signed in as <b>'+esc(WHO)+'</b>':'')}catch(e){return ''}}
+
+/* ── actions ── */
+function slToggle(k){if(SL.open.has(k))SL.open.delete(k);else SL.open.add(k);const el=document.querySelector('.sl-card[data-k="'+CSS.escape(k)+'"]');if(el)el.classList.toggle('open',SL.open.has(k))}
+async function slYes(k){const it=SL.items[k];if(!it)return;const s=it.rid?byId(it.rid):null;const snap=s?JSON.stringify(s):null,fid=it.f?it.f.id:null,t0=now();
+  const card=document.querySelector('.sl-card[data-k="'+CSS.escape(k)+'"]');if(card)card.classList.add('busy');
+  try{await it.doYes()}catch(e){toast('That didn’t work — nothing was changed');if(card)card.classList.remove('busy');return}
+  const done=!it.f||(it.f.status!=='open');if(!done){if(card)card.classList.remove('busy');return}
+  const added=(it.f&&it.f.kind==='new')?DATA.find(function(x){return x.id===(it.f.detail||{}).id&&(x.createdAt||0)>=t0}):null;
+  slDone((WHO||'Someone')+' said yes: '+slPlain(it),function(){
+    if(added){DATA=DATA.filter(function(x){return x.rid!==added.rid});cloudDelete([added.rid]);}
+    else if(snap){const i=DATA.findIndex(function(x){return x.rid===it.rid});if(i>=0){const o=JSON.parse(snap);o.updated=now();DATA[i]=o;markDirty(o.rid)}}
+    if(fid){const f=findById(fid);if(f)decideFinding(f,'open',null)}
+    save();refresh();});}
+function slNo(k){SL.deny=k;SL.open.add(k);renderActions()}
+async function slNoSave(k){const it=SL.items[k];if(!it)return;const box=document.querySelector('.sl-card[data-k="'+CSS.escape(k)+'"] .sl-deny');
+  const why=(box.querySelector('select').value||'')+((box.querySelector('input').value||'').trim()?': '+box.querySelector('input').value.trim():'');
+  if(!why||/^Pick/.test(why)){toast('Pick why first');return}
+  const s=it.rid?byId(it.rid):null,snap=s?JSON.stringify(s):null,fid=it.f?it.f.id:null;
+  const ok=await it.doNo(why);if(!ok)return;SL.deny=null;
+  slDone((WHO||'Someone')+' said no ('+why+'): '+slPlain(it),function(){if(snap){const i=DATA.findIndex(function(x){return x.rid===it.rid});if(i>=0){const o=JSON.parse(snap);o.updated=now();DATA[i]=o;markDirty(o.rid)}}if(fid){const f=findById(fid);if(f)decideFinding(f,'open',null)}save();refresh()});}
+function slPlain(it){const d=document.createElement('div');d.innerHTML=it.title;return d.textContent}
+function slDone(label,undo){SL.undo.unshift({label:label,at:now(),undo:undo});SL.open.delete('x');save();refresh();
+  toastUndo(label.length>70?label.slice(0,70)+'…':label,'Undo',function(){slUndoAt(0)})}
+function slUndoAt(i){const u=SL.undo[i];if(!u)return;SL.undo.splice(i,1);try{u.undo()}catch(e){}toast('Undone')}
+function slJackSeen(rid){const s=byId(rid);if(!s)return;s.jackReplyNew=false;log(s,'Read Jack’s reply');markDirty(s.rid);save();refresh()}
+function slJackReply(rid){const s=byId(rid);if(!s)return;const t=document.getElementById('jr-'+rid);const v=(t&&t.value||'').trim();if(!v){toast('Write the reply first');return}
+  s.jackNote=v;s.jackReplyNew=true;s.escalated=false;s.statusAt=now();log(s,'Jack replied: '+v);markDirty(s.rid);save();refresh();toast('Sent back to Sarah')}
+function slJackAsk(rid){const s=byId(rid);if(!s)return;const t=document.getElementById('jq-'+rid);const v=(t&&t.value||'').trim();if(!v){toast('Write the question first');return}
+  s.jackQ=v;s.jackQAt=now();log(s,'Question for Jack: '+v);markDirty(s.rid);save();refresh();toast('Question saved')}
+function jackQOf(s){if(s.jackQ)return s.jackQ;const e=(s.log||[]).find(function(x){return /^Sent to Jack: /.test(x.txt||'')});return e?e.txt.replace(/^Sent to Jack: /,''):''}
+function nextCheck(){const d=new Date();for(let i=0;i<8;i++){const x=new Date(d.getTime()+i*864e5);x.setHours(20,45,0,0);if([0,2,4].indexOf(x.getDay())>=0&&x>d)return x}return null}
+
+/* ── render ── */
+function slCardHtml(it){const k=it.key,open=SL.open.has(k),deny=SL.deny===k;
+  return '<div class="sl-card c-'+it.c+(open?' open':'')+'" data-k="'+esc(k)+'">'
+   +'<div class="sl-row" onclick="slToggle(&quot;'+esc(k)+'&quot;)"><span class="sl-bar"></span><span class="sl-ico">'+ic(it.ic,16)+'</span>'
+   +'<div class="sl-q"><div class="sl-t">'+it.title+'</div><div class="sl-s"><span class="sl-kind">'+esc(it.kind)+'</span>'+(it.conf?'<span class="sl-conf '+it.conf[0]+'">'+esc(it.conf[1])+'</span>':'')+'<span class="sl-sep">·</span>'+it.sub+'</div></div>'
+   +'<div class="sl-m">'+(it.money?'<div class="v">'+money(it.money)+'</div>':'')+(it.mk?'<div class="k">'+esc(it.mk)+'</div>':'')+'</div>'
+   +'<div class="sl-acts" onclick="event.stopPropagation()"><button class="sl-btn yes" onclick="slYes(&quot;'+esc(k)+'&quot;)">'+ic('check',13)+esc(it.yes)+'</button>'
+     +'<button class="sl-btn no" onclick="slNo(&quot;'+esc(k)+'&quot;)">'+ic('x',12)+esc(it.no)+'</button>'
+     +'<button class="sl-chev" title="Show the proof" onclick="slToggle(&quot;'+esc(k)+'&quot;)">'+ic('chevron',15)+'</button></div></div>'
+   +'<div class="sl-proof">'+(open?it.proof():'')
+     +(deny?'<div class="sl-deny"><b>Why no?</b><select><option>Pick why…</option>'+(it.reasons||['Other']).map(function(r){return '<option>'+esc(r)+'</option>'}).join('')+'</select><input placeholder="A word for Jack (optional)"><button class="sl-btn" onclick="slNoSave(&quot;'+esc(k)+'&quot;)">Save “no”</button><button class="sl-btn ghost" onclick="SL.deny=null;renderActions()">Cancel</button></div>':'')
+   +'</div></div>'}
+function slDueHtml(d){const s=d.s;const lk=d.link==='case'?(cases_on(s)[0]?scCaseLink(cases_on(s)[0]):''):d.link==='msc'?scMscLink():'';
+  return '<div class="sl-card c-'+d.c+'"><div class="sl-row" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)"><span class="sl-bar"></span><span class="sl-ico">'+ic(d.ic,16)+'</span>'
+   +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> '+d.t+'</div><div class="sl-s">'+d.sub+'</div></div>'
+   +'<div class="sl-m">'+(d.money?'<div class="v">'+money(d.money)+'</div>':'')+(d.mk?'<div class="k">'+esc(d.mk)+'</div>':'')+'</div>'
+   +'<div class="sl-acts" onclick="event.stopPropagation()">'+lk+(d.act==='jackseen'?'<button class="sl-btn yes" onclick="slJackSeen(&quot;'+s.rid+'&quot;)">'+ic('check',13)+'Got it</button>':'')+'<button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}
+function renderActions(){const el=document.getElementById('actionsBody');if(!el)return;
+  const checks=slChecks(),months=slShortMonths(),B=slBuckets();SL.items={};checks.forEach(function(x){SL.items[x.key]=x});
+  const waitV=B.wait.reduce(function(a,x){return a+Math.max(0,pot(x.s)-rec(x.s))},0);
+  const late=B.due.filter(function(d){return d.late>0}).length,dueV=B.due.reduce(function(a,d){return a+(d.money||0)},0);
+  const nJq=B.jack.filter(function(s){return jackQOf(s)}).length;
+  const cnt=function(id,c,n,l,m){return '<button class="sl-cnt c-'+c+'" onclick="var e=document.getElementById(&quot;'+id+'&quot;);if(e)e.scrollIntoView({behavior:&quot;smooth&quot;,block:&quot;start&quot;})"><span class="n">'+n+'</span><span><span class="l">'+l+'</span><span class="m">'+m+'</span></span></button>'};
+  const fromSf=checks.filter(function(x){return x.f}).length;
+  const head='<div class="sl-cnts">'+cnt('sl-chk','violet',checks.length+months.length,'To check',fromSf+' Sellerfuse · '+(checks.length-fromSf)+' notes & invoices')
+    +cnt('sl-due','red',B.due.length,'Due now',(late?late+' late · ':'')+money(dueV)+' on them')
+    +cnt('sl-com','blue',B.coming.length,'Coming up',B.coming[0]?'next '+fmtDShort(B.coming[0].d):'nothing booked')
+    +cnt('sl-jack','amber',B.jack.length,'With Jack',nJq+' with a question')
+    +cnt('sl-wait','green',B.wait.length,'Waiting on Amazon',money(waitV)+' · nothing to do')+'</div>';
+  /* to check */
+  const chips=[['all','All',checks.length],['f','Sellerfuse',fromSf],['n','Your notes',checks.filter(function(x){return x.key.indexOf('n:')===0}).length],['i','Invoices',checks.filter(function(x){return x.key.indexOf('i:')===0}).length]].filter(function(c){return c[0]==='all'||c[2]});
+  const nNotes=checks.filter(function(x){return x.key.indexOf('n:')===0}).length;
+  const shown=checks.filter(function(x){return SL.chip==='all'||x.key.indexOf(SL.chip+':')===0});
+  const doneToday=SL.undo.filter(function(u){return u.at>=new Date().setHours(0,0,0,0)}).length;
+  const chk='<div class="sl-sec c-violet" id="sl-chk"><div class="sl-sh"><h2>To check</h2><span class="sl-pill">'+(checks.length+months.length)+'</span><span class="sl-why">Sellerfuse found it, or your notes say it. Open the proof, check it yourself, then say yes or no.</span></div>'
+    +'<div class="sl-bar2"><span class="sl-prog"><span class="tr"><i style="width:'+Math.min(100,doneToday/Math.max(1,doneToday+checks.length)*100)+'%"></i></span><span><b>'+doneToday+'</b> done this session</span></span>'
+      +chips.map(function(c){return '<button class="sl-chip'+(SL.chip===c[0]?' on':'')+'" onclick="SL.chip=&quot;'+c[0]+'&quot;;renderActions()">'+c[1]+'<b>'+c[2]+'</b></button>'}).join('')+'</div>'
+    +'<div class="sl-list">'+(nNotes>=3&&(SL.chip==='all'||SL.chip==='n')?'<div class="sl-card c-violet sl-mini" onclick="openHarvest()"><span class="sl-bar"></span><span class="sl-mid">'+ic('file',13)+' <b>Your notes hold dates for '+nNotes+' shipments.</b> Check them one by one below, or review them all on one screen.</span><span class="sl-mt"></span><span class="sl-mv" style="color:var(--blue)">Review all \u2192</span></div>':'')+(shown.length?shown.map(slCardHtml).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing to check'+(FIND.state==='ok'?'':' · Sellerfuse cards appear once the check has run')+'</div>')+'</div>'
+    +(months.length?'<div class="sl-list">'+months.map(function(g){const tot=g.rows.reduce(function(a,f){return a+(+(f.detail||{}).shortfall||0)},0);
+        return '<div class="sl-card c-amber"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('receipt',16)+'</span><div class="sl-q"><div class="sl-t"><b>'+esc(g.m)+'</b> '+g.rows.length+' paid short — for next month’s escalation</div><div class="sl-s"><span class="sl-kind">Paid short</span><span class="sl-sep">·</span>'+g.rows.map(function(f){return esc((f.detail||{}).shipment||'')}).join(', ')+'</div></div><div class="sl-m"><div class="v">−'+money(tot)+'</div><div class="k">short</div></div><div class="sl-acts"><button class="sl-btn" onclick="copyShortMonth(&quot;'+g.m+'&quot;)">'+ic('copy',12)+'Copy for escalation</button><button class="sl-btn yes" onclick="markShortMonth(&quot;'+g.m+'&quot;).then(function(){renderActions()})">'+ic('check',13)+'Mark escalated</button></div></div></div>'}).join('')+'</div>':'')
+    +(SL.undo.length?'<div class="sl-done"><div class="sl-dh">Done this session <span>Undo works until you reload</span></div>'+SL.undo.slice(0,8).map(function(u,i){return '<div class="sl-dr"><span class="wc-av sm">'+esc((WHO||'?').charAt(0))+'</span><span>'+esc(u.label)+' · '+new Date(u.at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="slUndoAt('+i+')">Undo</button></div>'}).join('')+'</div>':'')
+    +'</div>';
+  const due='<div class="sl-sec c-red" id="sl-due"><div class="sl-sh"><h2>Due now</h2><span class="sl-pill">'+B.due.length+'</span><span class="sl-why">By your own dates — the date boxes first, then the re-update date in your note</span></div>'
+    +'<div class="sl-list">'+(B.due.length?B.due.map(slDueHtml).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing due today</div>')+'</div></div>';
+  const jack='<div class="sl-sec c-amber" id="sl-jack"><div class="sl-sh"><h2>With Jack</h2><span class="sl-pill">'+B.jack.length+'</span><span class="sl-why">Sarah writes the question · Jack’s reply sends it back to her list</span></div>'
+    +'<div class="sl-list">'+(B.jack.length?B.jack.map(function(s){const q=jackQOf(s);const at=(s.log||[]).find(function(e){return /Escalated to Jack|Sent to Jack/.test(e.txt||'')});
+       return '<div class="sl-card c-amber sl-jrow"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('user',16)+'</span>'
+        +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> '+(at?'escalated '+fmtDShort(at.ts)+' · '+daysSince(at.ts)+' days':'with Jack')+' · '+money(pot(s)-rec(s))+'</div>'
+        +(q?'<div class="sl-s">Question: <b>'+esc(q)+'</b></div>':'<div class="sl-s"><span class="sl-conf warn">No question written</span>'+(isJack()?'':' <input class="sl-in" id="jq-'+s.rid+'" placeholder="What do you need from Jack?" onclick="event.stopPropagation()"><button class="sl-btn" onclick="slJackAsk(&quot;'+s.rid+'&quot;)">Save</button>')+'</div>')
+        +(s.note?'<div class="sl-s dim">Your note: '+esc(String(s.note).slice(0,120))+'</div>':'')+'</div>'
+        +'<div class="sl-reply" onclick="event.stopPropagation()"><textarea id="jr-'+s.rid+'" placeholder="'+(isJack()?'Your reply to Sarah…':'Jack’s reply…')+'"></textarea><button class="sl-btn yes" onclick="slJackReply(&quot;'+s.rid+'&quot;)">Send back</button><button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing with Jack</div>')+'</div></div>';
+  const wait='<div class="sl-sec c-green" id="sl-wait"><div class="sl-sh" style="cursor:pointer" onclick="SL.showWait=!SL.showWait;renderActions()"><h2>Waiting on Amazon</h2><span class="sl-pill">'+B.wait.length+'</span><span class="sl-why">Cases open, nothing to do. Any payment shows up in “To check” after the Sun, Tue or Thu night check.</span><span class="sl-sp"></span><span class="sl-amt">'+money(waitV)+'</span><span class="sl-tog">'+(SL.showWait?'Hide':'Show')+'</span></div>'
+    +(SL.showWait?'<div class="sl-list">'+B.wait.sort(function(a,b){return (pot(b.s)-rec(b.s))-(pot(a.s)-rec(a.s))}).map(function(x){const s=x.s,t=lastTouched(s);return '<div class="sl-card c-green sl-mini" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)"><span class="sl-bar"></span><span class="sl-mid"><b>'+esc(s.id)+'</b> '+esc(STATUS[s.status]?STATUS[s.status].l:s.status)+(x.why?' · '+esc(x.why):'')+'</span><span class="sl-mt">'+(t?'checked '+fmtDShort(t):'')+'</span><span class="sl-mv">'+money(pot(s)-rec(s))+'</span></div>'}).join('')+'</div>':'')+'</div>';
+  /* rail */
+  const w=findInfo(),wd=(w&&w.detail)||{},nc=nextCheck();
+  const rail='<div class="sl-rail"><div class="sl-sec"><div class="sl-rh">This week</div>'
+    +(w?'<div class="sl-rkv c-green"><span>Amazon paid</span><b>'+money(+wd.paid||0)+'</b></div><div class="sl-rkv c-violet"><span>Waiting for a yes</span><b>'+money(+wd.waiting||0)+'</b></div><div class="sl-rkv c-amber"><span>Paid short</span><b>'+(+wd.short||0)+'</b></div>':'<div class="sl-note">Appears after the first Sellerfuse check</div>')
+    +'<div class="sl-rkv c-red"><span>Deadlines in 14 days</span><b>'+DATA.filter(function(s){if(isHist(s))return false;const x=win(s);return !x.met&&x.days>=0&&x.days<=14}).length+'</b></div>'
+    +'<div class="sl-note">'+(w&&wd.at?'Sellerfuse check '+fmtDShort(wd.at)+' '+String(wd.at).slice(11,16):'')+(nc?' · next '+nc.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' 20:45':'')+'</div></div>'
+    +'<div class="sl-sec" id="sl-com"><div class="sl-rh">Coming up · your dates</div>'+slCalendar(B.coming)+'<div class="sl-note">From the date boxes and your notes. Click an ID to open it.</div></div></div>';
+  el.innerHTML='<div class="sl">'+head+'<div class="sl-cols"><div class="sl-main">'+chk+due+jack+wait+'</div>'+rail+'</div></div>';
+  hydrateIcons(el)}
+function slCalendar(list){if(!list.length)return '<div class="sl-note">Nothing booked yet.</div>';const by={};list.forEach(function(x){(by[x.d]=by[x.d]||[]).push(x)});
+  return '<div class="sl-cal">'+Object.keys(by).sort().slice(0,12).map(function(d){const dt=new Date(d+'T12:00:00'),g=by[d];
+    return '<div class="sl-day'+(g.length>=3?' busy':'')+'"><div class="dd"><b>'+dt.getDate()+'</b><small>'+dt.toLocaleDateString('en-GB',{weekday:'short'})+' '+dt.toLocaleDateString('en-GB',{month:'short'})+'</small></div><div class="ids">'
+      +g.map(function(x){return '<button title="'+esc(x.t+(x.src==='note'?' · date from your note':''))+'" onclick="S.sel=&quot;'+x.s.rid+'&quot;;go(&quot;active&quot;)">'+esc(x.s.id.replace(/^FBA15/,''))+(x.src==='note'?'<i>note</i>':'')+'</button>'}).join('')+'</div></div>'}).join('')+'</div>'}
+
+/* ══════════════════════ OVERVIEW — view only ══════════════════════ */
+function renderOverview(){const el=document.getElementById('overviewBody');if(!el)return;
+  const open=DATA.filter(function(s){return !isHist(s)});const L=[];open.forEach(function(s){(s.lines||[]).forEach(function(l){if(!l.found&&(l.miss||0)>0)L.push({s:s,l:l})})});
+  const bucket=function(f){const r=L.filter(f);return{n:r.length,v:r.reduce(function(a,x){return a+Math.max(0,lineVal(x.l)-(+x.l.reimb||0))},0)}};
+  const ap=bucket(function(x){return x.l.lstatus==='mscapproved'}),rd=bucket(function(x){return x.l.lstatus==='mscreduced'}),dn=bucket(function(x){return x.l.lstatus==='denied'||x.l.lstatus==='needsdoc'}),rv=bucket(function(x){return x.l.lstatus==='mscreview'}),ns=bucket(function(x){return ['mscapproved','mscreduced','denied','needsdoc','mscreview','reimbursed'].indexOf(x.l.lstatus||'')<0});
+  const tot=ap.v+rd.v+dn.v+rv.v+ns.v||1;
+  const recAll=DATA.reduce(function(a,s){return a+(s.lines||[]).reduce(function(b,l){return b+(+l.reimb||0)},0)},0);
+  const m0=new Date();m0.setDate(1);m0.setHours(0,0,0,0);
+  const pays=[];DATA.forEach(function(s){(s.lines||[]).forEach(function(l){(l.amzPays||[]).forEach(function(p){if(+p.amt&&p.date)pays.push({t:new Date(String(p.date).slice(0,10)+'T12:00:00').getTime(),a:+p.amt})});if(!(l.amzPays||[]).length&&+l.reimb>0&&l.reimbAt)pays.push({t:l.reimbAt,a:+l.reimb})})});
+  const monthRec=pays.filter(function(p){return p.t>=m0.getTime()}).reduce(function(a,p){return a+p.a},0);
+  const wk=[];const mon=new Date();mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
+  for(let i=7;i>=0;i--){const a=mon.getTime()-i*7*864e5,b=a+7*864e5;wk.push({a:a,v:pays.filter(function(p){return p.t>=a&&p.t<b}).reduce(function(x,p){return x+p.a},0)})}
+  const wmax=Math.max.apply(null,wk.map(function(x){return x.v}).concat([1]));
+  const age=[[0,30,'0–30 d','green'],[31,60,'31–60 d','blue'],[61,120,'61–120 d','amber'],[121,99999,'120+ d','red']].map(function(b){const r=open.filter(function(s){const d=daysSince(s.createdAt||now());return d>=b[0]&&d<=b[1]});return{l:b[2],c:b[3],n:r.length,v:r.reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0)}});
+  const amax=Math.max.apply(null,age.map(function(x){return x.v}).concat([1]));
+  const oldest=open.slice().sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0)})[0];
+  const k=function(c,l,v,sub){return '<div class="ov3-k c-'+c+'"><div class="l">'+l+'</div><div class="v">'+v+'</div><div class="s">'+sub+'</div></div>'};
+  const st={};open.forEach(function(s){st[s.status]=(st[s.status]||0)+1});
+  const seg=function(c,v){return v>0?'<i class="c-'+c+'" style="width:'+(v/tot*100).toFixed(1)+'%"></i>':''};
+  const leg=function(c,l,b){return '<i class="c-'+c+'"></i><span>'+l+'</span><span class="a">'+money(b.v)+'</span><span class="n">'+b.n+' line'+(b.n!==1?'s':'')+'</span>'};
+  el.innerHTML='<div class="ov3"><div class="ov3-note">'+ic('layout',14)+'<span>How things stand. <b>Nothing to do here</b> — the work is on <a href="#" onclick="go(\'actions\');return false">Sarah’s list</a>.</span></div>'
+   +'<div class="ov3-ks">'+k('white','Open shipments',open.length,Object.keys(st).map(function(x){return st[x]+' '+(STATUS[x]?STATUS[x].l:x).toLowerCase()}).join(' · '))
+     +k('green','Approved, not paid yet',money(ap.v+rd.v),(ap.n+rd.n)+' lines Amazon said yes to')+k('red','Denied — Sarah’s work',money(dn.v),dn.n+' line'+(dn.n!==1?'s':'')+' to re-update')
+     +k('cyan','Recovered this month',money(monthRec),'by the date Amazon paid')+k('violet','Recovered all-time',money(recAll),DATA.filter(isHist).length+' shipments closed')+'</div>'
+   +'<div class="ov3-g"><div class="ov3-c"><h3>Where the open money is <span>'+money(tot)+' claimed</span></h3><div class="ov3-stack">'+seg('green',ap.v)+seg('cyan',rd.v)+seg('red',dn.v)+seg('blue',rv.v)+seg('grey',ns.v)+'</div>'
+       +'<div class="ov3-leg">'+leg('green','Approved in full',ap)+leg('cyan','Approved below cost',rd)+leg('red','Denied',dn)+leg('blue','Under review',rv)+(ns.n?leg('grey','Not sent yet',ns):'')+'</div></div>'
+     +'<div class="ov3-c"><h3>Paid by Amazon, per week <span>last 8 weeks</span></h3><div class="ov3-wk">'+wk.map(function(x){const d=new Date(x.a);return '<div><b>'+(x.v?'£'+Math.round(x.v).toLocaleString('en-GB'):'')+'</b><i style="height:'+Math.max(2,x.v/wmax*100)+'%"></i><span>'+d.getDate()+' '+d.toLocaleDateString('en-GB',{month:'short'})+'</span></div>'}).join('')+'</div><div class="ov3-ro">Amazon’s own payment dates where Sellerfuse recorded them, otherwise the day it was marked paid.</div></div>'
+     +'<div class="ov3-c"><h3>Age of open shipments <span>'+open.length+'</span></h3>'+age.map(function(b){return '<div class="ov3-hb c-'+b.c+'"><span>'+b.l+'</span><span class="tr"><i style="width:'+(b.v/amax*100).toFixed(0)+'%"></i></span><span class="a">'+b.n+' · '+money(b.v)+'</span></div>'}).join('')
+       +(oldest?'<div class="ov3-ro">Oldest: <a href="#" onclick="S.sel=\''+oldest.rid+'\';go(\'active\');return false">'+esc(oldest.id)+'</a>, '+daysSince(oldest.createdAt||now())+' days, '+esc(STATUS[oldest.status]?STATUS[oldest.status].l:oldest.status).toLowerCase()+'.</div>':'')+'</div></div>'
+   +(weekLine()||'')+'</div>';
+  hydrateIcons(el)}
+
+/* ══════════════════════ what gets used (Jack, 18 Nov) ══════════════════════
+   Which page is open and for how long, which buttons are pressed and which boxes are filled in,
+   signed with the person's name. Kept in shipment_deck_imports (source "usage") in batches, so
+   we can see what Sarah and Jack actually use before changing or removing anything.
+   Never recorded: the sign-in box or any password field. */
+const USE={q:[],page:null,since:Date.now()};
+function useEv(e){e.ts=Date.now();e.p=S.page;try{if(S.page==='active'&&S.sel){const s=byId(S.sel);if(s)e.sid=s.id}}catch(x){}USE.q.push(e);if(USE.q.length>=200)useFlush()}
+function useLabel(el){return String(el.getAttribute('aria-label')||el.getAttribute('title')||el.innerText||el.value||'').replace(/\s+/g,' ').trim().slice(0,60)}
+function useFlush(keep){if(!USE.q.length||!cloudOn()||!CLOUD.url)return;const ev=USE.q.splice(0,USE.q.length);
+  try{fetch(CLOUD.url+'/rest/v1/shipment_deck_imports',{method:'POST',headers:cloudHdrs({'Prefer':'return=minimal'}),keepalive:!!keep,
+    body:JSON.stringify([{source:'usage',data:{who:WHO||'',email:WHO_EMAIL||'',ver:(typeof APP_VER!=='undefined'?APP_VER:''),screen:innerWidth+'x'+innerHeight,events:ev}}])}).catch(function(){})}catch(x){}}
+document.addEventListener('click',function(ev){const el=ev.target&&ev.target.closest&&ev.target.closest('button,a,[onclick],input[type=checkbox],input[type=radio],summary,label');
+  if(!el||el.closest('#sdSignIn'))return;const card=el.closest('[data-k]');useEv({t:'click',l:useLabel(el)||el.tagName.toLowerCase(),k:card?card.getAttribute('data-k').split(':').slice(0,2).join(':'):undefined})},true);
+document.addEventListener('change',function(ev){const el=ev.target;if(!el||!el.matches||!el.matches('input,select,textarea')||el.closest('#sdSignIn')||el.type==='password')return;
+  const lab=el.getAttribute('placeholder')||el.getAttribute('aria-label')||el.name||el.id||(((el.closest('label')||{}).innerText)||'').trim();
+  useEv({t:'fill',l:String(lab).replace(/\s+/g,' ').slice(0,60),v:(el.type==='checkbox'||el.type==='radio')?String(el.checked):String(el.value||'').slice(0,80)})},true);
+{const _go=go;go=function(p){const t=Date.now();if(USE.page!==p){if(USE.page)useEv({t:'time',l:USE.page,ms:t-USE.since});USE.page=p;USE.since=t;useEv({t:'page',l:p})}return _go.apply(this,arguments)}}
+setInterval(function(){useFlush()},120000);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){if(USE.page)useEv({t:'time',l:USE.page,ms:Date.now()-USE.since});useFlush(true)}else{USE.since=Date.now()}});
+window.addEventListener('pagehide',function(){useFlush(true)});
+
 /* ═══════════ OVERVIEW ═══════════ */
-function renderOverview(){
+function renderOverviewOld(){
   const open=DATA.filter(s=>!isHist(s));
   const recovered=DATA.reduce((a,s)=>a+rec(s),0);
   const atRisk=open.reduce((a,s)=>a+Math.max(0,pot(s)-rec(s)),0);
@@ -4709,11 +5355,12 @@ function shipState(s){const r=rec(s),p=pot(s);if(s.status==='expired'||s.status=
    Sarah collects invoices in batches from the supplier portal, and one batch
    spans several shipments. Working shipment-by-shipment meant 17 near-identical
    Action Centre cards. This is every outstanding SKU in one place. */
-let INVQ={draft:{},cog:{},hideDone:true};
+let INVQ={draft:{},cog:{},hideDone:true,deniedOnly:true};
 function invqRows(){
   const rows=[];
   DATA.filter(function(s){return !isHist(s)}).forEach(function(s){
     (s.lines||[]).forEach(function(l,i){
+      if(INVQ.deniedOnly&&!invMatters(s,l))return;
       const key=s.rid+':'+i;
       const cur=(INVQ.draft[key]!==undefined)?INVQ.draft[key]:(l.invoice||'');
       const ck='c'+key;
@@ -4824,10 +5471,10 @@ function renderInvQueue(){
    +'<div class="ivq-hero"><div><div class="ivq-l">Invoices outstanding</div>'
      +'<div class="ivq-v">'+outstanding.length+'</div>'
      +'<div class="ivq-s">across '+Object.keys(ships).length+' shipment'+(Object.keys(ships).length!==1?'s':'')+' · '+money(atRisk)+' at risk</div></div>'
-     +'<div class="ivq-hint">Paste a batch of links below — they fill the empty SKUs top to bottom, across every shipment. Check them, then save once.</div></div>'
+     +'<div class="ivq-hint">'+(INVQ.deniedOnly?'<b>Approved lines are hidden</b> — Amazon already said yes, so they don\u2019t need an invoice. Purchase-sheet links attach by themselves. ':'')+'Paste a batch of links below — they fill the empty SKUs top to bottom, across every shipment. Check them, then save once.</div></div>'
    +'<div class="inv-bulk" style="border-bottom:none;padding-bottom:8px"><textarea id="invqBulk" placeholder="Paste several invoice links — one per line."></textarea><button class="btn" onclick="invqBulk()">Place links</button></div>'
    +'<div class="ivq-bar"><span id="invqStat"></span>'
-     +'<label class="ivq-tog"><input type="checkbox"'+(INVQ.hideDone?' checked':'')+' onchange="invqToggleDone()"> Only show SKUs still needing one</label>'
+     +'<label class="ivq-tog"><input type="checkbox"'+(INVQ.hideDone?' checked':'')+' onchange="invqToggleDone()"> Only show SKUs still needing one</label>'+'<label class="ivq-tog"><input type="checkbox"'+(INVQ.deniedOnly?' checked':'')+' onchange="INVQ.deniedOnly=this.checked;renderInvQueue();renderChrome()"> Only lines where Amazon needs one (denied, asked for a document, or not sent yet)</label>'
      +'<button class="btn" id="invqSaveBtn" onclick="invqSave()">Save invoices</button></div>'
    +body;
   hydrateIcons(el);invqStats();
@@ -4844,7 +5491,7 @@ function renderHistory(){
       const claimed=(l.miss||0)*(+l.cog||0);
       if(claimed<=0&&!(+l.reimb>0))return;
       const paid=+l.reimb||0, tries=(l.msc||[]).length;
-      const when=l.reimbAt||s.paidAt||(s.closed?new Date(s.closed).getTime():s.updated);
+      const when=amzPaidAt(l)||l.reimbAt||s.paidAt||(s.closed?new Date(s.closed).getTime():s.updated);
       let outcome='dead';
       if(paid>=claimed-0.01&&paid>0)outcome='full';
       else if(paid>0)outcome='partial';
@@ -5150,7 +5797,7 @@ function saveAdd(){
     log(s,'Shipment issue logged · '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+' · potential '+money(pot(s)));
     DATA.unshift(s);markDirty(s.rid);S.sel=s.rid;S.fStatus='all';save(true);closeOv('addOv');go('active');toast(s.id+' created');logImport(addMode==='paste'?'amazon_paste':'csv',{shipment:s.id,lines:s.lines.length,potential:pot(s)});
   };
-  if(DATA.find(x=>x.id===recNew.id)){askConfirm({tone:'primary',icon:'triangle',title:'Shipment already added',message:'<b>'+esc(recNew.id)+'</b> is already in your list. Add it again anyway?',confirmLabel:'Add anyway',onConfirm:_create});return}
+  if(DATA.find(x=>x.id===recNew.id&&!isHist(x))||DATA.find(x=>x.id===recNew.id)){const _ex=DATA.filter(x=>x.id===recNew.id).sort((a,b)=>(isHist(a)-isHist(b))||((b.updated||0)-(a.updated||0)))[0];window.__sdCreate=_create;askConfirm({tone:'primary',icon:'rotate',title:esc(recNew.id)+' is already here',message:repasteMsg(_ex,recNew),confirmLabel:'Update the one that\u2019s there',onConfirm:function(){repasteUpdate(_ex,recNew)}});return}
   _create();
 }
 
@@ -5216,7 +5863,7 @@ function renderSettings(){
      +url('stk','STK','https://...')
      +url('sf','SF Reimbursements','https://...')
    +'</div>'
-   +'<div class="set-card"><div class="set-h">'+ic('user',15)+'You</div>'+'<div class="set-row"><div class="set-info"><div class="set-l">Your name</div><div class="set-d">Tags every change you make in the activity log, so you can tell who did what when you and the VAs share the same data.</div></div><div class="set-ctrl"><input class="set-in wide" value="'+esc(WHO)+'" placeholder="e.g. Sarah" onchange="setWho(this.value)"></div></div>'+'</div>'   +'<div class="set-card"><div class="set-h">'+ic('ext',15)+'Cloud sync \u2014 SQL database</div>'
+   +'<div class="set-card"><div class="set-h">'+ic('user',15)+'You</div>'+'<div class="set-row"><div class="set-info"><div class="set-l">Signed in as '+esc(WHO||'nobody')+'</div><div class="set-d">'+esc(WHO_EMAIL||'')+' \u00b7 from your PrepHub login. Every change is signed with this name.</div></div><div class="set-ctrl"><button class="btn" onclick="signOutDeck()">Sign out / switch person</button></div></div>'+'</div>'   +'<div class="set-card"><div class="set-h">'+ic('ext',15)+'Cloud sync \u2014 SQL database</div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Supabase project URL</div><div class="set-d">Free Postgres database. Create a project at supabase.com, run the setup SQL, then paste the Project URL and anon key here. No login needed \u2014 anyone with this app + key shares the same data.</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-url" value="'+esc(CLOUD.url)+'" placeholder="https://xxxx.supabase.co"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">Anon key</div></div><div class="set-ctrl"><input class="set-in wide" id="cl-key" value="'+esc(CLOUD.key)+'" placeholder="eyJhbGciOi\u2026"></div></div>'
      +'<div class="set-row"><div class="set-info"><div class="set-l">'+(cloudOn()?'Connected':'Not connected')+'</div><div class="set-d">'+(cloudOn()?'Every change saves to Postgres. Data follows you across devices and browsers.':'Copy the setup SQL, run it in the Supabase SQL editor, then connect.')+'</div></div><div class="set-ctrl set-btns"><button class="btn sm" onclick="cp(event,CLOUD_SQL)">'+ic('copy')+'Copy setup SQL</button><button class="btn sm pri" onclick="saveCloudCfg()">'+(cloudOn()?'Save':'Connect')+'</button>'+(cloudOn()?'<button class="btn sm" onclick="cloudPull()">Pull now</button>':'')+'</div></div>'
@@ -5251,7 +5898,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v0.5';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v0.55';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 
 /* ═══════════ v83 — SAFETY NETS ═══════════
    Bugs cannot be eliminated. These make them visible, reportable and
@@ -5474,7 +6121,7 @@ load();try{S.dense=!!localStorage.getItem('sd-dense');if(S.dense)document.body.c
 let lastPull=Date.now();
 bootStorage().then(function(){
   BOOTED=true;
-  renderChrome();go('active');
+  renderChrome();go('actions');
   reconcileAll(true);
   makeBackup('daily');
   loadPurchaseSheet();
