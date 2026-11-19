@@ -2470,6 +2470,94 @@ code,kbd,pre,samp{font-family:var(--sans)}
 .fc-in{width:130px;font:600 12px var(--sans);font-variant-numeric:tabular-nums;background:var(--raise);color:var(--text);border:1px solid var(--line2);border-radius:7px;padding:4px 8px}
 @media (max-width:760px){.sl-gw{display:none}}
 
+/* ═══ v1.0 — group headings that read as headings ═══ */
+.sl-grp{--gc:var(--blue);margin:18px 0 0}
+.sl-grp:first-child{margin-top:6px}
+.sl-grp.c-green{--gc:var(--green)}.sl-grp.c-red{--gc:var(--red)}.sl-grp.c-amber{--gc:var(--amber)}.sl-grp.c-violet{--gc:var(--violet)}.sl-grp.c-blue{--gc:var(--blue)}
+.sl-grp .sl-gh{display:grid;grid-template-columns:16px 32px minmax(0,1fr) auto auto;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;color:var(--text);
+  padding:11px 16px 11px 14px;border-radius:11px;border:1px solid color-mix(in srgb,var(--gc) 28%,var(--line));
+  background:linear-gradient(90deg,color-mix(in srgb,var(--gc) 12%,var(--surface)) 0%,var(--surface) 65%);box-shadow:inset 3px 0 0 var(--gc);transition:border-color .15s}
+.sl-grp .sl-gh:hover{border-color:color-mix(in srgb,var(--gc) 60%,var(--line))}
+.sl-gch{display:grid;place-items:center;color:var(--text3)}
+.sl-gch .ic,.sl-gch svg{transition:transform .15s}
+.sl-grp.shut .sl-gch .ic,.sl-grp.shut .sl-gch svg{transform:rotate(-90deg)}
+.sl-grp .sl-gh svg,.sl-grp .sl-gh [data-ic-name]{align-self:auto}
+.sl-gi{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--gc) 18%,transparent);color:var(--gc)}
+.sl-gt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sl-gt b{font-size:15px;font-weight:750;letter-spacing:-.005em;color:var(--text)}
+.sl-gt small{font-size:12px;font-weight:500;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-grp .sl-gn{font:750 12.5px var(--sans);font-variant-numeric:tabular-nums;color:var(--gc);background:color-mix(in srgb,var(--gc) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--gc) 40%,transparent);border-radius:999px;padding:1px 10px;min-width:30px;text-align:center}
+.sl-grp .sl-gm{font:750 15px var(--sans);font-variant-numeric:tabular-nums;color:var(--text);min-width:92px;text-align:right}
+.sl-grp>.sl-list{margin:8px 0 0 7px;padding-left:10px;border-left:2px solid color-mix(in srgb,var(--gc) 25%,transparent)}
+.sl-sec>.sl-grp:last-child{margin-bottom:4px}
+@media (max-width:760px){.sl-grp .sl-gh{grid-template-columns:14px 28px minmax(0,1fr) auto;gap:9px}.sl-grp .sl-gm{display:none}.sl-gt small{white-space:normal}}
+
+/* ═══ proofs: fact tiles, two columns for "why" + "check it yourself" ═══ */
+.sl-card.open .sl-proof{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.sl-proof>*{flex:1 1 100%;min-width:0;margin-top:0!important;margin-bottom:0!important}
+.sl-proof>.sl-pwhy,.sl-proof>.sl-links2{flex:1 1 380px}
+.sl-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:6px}
+.sl-facts .sl-id,.sl-facts .sl-idw{white-space:nowrap}
+.sl-pbox>.sl-facts{padding:10px!important}
+.sf-t{display:flex;flex-direction:column;gap:3px;min-width:0;background:var(--raise);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.sf-t.wide{grid-column:1/-1}
+.sf-l{font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--text4)}
+.sf-v{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:13px;font-weight:600;color:var(--text);line-height:1.4;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.sf-v small{font-size:11.5px;font-weight:500;color:var(--text4)}
+.sf-t.ok .sf-v{color:var(--green)}.sf-t.warn .sf-v{color:var(--amber)}.sf-t.bad .sf-v{color:var(--red)}
+.sf-v b.okc{color:var(--green)}.sf-v b.warn{color:var(--amber)}.sf-v b.bad{color:var(--red)}
+.sf-t.bad{border-color:color-mix(in srgb,var(--red) 35%,var(--line))}
+.sl-pline .sl-facts{grid-template-columns:1fr}
+
+/* claim window bar */
+.dlb{display:flex;flex-direction:column;gap:6px;width:100%}
+.dlb-t b.ok{color:var(--green)}.dlb-t b.warn{color:var(--amber)}.dlb-t b.bad{color:var(--red)}
+.dlb-r{display:block;height:6px;width:100%;max-width:460px;border-radius:99px;background:var(--line);overflow:hidden}
+.dlb-r i{display:block;height:100%;border-radius:99px;background:var(--green)}
+.dlb-r i.warn{background:var(--amber)}.dlb-r i.bad{background:var(--red)}
+
+/* ═══ copy anything ═══ */
+.sl-idw{display:inline-flex;align-items:center;gap:1px}
+.sl-cpy,.sl-tcp{display:inline-grid;place-items:center;width:22px;height:22px;padding:0;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--text4);cursor:pointer;vertical-align:middle}
+.sl-cpy:hover,.sl-tcp:hover{color:var(--text);background:var(--hover);border-color:var(--line2)}
+.sl-tcp{margin:0 4px 0 1px;opacity:.35;transition:opacity .15s}
+.sl-row:hover .sl-tcp{opacity:1}
+.sl-cpx{display:inline-flex;align-items:center;gap:4px;cursor:copy;font-weight:600;color:var(--text2);border-bottom:1px dashed var(--line2);line-height:1.35}
+.sl-cpx .ic,.sl-cpx svg{opacity:.35;transition:opacity .15s}
+.sl-cpx:hover{color:var(--text);border-bottom-color:var(--text3)}
+.sl-cpx:hover .ic,.sl-cpx:hover svg{opacity:1}
+.sl-s .sl-cpx+.sl-cpx{margin-left:6px}
+
+/* Active page: IDs look copyable */
+.sku-sub .sl-cpx{font-size:11.5px;color:var(--text3)}.sku-sub .sl-cpx+.sl-cpx{margin-left:8px}
+.sku-ids .chip{cursor:copy}.sku-ids .chip:hover{border-color:var(--text3);color:var(--text)}
+
+/* ═══ Active page: grouped top panel ═══ */
+.atp{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 14px;margin-bottom:10px}
+.atp-row{display:flex;align-items:flex-start;gap:14px;padding:8px 0}
+.atp-row+.atp-row{border-top:1px solid var(--line)}
+.atp-l{flex:none;width:46px;padding-top:7px;font-size:11px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:var(--text4)}
+.atp-b{flex:1;min-width:0}
+.atp-b .frow{padding:0}.atp-b .cmdbar{margin:0}.atp-b .toggles{margin-top:8px}
+.atp-n{flex:none;display:flex;align-items:center;gap:10px;padding-top:5px;font-size:12px;color:var(--text3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.atp-n b{color:var(--text)}
+.atp-clr{display:inline-flex;align-items:center;gap:5px;font:650 12px var(--sans);color:var(--amber);background:color-mix(in srgb,var(--amber) 10%,transparent);border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:7px;padding:3px 9px;cursor:pointer}
+.atp-clr:hover{background:color-mix(in srgb,var(--amber) 18%,transparent)}
+@media (max-width:760px){.atp-row{flex-wrap:wrap;gap:6px}.atp-l{width:auto;padding-top:0}.atp-b{flex-basis:100%}}
+
+/* ═══ Active page: detail header grouped — status on its own row as one control, tools as one group ═══ */
+.m-meta .ship-tags{flex-basis:100%;margin:10px 0 0!important;padding:0;gap:0;align-items:stretch}
+.ship-tags-lbl{display:flex;align-items:center;padding-right:10px}
+.ship-tags .stag{border-radius:0;margin:0;border-left-width:0;padding:6px 12px;background:var(--raise)}
+.ship-tags .ship-tags-lbl+.stag{border-left-width:1px;border-radius:8px 0 0 8px}
+.ship-tags .stag:last-child{border-radius:0 8px 8px 0}
+.ship-tags .stag.on{position:relative;z-index:1;box-shadow:0 0 0 1px var(--tc)}
+.m-right{gap:0;align-items:center;background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:3px}
+.m-right>.btn{border-color:transparent;background:transparent}
+.m-right>.btn:hover{background:var(--hover)}
+.m-right>.btn+.btn{margin-left:2px}
+
 </style>
 </head>
 <body>
@@ -2505,7 +2593,7 @@ code,kbd,pre,samp{font-family:var(--sans)}
     </div>
     <div class="sb-foot">
       <button id="themeBtn" onclick="toggleTheme()" title="Switch theme"><span class="ic" data-ic="theme"></span><span class="lbl">Theme</span></button>
-      <span class="sb-ver" id="verPill">v0.9</span>
+      <span class="sb-ver" id="verPill">v1.0</span>
     </div>
   </div>
 
@@ -3041,7 +3129,7 @@ function toastUndo(msg,label,fn){
 }
 
 function toast(msg){const t=document.getElementById('toast');t.innerHTML=ic('check')+esc(msg);t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),1900)}
-function cp(e,t){e&&e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied '+t)}
+function cp(e,t){e&&e.stopPropagation();const fb=function(){try{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}catch(x){}};try{if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).catch(fb);else fb()}catch(x){fb()}toast('Copied '+t)}
 
 /* ═══════════ SEED ═══════════ */
 function seed(){
@@ -3157,6 +3245,7 @@ function filterRow(){
   const stages=stageDefs.map(function(st){
     const n=DATA.filter(function(s){return st.sts.includes(s.status)}).length;
     const on=S.fStatus!=='all'&&st.sts.includes(S.fStatus);
+    if(!n&&!on)return '';
     return '<button class="fchip'+(on?' on':'')+'" style="--tc:'+st.c+'" onclick="filterStage(\''+st.k+'\')">'
       +'<span class="fdot"></span>'+st.l+'<span class="fct">'+n+'</span></button>';
   }).join('');
@@ -3169,6 +3258,7 @@ function filterRow(){
     {k:'escalated',l:'Escalated to MD',c:'var(--red)',n:open.filter(function(s){return s.escalated}).length}
   ];
   const tags=tagDefs.map(function(d){
+    if(!d.n&&cur!==d.k)return '';
     return '<button class="fchip'+(cur===d.k?' on':'')+'" style="--tc:'+d.c+'" onclick="setTagFilter(&quot;'+d.k+'&quot;)">'
       +'<span class="fdot"></span>'+d.l+'<span class="fct">'+d.n+'</span></button>';
   }).join('');
@@ -3463,9 +3553,9 @@ function renderQueue(){
     const nextCls=s.escalated?'jack':(s.urgent||w.days<=SETTINGS.deadlineRiskDays)?'urg':'';
     return '<div class="item '+(S.sel===s.rid?'sel':'')+'" style="--sc:'+st.c+'" onclick="pick(\''+s.rid+'\')">'
      +'<div class="i-top"><span class="i-id">'+esc(s.id)+'</span><span class="i-flags">'+flags+'</span><span class="i-money risk">'+((p<0.01&&(s.lines||[]).some(function(l){return ((l.miss||0)>0||(l.exc||0)>0)&&!(+l.cog>0)}))?'<span class="i-nocog">COG needed</span>':money(p))+'</span></div>'
-     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span>'+(s.dest?' · '+esc(s.dest):'')+(miss?' · '+miss+' missing':'')+(s.escalated?' <span class="i-jack">'+ic('user',11)+'Jack</span>':'')+(function(){const t=lastTouched(s);return t?'<span class="i-lt" title="Last worked on">'+ic('clock',10)+fmtDShort(t)+'</span>':''})()+'</div>'
+     +'<div class="i-sub"><span class="sdot"></span><span class="i-st">'+st.l+'</span>'+(s.dest?' · '+esc(s.dest):'')+(miss?' · '+miss+' missing':'')+(s.escalated?' <span class="i-jack">'+ic('user',11)+'MD</span>':'')+(function(){const t=lastTouched(s);return t?'<span class="i-lt" title="Last worked on">'+ic('clock',10)+fmtDShort(t)+'</span>':''})()+'</div>'
      +'<div class="i-foot"><span class="i-next '+nextCls+'">'+ic('arrow',12)+nextTxt+'</span>'
-     +'<span class="i-days '+dcls+(w.set?'':' est')+'"'+(w.set?'':' title="'+DL_EST_TIP+'"')+'>'+(w.days<0?(w.met?'passed':'expired'):(w.set?w.days+'d left':'~'+w.days+'d'))+'</span></div></div>';
+     +'<span class="i-days '+dcls+(w.set?'':' est')+'"'+(w.set?'':' title="'+DL_EST_TIP+'"')+'>'+(w.days<0?(w.met?'passed':'expired'):(w.set?w.days+'d left':'~'+w.days+'d left'))+'</span></div></div>';
   }).join(''):'<div class="q-empty">'+ic('pkg')+(DATA.filter(s=>!isHist(s)).length?'Nothing matches those filters.<br>Clear them or adjust your search.':'No shipments yet.')+'</div>');
   hydrateIcons(q);
   renderDetail();
@@ -3700,7 +3790,7 @@ function lineDetail(s,i){const l=s.lines[i],rid=s.rid,claim=(l.miss||0)*(+l.cog|
   const disc=l.miss?('−'+l.miss):(l.exc?('+'+l.exc):'0'),discCls=l.miss?'miss':l.exc?'exc':'zero';
   const hd='<div class="sku-h" onclick="toggleLineExp(\''+rid+'\','+i+')">'
    
-   +'<div class="sku-main"><div class="sku-t">'+esc(l.p)+'</div>'+((l.asin||l.sku)?'<div class="sku-sub">'+esc([l.asin,l.sku].filter(Boolean).join(' · '))+'</div>':'')+'<div class="sku-ids">'
+   +'<div class="sku-main"><div class="sku-t">'+esc(l.p)+'</div>'+((l.asin||l.sku)?'<div class="sku-sub">'+cpx(l.asin)+cpx(l.sku)+'</div>':'')+'<div class="sku-ids">'
      +(l.sku?'<span class="chip" onclick="cp(event,\''+esc(l.sku)+'\')"><span class="k">SKU</span>'+esc(l.sku)+'</span>':'')
      +'<span class="chip" onclick="cp(event,\''+esc(l.asin)+'\')"><span class="k">ASIN</span>'+esc(l.asin)+'</span>'
      +'<span class="chip" onclick="cp(event,\''+esc(l.fnsku)+'\')"><span class="k">FNSKU</span>'+esc(l.fnsku)+'</span></div></div>'
@@ -3987,7 +4077,7 @@ function renderInvBoard(){
 }
 
 function setInvoice(rid,v){const s=byId(rid);s.invoice=v.trim();log(s,v.trim()?'Invoice attached':'Invoice cleared');refresh()}
-function shipTags(s){var esc2=s.escalated;var T=[{k:'mscdenied',l:'MSC denied',c:'var(--red)',on:s.status==='mscdenied'},{k:'underreview',l:'Under review',c:'var(--blue)',on:s.status==='underreview'},{k:'needsdoc',l:'Needs document',c:'var(--amber)',on:s.status==='needsdoc'},{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to MD',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
+function shipTags(s){var esc2=s.escalated;var T=[{k:'mscdenied',l:'MSC denied',c:'var(--red)',on:s.status==='mscdenied'},{k:'underreview',l:'Under review',c:'var(--blue)',on:s.status==='underreview'},{k:'needsdoc',l:'Needs document',c:'var(--amber)',on:s.status==='needsdoc'},{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to MD',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Set status</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
 function setShipTag(rid,k){var s=byId(rid);
   if(k==='escalated'){s.escalated=!s.escalated;log(s,s.escalated?'Escalated to MD':'Back from the MD');}
   else{var to=(s.status===k?'invoice':k);
@@ -5211,19 +5301,19 @@ function renderActions(){const el=document.getElementById('actionsBody');if(!el)
     +'<div class="sl-bar2"><span class="sl-prog"><span class="tr"><i style="width:'+Math.min(100,doneToday/Math.max(1,doneToday+checks.length)*100)+'%"></i></span><span><b>'+doneToday+'</b> done this session</span></span>'
       +chips.map(function(c){return '<button class="sl-chip'+(SL.chip===c[0]?' on':'')+'" onclick="SL.chip=&quot;'+c[0]+'&quot;;renderActions()">'+c[1]+'<b>'+c[2]+'</b></button>'}).join('')+'</div>'
     +slGrouped(shown)
-    +(months.length?'<div class="sl-list">'+months.map(function(g){const tot=g.rows.reduce(function(a,f){return a+(+(f.detail||{}).shortfall||0)},0);
+    +(false&&months.length?'<div class="sl-list">'+months.map(function(g){const tot=g.rows.reduce(function(a,f){return a+(+(f.detail||{}).shortfall||0)},0);
         return '<div class="sl-card c-amber"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('receipt',16)+'</span><div class="sl-q"><div class="sl-t"><b>'+esc(g.m)+'</b> '+g.rows.length+' paid under the ex-VAT cost (red flag) — for next month’s escalation</div><div class="sl-s"><span class="sl-kind">Paid short</span><span class="sl-sep">·</span>'+g.rows.map(function(f){return esc((f.detail||{}).shipment||'')}).join(', ')+'</div></div><div class="sl-m"><div class="v">−'+money(tot)+'</div><div class="k">short</div></div><div class="sl-acts"><button class="sl-btn" onclick="copyShortMonth(&quot;'+g.m+'&quot;)">'+ic('copy',12)+'Copy for escalation</button><button class="sl-btn yes" onclick="markShortMonth(&quot;'+g.m+'&quot;).then(function(){renderActions()})">'+ic('check',13)+'Mark escalated</button></div></div></div>'}).join('')+'</div>':'')
     +(SL.undo.length?'<div class="sl-done"><div class="sl-dh">Done this session <span>Undo works until you reload</span></div>'+SL.undo.slice(0,8).map(function(u,i){return '<div class="sl-dr"><span class="wc-av sm">'+esc((WHO||'?').charAt(0))+'</span><span>'+esc(u.label)+' · '+new Date(u.at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="slUndoAt('+i+')">Undo</button></div>'}).join('')+'</div>':'')
     +'</div>';
   const due='<div class="sl-sec c-red" id="sl-due"><div class="sl-sh"><h2>Due now</h2><span class="sl-pill">'+B.due.length+'</span><span class="sl-why">By your own dates — the date boxes first, then the re-update date in your note</span></div>'
-    +'<div class="sl-list">'+(B.due.length?B.due.map(slDueHtml).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing due today</div>')+'</div></div>';
-  const jack='<div class="sl-sec c-amber" id="sl-jack"><div class="sl-sh"><h2>With the MD</h2><span class="sl-pill">'+B.jack.length+'</span><span class="sl-why">Sarah writes the question · Jack’s reply sends it back to her list</span></div>'
+    +(B.due.length?slDueGrouped(B.due):'<div class="sl-list"><div class="sl-empty">'+ic('check2',18)+'Nothing due today</div></div>')+'</div>';
+  const jack='<div class="sl-sec c-amber" id="sl-jack"><div class="sl-sh"><h2>With the MD</h2><span class="sl-pill">'+B.jack.length+'</span><span class="sl-why">Sarah writes the question · the MD’s reply sends it back to her list</span></div>'
     +'<div class="sl-list">'+(B.jack.length?B.jack.map(function(s){const q=jackQOf(s);const at=(s.log||[]).find(function(e){return /Escalated to MD|Escalated to MD/.test(e.txt||'')});
        return '<div class="sl-card c-amber sl-jrow"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('user',16)+'</span>'
-        +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> '+(at?'escalated '+fmtDShort(at.ts)+' · '+daysSince(at.ts)+' days':'with Jack')+' · '+money(pot(s)-rec(s))+'</div>'
-        +(q?'<div class="sl-s">Question: <b>'+esc(q)+'</b></div>':'<div class="sl-s"><span class="sl-conf warn">No question written</span>'+(isJack()?'':' <input class="sl-in" id="jq-'+s.rid+'" placeholder="What do you need from Jack?" onclick="event.stopPropagation()"><button class="sl-btn" onclick="slJackAsk(&quot;'+s.rid+'&quot;)">Save</button>')+'</div>')
+        +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> '+(at?'escalated '+fmtDShort(at.ts)+' · '+daysSince(at.ts)+' days':'with the MD')+' · '+money(pot(s)-rec(s))+'</div>'
+        +(q?'<div class="sl-s">Question: <b>'+esc(q)+'</b></div>':'<div class="sl-s"><span class="sl-conf warn">No question written</span>'+(isJack()?'':' <input class="sl-in" id="jq-'+s.rid+'" placeholder="What do you need from the MD?" onclick="event.stopPropagation()"><button class="sl-btn" onclick="slJackAsk(&quot;'+s.rid+'&quot;)">Save</button>')+'</div>')
         +(s.note?'<div class="sl-s dim" title="'+esc(s.note)+'">Note: '+esc(String(s.note).slice(0,110))+'</div>':'')+'</div>'
-        +'<div class="sl-reply" onclick="event.stopPropagation()"><textarea id="jr-'+s.rid+'" placeholder="'+(isJack()?'Your reply to Sarah…':'Jack’s reply…')+'"></textarea><button class="sl-btn yes" onclick="slJackReply(&quot;'+s.rid+'&quot;)">Send back</button><button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing with the MD</div>')+'</div></div>';
+        +'<div class="sl-reply" onclick="event.stopPropagation()"><textarea id="jr-'+s.rid+'" placeholder="'+(isJack()?'Your reply to Sarah…':'The MD’s reply…')+'"></textarea><button class="sl-btn yes" onclick="slJackReply(&quot;'+s.rid+'&quot;)">Send back</button><button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing with the MD</div>')+'</div></div>';
   const wait='<div class="sl-sec c-green" id="sl-wait"><div class="sl-sh" style="cursor:pointer" onclick="SL.showWait=!SL.showWait;renderActions()"><h2>Waiting on Amazon</h2><span class="sl-pill">'+B.wait.length+'</span><span class="sl-why">Cases open, nothing to do. Any reimbursement shows up in “To check” after the Sun, Tue or Thu night check.</span><span class="sl-sp"></span><span class="sl-amt">'+money(waitV)+'</span><span class="sl-tog">'+(SL.showWait?'Hide':'Show')+'</span></div>'
     +(SL.showWait?'<div class="sl-list">'+B.wait.sort(function(a,b){return (pot(b.s)-rec(b.s))-(pot(a.s)-rec(a.s))}).map(function(x){const s=x.s,t=lastTouched(s);return '<div class="sl-card c-green sl-mini" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)"><span class="sl-bar"></span><span class="sl-mid"><b>'+esc(s.id)+'</b> '+esc(STATUS[s.status]?STATUS[s.status].l:s.status)+(x.why?' · '+esc(x.why):'')+'</span><span class="sl-mt">'+(t?'checked '+fmtDShort(t):'')+'</span><span class="sl-mv">'+money(pot(s)-rec(s))+'</span></div>'}).join('')+'</div>':'')+'</div>';
   /* rail */
@@ -5579,6 +5669,153 @@ function seedCaseLines(s,c){s.caseInfo=s.caseInfo||{};if(s.caseInfo[c])return;
 /* History: money Amazon confirmed (Sellerfuse) vs amounts only typed in */
 function histConf(claims){let conf=0,typed=0;claims.forEach(function(c){const a=(c.l.amzPays||[]).reduce(function(t,p){return t+(+p.amt||0)},0);if((c.l.amzPays||[]).length){conf+=a;typed+=Math.max(0,c.paid-a)}else typed+=c.paid});
   return{conf:Math.round(conf*100)/100,typed:Math.round(typed*100)/100}}
+
+/* ═══════════ v1.0 — Jack 19 Nov: finer groups on Sarah's list (confirmed money first), real headings,
+   proofs as compact fact tiles, every ID copyable, more proof on missing lines ═══════════ */
+
+/* ── copy anything: a value you click to copy ── */
+function cpx(v,cls){v=String(v==null?'':v).trim();if(!v)return '';return '<span class="sl-cpx'+(cls?' '+cls:'')+'" title="Click to copy" onclick="cp(event,&quot;'+esc(v)+'&quot;)">'+esc(v)+ic('copy',11)+'</span>'}
+/* every ID link also gets a copy button next to it */
+const _idA10=idA;
+idA=function(src,href,val){if(!val)return '';return '<span class="sl-idw">'+_idA10(src,href,val)+'<button class="sl-cpy" title="Copy '+esc(val)+'" onclick="cp(event,&quot;'+esc(String(val).trim())+'&quot;)">'+ic('copy',11)+'</button></span>'};
+
+/* ── facts as tiles, not a label column with half the box empty ── */
+const KV_WIDE=['Product','Line','SKU','SKU on the clawback','How we know','Case numbers','Same product elsewhere','Invoice','Reimbursements for this product'];
+kv=function(rows){return '<div class="sl-facts">'+rows.filter(Boolean).map(function(r){const txt=String(r[1]||'').replace(/<[^>]+>/g,'');
+  const wide=KV_WIDE.indexOf(r[0])>=0||txt.length>44;
+  return '<div class="sf-t'+(wide?' wide':'')+(r[2]?' '+r[2]:'')+'"><span class="sf-l">'+r[0]+'</span><span class="sf-v">'+r[1]+'</span></div>'}).join('')+'</div>'};
+
+/* a word-boundary cut with an ellipsis, so titles never end "QB300?" */
+function cut(t,n){t=String(t||'').trim();if(t.length<=n)return t;const c=t.slice(0,n);const i=c.lastIndexOf(' ');return (i>n*0.6?c.slice(0,i):c).replace(/[\s,;:\-–(]+$/,'')+'…'}
+
+/* how far through Amazon's claim window: a small bar */
+function dlBar(first,deadline){if(!deadline)return '?';const e=new Date(String(deadline).slice(0,10)+'T12:00:00'),t=new Date();t.setHours(12,0,0,0);
+  const left=Math.round((e-t)/864e5),tot=182,used=Math.max(0,Math.min(100,100-left/tot*100));const c=left<=14?'bad':left<=45?'warn':'ok';
+  return '<span class="dlb"><span class="dlb-t">≈ '+fmtD(deadline)+' · <b class="'+c+'">'+(left<0?Math.abs(left)+' days ago':left+' days left')+'</b></span><span class="dlb-r"><i class="'+c+'" style="width:'+used.toFixed(0)+'%"></i></span></span>'}
+
+/* other Deck shipments where the same product is short */
+function sameElsewhere(asin,sid){if(!asin)return [];const out=[];DATA.forEach(function(x){if(x.id===sid)return;(x.lines||[]).forEach(function(l){if(l.asin===asin&&(l.miss||0)>0)out.push({s:x,l:l})})});return out}
+/* reimbursements the Deck already holds for this product (from Sellerfuse or typed) */
+function paidForAsin(asin){if(!asin)return [];const out=[];DATA.forEach(function(x){(x.lines||[]).forEach(function(l){if(l.asin!==asin)return;(l.amzPays||[]).forEach(function(p){out.push({s:x,amt:+p.amt||0,id:p.id,src:'Sellerfuse'})});if(!(l.amzPays||[]).length&&+l.reimb>0)out.push({s:x,amt:+l.reimb,id:l.reimbId||'',src:'typed in'})})});return out}
+
+/* ── richer proof for "Missing line" and "New short shipment" cards ── */
+const _slFF10=slFromFinding;
+slFromFinding=function(f){const it=_slFF10(f),d=f.detail||{},s=shipByFbaOrRid(d);
+  it.tip=d.product||((d.lines||[])[0]||{}).p||'';
+  if(f.kind==='line'){
+    it.title='<b>'+esc(d.shipment)+'</b> Add '+esc(d.miss)+' × '+esc(cut(d.product||d.sku||d.asin,70))+'?';
+    {const dl=d.deadline?dFromToday(d.deadline):null;if(dl!=null&&dl<0)it.conf=['bad','deadline passed '+fmtDShort(d.deadline)];else if(dl!=null&&dl<=14)it.conf=['bad','deadline in '+dl+' day'+(dl!==1?'s':'')]}
+    it.sub=cpx(d.sku)+' '+cpx(d.asin)+(d.deadline?'<span class="sl-sep">·</span>deadline about '+fmtDShort(d.deadline):'');
+    it.proof=function(){const el=sameElsewhere(d.asin,d.shipment),pd=paidForAsin(d.asin),inv=PS.state==='ok'?psFor({sku:d.sku,asin:d.asin}):null;
+      const lines=s?(s.lines||[]).filter(function(l){return (l.miss||0)>0}):[];
+      const amz=kv([['Product',esc(d.product||'')],['Shipment',shipA(d.shipment)],['ASIN',asinA(d.asin)],['SKU',skuA(d.sku)],
+        ['Missing',esc(d.miss)+' unit'+(+d.miss!==1?'s':''),'bad'],['Cost each',money(+d.cost||0)+' <small>from the SKU</small>'],['Claim value',money((+d.miss||0)*(+d.cost||0)),'ok'],
+        ['First received',d.first_received?fmtD(d.first_received):'?'],['Claim deadline',dlBar(d.first_received,d.deadline),'wide']]);
+      const deck=s?kv([['Stage',esc(STATUS[s.status]?STATUS[s.status].l:(s.status||'?'))],['Case IDs',cases_on(s).map(caseA).join(' ')||'<span class="sl-none">none yet</span>'],
+        ['Lines in the Deck',lines.length+' short line'+(lines.length!==1?'s':'')+' · '+money(pot(s))],['This product','<b class="warn">Not one of the lines</b>'],
+        ['Reimbursements for this product',pd.length?pd.slice(0,3).map(function(p){return money(p.amt)+' on '+shipA(p.s.id)+' ('+p.src+')'}).join('<br>'):'None in the Deck'],
+        ['Same product elsewhere',el.length?el.slice(0,4).map(function(x){return shipA(x.s.id)+' <small>'+x.l.miss+' missing</small>'}).join(' '):'Not short on any other Deck shipment'],
+        ['Invoice',inv==null?'Purchase sheet not read yet':inv.sure.length===1?'<b class="okc">On the purchase sheet</b> · attached when you add the line':inv.maybe.length?'Same ASIN on the sheet, different SKU — check it':'Not on the purchase sheet',inv&&inv.sure.length===1?'ok':'warn']])
+        :'<div class="sl-bad">This shipment isn’t in the Deck</div>';
+      return '<div class="sl-pgrid">'+pbox('What Amazon says · via Sellerfuse',amz)+pbox('What the Deck has',deck)+'</div>'
+        +whyList([['ok','Sellerfuse shows this product short on the shipment.']].concat(d.dropped_on?[['wn','It was on the copy of this shipment that was deleted on <b>'+fmtD(d.dropped_on)+'</b>, and it’s missing from the new paste — so it was most likely left out by accident.']]:[])
+          .concat([['wn','It isn’t one of the Deck’s lines'+(pd.length?'':' and no reimbursement for it was found')+'. If it was left out on purpose, say no and pick why.']]))
+        +links([Lk('sc','Shipment in Seller Central',urlScShip(d.shipment)),scMscLink(),sfShipLink(d.shipment),sfShipLink(d.asin,'Shipment Manager · this product'),amzLink(d.asin),openShipBtn(s)])
+        +'<div class="sl-after">Pressing <b>Add the line</b> puts '+esc(d.miss)+' × this product on '+esc(d.shipment)+' at '+money(+d.cost||0)+' each'+(inv&&inv.sure.length===1?', with its invoice':'')+'.</div>'};
+  }else if(f.kind==='new'){const L=d.lines||[];
+    if(L.length)it.title='<b>'+esc(d.id)+'</b> Add it? '+esc(L[0].miss+' × '+cut(L[0].p||L[0].sku,64))+(L.length>1?' and '+(L.length-1)+' more':'');
+    const _p=it.proof;it.proof=function(){const el=[].concat.apply([],L.map(function(l){return sameElsewhere(l.asin,d.id)}));
+      return _p().replace('<div class="sl-pgrid">','<div class="sl-pgrid">')
+        +(d.deadline?'<div class="sl-pline">'+kv([['Claim deadline',dlBar(d.first_received,d.deadline),'wide']])+'</div>':'')
+        +(el.length?'<div class="sl-pline">'+kv([['Same product elsewhere',el.slice(0,5).map(function(x){return shipA(x.s.id)+' <small>'+esc(cut(x.l.p||x.l.sku,30))+' · '+x.l.miss+' missing</small>'}).join(' ')]])+'</div>':'')};
+  }else if(f.kind==='pay'){if(d.reimb_id)it.sub=it.sub.replace('Reimbursement ID <b>'+esc(d.reimb_id)+'</b>','Reimbursement ID '+cpx(d.reimb_id));
+    it.title=it.title.replace(esc(((d.product||d.sku)+'').slice(0,60)),esc(cut(d.product||d.sku,64)));
+  }else if(f.kind==='found'){it.sub=esc(cut(d.product||d.asin,70))+' '+cpx(d.asin);
+  }else if(f.kind==='claw'){it.sub=it.sub.replace(esc(((d.product||d.sku)+'').slice(0,60)),esc(cut(d.product||d.sku,60)))}
+  return it};
+
+/* the shipment ID in every card title can be copied; full product name on hover */
+const _slCard10=slCardHtml;
+slCardHtml=function(it){let h=_slCard10(it);
+  h=h.replace(/<div class="sl-t"><b>(FBA[0-9A-Z]+)<\/b>/,function(m,id){return '<div class="sl-t"'+(it.tip?' title="'+esc(it.tip)+'"':'')+'><b>'+id+'</b><button class="sl-tcp" title="Copy '+id+'" onclick="cp(event,&quot;'+id+'&quot;)">'+ic('copy',11)+'</button>'});
+  return h};
+
+/* ── groups: confirmed money first (Jack: "super easy and quick"), then Sellerfuse's process order ── */
+const SL_GRPS=[
+  ['ok','Reimbursements to approve','green','coins','100% tied to their shipment by case ID or SKU. Check, then approve'],
+  ['amt','Amazon paid a different amount','green','coins','Shipment is certain, but the Deck has another figure. Use Amazon’s real amount'],
+  ['soon','Deadline soon or passed','red','alarm','14 days or less, or already passed: claim now or decide'],
+  ['new','New short shipments','violet','pkg','Sellerfuse found a closed short shipment that isn’t in the Deck'],
+  ['line','Missing lines and costs','red','plus','The shipment is in the Deck, but a short product or its cost isn’t'],
+  ['case','File a case','blue','msg','MSC approved, no case yet: file it in Seller Central and type the case ID'],
+  ['hand','Reimbursements to check by hand','amber','search','Not 100% sure which shipment: check it in Seller Central, then decide'],
+  ['short','Paid short','amber','receipt','Amazon paid under our ex-VAT cost'],
+  ['claw','Clawbacks','blue','rotate','Amazon found the units and took the money back'],
+  ['found','Units Amazon found','blue','search','Missing units turned up, so the claim gets smaller'],
+  ['unpaid','Marked paid, never paid','red','alert','The Deck says paid, Sellerfuse has no money for it'],
+  ['fix','Fix the figures and notes','violet','file','Old settle-all amounts and dates in your notes'],
+  ['docs','Invoices','amber','file','Lines still missing an invoice']];
+function slDl(it){const d=it.f&&it.f.detail;if(!d||!d.deadline||['new','line'].indexOf(it.f.kind)<0)return null;return dFromToday(d.deadline)}
+slSecOf=function(it){const k=it.key||'';if(k==='pm:all')return 'ok';if(k==='nb:all'||k.indexOf('n:')===0)return 'fix';if(k.indexOf('i:')===0)return 'docs';
+  const f=it.f;if(!f)return 'fix';const dl=slDl(it);if(dl!=null&&dl<=14)return 'soon';
+  if(f.kind==='pay'){if(it.look)return 'hand';if(it.band==='short')return 'short';if(it.sure)return 'ok';return 'amt'}
+  return {new:'new',line:'line',cog:'line',claw:'claw',found:'found',unpaid:'unpaid',short:'short'}[f.kind]||'fix'};
+function slMonthHtml(g){const tot=g.rows.reduce(function(a,f){return a+(+(f.detail||{}).shortfall||0)},0);
+  return '<div class="sl-card c-amber"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('receipt',16)+'</span><div class="sl-q"><div class="sl-t"><b>'+esc(g.m)+'</b> '+g.rows.length+' paid under the ex-VAT cost (red flag) — for next month’s escalation</div><div class="sl-s"><span class="sl-kind">Paid short</span><span class="sl-sep">·</span>'+g.rows.map(function(f){return cpx((f.detail||{}).shipment||'')}).join(' ')+'</div></div><div class="sl-m"><div class="v">−'+money(tot)+'</div><div class="k">short</div></div><div class="sl-acts"><button class="sl-btn" onclick="copyShortMonth(&quot;'+g.m+'&quot;)">'+ic('copy',12)+'Copy for escalation</button><button class="sl-btn yes" onclick="markShortMonth(&quot;'+g.m+'&quot;).then(function(){renderActions()})">'+ic('check',13)+'Mark escalated</button></div></div></div>'}
+function slGroupHtml(g,n,m,body,open){const k=g[0];
+  return '<section class="sl-grp c-'+g[2]+(open?'':' shut')+'" data-g="'+k+'"><button class="sl-gh" onclick="SL.secOpen[&quot;'+k+'&quot;]='+(open?'false':'true')+';renderActions()">'
+    +'<span class="sl-gch">'+ic('chevron',14)+'</span><span class="sl-gi">'+ic(g[3],16)+'</span>'
+    +'<span class="sl-gt"><b>'+g[1]+'</b><small>'+g[4]+'</small></span>'
+    +'<span class="sl-gn">'+n+'</span>'+(m?'<span class="sl-gm">'+money(m)+'</span>':'<span class="sl-gm"></span>')+'</button>'
+    +(open?'<div class="sl-list">'+body+'</div>':'')+'</section>'}
+slGrouped=function(shown){const by={};shown.forEach(function(it){const k=slSecOf(it);(by[k]=by[k]||[]).push(it)});
+  const all=SL.chip==='all',sf=all||SL.chip==='f';
+  const fc=all?fileCaseList():[],ov=sf?ovCardHtml():'',auto=sf?autoSectionHtml():'',months=sf?slShortMonths():[];
+  SL.secOpen=SL.secOpen||{};
+  const out=SL_GRPS.map(function(g){const k=g[0],items=by[k]||[];
+    const extra=k==='fix'?ov:k==='ok'?auto:'',mh=k==='short'?months.map(slMonthHtml).join(''):'';
+    const n=items.reduce(function(a,x){return a+((x.members||[]).length||1)},0)+(k==='case'?fc.length:0)+(extra?1:0)+(k==='short'?months.length:0);if(!n)return '';
+    const m=items.reduce(function(a,x){return a+(+x.money||0)},0)+(k==='case'?fc.reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0):0);
+    return slGroupHtml(g,n,m,extra+(k==='case'?fc.map(fileCaseHtml).join(''):'')+items.map(slCardHtml).join('')+mh,SL.secOpen[k]!==false)}).join('');
+  return out||'<div class="sl-list"><div class="sl-empty">'+ic('check2',18)+'Nothing to check'+(FIND.state==='ok'?'':' · Sellerfuse cards appear once the check has run')+'</div></div>'};
+
+/* ── Due now in groups too ── */
+const DUE_GRPS=[['d-dl','Deadlines','red','alarm',function(d){return /^Deadline/.test(d.t)}],
+  ['d-urg','Flagged urgent','red','triangle',function(d){return d.ic==='triangle'}],
+  ['d-push','Push back up (paid short)','red','alert',function(d){return d.rf!=null}],
+  ['d-md','Back from the MD','amber','user',function(d){return d.act==='jackseen'}],
+  ['d-msc','Re-update the MSC','amber','rotate',function(d){return d.t==='Re-update MSC'}],
+  ['d-doc','Amazon wants a document','amber','file',function(d){return d.t==='Amazon wants a document'}],
+  ['d-case','Open the case','blue','msg',function(d){return d.t==='Open the case'}],
+  ['d-chase','Chase the case or review','amber','msg',function(d){return /^Chase the case|^Check the MSC review/.test(d.t)}],
+  ['d-rid','Check the reimbursement ID','violet','coins',function(d){return d.t==='Check the reimbursement ID'}],
+  ['d-cog','Cost price missing','amber','coins',function(d){return /^Cost price missing/.test(d.t)}],
+  ['d-other','Other','blue','arrow',function(){return true}]];
+const DUE_DESC={'d-dl':'Claim window closing: claim now or decide','d-urg':'You flagged these','d-push':'Paid under the ex-VAT cost: push back up, then hand over',
+  'd-md':'The MD replied: read it and carry on','d-msc':'The re-update date has come: resubmit the MSC','d-doc':'Send the invoice or evidence Amazon asked for',
+  'd-case':'All MSC lines approved: open the case and log the number','d-chase':'Your follow-up date has come','d-rid':'Approved 14+ days ago and still no reimbursement',
+  'd-cog':'Those lines are worth £0 until a cost is set','d-other':''};
+function slDueGrouped(list){SL.secOpen=SL.secOpen||{};const by={};
+  list.forEach(function(d){const g=DUE_GRPS.find(function(g){return g[4](d)});(by[g[0]]=by[g[0]]||[]).push(d)});
+  return DUE_GRPS.map(function(g){const a=by[g[0]];if(!a)return '';const m=a.reduce(function(x,d){return x+(+d.money||0)},0);
+    return slGroupHtml([g[0],g[1],g[2],g[3],DUE_DESC[g[0]]],a.length,m,a.map(slDueHtml).join(''),SL.secOpen[g[0]]!==false)}).join('')}
+
+/* "Open the case" is the same job as the File a case group: don't list it twice */
+const _slB10=slBuckets;
+slBuckets=function(){const b=_slB10();b.due=b.due.filter(function(d){return !(d.t==='Open the case'&&!allCases(d.s).length)});return b};
+
+/* ── Active page (Jack 19 Nov: "group them, better to use and better visually, not too many steps") ──
+   The top becomes one panel with two labelled groups (Show = the chips, Filter = the dropdowns),
+   plus one "Clear filters" button so getting back to everything is a single click. Nothing removed. */
+function activeFiltered(){return S.fStatus!=='all'||S.fDeadline!=='any'||S.fMissing!=='any'||S.fBand!=='any'||S.fValue!=='any'||S.fWake!=='any'||(S.tagFilter&&S.tagFilter!=='all')||S.tInvoice||S.tJack||S.t30||S.tFuOverdue||S.tCog||S.tGap||!!S.q}
+function clearActiveFilters(){Object.assign(S,{fStatus:'all',fDeadline:'any',fMissing:'any',fBand:'any',fValue:'any',fWake:'any',tagFilter:'all',tInvoice:false,tJack:false,t30:false,tFuOverdue:false,tCog:false,tGap:false});
+  if(S.q){S.q='';const g=document.querySelector('#gsearch,.gsearch input,input[type=search]');if(g)g.value=''}renderActive()}
+renderActive=function(){const el=document.getElementById('activeTop');if(!el)return;const n=activeRows().length,all=DATA.filter(function(s){return !isHist(s)}).length,f=activeFiltered();
+  el.innerHTML='<div class="atp">'
+    +'<div class="atp-row"><span class="atp-l">Show</span><div class="atp-b">'+filterRow()+'</div>'
+      +'<span class="atp-n">'+(f?'<b>'+n+'</b> of '+all+' shown<button class="atp-clr" onclick="clearActiveFilters()">'+ic('x',12)+'Clear filters</button>':'<b>'+all+'</b> open')+'</span></div>'
+    +'<div class="atp-row"><span class="atp-l">Filter</span><div class="atp-b">'+commandBar()+'</div></div></div>';
+  hydrateIcons(el);renderQueue()};
 
 /* ═══════════ OVERVIEW ═══════════ */
 function renderOverviewOld(){
@@ -6478,7 +6715,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v0.9';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v1.0';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 
 /* ═══════════ v83 — SAFETY NETS ═══════════
    Bugs cannot be eliminated. These make them visible, reportable and
