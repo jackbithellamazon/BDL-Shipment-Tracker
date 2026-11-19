@@ -2340,7 +2340,7 @@ code,kbd,pre,samp{font-family:var(--sans)}
 .sl-sec{margin-bottom:10px}
 .sl-rail .sl-sec{padding:10px 12px}
 .sl-day{padding:5px 0}
-/* With Jack: one compact row */
+/* With the MD: one compact row */
 .sl-jrow .sl-row{grid-template-columns:4px 28px minmax(0,1fr) 300px;align-items:center}
 .sl-reply textarea{height:30px;padding:5px 8px}
 .sl-jrow .sl-s.dim{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2415,6 +2415,61 @@ code,kbd,pre,samp{font-family:var(--sans)}
 .sl-pbox .sl-pt td:first-child{min-width:170px}
 .sl-pbox .sl-pt td{vertical-align:top}
 
+/* check-by-hand: the main button only opens something, it never approves */
+.sl-btn.look{background:transparent;color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 55%,transparent)}
+.sl-btn.look:hover{background:color-mix(in srgb,var(--amber) 12%,transparent)}
+.sl-ovr{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px}.sl-ovr span{color:var(--text3);font-size:12px}
+
+/* Coming up: compact agenda */
+.sl-ag{display:flex;flex-direction:column}
+.ag-wk{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text4);margin:10px 0 4px}
+.ag-wk:first-child{margin-top:0}
+.ag-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:'d n' 'i i';align-items:center;gap:5px 8px;padding:7px 9px;border-radius:8px;background:var(--raise);margin-bottom:5px}
+.ag-d{grid-area:d;display:flex;align-items:baseline;gap:8px}.ag-ids{grid-area:i}.ag-n{grid-area:n}
+.ag-row.soon{box-shadow:inset 3px 0 0 var(--amber)}
+.ag-d b{display:inline;font-size:12.5px;color:var(--text);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ag-d small{font-size:11px;color:var(--text4)}
+.ag-ids{display:flex;flex-wrap:wrap;gap:4px}
+.ag-ids button{font:600 11.5px/1.5 var(--sans);font-variant-numeric:tabular-nums;color:var(--text);background:transparent;border:1px solid var(--line2);padding:0 6px;border-radius:5px;cursor:pointer}
+.ag-ids button.nt{border-color:color-mix(in srgb,var(--violet) 55%,transparent);color:color-mix(in srgb,var(--violet) 35%,var(--text))}
+.ag-ids button:hover{background:var(--hover)}
+.ag-n{font-size:11px;color:var(--text4);font-variant-numeric:tabular-nums;padding-top:2px}
+.ag-more{font-size:11.5px;color:var(--text4);margin:4px 2px}
+.ag-key{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text4);margin-top:8px}
+.ag-key i{display:inline-block;width:10px;height:10px;border-radius:3px;border:1px solid var(--line2)}
+.ag-key i.nt{border-color:color-mix(in srgb,var(--violet) 55%,transparent)}
+.ag-key i+i,.ag-key i:nth-of-type(2){margin-left:8px}
+/* v0.9 */
+.cp{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--raise)}
+.cp-h{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px}.cp-h span{font-weight:500;color:var(--text4);margin-left:6px}
+.cp-row{padding:7px 0;border-top:1px solid var(--line)}.cp-row:first-of-type{border-top:0}
+.cp-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cp-st{font:600 12px var(--sans);background:var(--bg2,var(--raise));color:var(--text);border:1px solid var(--line2);border-radius:6px;padding:2px 6px}
+.cp-st.st-denied{border-color:color-mix(in srgb,var(--red) 60%,transparent)}.cp-st.st-md{border-color:color-mix(in srgb,var(--violet) 60%,transparent)}.cp-st.st-paid{border-color:color-mix(in srgb,var(--green) 60%,transparent)}
+.cp-n{font-size:11.5px;color:var(--text4)}
+.cp-ls{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.cp-ls button{font:600 11.5px/1.6 var(--sans);color:var(--text3);background:transparent;border:1px dashed var(--line2);border-radius:6px;padding:0 7px;cursor:pointer}
+.cp-ls button.on{color:var(--text);border-style:solid;border-color:color-mix(in srgb,var(--green) 60%,transparent);background:color-mix(in srgb,var(--green) 10%,transparent)}
+.dp{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 11px;border-radius:10px;border:1px solid color-mix(in srgb,var(--amber) 55%,transparent);background:color-mix(in srgb,var(--amber) 8%,transparent);font-size:12.5px;color:var(--text)}
+.dp>div{flex:1}
+.dl-q{margin-left:6px;font:600 11px var(--sans);color:var(--blue);background:transparent;border:1px solid color-mix(in srgb,var(--blue) 50%,transparent);border-radius:5px;padding:0 6px;cursor:pointer}
+.st-pend{display:flex;align-items:center;gap:6px;margin-top:5px;font-size:11.5px;color:var(--text3);cursor:pointer}
+.st-rid{display:flex;align-items:center;gap:10px;margin:8px 0 10px;font-size:12.5px;color:var(--text)}
+.st-rid input{flex:0 0 220px;font:600 13px var(--sans);font-variant-numeric:tabular-nums;background:var(--raise);color:var(--text);border:1px solid var(--line2);border-radius:7px;padding:5px 8px}
+
+/* v0.9 sections on Sarah's list */
+.sl-grp{margin:2px 0 10px}
+.sl-gh{display:flex;align-items:baseline;gap:8px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 2px 6px;cursor:pointer;color:var(--text)}
+.sl-gh b{font-size:13.5px;font-weight:750}
+.sl-gh svg,.sl-gh [data-ic-name]{transform:rotate(0deg);transition:transform .15s;color:var(--text4);align-self:center}
+.sl-grp.shut .sl-gh svg,.sl-grp.shut .sl-gh [data-ic-name]{transform:rotate(-90deg)}
+.sl-gn{font:700 11.5px var(--sans);font-variant-numeric:tabular-nums;color:var(--text);background:var(--raise);border:1px solid var(--line2);border-radius:999px;padding:0 7px}
+.sl-gm{font:700 12px var(--sans);font-variant-numeric:tabular-nums;color:var(--green)}
+.sl-gw{font-size:11.5px;color:var(--text4);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
+.sl-grp .sl-list{margin-top:6px}
+.fc-in{width:130px;font:600 12px var(--sans);font-variant-numeric:tabular-nums;background:var(--raise);color:var(--text);border:1px solid var(--line2);border-radius:7px;padding:4px 8px}
+@media (max-width:760px){.sl-gw{display:none}}
+
 </style>
 </head>
 <body>
@@ -2450,7 +2505,7 @@ code,kbd,pre,samp{font-family:var(--sans)}
     </div>
     <div class="sb-foot">
       <button id="themeBtn" onclick="toggleTheme()" title="Switch theme"><span class="ic" data-ic="theme"></span><span class="lbl">Theme</span></button>
-      <span class="sb-ver" id="verPill">v0.7</span>
+      <span class="sb-ver" id="verPill">v0.9</span>
     </div>
   </div>
 
@@ -2663,7 +2718,7 @@ const NEXT=tolerant({
   expired:{t:'Written off',s:'The 6-month window has passed, so no claim is possible. Counted in the loss report.'},
   writtenoff:{t:'Written off',s:'Closed with no recovery. Counted in the loss report.'}
 },function(){return {t:'Reload to update',s:'This shipment is at a stage added in a newer version of Shipment Deck. Press Cmd+Shift+R to load it.'}});
-const ESC_NEXT={t:'Waiting on Jack',s:'Escalated to Jack. Check his comments below before taking the next step.'};
+const ESC_NEXT={t:'With the MD',s:'Escalated to MD. Check his comments below before taking the next step.'};
 /* ═══════════ STATE ═══════════ */
 const LS_KEY='sd-data-v4',LS_THEME='sd-theme',LS_LINKS='sd-links',LS_SB='sd-sidebar',LS_SETTINGS='sd-settings',LS_TRIAL='sd-trial';let TRIAL=true;
 /* ===== cloud SQL sync (Supabase Postgres via REST, no auth) ===== */
@@ -3020,7 +3075,7 @@ function seed(){
      lines:[{p:'Oral-B iO Series 9 Electric Toothbrush',sku:'Amuk_12.03_0205',asin:'B08DPM5JSQ',fnsku:'X002H99AA1',miss:12,exc:0,cog:12.03}]}),
    mk({id:'FBA15KZR2603T',name:'FBA STA (18/01/2026)',dest:'LBA4',closed:'2026-01-20',status:'mscpending',owner:'Sarah',shipped:110,received:104,scShot:true,
      invoice:'https://drive.google.com/invoice-jan',urgent:'Window closes 20/07 — escalate if no MSC movement by 10/07',escalated:true,statusAt:now()-8*86400000,
-     log:[{ts:now()-2*3600000,txt:'Sarah: MSC still pending after 8 days'},{ts:now()-2*86400000,txt:'Jack: chasing Amazon on the discrepancy'},{ts:now()-6*86400000,txt:'Escalated to Jack'},{ts:now()-8*86400000,txt:'MSC re-submitted on Seller Central'},{ts:now()-10*86400000,txt:'Invoice attached'}],
+     log:[{ts:now()-2*3600000,txt:'Sarah: MSC still pending after 8 days'},{ts:now()-2*86400000,txt:'Jack: chasing Amazon on the discrepancy'},{ts:now()-6*86400000,txt:'Escalated to MD'},{ts:now()-8*86400000,txt:'MSC re-submitted on Seller Central'},{ts:now()-10*86400000,txt:'Invoice attached'}],
      lines:[{p:'Tommee Tippee Closer to Nature Bottles 3pk',sku:'Amuk_8.15_0101',asin:'B08DNKQWRN',fnsku:'X002F2BB1C',miss:6,exc:0,cog:8.15}]}),
    mk({id:'FBA15KWH0H7VH',name:'FBA STA (02/12/2025)',dest:'BHX4',closed:'2025-12-08',status:'expired',shipped:40,received:38,paidAt:new Date('2026-06-08').getTime(),
      note:'Could not locate invoice on Mastersheets — window expired 08/06/26, written off.',
@@ -3111,7 +3166,7 @@ function filterRow(){
     {k:'needsdoc',l:'Needs document',c:'var(--amber)',n:open.filter(function(s){return s.status==='needsdoc'}).length},
     {k:'caseopen',l:'Case opened',c:'var(--violet)',n:open.filter(function(s){return s.status==='caseopen'}).length},
     {k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',n:open.filter(function(s){return s.status==='reimbpending'}).length},
-    {k:'escalated',l:'Escalated to Jack',c:'var(--red)',n:open.filter(function(s){return s.escalated}).length}
+    {k:'escalated',l:'Escalated to MD',c:'var(--red)',n:open.filter(function(s){return s.escalated}).length}
   ];
   const tags=tagDefs.map(function(d){
     return '<button class="fchip'+(cur===d.k?' on':'')+'" style="--tc:'+d.c+'" onclick="setTagFilter(&quot;'+d.k+'&quot;)">'
@@ -3166,7 +3221,7 @@ function commandBar(){
    +'<button class="morebtn dens" onclick="toggleDense()" title="Compact rows">'+ic('list',13)+(S.dense?'Comfortable':'Compact')+'</button>'
    +'<button class="morebtn'+(moreOn||S._more?' act':'')+'" onclick="S._more=!S._more;renderActive()"><span>More filters'+(moreOn?' · '+[S.tInvoice,S.tJack,S.t30,S.tFuOverdue].filter(Boolean).length:'')+'</span>'+ic('chevron',14)+'</button>'
    +'</div>'
-   +(S._more?'<div class="toggles">'+tgl('tInvoice','Invoice missing')+tgl('tJack','With Jack')+tgl('t30','Claim window under 30 days')+tgl('tFuOverdue','Follow-up overdue')+tgl('tCog','Cost price missing')+tgl('tGap','Amazon approved under cost')+'</div>':'')
+   +(S._more?'<div class="toggles">'+tgl('tInvoice','Invoice missing')+tgl('tJack','With the MD')+tgl('t30','Claim window under 30 days')+tgl('tFuOverdue','Follow-up overdue')+tgl('tCog','Cost price missing')+tgl('tGap','Amazon approved under cost')+'</div>':'')
    +activeChips();
 }
 function tgl(key,label){return '<label class="tgl"><input type="checkbox" '+(S[key]?'checked':'')+' onchange="S.'+key+'=this.checked;renderActive()"><span class="box">'+ic('check',11)+'</span>'+label+'</label>'}
@@ -3204,7 +3259,7 @@ function activeChips(){
   if(S.tCog)chips.push(['Cost price missing',"(function(){S.tCog=false;renderActive()})()"]);
   if(S.tGap)chips.push(['Approved under cost',"(function(){S.tGap=false;renderActive()})()"]);
   if(S.tInvoice)chips.push(['Invoice missing',"(function(){S.tInvoice=false;renderActive()})()"]);
-  if(S.tJack)chips.push(['With Jack',"(function(){S.tJack=false;renderActive()})()"]);
+  if(S.tJack)chips.push(['With the MD',"(function(){S.tJack=false;renderActive()})()"]);
   if(S.t30)chips.push(['Window under 30 days',"(function(){S.t30=false;renderActive()})()"]);
   if(S.tFuOverdue)chips.push(['Follow-up overdue',"(function(){S.tFuOverdue=false;renderActive()})()"]);
   
@@ -3231,7 +3286,7 @@ const ACTION_BANDS=[
  {k:8, label:'Cost price missing',      sub:'Worth £0 until a £/unit is set — cannot be claimed'},
  {k:9, label:'Invoices needed',         sub:'Required before MSC can be pushed'},
  {k:10,label:'Waiting on Amazon',       sub:'Nothing to do yet'},
- {k:11,label:'Waiting on Jack',         sub:'Escalated — his call'},
+ {k:11,label:'With the MD',         sub:'Escalated — his call'},
  {k:12,label:'Done for now',            sub:'Snoozed or just actioned'},
  {k:99,label:'Window shut — decide',    sub:'Expired or written off'}
 ];
@@ -3401,10 +3456,10 @@ function renderQueue(){
     const st=STATUS[s.status],w=win(s),p=pot(s),miss=missUnits(s),own=ownerOf(s);
     const dcls=w.met?'':w.days<=SETTINGS.deadlineRiskDays?'crit':w.days<=SETTINGS.deadlineWarnDays?'warn':'';
     const flags=(s.urgent?'<span class="fl fl-u" title="Urgent">'+ic('triangle',12)+'</span>':'')
-      +(s.escalated?'<span class="fl fl-j" title="With Jack">'+ic('user',12)+'</span>':'')
+      +(s.escalated?'<span class="fl fl-j" title="With the MD">'+ic('user',12)+'</span>':'')
       +(!invDone(s)?'<span class="fl fl-i" title="Invoice missing">'+ic('file',12)+'</span>':'')
       +(cogIssues(s)?'<span class="fl fl-c" title="A COG does not match its SKU">'+ic('triangle',12)+'</span>':'');
-    const nextTxt=s.escalated?'Waiting on Jack':(s.status==='mscdenied'&&s.followUp)?(fuFuture(s)?'Re-update on '+fmtDShort(s.followUp):'Re-update MSC now'):SHORTNEXT[s.status];
+    const nextTxt=s.escalated?'With the MD':(s.status==='mscdenied'&&s.followUp)?(fuFuture(s)?'Re-update on '+fmtDShort(s.followUp):'Re-update MSC now'):SHORTNEXT[s.status];
     const nextCls=s.escalated?'jack':(s.urgent||w.days<=SETTINGS.deadlineRiskDays)?'urg':'';
     return '<div class="item '+(S.sel===s.rid?'sel':'')+'" style="--sc:'+st.c+'" onclick="pick(\''+s.rid+'\')">'
      +'<div class="i-top"><span class="i-id">'+esc(s.id)+'</span><span class="i-flags">'+flags+'</span><span class="i-money risk">'+((p<0.01&&(s.lines||[]).some(function(l){return ((l.miss||0)>0||(l.exc||0)>0)&&!(+l.cog>0)}))?'<span class="i-nocog">COG needed</span>':money(p))+'</span></div>'
@@ -3501,7 +3556,7 @@ function lineNext(s,l){const lst=l.lstatus||'needsmsc',cog=+l.cog||0,pct=SETTING
  if(lst==='mscreduced')return{t:'Reduced MSC approved — open the case',s:'Amazon approved a lower amount. Open the case to claim it.',c:'var(--green)'};
  if(lst==='reimbpending')return{t:'Reimbursement pending',s:'Case is with Amazon. Log the Reimb ID and amount once it lands.',c:'var(--blue)'};
  /* v0.45 — the same price as the "Denied → try" button (it used to say −20%; Sarah's 138 retries drop a median 3.2%) */
- if(lst==='denied'){const nx=nextTry(l);if(nx&&nx.stop)return{t:'At the ex-VAT floor — escalate',s:'Turned down at the ex-VAT cost '+money(nx.ex)+'. Don’t go lower: open a case with the invoice, or escalate to Jack.',c:'var(--red)'};return{t:'Resubmit at a lower COG',s:'Wait ~'+wait+' days, then resubmit MSC at '+money(nx?nx.price:resub)+' ('+(nx?nx.why:'\u2212'+pct+'%')+').',c:'var(--red)'};}
+ if(lst==='denied'){const nx=nextTry(l);if(nx&&nx.stop)return{t:'At the ex-VAT floor — escalate',s:'Turned down at the ex-VAT cost '+money(nx.ex)+'. Don’t go lower: open a case with the invoice, or escalate to MD.',c:'var(--red)'};return{t:'Resubmit at a lower COG',s:'Wait ~'+wait+' days, then resubmit MSC at '+money(nx?nx.price:resub)+' ('+(nx?nx.why:'\u2212'+pct+'%')+').',c:'var(--red)'};}
  if(lst==='caseopen')return{t:'Chase the Seller Support case',s:'Follow up until Amazon reimburses, then log the Reimb ID here.',c:'var(--violet)'};
  return{t:'Reimbursed — done',s:'This SKU is settled.'+(l.reimbId?' Reimb ID '+esc(l.reimbId)+'.':' Add the Reimb ID if you have it.'),c:'var(--green)'};}
 /* ===== v66 — case message composer =====
@@ -3704,14 +3759,14 @@ function renderDetail(){
   const fu=followUp(s);
   /* next-action buttons per status */
   let nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button>';
-  if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="openCaseMsg(\''+s.rid+'\')">'+ic('copy')+'Case message</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'MSC paid \u2014 settle all</button>';
+  if(s.status==='mscapproved')nbtns='<button class="btn pri" onclick="openCaseMsg(\''+s.rid+'\')">'+ic('copy')+'Case message</button><button class="btn" onclick="changeStatus(\''+s.rid+'\',\'caseopen\')">'+ic('check')+'Case opened</button><button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Record reimbursement</button>';
   else if(s.status==='needsdoc')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" title="Logs it and sends it back to Amazon for review" onclick="runStep(\''+s.rid+'\')">'+ic('file')+'Document sent</button>';
   else if(s.status==='mscdenied')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" onclick="runStep(\''+s.rid+'\')">'+ic('rotate')+'Resubmitted to MSC</button><label class="reup">'+ic('alarm',13)+'Re-update on<input type="date" value="'+(s.followUp||'')+'" onchange="setReupdate(\''+s.rid+'\',this.value)"></label>';
   else if(s.status==='mscpending')nbtns='<button class="btn pri" onclick="openLink(\'sc\')">'+ic('ext')+'Open Seller Central</button><button class="btn" onclick="markChecked(\''+s.rid+'\')">'+ic('check')+'Mark checked</button><button class="btn" onclick="setFollowUp(\''+s.rid+'\')">'+ic('alarm')+'Set follow-up</button>';
   else if(s.status==='invoice'){const _c=invCov(s);nbtns=cogNeeded(s)?'<button class="btn pri" onclick="go(&quot;invoices&quot;)">'+ic('triangle')+'Set cost on '+cogNeeded(s)+' SKU'+(cogNeeded(s)!==1?'s':'')+'</button>':(_c.need&&_c.have>=_c.need)?'<button class="btn pri" onclick="advanceToMsc(\''+s.rid+'\')">'+ic('arrow')+'Push to MSC</button>'+'<button class="btn" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+'Invoices '+_c.have+'/'+_c.need+'</button>':'<button class="btn pri" onclick="openInvoices(\''+s.rid+'\')">'+ic('file')+(_c.need?'Invoices '+_c.have+'/'+_c.need:'Add invoice link')+'</button>';}
-  if(['caseopen','reimbpending'].includes(s.status))nbtns+='<button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Reimbursed \u2014 settle all</button>';
+  if(['caseopen','reimbpending'].includes(s.status))nbtns+='<button class="btn" onclick="settleShipment(\''+s.rid+'\')">'+ic('check2')+'Record reimbursement</button>';
   if(!hist&&s.status!=='mscpending')nbtns+='<button class="btn" title="Logs today’s check, so there is no need to type “as of” in the note" onclick="checkedToday(\''+s.rid+'\')">'+ic('check')+'Checked today</button>';
-  if(!hist)nbtns+='<button class="btn" onclick="toggleEsc(\''+s.rid+'\')">'+ic('user')+(s.escalated?'Return from Jack':'Escalate to Jack')+'</button>';
+  if(!hist)nbtns+='<button class="btn" onclick="toggleEsc(\''+s.rid+'\')">'+ic('user')+(s.escalated?'Back from the MD':'Escalate to MD')+'</button>';
 
   const lineRows=buildLineRows(s);
 
@@ -3730,18 +3785,18 @@ function renderDetail(){
    +'<div class="m-id">'+esc(s.id)+'<button class="copy" onclick="cp(event,\''+esc(s.id)+'\')">'+ic('copy',13)+'copy</button></div>'
    +'<div class="m-meta"><span class="statuspill" style="--sc:'+st.c+'" onclick="event.stopPropagation();togglePop()"><span class="d"></span>'+st.l+ic('chevron',13)+statusPop(s)+'</span>'
    +(s.name?'<span>'+esc(s.name)+'</span>':'')+(s.dest?'<span class="dest">'+esc(s.dest)+'</span>':'')+'<span>closed '+fmtD(s.closed)+'</span>'
-   +(s.escalated?'<span style="display:inline-flex;align-items:center;gap:6px;color:var(--violet)">'+ic('user',13)+'With Jack</span>':'')
+   +(s.escalated?'<span style="display:inline-flex;align-items:center;gap:6px;color:var(--violet)">'+ic('user',13)+'With the MD</span>':'')
    +shipTags(s)
    +'</div></div>'
    +'<div class="m-right">'
-   +'<button class="btn sm" onclick="openLink(\'sc\')">'+ic('ext')+'Seller Central</button>'
+   +'<button class="btn sm" title="This shipment in Seller Central" onclick="window.open(urlScShip(\''+s.id+'\'),\'_blank\')">'+ic('ext')+'Shipment in Seller Central</button>'
    +((s.lines&&s.lines.length)?'<button class="btn sm" onclick="openCaseMsg(&quot;'+s.rid+'&quot;)" title="Build one message covering every line">'+ic('copy')+'Case message</button>':'')
    +(cogIssues(s)?'<button class="btn sm warn" onclick="fixAllCog(&quot;'+s.rid+'&quot;)" title="A COG disagrees with its SKU">'+ic('triangle')+'COG check ('+cogIssues(s)+')</button>':'')+(s.lines&&s.lines.length?'<button class="btn sm" onclick="openInvoices(&quot;'+s.rid+'&quot;)" title="Invoice link for each SKU">'+ic('file')+'Invoices '+invCov(s).have+'/'+invCov(s).need+'</button>':'')+'<button class="btn sm" onclick="startEditHdr(&quot;'+s.rid+'&quot;)">'+ic('edit')+'Edit</button>'+'<span class="hdr-more"><button class="btn sm ic-only" title="More actions" onclick="toggleHdrMenu(event,&quot;'+s.rid+'&quot;)">'+ic('dots',16)+'</button><div class="more-menu" id="moreMenu-'+s.rid+'"><button class="mm-item danger" onclick="closeHdrMenu();delShipment(\''+s.rid+'\')">'+ic('x',14)+'Delete shipment</button></div></span></div></div>'
    +(editingHdr===s.rid?hdrEditForm(s):'')
    /* next action hero */
    +'<div class="next '+(hist?'done':s.escalated?'jack':waiting?'wait':'')+'">'
    +(s.urgent&&!hist?'<div class="next-warn">'+ic('triangle',13)+'<span>'+esc(s.urgent)+'</span><button onclick="clearUrgent(\''+s.rid+'\')" title="Clear">'+ic('x',13)+'</button></div>':'')
-   +'<div class="next-l">'+ic(hist?'check2':s.escalated?'user':waiting?'hourglass':'arrow')+(hist?'Settled':s.escalated?'With Jack':waiting?'Waiting on Amazon':'Next action')+(hist?'':(function(){const t=lastTouched(s);return t?'<span class="next-lt">last worked '+fmtDShort(t)+'</span>':''})())+(hist?'':'<span class="next-risk">'+money(Math.max(0,p-r))+' at risk</span>')+'</div>'
+   +'<div class="next-l">'+ic(hist?'check2':s.escalated?'user':waiting?'hourglass':'arrow')+(hist?'Settled':s.escalated?'With the MD':waiting?'Waiting on Amazon':'Next action')+(hist?'':(function(){const t=lastTouched(s);return t?'<span class="next-lt">last worked '+fmtDShort(t)+'</span>':''})())+(hist?'':'<span class="next-risk">'+money(Math.max(0,p-r))+' at risk</span>')+'</div>'
    +(!hist&&['caseopen','reimbpending'].includes(s.status)?(function(){var d=daysSince(s.statusAt),over=d>=(SETTINGS.caseSlaDays||14);return '<div class="next-sla'+(over?' over':'')+'">'+ic(over?'triangle':'clock',12)+'Case open <b>'+d+'d</b>'+(over?' \u00b7 past Amazon SLA \u2014 chase it':'')+'</div>';})():'')+'<div class="next-t">'+nx.t+'</div><div class="next-s">'+nx.s+'</div>'
    +(hist?'':'<div class="next-btns">'+nbtns+'</div>')+'</div>'
    /* workflow stage */
@@ -3755,7 +3810,7 @@ function renderDetail(){
    +'<div class="finseg" style="--fc:var(--blue)"><div class="l">Potential claim</div><div class="v">'+money(p)+'</div><div class="s">'+missT+' missing'+(excT?' · +'+excT+' excess':'')+'</div></div>'
    +'<div class="finseg" style="--fc:var(--green)"><div class="l">Amazon reimbursed</div><div class="v">'+money(r)+'</div><div class="s">'+(nR||'no')+' reimbursement'+(nR===1?'':'s')+'</div></div>'
    +'<div class="finseg" style="--fc:'+(p-r>0.01?'var(--red)':'var(--green)')+'"><div class="l">Still at risk</div><div class="v">'+money(Math.max(0,p-r))+'</div><div class="s">of '+money(cogTotal(s))+' shipment COG</div></div>'
-   +'<div class="finseg cw" style="--fc:'+(hist?'var(--text4)':!w.set?'var(--amber)':w.met?'var(--blue)':w.days<=SETTINGS.deadlineRiskDays?'var(--red)':w.days<=SETTINGS.deadlineWarnDays?'var(--amber)':'var(--blue)')+'"><div class="l">Amazon deadline</div>'+(hist?'<div class="v">'+(s.status==='reimbursed'||s.status==='partial'?'Closed':'Expired')+'</div><div class="s">—</div>':w.set?'<div class="v">'+(w.days<0?'Passed':w.days+'d')+(w.met?'<span class="dl-met">case open \u00b7 met</span>':'')+'</div><div class="s dl-s"><input type="date" class="dl-in" value="'+s.amzDeadline+'" title="Amazon’s deadline, from Seller Central" onchange="setDeadline(\''+s.rid+'\',this.value)"></div>':'<div class="v dl-unset">Not set</div><div class="s dl-s"><input type="date" class="dl-in need" title="Add Amazon’s deadline from Seller Central" onchange="setDeadline(\''+s.rid+'\',this.value)"><span class="dl-est">estimate ~'+w.days+'d</span></div>')+'</div>'+'</div></div>'
+   +'<div class="finseg cw" style="--fc:'+(hist?'var(--text4)':!w.set?'var(--amber)':w.met?'var(--blue)':w.days<=SETTINGS.deadlineRiskDays?'var(--red)':w.days<=SETTINGS.deadlineWarnDays?'var(--amber)':'var(--blue)')+'"><div class="l">Amazon deadline</div>'+(hist?'<div class="v">'+(s.status==='reimbursed'||s.status==='partial'?'Closed':'Expired')+'</div><div class="s">—</div>':w.set?'<div class="v">'+(w.days<0?'Passed':w.days+'d')+(w.met?'<span class="dl-met">case open \u00b7 met</span>':'')+'</div><div class="s dl-s"><input type="date" class="dl-in" value="'+s.amzDeadline+'" title="Amazon’s deadline, from Seller Central" onchange="setDeadline(\''+s.rid+'\',this.value)"></div>':'<div class="v dl-unset">Not set</div><div class="s dl-s"><input type="date" class="dl-in need" title="Add Amazon’s deadline from Seller Central" onchange="setDeadline(\''+s.rid+'\',this.value)"><span class="dl-est">estimate ~'+w.days+'d</span>'+(dlGuess(s)?'<button class="dl-q" title="Sellerfuse first receipt + 182 days. Check it against Seller Central" onclick="setDeadline(\''+s.rid+'\',\''+dlGuess(s)+'\')">Use '+fmtDShort(dlGuess(s))+'</button>':'')+'</div>')+'</div>'+'</div></div>'
    /* accordions */
    +cogFlagHtml(s)
    +accSection('lines','Issue lines · '+esc(s.id),s.lines.length,ACC.lines,
@@ -3932,9 +3987,9 @@ function renderInvBoard(){
 }
 
 function setInvoice(rid,v){const s=byId(rid);s.invoice=v.trim();log(s,v.trim()?'Invoice attached':'Invoice cleared');refresh()}
-function shipTags(s){var esc2=s.escalated;var T=[{k:'mscdenied',l:'MSC denied',c:'var(--red)',on:s.status==='mscdenied'},{k:'underreview',l:'Under review',c:'var(--blue)',on:s.status==='underreview'},{k:'needsdoc',l:'Needs document',c:'var(--amber)',on:s.status==='needsdoc'},{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to Jack',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
+function shipTags(s){var esc2=s.escalated;var T=[{k:'mscdenied',l:'MSC denied',c:'var(--red)',on:s.status==='mscdenied'},{k:'underreview',l:'Under review',c:'var(--blue)',on:s.status==='underreview'},{k:'needsdoc',l:'Needs document',c:'var(--amber)',on:s.status==='needsdoc'},{k:'caseopen',l:'Case opened',c:'var(--violet)',on:s.status==='caseopen'},{k:'reimbpending',l:'Reimbursement pending',c:'var(--blue)',on:s.status==='reimbpending'},{k:'escalated',l:'Escalated to MD',c:'var(--red)',on:!!esc2}];return '<div class="ship-tags"><span class="ship-tags-lbl">Quick flags</span>'+T.map(function(t){return '<button class="stag'+(t.on?' on':'')+'" style="--tc:'+t.c+'" title="Set this shipment to '+t.l+'" onclick="setShipTag(&quot;'+s.rid+'&quot;,&quot;'+t.k+'&quot;)">'+(t.on?ic('check',11):'')+t.l+'</button>';}).join('')+'</div>';}
 function setShipTag(rid,k){var s=byId(rid);
-  if(k==='escalated'){s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');}
+  if(k==='escalated'){s.escalated=!s.escalated;log(s,s.escalated?'Escalated to MD':'Back from the MD');}
   else{var to=(s.status===k?'invoice':k);
     log(s,(to===k?'Moved to ':'Tag removed — back to ')+STATUS[to].l,to);
     s.status=to;s.statusAt=now();
@@ -3946,25 +4001,25 @@ function clearUrgent(rid){const s=byId(rid);s.urgent='';log(s,'Urgent action cle
    the With-Jack queue is a list of questions, not a list of flags. */
 function askJack(rid){
   const s=byId(rid);if(!s)return;
-  askConfirm({tone:'primary',icon:'user',title:'Send to Jack',
+  askConfirm({tone:'primary',icon:'user',title:'Escalate to MD',
     message:'What do you need Jack to decide or do? <span style="color:var(--text3)">(You can leave it empty.)</span>'
       +'<div style="margin-top:10px"><textarea id="jackAsk" class="rpt-in" placeholder="e.g. Amazon only approved £63.50 against our £68.16 — push back or accept?"></textarea></div>',
-    confirmLabel:'Send to Jack',
+    confirmLabel:'Escalate to MD',
     onConfirm:function(){
       const q=((document.getElementById('jackAsk')||{}).value||'').trim();
       s.escalated=true;if(q){s.jackQ=q;s.jackQAt=now()}s.updated=now();
-      log(s,'Sent to Jack'+(q?': '+q:''));markDirty(s.rid);save();refresh();
-      toast(esc(s.id)+' sent to Jack');
+      log(s,'Escalated to MD'+(q?': '+q:''));markDirty(s.rid);save();refresh();
+      toast(esc(s.id)+' escalated to MD');
     }});
   setTimeout(function(){const t=document.getElementById('jackAsk');if(t)t.focus()},60);
 }
 function jackDone(rid){
   const s=byId(rid);if(!s)return;
   s.escalated=false;s.statusAt=now();s.updated=now();
-  log(s,'Returned from Jack');markDirty(s.rid);save();refresh();toast(esc(s.id)+' back with Sarah');
+  log(s,'Back from the MD');markDirty(s.rid);save();refresh();toast(esc(s.id)+' back with Sarah');
 }
 
-function toggleEsc(rid){const s=byId(rid);if(!s.escalated){askJack(rid);return}s.escalated=!s.escalated;log(s,s.escalated?'Escalated to Jack':'Returned from Jack');refresh();toast(s.escalated?'Escalated to Jack':'Back with the VA')}
+function toggleEsc(rid){const s=byId(rid);if(!s.escalated){askJack(rid);return}s.escalated=!s.escalated;log(s,s.escalated?'Escalated to MD':'Back from the MD');refresh();toast(s.escalated?'Escalated to MD':'Back with the VA')}
 function addCase(rid){const s=byId(rid);const no=document.getElementById('cNo').value.trim();if(!no){toast('Case number needed');return}const reimb=document.getElementById('cReimb').value.trim();const amt=parseFloat(document.getElementById('cAmt').value)||null;s.cases.push({no,reimb,amt,date:amt?new Date().toISOString().slice(0,10):null});log(s,'Case logged: '+no+(amt?' · '+money(amt):''));if(amt)s.paidAt=s.paidAt||now();refresh();toast('Case logged')}
 function delCase(rid,i){const s=byId(rid);askConfirm({title:'Remove this case entry?',message:'Case <b>'+esc(s.cases[i].no||'(no number)')+'</b> will be removed from this shipment.<br><span class="cfm-warn">This cannot be undone.</span>',confirmLabel:'Remove case',onConfirm:function(){log(s,'Case removed: '+s.cases[i].no);s.cases.splice(i,1);refresh();toast('Case removed')}})}
 let _cfm=null;
@@ -4056,7 +4111,7 @@ function shipFlags(s){
   else if(w.days<=SETTINGS.deadlineWarnDays&&w.days>=0)f.push({l:w.days+'d window',c:'var(--amber)',ic:'clock'});
   if(!invDone(s)&&stepIndex(s.status)<2){const c=invCov(s);f.push({l:c.need?'Invoices '+c.have+'/'+c.need:'Invoice missing',c:'var(--amber)',ic:'file'});}
   {const ci=cogIssues(s);if(ci)f.push({l:'COG check ('+ci+')',c:'var(--red)',ic:'triangle'});}
-  if(s.escalated)f.push({l:'With Jack',c:'var(--violet)',ic:'user'});
+  if(s.escalated)f.push({l:'With the MD',c:'var(--violet)',ic:'user'});
   return f;
 }
 function acBundles(){
@@ -4065,8 +4120,8 @@ function acBundles(){
     let pr;
     if(s.escalated){
       pr=risky
-        ?{title:'Follow up with Jack',sub:(s.urgent||(w.days<=SETTINGS.deadlineRiskDays?'Claim window closes '+fmtD(w.e)+' — '+w.days+' days left.':'Follow-up overdue.'))+' Escalated — chase Jack for a decision.',ic:'user',bucket:'do',sev:1}
-        :{title:'Waiting on Jack',sub:'Escalated — check his comments before the next step.',ic:'user',bucket:'wait',sev:4};
+        ?{title:'Follow up with Jack',sub:(s.urgent||(w.days<=SETTINGS.deadlineRiskDays?'Claim window closes '+fmtD(w.e)+' — '+w.days+' days left.':'Follow-up overdue.'))+' Escalated — chase the MD.',ic:'user',bucket:'do',sev:1}
+        :{title:'With the MD',sub:'Escalated — check his comments before the next step.',ic:'user',bucket:'wait',sev:4};
     }else pr=primaryTask(s);
     return{s,primary:pr,flags:shipFlags(s),m:pot(s),bucket:pr.bucket,dl:w.days};
   }).sort((a,b)=>a.primary.sev-b.primary.sev||b.m-a.m);
@@ -4258,7 +4313,7 @@ function stepAction(s){
       commitStep(s,'Next check '+fmtDShort(s.followUp));}};
   if(s.status==='mscapproved')
     return {label:'Case opened',ic:'msg',kind:'advance',run:function(){
-      log(s,'Seller Support case opened','caseopen');s.status='caseopen';s.statusAt=now();
+      if(!allCases(s).length){needCase(s.rid,function(){changeStatus(s.rid,'caseopen')});return}log(s,'Seller Support case opened','caseopen');s.status='caseopen';s.statusAt=now();
       s.followUp=isoIn(SETTINGS.caseChaseDays||7);
       commitStep(s,'Now at Case · chase '+fmtDShort(s.followUp));}};
   if(s.status==='caseopen')
@@ -4266,7 +4321,7 @@ function stepAction(s){
       log(s,'Chased the case on Seller Support');s.followUp=isoIn(SETTINGS.caseChaseDays||7);
       commitStep(s,'Chased · next '+fmtDShort(s.followUp));}};
   if(s.status==='reimbpending')
-    return {label:'Log the payment',ic:'receipt',kind:'nav',run:function(){S.sel=s.rid;go('active')}};
+    return {label:'Log the reimbursement',ic:'receipt',kind:'nav',run:function(){S.sel=s.rid;go('active')}};
   return {label:'Mark actioned',ic:'check',kind:'touch',run:function(){
     log(s,'Actioned');s.followUp=isoIn(3);commitStep(s,'Follow up '+fmtDShort(s.followUp));}};
 }
@@ -4389,7 +4444,7 @@ function mscHelpHtml(rid,i,l){
   const notPrice=acc&&nx&&nx.floor&&acc.cog>=nx.floor-0.004;   /* Amazon took as much or more elsewhere */
   if(acc)o+='<div class="msc-tip">'+ic('coins',12)+'<span>Amazon has accepted up to <b>'+money(acc.cog)+'</b> for this product'+(acc.date?' ('+fmtDShort(acc.date)+(acc.ship?' · '+esc(acc.ship):'')+')':'')
     +(notPrice?' \u2014 as much as or more than it turned down here, so price may not be the reason. Check the invoice and evidence too.':'')+'</span></div>';
-  if(nx&&nx.stop)o+='<div class="msc-stop">'+ic('alert',12)+'<span>Already turned down at the ex-VAT cost ('+money(nx.ex)+'). Don’t go lower — under that is a red flag. Open a case with the invoice, or escalate to Jack.</span></div>';
+  if(nx&&nx.stop)o+='<div class="msc-stop">'+ic('alert',12)+'<span>Already turned down at the ex-VAT cost ('+money(nx.ex)+'). Don’t go lower — under that is a red flag. Open a case with the invoice, or escalate to MD.</span></div>';
   else if(nx)o+='<button class="btn sm msc-try" onclick="tryMsc(&quot;'+rid+'&quot;,'+i+','+nx.price+')">'+ic('rotate',12)+(nx.first?'Start at ':'Denied → try ')+money(nx.price)+'<span class="msc-why">'+esc(nx.why)+'</span></button>';
   return o}
 
@@ -4556,7 +4611,7 @@ function invPsHint(r){
    cloud failure — it never touches the sync pill). */
 const FIND_TABLE='shipment_deck_findings';
 let FIND={state:'off',rows:[]};
-const FIND_KIND={new:{l:'New short shipments',c:'var(--violet)',ic:'pkg'},pay:{l:'Payments to check',c:'var(--green)',ic:'coins'},
+const FIND_KIND={new:{l:'New short shipments',c:'var(--violet)',ic:'pkg'},pay:{l:'Reimbursements to check',c:'var(--green)',ic:'coins'},
   claw:{l:'Money taken back',c:'var(--red)',ic:'rotate'},short:{l:'Paid short — escalate next month',c:'var(--amber)',ic:'triangle'}};
 async function loadFindings(){
   if(!cloudOn()||!cloudUsable())return;
@@ -4607,7 +4662,7 @@ async function findApprove(id){const f=findById(id);if(!f)return;const d=f.detai
     s.lines[i].lstatus='reimbursed';
     const added=addCaseNo(s,d.case);
     log(s,(d.stock?'Amazon replaced '+d.units+' unit'+(+d.units!==1?'s':'')+' with stock':'Amazon paid '+money(+d.amount||0))+' for '+(s.lines[i].asin||d.sku)+(d.case?' (case '+d.case+')':'')+' — recorded from Sellerfuse'+(typed&&Math.abs(typed-(+s.lines[i].reimb||0))>0.005?' · was typed as '+money(typed):'')+(added?' · case number added':''));
-    s.updated=now();markDirty(s.rid);if(!afterLineChange(s)){save();}else{save();}refresh();toast('Payment recorded on '+s.id);return;
+    s.updated=now();markDirty(s.rid);if(!afterLineChange(s)){save();}else{save();}refresh();toast('Reimbursement recorded on '+s.id);return;
   }
   if(f.kind==='claw'){
     if(!(await decideFinding(f,'approved')))return;
@@ -4624,7 +4679,7 @@ async function findDeny(id){const f=findById(id);if(!f)return;
 function findBanner(){if(FIND.state!=='ok')return '';
   const c={};['new','pay','claw','short'].forEach(function(k){c[k]=findOpen(k).length});
   const tot=c.new+c.pay+c.claw;if(!tot&&!c.short)return '';
-  const bits=[];if(c.new)bits.push('<b>'+c.new+'</b> new short shipment'+(c.new!==1?'s':''));if(c.pay)bits.push('<b>'+c.pay+'</b> payment'+(c.pay!==1?'s':'')+' to check');
+  const bits=[];if(c.new)bits.push('<b>'+c.new+'</b> new short shipment'+(c.new!==1?'s':''));if(c.pay)bits.push('<b>'+c.pay+'</b> reimbursement'+(c.pay!==1?'s':'')+' to check');
   if(c.claw)bits.push('<b>'+c.claw+'</b> clawback'+(c.claw!==1?'s':''));if(c.short)bits.push('<b>'+c.short+'</b> paid short');
   return '<div class="fd-ban" onclick="go(\'actions\')">'+ic('bell',16)+'<span class="fd-txt"><b>From the Sellerfuse check:</b> '+bits.join(' · ')+'</span><span class="nh-go">Review'+ic('arrow',12)+'</span></div>';}
 function weekLine(){const w=findInfo();if(!w)return '';const d=w.detail||{};
@@ -4768,7 +4823,7 @@ function applyRecv(){if(FIND.state!=='ok'||!BOOTED||(cloudOn()&&!PULLED))return;
     if(s||!d.shipment)decideFinding(f,'done','applied');});}
 if(typeof FIND_KIND==='object'){FIND_KIND.found=FIND_KIND.found||{l:'Units Amazon found',c:'var(--blue)',ic:'search'};FIND_KIND.cog=FIND_KIND.cog||{l:'Cost price missing',c:'var(--amber)',ic:'coins'};FIND_KIND.line=FIND_KIND.line||{l:'Missing line',c:'var(--red)',ic:'plus'};FIND_KIND.unpaid=FIND_KIND.unpaid||{l:'Marked paid, never paid',c:'var(--red)',ic:'alert'}}
 
-/* ── Sellerfuse payments that are certain (the case number on Amazon's payment is already on the
+/* ── Sellerfuse reimbursements that are certain (the case number on Amazon's reimbursement is already on the
    shipment, and the line is there): recorded automatically with Amazon's amount and reimbursement ID.
    Each one is listed under "Recorded automatically" with its proof and an Undo; anything less certain
    stays a card for Sarah. (Jack, 18 Nov: "it should start coming in — reimbursement ID — that they're a match".) */
@@ -4778,25 +4833,25 @@ function autoRecordPaysOld(){if(FIND.state!=='ok'||!BOOTED||(cloudOn()&&!PULLED)
     if(cases_on(s).indexOf(String(d.case).trim())<0)return;const i=lineBySku(s,d.sku);if(i<0)return;const l=s.lines[i];
     if((l.amzPays||[]).some(function(x){return String(x.id)===String(d.reimb_id)&&x.sku===d.sku})){decideFinding(f,'approved','already recorded');return}
     const fromAmz=(l.amzPays||[]).reduce(function(a,x){return a+(+x.amt||0)},0),byHand=Math.round(((+l.reimb||0)-fromAmz)*100)/100;
-    if(Math.abs(byHand)>=0.01&&Math.abs(byHand-(+d.amount||0))>=0.01)return;   /* money typed by hand that isn't this payment: Sarah decides */
+    if(Math.abs(byHand)>=0.01&&Math.abs(byHand-(+d.amount||0))>=0.01)return;   /* money typed by hand that isn't this reimbursement: Sarah decides */
     const prev={st:l.lstatus||'',reimb:+l.reimb||0,rid:l.reimbId||''};
     applyAmzMoney(s,i,{id:d.reimb_id||'',sku:d.sku,amt:+d.amount||0,date:d.date||'',case:d.case||'',units:+d.units||0,stock:!!d.stock,auto:1,prev:prev,fid:f.id});
     if(d.stock)l.stockBack=(+l.stockBack||0)+(+d.units||0);l.lstatus='reimbursed';
     s.log=s.log||[];s.log.unshift({ts:now(),txt:'Amazon '+(d.stock?'replaced '+d.units+' unit'+(+d.units!==1?'s':''):'paid '+money(+d.amount||0))+' for '+(l.asin||d.sku)+' · reimbursement '+(d.reimb_id||'?')+' · case '+d.case+' — recorded automatically (case number matches)'+(prev.reimb&&Math.abs(prev.reimb-(+l.reimb||0))>0.005?' · was typed as '+money(prev.reimb):''),who:'Sellerfuse',at:s.status||''});
     s.updated=now();markDirty(s.rid);afterLineChange(s);decideFinding(f,'approved','auto: case number matches');n++});
-  if(n){save();renderChrome();if(S.page==='actions')renderActions();toast(n+' payment'+(n!==1?'s':'')+' recorded automatically from Sellerfuse')}return n}
+  if(n){save();renderChrome();if(S.page==='actions')renderActions();toast(n+' reimbursement'+(n!==1?'s':'')+' recorded automatically from Sellerfuse')}return n}
 function autoList(){const out=[];DATA.forEach(function(s){(s.lines||[]).forEach(function(l,i){(l.amzPays||[]).forEach(function(p,j){if(p.auto&&!p.confirmed)out.push({s:s,l:l,i:i,p:p,j:j})})})});
   return out.sort(function(a,b){return String(b.p.date).localeCompare(String(a.p.date))})}
 function autoUndo(rid,i,j){const s=byId(rid);if(!s)return;const l=s.lines[i],p=(l.amzPays||[])[j];if(!p)return;
-  askConfirm({tone:'primary',icon:'rotate',title:'Undo this automatic payment?',message:esc(s.id)+' · '+esc(l.sku)+' · '+money(+p.amt||0)+' (reimbursement '+esc(p.id)+'). The line goes back to how it was, and the card comes back for you to check.',confirmLabel:'Undo it',onConfirm:function(){
+  askConfirm({tone:'primary',icon:'rotate',title:'Undo this automatic reimbursement?',message:esc(s.id)+' · '+esc(l.sku)+' · '+money(+p.amt||0)+' (reimbursement '+esc(p.id)+'). The line goes back to how it was, and the card comes back for you to check.',confirmLabel:'Undo it',onConfirm:function(){
     l.amzPays.splice(j,1);const pr=p.prev||{};l.lstatus=pr.st||'mscapproved';l.reimb=pr.reimb||0;l.reimbId=pr.rid||'';
-    log(s,'Undid the automatic payment '+money(+p.amt||0)+' (reimbursement '+p.id+')');s.updated=now();markDirty(s.rid);afterLineChange(s);save();
+    log(s,'Undid the automatic reimbursement '+money(+p.amt||0)+' (reimbursement '+p.id+')');s.updated=now();markDirty(s.rid);afterLineChange(s);save();
     const f=p.fid&&findById(p.fid);if(f)decideFinding(f,'open',null);refresh();toast('Undone')}})}
-function autoConfirm(rid,i,j){const s=byId(rid);if(!s)return;const p=((s.lines[i]||{}).amzPays||[])[j];if(!p)return;p.confirmed=1;p.confirmedBy=WHO||'';log(s,'Confirmed the payment '+money(+p.amt||0)+' (reimbursement '+p.id+')');s.updated=now();markDirty(s.rid);save();refresh()}
-function autoConfirmAll(){autoList().forEach(function(x){x.p.confirmed=1;x.p.confirmedBy=WHO||'';log(x.s,'Confirmed the payment '+money(+x.p.amt||0)+' (reimbursement '+x.p.id+')');x.s.updated=now();markDirty(x.s.rid)});save();refresh();toast('Confirmed')}
+function autoConfirm(rid,i,j){const s=byId(rid);if(!s)return;const p=((s.lines[i]||{}).amzPays||[])[j];if(!p)return;p.confirmed=1;p.confirmedBy=WHO||'';log(s,'Confirmed the reimbursement '+money(+p.amt||0)+' (reimbursement '+p.id+')');s.updated=now();markDirty(s.rid);save();refresh()}
+function autoConfirmAll(){autoList().forEach(function(x){x.p.confirmed=1;x.p.confirmedBy=WHO||'';log(x.s,'Confirmed the reimbursement '+money(+x.p.amt||0)+' (reimbursement '+x.p.id+')');x.s.updated=now();markDirty(x.s.rid)});save();refresh();toast('Confirmed')}
 function autoSectionHtml(){const a=autoList();if(!a.length)return '';const tot=a.reduce(function(x,y){return x+(+y.p.amt||0)},0);const open=SL.open.has('auto');
   return '<div class="sl-card c-green sl-auto'+(open?' open':'')+'"><div class="sl-row" onclick="slToggle(&quot;auto&quot;)"><span class="sl-bar"></span><span class="sl-ico">'+ic('check2',15)+'</span>'
-   +'<div class="sl-q"><div class="sl-t"><b>'+a.length+' payment'+(a.length!==1?'s were':' was')+'</b> recorded automatically before \u2014 please confirm or undo</div><div class="sl-s"><span class="sl-kind">Check these</span><span class="sl-conf warn">recorded without a yes</span><span class="sl-sep">·</span>Amazon’s amount and reimbursement ID are on each line · last 14 days</div></div>'
+   +'<div class="sl-q"><div class="sl-t"><b>'+a.length+' reimbursement'+(a.length!==1?'s were':' was')+'</b> recorded automatically before \u2014 please confirm or undo</div><div class="sl-s"><span class="sl-kind">Check these</span><span class="sl-conf warn">recorded without a yes</span><span class="sl-sep">·</span>Amazon’s amount and reimbursement ID are on each line · last 14 days</div></div>'
    +'<div class="sl-m"><div class="v">'+money(tot)+'</div><div class="k">recorded</div></div><div class="sl-acts" onclick="event.stopPropagation()"><button class="sl-proofbtn" onclick="slToggle(&quot;auto&quot;)">'+(open?'Hide list':'See them')+ic('chevron',13)+'</button><button class="sl-btn yes" onclick="autoConfirmAll()">'+ic('check',13)+'Confirm all</button></div></div>'
    +'<div class="sl-proof">'+(open?'<table class="sl-pt"><tr><th>Shipment</th><th>Product</th><th>Reimbursement ID</th><th>Case</th><th>Paid on</th><th class="r">Amazon paid</th><th class="r">Our cost</th><th></th></tr>'
      +a.map(function(x){const cost=lineVal(x.l);return '<tr><td><b>'+esc(x.s.id)+'</b></td><td>'+esc(((x.l.p||x.l.sku)+'').slice(0,46))+'</td><td>'+esc(x.p.id)+'</td><td>'+(x.p.case?'<a class="sl-a" href="'+esc(caseUrl(x.p.case))+'" target="_blank" rel="noopener">'+esc(x.p.case)+'</a>':'')+'</td><td>'+(x.p.date?fmtDShort(x.p.date):'')+'</td><td class="r '+((+x.p.amt||0)>=cost-0.01?'ok':'bad')+'">'+money(+x.p.amt||0)+'</td><td class="r">'+money(cost)+'</td><td class="r"><button class="sl-a" onclick="autoConfirm(&quot;'+x.s.rid+'&quot;,'+x.i+','+x.j+')">Confirm</button> \u00b7 <button class="sl-a" onclick="autoUndo(&quot;'+x.s.rid+'&quot;,'+x.i+','+x.j+')">Undo</button></td></tr>'}).join('')+'</table>'
@@ -4811,7 +4866,7 @@ function repasteMsg(ex,nw){const d=repasteDiff(ex,nw);
   return 'Update <b>'+esc(ex.id)+'</b> instead of adding a second copy? Your notes, MSC tries, case numbers and history all stay.'
    +(bits.length?'<ul style="margin:8px 0 0 18px">'+bits.join('')+'</ul>':'<div style="margin-top:8px;color:var(--text3)">The paste matches what’s there — nothing would change.</div>')
    +(d.gone.length?'<div style="margin-top:6px;color:var(--text3)">'+d.gone.length+' line'+(d.gone.length!==1?'s are':' is')+' not in this paste. They stay as they are.</div>':'')
-   +'<div style="margin-top:12px"><button class="btn sm" onclick="cfmClose();window.__sdCreate&&window.__sdCreate()">Add as a separate copy instead</button></div>'}
+   +'<div style="margin-top:10px;color:var(--text3)">One shipment can hold several cases: when you file another case, tick its lines under <b>Each case and its lines</b> on the shipment. No second copy needed.</div>'}
 function repasteUpdate(ex,nw){const d=repasteDiff(ex,nw);const bits=[];
   d.ch.forEach(function(c){bits.push(c.o.sku+' '+(+c.o.miss||0)+'→'+(+c.n.miss||0));c.o.miss=+c.n.miss||0;c.o.exc=+c.n.exc||0;if(!(+c.o.cog>0)&&+c.n.cog>0)c.o.cog=+c.n.cog});
   d.add.forEach(function(n){ex.lines.push({p:n.p||'',sku:n.sku||'',asin:n.asin||'',fnsku:n.fnsku||'',miss:+n.miss||0,exc:+n.exc||0,cog:+n.cog||cogFromSku(n.sku)||0});bits.push('added '+n.sku)});
@@ -4843,7 +4898,8 @@ const SRC_NAME={sc:'Seller Central',sf:'Sellerfuse',amz:'Amazon',doc:'Invoice',d
 function idA(src,href,val){return val?'<a class="sl-id src-'+src+'" href="'+esc(href)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Open in '+SRC_NAME[src]+'">'+esc(val)+'<i>'+(src==='sc'?'SC':src==='sf'?'SF':src==='amz'?'Amazon':'PDF')+'</i></a>':''}
 function caseA(c){return c?idA('sc',urlScCase(c),c):'<span class="sl-none">none</span>'}
 function reimbA(id){return id?idA('sc',urlScReimb(id),id):'?'}
-function shipA(id){return idA('sf',urlSf(id),id)}
+function urlScShip(id){return SC_BASE+'/fba/inbound-shipment/summary/'+encodeURIComponent(String(id).trim())+'/contents'}
+function shipA(id){return id?idA('sc',urlScShip(id),id):''}
 function skuA(k){return k?idA('sf',urlSf(k),k):''}
 function asinA(a){return a?idA('amz',urlAmz(a),a):''}
 function Lk(src,label,href){return {src:src,label:label,href:href}}
@@ -4884,23 +4940,30 @@ function slFromFinding(f){const d=f.detail||{},s=shipByFbaOrRid(d);const it={key
     it.doYes=function(){return findApprove(f.id)};
   }else if(f.kind==='pay'){const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;const cost=l?lineVal(l):0;
     const caseOn=s&&d.case&&cases_on(s).indexOf(String(d.case))>=0;
-    it.c='green';it.ic='coins';it.kind=d.stock?'Stock replaced':'Payment';
+    const certain=!!(s&&l&&(caseOn||d.sure===true));
+    it.look=!certain;
+    it.c=certain?'green':'amber';it.ic='coins';it.kind=d.stock?'Stock replaced':certain?'Reimbursement':'Reimbursement \u00b7 check by hand';
     const typed=l?(+l.reimb||0):0,diff=l&&typed>0&&Math.abs(typed-(+d.amount||0))>=0.01;
-    it.conf=!s?['bad','shipment not in the Deck']:diff?['warn','Deck has '+money(typed)+', Amazon paid '+money(+d.amount||0)]:caseOn?['ok','sure: case number matches']:['warn','check: matched by SKU, the case number is new'];
+    it.conf=!s?['bad','shipment not in the Deck']:!certain?['warn','not 100% sure it\u2019s this shipment \u2014 check, then type it in yourself']:diff?['warn','Deck has '+money(typed)+', Amazon paid '+money(+d.amount||0)]:caseOn?['ok','sure: case number matches']:d.proof==='sku'?['ok','sure: this SKU was only ever short on this shipment']:['ok','sure: Sellerfuse ties the case to this shipment'];
+    const howKnow=caseOn?'The case number '+esc(d.case||'')+' is on this shipment':d.proof==='sku'?'Sellerfuse: SKU '+esc(d.pay_sku||d.sku)+' was only ever short on '+esc(d.shipment)+', and Amazon paid it as \u201clost on the way in\u201d':certain?'Sellerfuse links case '+esc(d.case||'')+' to '+esc(d.shipment):'';
     it.title='<b>'+esc(d.shipment)+'</b> Amazon '+(d.stock?'replaced ':'paid ')+esc(((d.product||d.sku)+'').slice(0,60))+(d.units?' × '+esc(d.units):'');
     const band=l?payBand(+d.amount||0,cost,d.sku):null;
-    it.sure=!!(s&&l&&!diff&&band!=='short'&&(caseOn||(d.audit&&typed>0)));it.cost=cost;it.band=band;
-    it.sub=(band?'<b class="'+(band==='short'?'late':band==='exvat'?'soon':'okc')+'">'+BAND_TXT[band][1]+'</b> · ':'')+'Reimbursement ID <b>'+esc(d.reimb_id||'?')+'</b> · '+(d.date?fmtDShort(d.date):'')+(d.case?' · case '+esc(d.case):'');
-    it.money=+d.amount||0;it.mk=l?(+d.amount>=cost-0.01?'= cost inc VAT':'cost '+money(cost)+' inc VAT'):'';it.yes=diff?'Use Amazon\u2019s '+money(+d.amount||0):'Yes, record it';it.no='No';
-    it.reasons=['Not this shipment','Already recorded','Amount is wrong','Other'];
+    it.sure=!!(certain&&!diff&&band!=='short');it.cost=cost;it.band=band;
+    it.sub=(band?'<b class="'+(band==='short'?'late':band==='exvat'?'soon':'okc')+'">'+BAND_TXT[band][1]+'</b> · ':'')+'Reimbursement ID <b>'+esc(d.reimb_id||'?')+'</b> · '+(d.date?fmtDShort(d.date):'')+(d.case?' · case '+caseA(d.case):'');
+    it.money=+d.amount||0;it.mk=l?(+d.amount>=cost-0.01?'= cost inc VAT':'cost '+money(cost)+' inc VAT'):'';it.yes=!certain?(d.case?'Open case in Seller Central':'Open '+(s?s.id:'shipment')):diff?'Use Amazon\u2019s '+money(+d.amount||0):'Yes, record it';it.no=certain?'No':'Done';
+    it.reasons=certain?['Not this shipment','Already recorded','Amount is wrong','Other']:['I typed it in by hand','Not this shipment','Already recorded','Other'];
     it.proof=function(){return '<div class="sl-pgrid">'
-      +pbox('What Amazon paid · via Sellerfuse',kv([['Reimbursement ID',reimbA(d.reimb_id)],['Date',d.date?fmtD(d.date):'?'],['Case',caseA(d.case)],['Shipment',shipA(d.shipment)],['SKU',skuA(d.sku)],['Units · amount',esc(d.units||0)+' · '+money(+d.amount||0),'ok']]))
+      +pbox('What Amazon paid · via Sellerfuse',kv([['Reimbursement ID',reimbA(d.reimb_id)],['Date',d.date?fmtD(d.date):'?'],['Case',caseA(d.case)],['Shipment',shipA(d.shipment)],['SKU',skuA(d.sku)],['Units · amount',esc(d.units||0)+' · '+money(+d.amount||0),'ok'],howKnow?['How we know',howKnow,'ok']:null]))
       +pbox('What the Deck has',l?kv([['Line',esc((l.p||l.sku||'').slice(0,60))],['Status',esc((LSTAT[l.lstatus]&&LSTAT[l.lstatus].l)||l.lstatus||'not set')],['Missing · our cost',esc(l.miss||0)+' · '+money(cost)+' inc VAT · '+money(exVat(cost,d.sku))+' ex VAT'],['VAT',vatTxt(d.sku)],['Amazon paid',band?money(+d.amount||0)+' — '+BAND_TXT[band][1]:money(+d.amount||0),band==='short'?'bad':band==='exvat'?'warn':'ok'],['Typed as paid',+l.reimb>0?money(+l.reimb):'nothing yet'],['Case numbers',cases_on(s).map(function(c){return caseA(c)+(c===String(d.case)?' <b class="okc">\u2713 matches</b>':'')}).join(' ')||'none',caseOn?'ok':'warn']]):'<div class="sl-bad">No line with SKU '+esc(d.sku)+' on this shipment</div>')
       +'</div>'+links([scReimbLink(d.reimb_id),scCaseLink(d.case),sfShipLink(d.shipment),sfShipLink(d.sku,'Shipment Manager \u00b7 this SKU'),copyBtn(d.reimb_id,'Copy reimbursement ID'),openShipBtn(s)])
       +(diff?'<div class="sl-pwhy"><h4>Why it needs you</h4><ul><li class="wn">'+ic('alert',14)+'<span>The Deck has <b>'+money(typed)+'</b> on this line'+((s.log||[]).some(function(e){return /^Whole shipment settled/.test(e.txt||'')})?' \u2014 most likely filled in by <b>Reimbursed \u2014 settle all</b>, which uses our full cost':'')+'. Amazon actually paid <b>'+money(+d.amount||0)+'</b>. Saying yes replaces it with Amazon\u2019s real figure'+(band==='short'?' \u2014 that\u2019s under the ex-VAT cost, so it also goes on the paid-short list':band==='exvat'?' \u2014 that\u2019s at least the ex-VAT cost, so it\u2019s accepted and there\u2019s nothing to chase':'')+'.'+(l&&Math.abs(typed-(+l.miss||0))<0.01?' <b>'+money(typed)+'</b> is the same as the number of units ('+l.miss+'), so it was probably typed into the \u00a3 box by mistake.':'')+'</span></li></ul></div>':'')
-      +'<div class="sl-after">Pressing <b>Yes</b> records Amazon’s real amount and reimbursement ID on the line'+(caseOn?'':' and adds the case number')+'.</div>'};
-    it.doYes=function(){return findApprove(f.id).then(function(){const s2=shipByFbaOrRid(d);if(!s2)return;const j=lineBySku(s2,d.sku);if(j<0)return;const l2=s2.lines[j];l2.paidSrc='sf';setRedFlag(s2,l2,+l2.reimb||0,d.date);markDirty(s2.rid);save()})};
-  }else if(f.kind==='claw'){it.c='blue';it.ic='rotate';it.kind='Clawback';it.conf=s?['ok','reverses our payment']:['bad','shipment not in the Deck'];
+      +(certain?'<div class="sl-after">Pressing <b>Yes</b> records Amazon’s real amount and reimbursement ID on the line'+(caseOn?'':' and adds the case number')+'.</div>'
+        :'<div class="sl-pwhy"><h4>Why you need to check this one</h4><ul><li class="wn">'+ic('alert',14)+'<span>Amazon\u2019s case '+(d.case?caseA(d.case):'<b>(none)</b>')+' isn\u2019t on '+esc(d.shipment)+(d.check_why?' \u2014 '+esc(d.check_why):'')+'. The Deck only guessed this shipment because it has '+esc(((d.product||d.sku)+'').slice(0,40))+' missing, and you may send that product in other shipments too.</span></li>'
+        +'<li class="wn">'+ic('alert',14)+'<span>'+(d.case?'Press <b>Open case in Seller Central</b> (or the orange case number) and see which shipment ID it\u2019s about.':'Look the reimbursement ID up in Seller Central and see which shipment it\u2019s about.')+' If it\u2019s this one, open the shipment, type Amazon\u2019s amount and reimbursement ID on the line, add the case number, then press <b>Done</b> \u2192 \u201cI typed it in by hand\u201d. If it\u2019s another shipment, press <b>Done</b> \u2192 \u201cNot this shipment\u201d.</span></li></ul></div>'
+        +(l?'<div class="sl-ovr"><button class="sl-btn yes" onclick="event.stopPropagation();slOverride(&quot;f:'+esc(f.id)+'&quot;)">'+ic('check',13)+'I\u2019ve checked \u2014 record '+money(+d.amount||0)+' on this line</button><span>Your call: only press it once Seller Central shows this reimbursement is for '+esc(d.shipment)+'.</span></div>':'')
+        +'<div class="sl-after">The Deck isn\u2019t sure, so it won\u2019t record this by itself. You decide: check, then record it here, type it in yourself, or press <b>Done</b>.</div>')};
+    it.doYes=!certain?function(){if(d.case){window.open(urlScCase(d.case),'_blank','noopener')}else if(s){S.sel=s.rid;go('active')}return Promise.resolve()}:function(){return findApprove(f.id).then(function(){const s2=shipByFbaOrRid(d);if(!s2)return;const j=lineBySku(s2,d.sku);if(j<0)return;const l2=s2.lines[j];l2.paidSrc='sf';setRedFlag(s2,l2,+l2.reimb||0,d.date);markDirty(s2.rid);save()})};
+  }else if(f.kind==='claw'){it.c='blue';it.ic='rotate';it.kind='Clawback';it.conf=s?['ok','reverses our reimbursement']:['bad','shipment not in the Deck'];
     it.title='<b>'+esc(d.shipment)+'</b> Amazon found the units and took '+money(Math.abs(+d.amount||0))+' back';
     it.sub=esc(((d.product||d.sku)+'').slice(0,60))+(d.units?' × '+esc(d.units):'')+' · reverses reimbursement '+esc(d.claws_back||'?')+' · nothing left to claim';
     it.money=Math.abs(+d.amount||0);it.mk='taken back';it.yes='Close the line';it.no='No';it.reasons=['Not this shipment','Already recorded','Other'];
@@ -4920,16 +4983,16 @@ function slFromFinding(f){const d=f.detail||{},s=shipByFbaOrRid(d);const it={key
     it.sub=esc(d.sku||'')+' \u00b7 '+esc(d.asin||'')+(d.deadline?' \u00b7 deadline about '+fmtDShort(d.deadline):'');
     it.money=(+d.miss||0)*(+d.cost||0);it.mk='our cost';it.yes='Add the line';it.no='No';it.reasons=['Already claimed or paid','Units turned up','Left out on purpose','Other'];
     it.proof=function(){return kv([['Product',esc(d.product||'')],['SKU \u00b7 ASIN',esc(d.sku||'')+' \u00b7 '+esc(d.asin||'')],['Amazon says missing',esc(d.miss),'bad'],['Our cost each',money(+d.cost||0)+' (from the SKU)'],['First received',d.first_received?fmtD(d.first_received):'?'],['Deadline',d.deadline?'\u2248 '+fmtD(d.deadline)+(dl!=null?' \u00b7 '+dl+' days':''):'?',dl!=null&&dl<=14?'bad':'']])
-      +whyList([['ok','Sellerfuse shows this product short on the shipment.']].concat(d.dropped_on?[['wn','It was on the copy of this shipment that was deleted on <b>'+fmtD(d.dropped_on)+'</b>, and it\u2019s missing from the new paste \u2014 so it was most likely left out by accident.']]:[]).concat([['wn','It isn\u2019t one of the Deck\u2019s lines and no payment for it was found. If it was left out on purpose, say no and pick why.']]))+links([scMscLink(),sfShipLink(d.shipment),sfShipLink(d.asin,'Shipment Manager \u00b7 this product'),amzLink(d.asin),copyBtn(d.asin,'Copy '+d.asin),openShipBtn(s)])};
+      +whyList([['ok','Sellerfuse shows this product short on the shipment.']].concat(d.dropped_on?[['wn','It was on the copy of this shipment that was deleted on <b>'+fmtD(d.dropped_on)+'</b>, and it\u2019s missing from the new paste \u2014 so it was most likely left out by accident.']]:[]).concat([['wn','It isn\u2019t one of the Deck\u2019s lines and no reimbursement for it was found. If it was left out on purpose, say no and pick why.']]))+links([scMscLink(),sfShipLink(d.shipment),sfShipLink(d.asin,'Shipment Manager \u00b7 this product'),amzLink(d.asin),copyBtn(d.asin,'Copy '+d.asin),openShipBtn(s)])};
     it.doYes=function(){return slApplyLine(f)};
   }else if(f.kind==='unpaid'){const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;
-    it.c='red';it.ic='alert';it.kind='Marked paid, never paid';it.conf=['bad','no Amazon payment found'];
+    it.c='red';it.ic='alert';it.kind='Marked paid, never paid';it.conf=['bad','no Amazon reimbursement found'];
     it.title='<b>'+esc(d.shipment)+'</b> Marked paid '+money(+d.typed||0)+', but Amazon never paid it';
     it.sub=esc(((d.product||d.sku)+'').slice(0,60))+(d.miss?' \u00d7 '+esc(d.miss):'')+(d.settled?' \u00b7 marked paid '+fmtDShort(d.settled):'');
     it.money=+d.typed||0;it.mk='still owed';it.yes='Reopen it';it.no='No';it.reasons=['Amazon did pay \u2014 I can see it in Seller Central','Paid as stock','Other'];
     it.proof=function(){return '<div class="sl-pgrid">'
       +pbox('What the Deck says',kv([['Line',esc((d.product||'').slice(0,60))],['SKU \u00b7 ASIN',esc(d.sku)+' \u00b7 '+esc(d.asin)],['Marked paid',money(+d.typed||0)+(d.settled?' on '+fmtD(d.settled):''),'warn'],['How',l&&(l.amzPays||[]).length?'From Sellerfuse':'Typed in, or settled with \u201cReimbursed \u2014 settle all\u201d']]))
-      +pbox('What Amazon paid \u00b7 via Sellerfuse',kv([['Payments for this product','<b>None</b> since '+fmtD(d.since),'bad'],['Checked',d.checked?fmtD(d.checked):'']]))
+      +pbox('What Amazon paid \u00b7 via Sellerfuse',kv([['Reimbursements for this product','<b>None</b> since '+fmtD(d.since),'bad'],['Checked',d.checked?fmtD(d.checked):'']]))
       +'</div>'+whyList([['ok','Sellerfuse has every Amazon reimbursement on the account, and there is none for this product since the shipment arrived.'],['wn','Check Seller Central \u2192 Reimbursements for '+esc(d.asin)+' first. If it really wasn\u2019t paid, reopen it and claim again.']])
       +links([scReimbAll(),scMscLink(),sfShipLink(d.shipment),sfShipLink(d.asin,'Shipment Manager \u00b7 this product'),amzLink(d.asin),copyBtn(d.asin,'Copy '+d.asin),openShipBtn(s)])
       +'<div class="sl-after">Pressing <b>Reopen it</b> puts the line back to approved and not paid, and the shipment back into Active.</div>'};
@@ -4950,7 +5013,7 @@ function verdictFor(f,s){const d=f.detail||{};const k=f.kind;
   if(k==='pay'){const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;const cost=l?lineVal(l):0;const b=l?payBand(+d.amount||0,cost,d.sku):null;
     return 'Amazon paid <b>'+money(+d.amount||0)+'</b> for '+esc(d.units||'?')+' unit'+(+d.units!==1?'s':'')+' on '+(d.date?fmtD(d.date):'?')+' (reimbursement '+reimbA(d.reimb_id)+(d.case?', case '+caseA(d.case):'')+').'+(l&&b?' Our cost is '+money(cost)+' inc VAT — <b class="'+(b==='short'?'late':b==='exvat'?'soon':'okc')+'">'+BAND_TXT[b][1]+'</b>.':l?' There is no cost on this line yet.':'')}
   if(k==='claw')return 'On '+(d.date?fmtD(d.date):'?')+' Amazon found the units and took back <b>'+money(Math.abs(+d.amount||0))+'</b>, reversing reimbursement '+reimbA(d.claws_back)+'. Nothing is lost, so the line just closes.';
-  if(k==='unpaid')return 'The Deck says this was paid <b>'+money(+d.typed||0)+'</b>, but Amazon has <b class="late">no payment</b> for '+asinA(d.asin)+' since '+fmtD(d.since)+'. Check Seller Central, then reopen it.';
+  if(k==='unpaid')return 'The Deck says this was paid <b>'+money(+d.typed||0)+'</b>, but Amazon has <b class="late">no reimbursement</b> for '+asinA(d.asin)+' since '+fmtD(d.since)+'. Check Seller Central, then reopen it.';
   if(k==='line')return 'Amazon shows <b>'+esc(d.miss)+' × '+esc(((d.product||d.sku)+'').slice(0,60))+'</b> missing on '+shipA(d.shipment)+', but it isn’t one of the Deck’s lines'+(d.dropped_on?' — it was on the copy deleted '+fmtD(d.dropped_on):'')+'.';
   if(k==='found')return 'Amazon now counts <b>'+esc(d.now)+'</b> missing for '+asinA(d.asin)+', not the <b>'+esc(d.claimed)+'</b> we claimed. The claim gets smaller.';
   if(k==='cog')return 'There’s no cost on '+skuA(d.sku)+', so the line is worth £0. Sellerfuse has <b>'+money(+d.cost||0)+'</b> a unit.';
@@ -4969,7 +5032,7 @@ async function slApplyLine(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){to
 async function slApplyUnpaid(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn\u2019t in the list');return}const i=lineBySku(s,d.sku);if(i<0){toast('No line with that SKU');return}
   if(!(await decideFinding(f,'approved')))return;const l=s.lines[i];const last=(l.msc||[]).map(function(m){return m.result}).filter(Boolean).pop();
   const was=+l.reimb||0;l.lstatus=last==='reduced'?'mscreduced':'mscapproved';l.reimb=0;l.reimbAt=null;l.reimbId='';
-  log(s,'Reopened '+(l.sku||l.asin)+': it was marked paid '+money(was)+' but Amazon never paid it (Sellerfuse has no payment)');s.updated=now();markDirty(s.rid);afterLineChange(s);save();refresh();toast(s.id+' reopened')}
+  log(s,'Reopened '+(l.sku||l.asin)+': it was marked paid '+money(was)+' but Amazon never paid it (Sellerfuse has no reimbursement)');s.updated=now();markDirty(s.rid);afterLineChange(s);save();refresh();toast(s.id+' reopened')}
 async function slApplyCog(f){const d=f.detail||{},s=shipByFbaOrRid(d);if(!s){toast('That shipment isn’t in the list');return}const i=lineBySku(s,d.sku);if(i<0){toast('No line with that SKU');return}
   if(+s.lines[i].cog>0){await decideFinding(f,'approved','already had a cost');toast('That line already has a cost — yours stays');return}
   if(!(await decideFinding(f,'approved')))return;s.lines[i].cog=+d.cost||0;log(s,'Cost '+money(+d.cost||0)+' on '+d.sku+' from Sellerfuse');s.updated=now();markDirty(s.rid);save();refresh();toast('Cost set on '+s.id)}
@@ -5010,18 +5073,18 @@ function slFromInv(s,i,l,e){const it={key:'i:'+s.rid+':'+i,rid:s.rid,sid:s.id,c:
   it.doYes=function(){l.invoice=e.link;log(s,'Invoice from the purchase sheet (same ASIN): '+(l.sku||l.asin));s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
   it.doNo=function(why){l.invSkip=e.link;log(s,'Purchase-sheet invoice not used for '+(l.sku||'')+': '+why);s.updated=now();markDirty(s.rid);save();return Promise.resolve(true)};
   return it}
-function slPayBulk(list){const it={key:'pm:all',c:'green',ic:'coins',kind:'Payments that match',conf:['ok','case number on the shipment \u00b7 nothing else typed'],members:list};
-  it.title='<b>'+list.length+' payments</b> match their shipment \u2014 check them, then approve';
+function slPayBulk(list){const it={key:'pm:all',c:'green',ic:'coins',kind:'Reimbursements that match',conf:['ok','case number or SKU ties each one to its shipment'],members:list};
+  it.title='<b>'+list.length+' reimbursements</b> match their shipment \u2014 check them, then approve';
   it.sub=list.slice(0,3).map(function(x){return esc(x.sid)}).join(', ')+(list.length>3?' and '+(list.length-3)+' more':'');
   it.money=list.reduce(function(a,x){return a+(x.money||0)},0);it.mk='Amazon paid';it.yes='Approve all '+list.length;it.yesOnclick='slApproveAll()';it.no='One by one';it.noOnclick='slSplitPays()';
   it.proof=function(){return '<table class="sl-pt"><tr><th>Shipment</th><th>Product</th><th>Reimbursement ID</th><th>Case</th><th>Paid on</th><th class="r">Amazon paid</th><th class="r">Cost inc VAT</th><th>VAT</th><th></th></tr>'
     +list.map(function(x){const d=x.f.detail||{};return '<tr><td><b>'+esc(x.sid)+'</b></td><td>'+esc(((d.product||d.sku)+'').slice(0,40))+'</td><td>'+esc(d.reimb_id||'')+'</td><td>'+(d.case?'<a class="sl-a" href="'+esc(caseUrl(d.case))+'" target="_blank" rel="noopener">'+esc(d.case)+'</a>':'')+'</td><td>'+(d.date?fmtDShort(d.date):'')+'</td><td class="r '+(x.band==='full'?'ok':'')+'">'+money(+d.amount||0)+'</td><td class="r">'+money(x.cost||0)+'</td><td>'+(x.band==='exvat'?'ex VAT \u2014 accepted':x.band==='full'?'in full':'no cost set')+'</td><td class="r"><button class="sl-a" onclick="slYes(&quot;'+esc(x.key)+'&quot;)">Approve</button> \u00b7 <button class="sl-a" onclick="SL.split.add(&quot;'+esc(x.key)+'&quot;);slNo(&quot;'+esc(x.key)+'&quot;)">No</button></td></tr>'}).join('')+'</table>'
-    +'<div class="sl-after">Each one: Amazon\u2019s case number is already on the shipment, and the Deck has no other amount on that line. <b>Approve all</b> records Amazon\u2019s amount and reimbursement ID on every line, signed with your name \u2014 each one can still be undone.</div>'};
+    +'<div class="sl-after">Each one is 100% sure: Amazon\u2019s case number is on that shipment (in the Deck or in Sellerfuse), or its SKU was only ever short on that one shipment. The Deck has no other amount on that line. Anything less certain is a separate \u201ccheck by hand\u201d card. <b>Approve all</b> records Amazon\u2019s amount and reimbursement ID on every line, signed with your name \u2014 each one can still be undone.</div>'};
   return it}
-async function slApproveAll(){const it=SL.items['pm:all'];if(!it)return;const ks=it.members.map(function(x){return x.key});for(const k of ks){await slYes(k)}toast(ks.length+' payments approved')}
+async function slApproveAll(){const it=SL.items['pm:all'];if(!it)return;const ks=it.members.map(function(x){return x.key});for(const k of ks){await slYes(k)}toast(ks.length+' reimbursements approved')}
 function slSplitPays(){const it=SL.items['pm:all'];if(it)it.members.forEach(function(x){SL.split.add(x.key)});renderActions()}
 function slChecks(){let out=[];
-  const onLine=function(f){if(f.kind!=='pay')return false;const d=f.detail||{},s=shipByFbaOrRid(d);if(!s)return false;const i=lineBySku(s,d.sku);return i>=0&&(s.lines[i].amzPays||[]).some(function(x){return String(x.id)===String(d.reimb_id)})};
+  const onLine=function(f){if(f.kind!=='pay')return false;const d=f.detail||{};if(!d.reimb_id)return false;return DATA.some(function(s){return (s.lines||[]).some(function(l){return (l.amzPays||[]).some(function(x){return String(x.id)===String(d.reimb_id)&&Math.abs((+x.amt||0)-(+d.amount||0))<0.005})})})};
   if(FIND.state==='ok')FIND.rows.filter(function(f){return f.status==='open'&&['new','pay','claw','found','cog','line','unpaid'].indexOf(f.kind)>=0&&!onLine(f)}).forEach(function(f){out.push(slFromFinding(f))});
   const pm=out.filter(function(x){return x.sure&&!SL.split.has(x.key)});
   if(pm.length>=2){out=out.filter(function(x){return pm.indexOf(x)<0});out.push(slPayBulk(pm))}
@@ -5059,7 +5122,7 @@ function slClass(s){if(isHist(s))return null;if(s.escalated)return{k:'jack'};
     const old=approvedUnpaid(s).filter(function(l){const d=lastApproval(l);return d&&dFromToday(d)<=-14});
     const fu=s.followUp&&String(s.followUp).slice(0,10)<=todayISO();
     if(s.status!=='underreview'&&old.length&&daysSince(s.statusAt||s.updated||now())>=14&&!(s.followUp&&String(s.followUp).slice(0,10)>todayISO()))
-      items.push({t:'Check the reimbursement ID',sub:old.length+' approved line'+(old.length!==1?'s':'')+' with no payment 14+ days after approval · look for the reimbursement in Seller Central',sev:2,c:'violet',ic:'coins',money:sumVal(old),mk:'not paid yet',link:'case'});
+      items.push({t:'Check the reimbursement ID',sub:old.length+' approved line'+(old.length!==1?'s':'')+' with no reimbursement 14+ days after approval · look for the reimbursement in Seller Central',sev:2,c:'violet',ic:'coins',money:sumVal(old),mk:'not paid yet',link:'case'});
     else if(fu)items.push({t:s.status==='underreview'?'Check the MSC review':'Chase the case',sub:'Follow-up was due '+fmtDShort(s.followUp),sev:2,c:'amber',ic:'msg',link:'case',money:pot(s)-rec(s),mk:'waiting'});
   }
   if(items.length)return{k:'due',items:items};
@@ -5077,6 +5140,11 @@ function slSub(){try{const n=slChecks().length+slShortMonths().length,d=slBucket
 
 /* ── actions ── */
 function slToggle(k){if(SL.open.has(k))SL.open.delete(k);else SL.open.add(k);const y=window.scrollY,m=document.querySelector('#page-actions');const t=m?m.scrollTop:0;renderActions();if(m)m.scrollTop=t}
+async function slOverride(k){const it=SL.items[k];if(!it||!it.f)return;const d=it.f.detail||{};
+  const ok=await new Promise(function(res){askConfirm({tone:'primary',icon:'coins',title:'Record '+money(+d.amount||0)+' on '+esc(d.shipment)+'?',message:'Only if you checked Seller Central and this reimbursement ('+esc(d.reimb_id||'')+') is for this shipment and this product. You can undo it from the shipment.',confirmLabel:'Yes, I checked',onConfirm:function(){res(true)}});const ov=document.getElementById('cfmOv');const t=setInterval(function(){if(!ov.classList.contains('open')){clearInterval(t);res(false)}},300)});
+  if(!ok)return;
+  await findApprove(it.f.id);const s2=shipByFbaOrRid(d);if(s2){const j=lineBySku(s2,d.sku);if(j>=0){const l2=s2.lines[j];l2.paidSrc='sf';setRedFlag(s2,l2,+l2.reimb||0,d.date);log(s2,'Reimbursement '+(d.reimb_id||'')+' recorded by '+(WHO||'Sarah')+' after checking (the Deck wasn\u2019t sure)');markDirty(s2.rid);save()}}
+  renderActions()}
 async function slYes(k){const it=SL.items[k];if(!it)return;const s=it.rid?byId(it.rid):null;const snap=s?JSON.stringify(s):null,fid=it.f?it.f.id:null,t0=now();
   const card=document.querySelector('.sl-card[data-k="'+CSS.escape(k)+'"]');if(card)card.classList.add('busy');
   try{await it.doYes()}catch(e){toast('That didn’t work — nothing was changed');if(card)card.classList.remove('busy');return}
@@ -5103,7 +5171,7 @@ function slJackReply(rid){const s=byId(rid);if(!s)return;const t=document.getEle
   s.jackNote=v;s.jackReplyNew=true;s.escalated=false;s.statusAt=now();log(s,'Jack replied: '+v);markDirty(s.rid);save();refresh();toast('Sent back to Sarah')}
 function slJackAsk(rid){const s=byId(rid);if(!s)return;const t=document.getElementById('jq-'+rid);const v=(t&&t.value||'').trim();if(!v){toast('Write the question first');return}
   s.jackQ=v;s.jackQAt=now();log(s,'Question for Jack: '+v);markDirty(s.rid);save();refresh();toast('Question saved')}
-function jackQOf(s){if(s.jackQ)return s.jackQ;const e=(s.log||[]).find(function(x){return /^Sent to Jack: /.test(x.txt||'')});return e?e.txt.replace(/^Sent to Jack: /,''):''}
+function jackQOf(s){if(s.jackQ)return s.jackQ;const e=(s.log||[]).find(function(x){return /^Escalated to MD: /.test(x.txt||'')});return e?e.txt.replace(/^Escalated to MD: /,''):''}
 function nextCheck(){const d=new Date();for(let i=0;i<8;i++){const x=new Date(d.getTime()+i*864e5);x.setHours(20,45,0,0);if([0,2,4].indexOf(x.getDay())>=0&&x>d)return x}return null}
 
 /* ── render ── */
@@ -5113,7 +5181,7 @@ function slCardHtml(it){const k=it.key,open=SL.open.has(k),deny=SL.deny===k;
    +'<div class="sl-q"><div class="sl-t">'+it.title+'</div><div class="sl-s"><span class="sl-kind">'+esc(it.kind)+'</span>'+(it.conf?'<span class="sl-conf '+it.conf[0]+'">'+esc(it.conf[1])+'</span>':'')+'<span class="sl-sep">·</span>'+it.sub+'</div></div>'
    +'<div class="sl-m">'+(it.money?'<div class="v">'+money(it.money)+'</div>':'')+(it.mk?'<div class="k">'+esc(it.mk)+'</div>':'')+'</div>'
    +'<div class="sl-acts" onclick="event.stopPropagation()"><button class="sl-proofbtn" onclick="slToggle(&quot;'+esc(k)+'&quot;)">'+(open?'Hide proof':'Proof')+ic('chevron',13)+'</button>'
-     +'<button class="sl-btn yes" onclick="'+(it.yesOnclick?esc(it.yesOnclick):'slYes(&quot;'+esc(k)+'&quot;)')+'">'+ic('check',13)+esc(it.yes)+'</button>'
+     +'<button class="sl-btn '+(it.look?'look':'yes')+'" onclick="'+(it.yesOnclick?esc(it.yesOnclick):'slYes(&quot;'+esc(k)+'&quot;)')+'">'+ic(it.look?'arrow':'check',13)+esc(it.yes)+'</button>'
      +'<button class="sl-btn no" onclick="'+(it.noOnclick?esc(it.noOnclick):'slNo(&quot;'+esc(k)+'&quot;)')+'">'+ic('x',12)+esc(it.no)+'</button></div></div>'
    +'<div class="sl-proof">'+(open?(it.verdict?'<div class="sl-verdict">'+ic('check2',14)+'<span>'+it.verdict+'</span></div>':'')+it.proof():'')
      +(deny?'<div class="sl-deny"><b>Why no?</b><select><option>Pick why…</option>'+(it.reasons||['Other']).map(function(r){return '<option>'+esc(r)+'</option>'}).join('')+'</select><input placeholder="A word for Jack (optional)"><button class="sl-btn" onclick="slNoSave(&quot;'+esc(k)+'&quot;)">Save “no”</button><button class="sl-btn ghost" onclick="SL.deny=null;renderActions()">Cancel</button></div>':'')
@@ -5133,7 +5201,7 @@ function renderActions(){const el=document.getElementById('actionsBody');if(!el)
   const head='<div class="sl-cnts">'+cnt('sl-chk','violet',checks.length+months.length,'To check',fromSf+' from Sellerfuse · '+(checks.length-fromSf)+' other')
     +cnt('sl-due','red',B.due.length,'Due now',(late?late+' late · ':'')+money(dueV)+' on them')
     +cnt('sl-com','blue',B.coming.length,'Coming up',B.coming[0]?'next '+fmtDShort(B.coming[0].d):'nothing booked')
-    +cnt('sl-jack','amber',B.jack.length,'With Jack',nJq+' with a question')
+    +cnt('sl-jack','amber',B.jack.length,'With the MD',nJq+' with a question')
     +cnt('sl-wait','green',B.wait.length,'Waiting on Amazon',money(waitV)+' · nothing to do')+'</div>';
   /* to check */
   const chips=[['all','All',checks.length+months.length],['f','Sellerfuse',fromSf],['n','Your notes',checks.filter(function(x){return x.key.indexOf('n:')===0||x.key==='nb:all'}).length],['i','Invoices',checks.filter(function(x){return x.key.indexOf('i:')===0}).length]].filter(function(c){return c[0]==='all'||c[2]});
@@ -5142,21 +5210,21 @@ function renderActions(){const el=document.getElementById('actionsBody');if(!el)
   const chk='<div class="sl-sec c-violet" id="sl-chk"><div class="sl-sh"><h2>To check</h2><span class="sl-pill">'+(checks.length+months.length)+'</span><span class="sl-why">Sellerfuse found it, or your notes say it. Open the proof, check it yourself, then say yes or no.</span></div>'
     +'<div class="sl-bar2"><span class="sl-prog"><span class="tr"><i style="width:'+Math.min(100,doneToday/Math.max(1,doneToday+checks.length)*100)+'%"></i></span><span><b>'+doneToday+'</b> done this session</span></span>'
       +chips.map(function(c){return '<button class="sl-chip'+(SL.chip===c[0]?' on':'')+'" onclick="SL.chip=&quot;'+c[0]+'&quot;;renderActions()">'+c[1]+'<b>'+c[2]+'</b></button>'}).join('')+'</div>'
-    +'<div class="sl-list">'+((SL.chip==='all'||SL.chip==='f')?autoSectionHtml()+ovCardHtml():'')+(shown.length?shown.map(slCardHtml).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing to check'+(FIND.state==='ok'?'':' · Sellerfuse cards appear once the check has run')+'</div>')+'</div>'
+    +slGrouped(shown)
     +(months.length?'<div class="sl-list">'+months.map(function(g){const tot=g.rows.reduce(function(a,f){return a+(+(f.detail||{}).shortfall||0)},0);
         return '<div class="sl-card c-amber"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('receipt',16)+'</span><div class="sl-q"><div class="sl-t"><b>'+esc(g.m)+'</b> '+g.rows.length+' paid under the ex-VAT cost (red flag) — for next month’s escalation</div><div class="sl-s"><span class="sl-kind">Paid short</span><span class="sl-sep">·</span>'+g.rows.map(function(f){return esc((f.detail||{}).shipment||'')}).join(', ')+'</div></div><div class="sl-m"><div class="v">−'+money(tot)+'</div><div class="k">short</div></div><div class="sl-acts"><button class="sl-btn" onclick="copyShortMonth(&quot;'+g.m+'&quot;)">'+ic('copy',12)+'Copy for escalation</button><button class="sl-btn yes" onclick="markShortMonth(&quot;'+g.m+'&quot;).then(function(){renderActions()})">'+ic('check',13)+'Mark escalated</button></div></div></div>'}).join('')+'</div>':'')
     +(SL.undo.length?'<div class="sl-done"><div class="sl-dh">Done this session <span>Undo works until you reload</span></div>'+SL.undo.slice(0,8).map(function(u,i){return '<div class="sl-dr"><span class="wc-av sm">'+esc((WHO||'?').charAt(0))+'</span><span>'+esc(u.label)+' · '+new Date(u.at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="slUndoAt('+i+')">Undo</button></div>'}).join('')+'</div>':'')
     +'</div>';
   const due='<div class="sl-sec c-red" id="sl-due"><div class="sl-sh"><h2>Due now</h2><span class="sl-pill">'+B.due.length+'</span><span class="sl-why">By your own dates — the date boxes first, then the re-update date in your note</span></div>'
     +'<div class="sl-list">'+(B.due.length?B.due.map(slDueHtml).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing due today</div>')+'</div></div>';
-  const jack='<div class="sl-sec c-amber" id="sl-jack"><div class="sl-sh"><h2>With Jack</h2><span class="sl-pill">'+B.jack.length+'</span><span class="sl-why">Sarah writes the question · Jack’s reply sends it back to her list</span></div>'
-    +'<div class="sl-list">'+(B.jack.length?B.jack.map(function(s){const q=jackQOf(s);const at=(s.log||[]).find(function(e){return /Escalated to Jack|Sent to Jack/.test(e.txt||'')});
+  const jack='<div class="sl-sec c-amber" id="sl-jack"><div class="sl-sh"><h2>With the MD</h2><span class="sl-pill">'+B.jack.length+'</span><span class="sl-why">Sarah writes the question · Jack’s reply sends it back to her list</span></div>'
+    +'<div class="sl-list">'+(B.jack.length?B.jack.map(function(s){const q=jackQOf(s);const at=(s.log||[]).find(function(e){return /Escalated to MD|Escalated to MD/.test(e.txt||'')});
        return '<div class="sl-card c-amber sl-jrow"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('user',16)+'</span>'
         +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> '+(at?'escalated '+fmtDShort(at.ts)+' · '+daysSince(at.ts)+' days':'with Jack')+' · '+money(pot(s)-rec(s))+'</div>'
         +(q?'<div class="sl-s">Question: <b>'+esc(q)+'</b></div>':'<div class="sl-s"><span class="sl-conf warn">No question written</span>'+(isJack()?'':' <input class="sl-in" id="jq-'+s.rid+'" placeholder="What do you need from Jack?" onclick="event.stopPropagation()"><button class="sl-btn" onclick="slJackAsk(&quot;'+s.rid+'&quot;)">Save</button>')+'</div>')
         +(s.note?'<div class="sl-s dim" title="'+esc(s.note)+'">Note: '+esc(String(s.note).slice(0,110))+'</div>':'')+'</div>'
-        +'<div class="sl-reply" onclick="event.stopPropagation()"><textarea id="jr-'+s.rid+'" placeholder="'+(isJack()?'Your reply to Sarah…':'Jack’s reply…')+'"></textarea><button class="sl-btn yes" onclick="slJackReply(&quot;'+s.rid+'&quot;)">Send back</button><button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing with Jack</div>')+'</div></div>';
-  const wait='<div class="sl-sec c-green" id="sl-wait"><div class="sl-sh" style="cursor:pointer" onclick="SL.showWait=!SL.showWait;renderActions()"><h2>Waiting on Amazon</h2><span class="sl-pill">'+B.wait.length+'</span><span class="sl-why">Cases open, nothing to do. Any payment shows up in “To check” after the Sun, Tue or Thu night check.</span><span class="sl-sp"></span><span class="sl-amt">'+money(waitV)+'</span><span class="sl-tog">'+(SL.showWait?'Hide':'Show')+'</span></div>'
+        +'<div class="sl-reply" onclick="event.stopPropagation()"><textarea id="jr-'+s.rid+'" placeholder="'+(isJack()?'Your reply to Sarah…':'Jack’s reply…')+'"></textarea><button class="sl-btn yes" onclick="slJackReply(&quot;'+s.rid+'&quot;)">Send back</button><button class="sl-btn go" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)">Open</button></div></div></div>'}).join(''):'<div class="sl-empty">'+ic('check2',18)+'Nothing with the MD</div>')+'</div></div>';
+  const wait='<div class="sl-sec c-green" id="sl-wait"><div class="sl-sh" style="cursor:pointer" onclick="SL.showWait=!SL.showWait;renderActions()"><h2>Waiting on Amazon</h2><span class="sl-pill">'+B.wait.length+'</span><span class="sl-why">Cases open, nothing to do. Any reimbursement shows up in “To check” after the Sun, Tue or Thu night check.</span><span class="sl-sp"></span><span class="sl-amt">'+money(waitV)+'</span><span class="sl-tog">'+(SL.showWait?'Hide':'Show')+'</span></div>'
     +(SL.showWait?'<div class="sl-list">'+B.wait.sort(function(a,b){return (pot(b.s)-rec(b.s))-(pot(a.s)-rec(a.s))}).map(function(x){const s=x.s,t=lastTouched(s);return '<div class="sl-card c-green sl-mini" onclick="S.sel=&quot;'+s.rid+'&quot;;go(&quot;active&quot;)"><span class="sl-bar"></span><span class="sl-mid"><b>'+esc(s.id)+'</b> '+esc(STATUS[s.status]?STATUS[s.status].l:s.status)+(x.why?' · '+esc(x.why):'')+'</span><span class="sl-mt">'+(t?'checked '+fmtDShort(t):'')+'</span><span class="sl-mv">'+money(pot(s)-rec(s))+'</span></div>'}).join('')+'</div>':'')+'</div>';
   /* rail */
   const w=findInfo(),wd=(w&&w.detail)||{},nc=nextCheck();
@@ -5168,10 +5236,39 @@ function renderActions(){const el=document.getElementById('actionsBody');if(!el)
   try{const ps=document.getElementById('pageSub');if(ps&&S.page==='actions')ps.innerHTML=slSub();const na=document.getElementById('nav-actions');if(na){const nn=checks.length+months.length+B.due.length;na.textContent=nn;na.classList.toggle('zero',!nn)}}catch(e){}
   el.innerHTML='<div class="sl">'+head+'<div class="sl-cols"><div class="sl-main">'+chk+due+jack+wait+'</div>'+rail+'</div></div>';
   hydrateIcons(el)}
+/* v0.9 — Sarah's list in sections (Jack 18 Nov: "add shipments, mark pays, investigate…") */
+const SL_SECS=[['add','Add to the Deck','New short shipments, missing lines and costs Sellerfuse found'],['case','File a case','MSC approved and no case yet: open it in Seller Central, file it, type the case ID'],
+  ['rec','Record reimbursements','Amazon paid: check and approve, or check by hand'],['inv','Investigate','Never paid, units found, paid short'],['fix','Fix the figures and notes','Old settle-all amounts and what your notes say'],['docs','Invoices','Lines still missing an invoice']];
+function slSecOf(it){const k=it.key||'';if(k==='pm:all')return 'rec';if(k==='nb:all'||k.indexOf('n:')===0)return 'fix';if(k.indexOf('i:')===0)return 'docs';
+  const f=it.f;if(!f)return 'inv';return {new:'add',line:'add',cog:'add',pay:'rec',claw:'rec',found:'inv',unpaid:'inv',short:'inv'}[f.kind]||'inv'}
+function fileCaseList(){return DATA.filter(function(s){return !isHist(s)&&s.status==='mscapproved'&&!allCases(s).length})}
+function fileCaseHtml(s){const v=Math.max(0,pot(s)-rec(s)),w=win(s);
+  return '<div class="sl-card c-violet"><div class="sl-row" style="cursor:default"><span class="sl-bar"></span><span class="sl-ico">'+ic('msg',15)+'</span>'
+    +'<div class="sl-q"><div class="sl-t"><b>'+esc(s.id)+'</b> MSC approved: file the case</div><div class="sl-s"><span class="sl-kind">File a case</span><span class="sl-sep">·</span>'+(s.lines||[]).filter(function(l){return (l.miss||0)>0}).length+' line'+((s.lines||[]).length!==1?'s':'')+'<span class="sl-sep">·</span>deadline '+(w.set?'':'~')+w.days+'d</div></div>'
+    +'<div class="sl-m"><div class="v">'+money(v)+'</div><div class="k">to claim</div></div>'
+    +'<div class="sl-acts"><a class="sl-btn" href="'+esc(urlScShip(s.id))+'" target="_blank" rel="noopener">'+ic('ext',12)+'Open in Seller Central</a>'
+    +'<input class="fc-in" id="fc-'+s.rid+'" placeholder="case ID" onkeydown="if(event.key===&quot;Enter&quot;)fileCase(&quot;'+s.rid+'&quot;)"><button class="sl-btn yes" onclick="fileCase(&quot;'+s.rid+'&quot;)">'+ic('check',13)+'Case filed</button></div></div></div>'}
+function fileCase(rid){const s=byId(rid);const e=document.getElementById('fc-'+rid);if(!s||!e)return;if(!addCasesFrom(s,e.value)){toast('Type the case ID first');e.focus();return}
+  s.updated=now();markDirty(s.rid);changeStatus(rid,'caseopen');renderActions()}
+function slGrouped(shown){const by={};shown.forEach(function(it){const k=slSecOf(it);(by[k]=by[k]||[]).push(it)});
+  const fc=(SL.chip==='all')?fileCaseList():[];const fixExtra=(SL.chip==='all'||SL.chip==='f')?ovCardHtml():'',recExtra=(SL.chip==='all'||SL.chip==='f')?autoSectionHtml():'';
+  SL.secOpen=SL.secOpen||{};
+  const out=SL_SECS.map(function(sec){const k=sec[0],items=by[k]||[];const extra=k==='fix'?fixExtra:k==='rec'?recExtra:'';const n=items.length+(k==='case'?fc.length:0)+(extra?1:0);if(!n)return '';
+    const m=items.reduce(function(a,x){return a+(+x.money||0)},0)+(k==='case'?fc.reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0):0);const shut=SL.secOpen[k]===false;
+    return '<div class="sl-grp'+(shut?' shut':'')+'"><button class="sl-gh" onclick="SL.secOpen[&quot;'+k+'&quot;]='+(shut?'true':'false')+';renderActions()">'+ic('chevron',13)+'<b>'+sec[1]+'</b><span class="sl-gn">'+n+'</span>'+(m?'<span class="sl-gm">'+money(m)+'</span>':'')+'<span class="sl-gw">'+sec[2]+'</span></button>'
+      +(shut?'':'<div class="sl-list">'+extra+(k==='case'?fc.map(fileCaseHtml).join(''):'')+items.map(slCardHtml).join('')+'</div>')+'</div>'}).join('');
+  return out||'<div class="sl-list"><div class="sl-empty">'+ic('check2',18)+'Nothing to check'+(FIND.state==='ok'?'':' · Sellerfuse cards appear once the check has run')+'</div></div>'}
+
 function slCalendar(list){if(!list.length)return '<div class="sl-note">Nothing booked yet.</div>';const by={};list.forEach(function(x){(by[x.d]=by[x.d]||[]).push(x)});
-  return '<div class="sl-cal">'+Object.keys(by).sort().slice(0,12).map(function(d){const dt=new Date(d+'T12:00:00'),g=by[d];
-    return '<div class="sl-day'+(g.length>=3?' busy':'')+'"><div class="dd"><b>'+dt.getDate()+'</b><small>'+dt.toLocaleDateString('en-GB',{weekday:'short'})+' '+dt.toLocaleDateString('en-GB',{month:'short'})+'</small></div><div class="ids">'
-      +g.map(function(x){return '<button title="'+esc(x.t+(x.src==='note'?' · date from your note':''))+'" onclick="S.sel=&quot;'+x.s.rid+'&quot;;go(&quot;active&quot;)">'+esc(x.s.id.replace(/^FBA15/,''))+(x.src==='note'?'<i>note</i>':'')+'</button>'}).join('')+'</div></div>'}).join('')+'</div>'}
+  const today=new Date();today.setHours(12,0,0,0);const days=Object.keys(by).sort();
+  const wkOf=function(n){return n<0?'Overdue':n<=6-((today.getDay()+6)%7)?'This week':n<=13-((today.getDay()+6)%7)?'Next week':'Later'};
+  let last='',out='',shown=0;
+  days.forEach(function(d){if(shown>=14)return;const dt=new Date(d+'T12:00:00'),g=by[d],n=Math.round((dt-today)/864e5),wk=wkOf(n);shown++;
+    if(wk!==last){out+='<div class="ag-wk">'+wk+'</div>';last=wk}
+    out+='<div class="ag-row'+(n<=2?' soon':'')+'"><div class="ag-d"><b>'+dt.toLocaleDateString('en-GB',{weekday:'short'})+' '+dt.getDate()+' '+dt.toLocaleDateString('en-GB',{month:'short'})+'</b><small>'+(n<0?Math.abs(n)+'d ago':n===0?'today':n===1?'tomorrow':'in '+n+' days')+'</small></div><div class="ag-ids">'
+      +g.map(function(x){return '<button class="'+(x.src==='note'?'nt':'')+'" title="'+esc(x.t+(x.src==='note'?' · date from your note':' · date box'))+'" onclick="S.sel=&quot;'+x.s.rid+'&quot;;go(&quot;active&quot;)">'+esc(x.s.id.replace(/^FBA15/,''))+'</button>'}).join('')+'</div><span class="ag-n">'+g.length+'</span></div>'});
+  const more=days.length-shown;
+  return '<div class="sl-ag">'+out+(more>0?'<div class="ag-more">+ '+more+' more date'+(more!==1?'s':'')+' later</div>':'')+'<div class="ag-key"><i class="nt"></i>from your note <i></i>from a date box</div></div>'}
 
 /* ══════════════════════ OVERVIEW — view only ══════════════════════ */
 function renderOverview(){const el=document.getElementById('overviewBody');if(!el)return;
@@ -5199,7 +5296,7 @@ function renderOverview(){const el=document.getElementById('overviewBody');if(!e
      +k('cyan','Recovered this month',money(monthRec),'by the date Amazon paid')+k('violet','Recovered all-time',money(recAll),DATA.filter(isHist).length+' shipments closed')+'</div>'
    +'<div class="ov3-g"><div class="ov3-c"><h3>Where the open money is <span>'+money(tot)+' claimed</span></h3><div class="ov3-stack">'+seg('green',ap.v)+seg('cyan',rd.v)+seg('red',dn.v)+seg('blue',rv.v)+seg('grey',ns.v)+'</div>'
        +'<div class="ov3-leg">'+leg('green','Approved in full',ap)+leg('cyan','Approved below cost',rd)+leg('red','Denied',dn)+leg('blue','Under review',rv)+(ns.n?leg('grey','Not sent yet',ns):'')+'</div></div>'
-     +'<div class="ov3-c"><h3>Paid by Amazon, per week <span>last 8 weeks</span></h3><div class="ov3-wk">'+wk.map(function(x){const d=new Date(x.a);return '<div><b>'+(x.v?'£'+Math.round(x.v).toLocaleString('en-GB'):'')+'</b><i style="height:'+Math.max(2,x.v/wmax*100)+'%"></i><span>'+d.getDate()+' '+d.toLocaleDateString('en-GB',{month:'short'})+'</span></div>'}).join('')+'</div><div class="ov3-ro">Amazon’s own payment dates where Sellerfuse recorded them, otherwise the day it was marked paid.</div></div>'
+     +'<div class="ov3-c"><h3>Paid by Amazon, per week <span>last 8 weeks</span></h3><div class="ov3-wk">'+wk.map(function(x){const d=new Date(x.a);return '<div><b>'+(x.v?'£'+Math.round(x.v).toLocaleString('en-GB'):'')+'</b><i style="height:'+Math.max(2,x.v/wmax*100)+'%"></i><span>'+d.getDate()+' '+d.toLocaleDateString('en-GB',{month:'short'})+'</span></div>'}).join('')+'</div><div class="ov3-ro">Amazon’s own reimbursement dates where Sellerfuse recorded them, otherwise the day it was marked paid.</div></div>'
      +'<div class="ov3-c"><h3>Age of open shipments <span>'+open.length+'</span></h3>'+age.map(function(b){return '<div class="ov3-hb c-'+b.c+'"><span>'+b.l+'</span><span class="tr"><i style="width:'+(b.v/amax*100).toFixed(0)+'%"></i></span><span class="a">'+b.n+' · '+money(b.v)+'</span></div>'}).join('')
        +(oldest?'<div class="ov3-ro">Oldest: <a href="#" onclick="S.sel=\''+oldest.rid+'\';go(\'active\');return false">'+esc(oldest.id)+'</a>, '+daysSince(oldest.createdAt||now())+' days, '+esc(STATUS[oldest.status]?STATUS[oldest.status].l:oldest.status).toLowerCase()+'.</div>':'')+'</div></div>'
    +(weekLine()||'')+'</div>';
@@ -5239,16 +5336,16 @@ harvestBanner=function(){return ''};
    "Reimbursed — settle all" used to write our full cost on every line, whatever Amazon paid: 26 paid
    lines were overstated by £291.27 that way (FBA15LQ4T9VD £294.52 vs £147.26 approved, the Corsair £119.98
    vs £109.00). Now settling opens a table, one row per line however many there are, and each amount
-   comes from the best source, said out loud: Amazon's payment (Sellerfuse) → the price approved in MSC
+   comes from the best source, said out loud: Amazon's reimbursement (Sellerfuse) → the price approved in MSC
    → typed by Sarah. Anything paid under the ex-VAT cost is a red flag that comes back next month. */
 function bestPaid(s,i){const l=s.lines[i];const units=+l.miss||0;
   const amz=(l.amzPays||[]).filter(function(p){return !p.undone}).reduce(function(a,p){return a+(+p.amt||0)},0);
-  if((l.amzPays||[]).length)return{v:Math.round(amz*100)/100,src:'sf',txt:'Amazon’s payment (Sellerfuse)'};
+  if((l.amzPays||[]).length)return{v:Math.round(amz*100)/100,src:'sf',txt:'Amazon’s reimbursement (Sellerfuse)'};
   const f=(FIND.rows||[]).find(function(x){return x.kind==='pay'&&x.status==='open'&&(x.detail||{}).rid===s.rid&&String((x.detail||{}).sku)===String(l.sku)});
-  if(f)return{v:+f.detail.amount||0,src:'sf',txt:'Amazon’s payment (Sellerfuse, '+fmtDShort(f.detail.date)+')',fid:f.id};
+  if(f)return{v:+f.detail.amount||0,src:'sf',txt:'Amazon’s reimbursement (Sellerfuse, '+fmtDShort(f.detail.date)+')',fid:f.id};
   const ap=(l.msc||[]).filter(function(m){return (m.result==='approved'||m.result==='reduced')&&+m.cog>0});
-  if(ap.length){const m=ap[ap.length-1];return{v:Math.round(+m.cog*units*100)/100,src:'msc',txt:'Approved in MSC'+(m.date?' '+fmtDShort(m.date):'')+' at '+money(+m.cog)+' each'}}
-  return{v:null,src:'type',txt:'Type what Amazon paid'}}
+  if(ap.length){const m=ap[ap.length-1];return{v:null,src:'type',txt:'Type what Amazon actually paid (MSC approved '+money(+m.cog)+' each, which isn\u2019t a payment)'}}
+  return{v:null,src:'type',txt:'Type what Amazon actually paid'}}
 function nextMonth1(d){const x=d?new Date(d):new Date();return ymd(new Date(x.getFullYear(),x.getMonth()+1,1))}
 function setRedFlag(s,l,paid,when){const inc=lineVal(l);if(!(inc>0))return;const b=payBand(paid,inc,l.sku);
   if(b==='short'){if(!l.redFlag||l.redFlag.status!=='open'||Math.abs((+l.redFlag.paid||0)-paid)>0.005)l.redFlag={status:'open',paid:+paid,inc:inc,ex:exVat(inc,l.sku),due:nextMonth1(when),at:now(),by:WHO||''}}
@@ -5257,31 +5354,40 @@ let SETTLE=null;
 function openSettle(rid,onlyI){const s=byId(rid);if(!s)return;
   const idx=(s.lines||[]).map(function(l,i){return i}).filter(function(i){const l=s.lines[i];return (onlyI==null||i===onlyI)&&((l.miss||0)>0)&&l.lstatus!=='reimbursed'&&!l.found});
   if(!idx.length){toast(onlyI==null?'Every line is already marked reimbursed':'That line is already marked reimbursed');return}
-  SETTLE={rid:rid,rows:idx.map(function(i){const b=bestPaid(s,i);return{i:i,v:b.v==null?'':String(b.v),src:b.src,txt:b.txt,fid:b.fid}})};
+  SETTLE={rid:rid,reimb:String(s.reimbId||''),rows:idx.map(function(i){const b=bestPaid(s,i);return{i:i,v:b.v==null?'':String(b.v),src:b.src,txt:b.txt,fid:b.fid,pend:false}})};
   let ov=document.getElementById('stOv');if(ov)ov.remove();ov=document.createElement('div');ov.id='stOv';ov.className='overlay open';
   ov.innerHTML='<div class="modal st-modal"><div class="mo-head"><h2>'+(onlyI==null?'Settle '+esc(s.id):'Mark reimbursed · '+esc(s.id))+'</h2><button class="mo-x" onclick="closeSettle()">'+ic('x')+'</button></div><div class="mo-body" id="stBody"></div><div class="mo-foot" id="stFoot"></div></div>';
   ov.addEventListener('click',function(e){if(e.target===ov)closeSettle()});document.body.appendChild(ov);renderSettle()}
 function closeSettle(){const o=document.getElementById('stOv');if(o)o.remove();SETTLE=null}
-function stSet(k,v){if(!SETTLE)return;SETTLE.rows[k].v=v;if(SETTLE.rows[k].src!=='typed'){SETTLE.rows[k].src='typed';SETTLE.rows[k].txt='Typed by '+(WHO||'you')}renderSettle(k)}
+function stPend(k,on){if(!SETTLE)return;SETTLE.rows[k].pend=!!on;if(on)SETTLE.rows[k].v='';renderSettle()}
+function stReimb(v){if(!SETTLE)return;SETTLE.reimb=String(v||'').trim();renderSettle()}
+function stSet(k,v){if(!SETTLE)return;SETTLE.rows[k].v=v;if(v!=='')SETTLE.rows[k].pend=false;if(SETTLE.rows[k].src!=='typed'){SETTLE.rows[k].src='typed';SETTLE.rows[k].txt='Typed by '+(WHO||'you')}renderSettle(k)}
 function renderSettle(focusK){if(!SETTLE)return;const s=byId(SETTLE.rid);const body=document.getElementById('stBody'),foot=document.getElementById('stFoot');if(!body)return;
-  let tInc=0,tEx=0,tPaid=0,missing=0,red=0;
+  let tInc=0,tEx=0,tPaid=0,missing=0,red=0,pend=0;
   const rows=SETTLE.rows.map(function(r,k){const l=s.lines[r.i];const inc=lineVal(l),ex=exVat(inc,l.sku);const has=r.v!==''&&!isNaN(+r.v);const v=has?+r.v:0;
-    tInc+=inc;tEx+=ex;if(has)tPaid+=v;else missing++;const b=has?payBand(v,inc,l.sku):null;if(b==='short')red++;
+    tInc+=inc;tEx+=ex;if(has)tPaid+=v;else if(r.pend)pend++;else missing++;const b=has?payBand(v,inc,l.sku):null;if(b==='short')red++;
     return '<tr><td><div class="st-p">'+esc((l.p||l.sku||'').slice(0,58))+'</div><div class="st-k">'+esc(l.sku)+' · '+esc(l.miss)+' missing · '+vatTxt(l.sku)+'</div></td>'
       +'<td class="r">'+money(inc)+'<div class="st-k">'+money(ex)+' ex VAT</div></td>'
-      +'<td><div class="st-in"><span>£</span><input inputmode="decimal" id="st'+k+'" value="'+esc(r.v)+'" placeholder="what Amazon paid" oninput="stSet('+k+',this.value)"></div><div class="st-src st-'+r.src+'">'+esc(r.txt)+'</div></td>'
-      +'<td>'+(b?'<span class="sl-conf '+BAND_TXT[b][0]+'">'+(b==='full'?'full inc VAT':b==='exvat'?'ex VAT — accepted':'red flag — push back next month')+'</span>':'<span class="sl-conf warn">needs an amount</span>')+'</td></tr>'}).join('');
-  body.innerHTML='<div class="st-note">Each amount comes from the best place we have, and says where: <b>Amazon’s payment</b> (Sellerfuse) first, then the <b>price approved in MSC</b>, otherwise <b>type what Amazon paid</b>. Nothing assumes full cost any more.</div>'
+      +'<td><div class="st-in"><span>£</span><input inputmode="decimal" id="st'+k+'" value="'+esc(r.v)+'" placeholder="'+(r.pend?'not paid yet':'what Amazon paid')+'" oninput="stSet('+k+',this.value)"'+(r.pend?' disabled':'')+'></div><div class="st-src st-'+r.src+'">'+esc(r.txt)+'</div>'
+        +'<label class="st-pend"><input type="checkbox"'+(r.pend?' checked':'')+' onchange="stPend('+k+',this.checked)"> Not paid yet: Amazon gave a reimbursement ID</label></td>'
+      +'<td>'+(r.pend?'<span class="sl-conf warn">pending</span>':b?'<span class="sl-conf '+BAND_TXT[b][0]+'">'+(b==='full'?'full inc VAT':b==='exvat'?'ex VAT — accepted':'red flag — push back next month')+'</span>':'<span class="sl-conf warn">needs an amount</span>')+'</td></tr>'}).join('');
+  body.innerHTML='<div class="st-note">Only real money goes in. <b>Amazon\u2019s reimbursement from Sellerfuse</b> fills itself in. Otherwise type <b>what Amazon actually paid</b>. If Amazon only gave a reimbursement ID and the money isn\u2019t in yet, tick <b>Not paid yet</b>: the line waits as Reimbursement pending until Sellerfuse shows it.</div>'
+    +(SETTLE.rows.some(function(r){return r.pend})?'<div class="st-rid"><label>Reimbursement ID from Amazon\u2019s reply</label><input value="'+esc(SETTLE.reimb||'')+'" placeholder="e.g. 9413847282" onchange="stReimb(this.value)"></div>':'')
     +'<table class="st-t"><tr><th>Line</th><th class="r">Our cost inc VAT</th><th>Amazon paid</th><th>Result</th></tr>'+rows+'</table>'
     +'<div class="st-tot"><span>Cost <b>'+money(tInc)+'</b> inc VAT · '+money(tEx)+' ex VAT</span><span>Amazon paid <b>'+money(tPaid)+'</b></span>'+(red?'<span class="bad">'+red+' red flag'+(red!==1?'s':'')+' — they come back on '+fmtDShort(nextMonth1())+' to push back up</span>':'')+'</div>';
-  foot.innerHTML='<button class="btn" onclick="closeSettle()">Cancel</button><button class="btn pri" '+(missing?'disabled title="Fill in every amount first (0 if nothing was paid)"':'')+' onclick="saveSettle()">'+ic('check')+(missing?missing+' amount'+(missing!==1?'s':'')+' still needed':'Save')+'</button>';
+  const needId=pend&&!/\d{8,}/.test(SETTLE.reimb||'');
+  foot.innerHTML='<button class="btn" onclick="closeSettle()">Cancel</button><button class="btn pri" '+(missing||needId?'disabled title="'+(missing?'Each line needs an amount, or Not paid yet':'Add the reimbursement ID')+'"':'')+' onclick="saveSettle()">'+ic('check')+(missing?missing+' line'+(missing!==1?'s':'')+' still need an amount':needId?'Add the reimbursement ID':'Save')+'</button>';
   hydrateIcons(document.getElementById('stOv'));
   if(focusK!=null){const e=document.getElementById('st'+focusK);if(e){e.focus();const n=e.value.length;try{e.setSelectionRange(n,n)}catch(x){}}}}
 function saveSettle(){if(!SETTLE)return;const s=byId(SETTLE.rid);if(!s)return;const snap=JSON.stringify(s);const bits=[];
-  for(const r of SETTLE.rows){if(r.v===''||isNaN(+r.v)){toast('Fill in every amount first');return}}
-  SETTLE.rows.forEach(function(r){const l=s.lines[r.i],v=Math.round(+r.v*100)/100;l.reimb=v;l.reimbAt=now();l.lstatus='reimbursed';l.paidSrc=r.src;
-    setRedFlag(s,l,v,null);const b=payBand(v,lineVal(l),l.sku);bits.push((l.sku||l.asin)+' '+money(v)+' ('+(r.src==='sf'?'Amazon’s payment':r.src==='msc'?'MSC approved':'typed')+(b==='short'?', red flag':'')+')')});
-  log(s,'Marked reimbursed: '+bits.join(' · '));s.updated=now();markDirty(s.rid);afterLineChange(s);save();closeSettle();refresh();
+  for(const r of SETTLE.rows){if(!r.pend&&(r.v===''||isNaN(+r.v))){toast('Each line needs an amount, or Not paid yet');return}}
+  const pendRows=SETTLE.rows.filter(function(r){return r.pend});
+  if(pendRows.length&&!/\d{8,}/.test(SETTLE.reimb||'')){toast('Add the reimbursement ID');return}
+  if(pendRows.length){s.reimbId=s.reimbId||SETTLE.reimb;pendRows.forEach(function(r){const l=s.lines[r.i];l.lstatus='reimbpending';l.pendId=SETTLE.reimb;l.pendAt=now();bits.push((l.sku||l.asin)+' pending (reimbursement '+SETTLE.reimb+')')});
+    if(pendRows.length===SETTLE.rows.length&&s.status!=='reimbpending'){s.status='reimbpending';s.statusAt=now()}}
+  SETTLE.rows.filter(function(r){return !r.pend}).forEach(function(r){const l=s.lines[r.i],v=Math.round(+r.v*100)/100;l.reimb=v;l.reimbAt=now();l.lstatus='reimbursed';l.paidSrc=r.src;
+    setRedFlag(s,l,v,null);const b=payBand(v,lineVal(l),l.sku);bits.push((l.sku||l.asin)+' '+money(v)+' ('+(r.src==='sf'?'Amazon’s reimbursement':r.src==='msc'?'MSC approved':'typed')+(b==='short'?', red flag':'')+')')});
+  log(s,(pendRows.length?'Settled: ':'Marked reimbursed: ')+bits.join(' · '));s.updated=now();markDirty(s.rid);afterLineChange(s);save();closeSettle();refresh();
   toastUndo(s.id+' — '+SETTLE_N(bits)+' marked reimbursed','Undo',function(){const i=DATA.findIndex(function(x){return x.rid===s.rid});if(i>=0){const o=JSON.parse(snap);o.updated=now();DATA[i]=o;markDirty(o.rid);save();refresh()}})}
 function SETTLE_N(b){return b.length+' line'+(b.length!==1?'s':'')}
 settleShipment=function(rid){openSettle(rid,null)};
@@ -5290,21 +5396,29 @@ markLineReimbursed=function(rid,i){openSettle(rid,i)};
 /* the 26 lines "settle all" overstated: full cost typed, Amazon approved less in MSC */
 function overstated(){const out=[];DATA.forEach(function(s){(s.lines||[]).forEach(function(l,i){
   if(l.lstatus!=='reimbursed'||l.found||(l.amzPays||[]).length||l.paidSrc||l.ovSkip)return;const units=+l.miss||0;if(!units)return;
+  if((FIND.rows||[]).some(function(f){return f.kind==='pay'&&f.status==='open'&&(f.detail||{}).rid===s.rid&&String((f.detail||{}).sku)===String(l.sku)}))return;   /* Sellerfuse's card brings the real amount */
   const full=lineVal(l);if(Math.abs((+l.reimb||0)-full)>0.01)return;
   const ap=(l.msc||[]).filter(function(m){return (m.result==='approved'||m.result==='reduced')&&+m.cog>0});if(!ap.length)return;
   const m=ap[ap.length-1],v=Math.round(+m.cog*units*100)/100;if(v>=full-0.01)return;out.push({s:s,l:l,i:i,v:v,m:m,full:full})})});return out}
 function ovFix(x){const l=x.l;l.reimb=x.v;l.paidSrc='msc';log(x.s,'Corrected '+(l.sku||l.asin)+': '+money(x.full)+' (full cost, from settle all) → '+money(x.v)+' (approved in MSC '+(x.m.date?fmtDShort(x.m.date):'')+' at '+money(+x.m.cog)+' each)');setRedFlag(x.s,l,x.v,x.m.date);x.s.updated=now();markDirty(x.s.rid);afterLineChange(x.s)}
 function ovFixOne(rid,i){const x=overstated().find(function(y){return y.s.rid===rid&&y.i===i});if(!x)return;const snap=JSON.stringify(x.s);ovFix(x);save();refresh();toastUndo(x.s.id+' corrected to '+money(x.v),'Undo',function(){undoShip(snap)})}
+function ovType(rid,i){const s=byId(rid);if(!s)return;const l=s.lines[i];
+  askConfirm({tone:'primary',icon:'coins',title:'What did Amazon pay for '+esc((l.p||l.sku||'').slice(0,40))+'?',message:esc(s.id)+' · '+esc(l.miss)+' unit'+(+l.miss!==1?'s':'')+' · the Deck has '+money(+l.reimb||0)+' (our full cost)<div style="margin-top:10px;display:flex;gap:8px"><input id="ovAmt" class="rpt-in" inputmode="decimal" placeholder="£ Amazon paid"><input id="ovRid" class="rpt-in" placeholder="reimbursement ID (optional)"></div>',confirmLabel:'Save',
+    onConfirm:function(){const v=parseFloat(((document.getElementById('ovAmt')||{}).value||'').replace(/[£,\s]/g,''));const r=((document.getElementById('ovRid')||{}).value||'').trim();
+      if(isNaN(v)){toast('No amount, so nothing changed');return}const snap=JSON.stringify(s);const was=+l.reimb||0;
+      l.reimb=Math.round(v*100)/100;l.paidSrc='typed';if(r)l.reimbId=r;log(s,'Corrected '+(l.sku||l.asin)+': '+money(was)+' (full cost from settle all) \u2192 '+money(l.reimb)+' typed by '+(WHO||'Sarah')+(r?' · reimbursement '+r:''));
+      setRedFlag(s,l,l.reimb,null);s.updated=now();markDirty(s.rid);afterLineChange(s);save();refresh();toastUndo(s.id+' corrected to '+money(l.reimb),'Undo',function(){undoShip(snap)})}});
+  setTimeout(function(){const t=document.getElementById('ovAmt');if(t)t.focus()},60)}
 function ovSkipOne(rid,i){const s=byId(rid);if(!s)return;s.lines[i].ovSkip=1;log(s,'Kept '+money(+s.lines[i].reimb||0)+' on '+(s.lines[i].sku||'')+' — not corrected to the MSC price');s.updated=now();markDirty(s.rid);save();refresh()}
 function ovFixAll(){const a=overstated();const snaps=a.map(function(x){return JSON.stringify(x.s)});a.forEach(ovFix);save();refresh();toastUndo(a.length+' lines corrected to the MSC-approved price','Undo',function(){snaps.forEach(undoShip)})}
 function undoShip(snap){const o=JSON.parse(snap);const i=DATA.findIndex(function(x){return x.rid===o.rid});if(i>=0){o.updated=now();DATA[i]=o;markDirty(o.rid);save();refresh()}}
 function ovCardHtml(){const a=overstated();if(!a.length)return '';const open=SL.open.has('ov'),diff=a.reduce(function(t,x){return t+(x.full-x.v)},0);
   return '<div class="sl-card c-amber'+(open?' open':'')+'"><div class="sl-row" onclick="slToggle(&quot;ov&quot;)"><span class="sl-bar"></span><span class="sl-ico">'+ic('coins',15)+'</span>'
-   +'<div class="sl-q"><div class="sl-t"><b>'+a.length+' paid line'+(a.length!==1?'s':'')+'</b> show our full cost, but Amazon approved less in MSC</div><div class="sl-s"><span class="sl-kind">Fix the figures</span><span class="sl-conf warn">from “settle all”</span><span class="sl-sep">·</span>e.g. '+esc(a[0].s.id)+' '+money(a[0].full)+' → '+money(a[0].v)+'</div></div>'
-   +'<div class="sl-m"><div class="v">−'+money(diff)+'</div><div class="k">overstated</div></div><div class="sl-acts" onclick="event.stopPropagation()"><button class="sl-proofbtn" onclick="slToggle(&quot;ov&quot;)">'+(open?'Hide proof':'Proof')+ic('chevron',13)+'</button><button class="sl-btn yes" onclick="ovFixAll()">'+ic('check',13)+'Fix all '+a.length+'</button></div></div>'
+   +'<div class="sl-q"><div class="sl-t"><b>'+a.length+' paid line'+(a.length!==1?'s':'')+'</b> show our full cost, not Amazon\u2019s real amount</div><div class="sl-s"><span class="sl-kind">Fix the figures</span><span class="sl-conf warn">from \u201csettle all\u201d \u00b7 not what Amazon paid</span><span class="sl-sep">·</span>e.g. '+esc(a[0].s.id)+' '+money(a[0].full)+' → '+money(a[0].v)+'</div></div>'
+   +'<div class="sl-m"><div class="v">−'+money(diff)+'</div><div class="k">overstated</div></div><div class="sl-acts" onclick="event.stopPropagation()"><button class="sl-proofbtn" onclick="slToggle(&quot;ov&quot;)">'+(open?'Hide proof':'Proof')+ic('chevron',13)+'</button></div></div>'
    +'<div class="sl-proof">'+(open?'<table class="sl-pt"><tr><th>Shipment</th><th>Product</th><th class="r">Deck says</th><th>Approved in MSC</th><th class="r">Should be</th><th>Result</th><th></th></tr>'
-     +a.map(function(x){const b=payBand(x.v,x.full,x.l.sku);return '<tr><td><b>'+esc(x.s.id)+'</b></td><td>'+esc(((x.l.p||x.l.sku)+'').slice(0,40))+'</td><td class="r">'+money(x.full)+'</td><td>'+(x.m.date?fmtDShort(x.m.date)+' · ':'')+money(+x.m.cog)+' × '+esc(x.l.miss)+'</td><td class="r"><b>'+money(x.v)+'</b></td><td><span class="sl-conf '+BAND_TXT[b][0]+'">'+(b==='full'?'full':b==='exvat'?'ex VAT — accepted':'red flag')+'</span></td><td class="r"><button class="sl-a" onclick="ovFixOne(&quot;'+x.s.rid+'&quot;,'+x.i+')">Fix</button> · <button class="sl-a" onclick="ovSkipOne(&quot;'+x.s.rid+'&quot;,'+x.i+')">Keep</button></td></tr>'}).join('')+'</table>'
-     +'<div class="sl-after">These were filled in by the old <b>Reimbursed — settle all</b>, which always wrote our full cost. Fixing puts the price Amazon approved in MSC. If Sellerfuse later shows a different real payment, that comes as its own card. Anything under the ex-VAT cost becomes a red flag for next month.</div>':'')+'</div></div>'}
+     +a.map(function(x){const b=payBand(x.v,x.full,x.l.sku);return '<tr><td><b>'+esc(x.s.id)+'</b></td><td>'+esc(((x.l.p||x.l.sku)+'').slice(0,40))+'</td><td class="r">'+money(x.full)+'</td><td>'+(x.m.date?fmtDShort(x.m.date)+' · ':'')+money(+x.m.cog)+' × '+esc(x.l.miss)+'</td><td class="r"><b>'+money(x.v)+'</b></td><td><span class="sl-conf '+BAND_TXT[b][0]+'">'+(b==='full'?'full':b==='exvat'?'ex VAT — accepted':'red flag')+'</span></td><td class="r"><button class="sl-a" onclick="ovType(&quot;'+x.s.rid+'&quot;,'+x.i+')">Type Amazon\u2019s amount</button> · <button class="sl-a" onclick="ovSkipOne(&quot;'+x.s.rid+'&quot;,'+x.i+')">It\u2019s right</button></td></tr>'}).join('')+'</table>'
+     +'<div class="sl-after">The old <b>settle all</b> wrote our full cost, not what Amazon paid. Type Amazon\u2019s real amount from the Reimbursements report (the MSC price is only a guide). Lines Sellerfuse has already found a reimbursement for aren\u2019t here: they\u2019re reimbursement cards with the real figure. Anything under the ex-VAT cost becomes a red flag for next month.</div>':'')+'</div></div>'}
 
 /* red flags: paid under the ex-VAT cost → push back up from the 1st of the next month, then hand to the SF catch-up app */
 function redFlags(){const out=[];DATA.forEach(function(s){(s.lines||[]).forEach(function(l,i){const r=l.redFlag;if(r&&r.status==='open')out.push({s:s,l:l,i:i,r:r})})});return out}
@@ -5353,6 +5467,118 @@ async function mergeBeforePush(rows){if(!rows.length)return;const ids=rows.map(f
     const i=DATA.findIndex(function(s){return s.rid===x.rid});if(i>=0)DATA[i]=o;x.data=o;x.status=o.status;x.updated=new Date(o.updated).toISOString();merged.push(o.id)});
   if(merged.length){persistData();try{if(S.page==='active')renderActive();else if(S.page==='actions')renderActions()}catch(e){}
     toast('Kept both changes on '+merged.join(', ')+' — someone else had edited '+(merged.length!==1?'them':'it')+' too')}}
+
+/* ═══════════ v0.9 — Jack 18 Nov ═══════════
+   1. "Escalate to MD" is now "Escalate to MD", and it needs at least one case ID.
+   2. A shipment can't be "Case opened" without a case ID.
+   3. One shipment, many cases: each case ticks the lines it covers and says where it stands.
+      Replaces Sarah's workaround of adding the same shipment twice; the two rows can be merged.
+   4. The Amazon deadline box offers first receipt + 182 days in one click. */
+
+function allCases(s){const a=[String(s.caseId||'').trim()].concat((s.caseIds||[]).map(function(c){return String(c).trim()}));
+  (s.cases||[]).forEach(function(c){if(c&&c.no)a.push(String(c.no).trim())});
+  return a.filter(function(c,i){return c&&a.indexOf(c)===i})}
+function addCasesFrom(s,txt){const got=String(txt||'').match(/\b\d{10,12}\b/g)||[];let n=0;
+  got.forEach(function(c){if(allCases(s).indexOf(c)>=0)return;if(!String(s.caseId||'').trim())s.caseId=c;else{s.caseIds=s.caseIds||[];s.caseIds.push(c)}n++;log(s,'Case number added: '+c)});
+  return n}
+
+/* 1 — escalate to the MD */
+askJack=function(rid){const s=byId(rid);if(!s)return;const have=allCases(s);
+  askConfirm({tone:'primary',icon:'user',title:'Escalate '+esc(s.id)+' to the MD',
+    message:(have.length?'Case'+(have.length!==1?'s':'')+' on this shipment: <b>'+have.map(esc).join(', ')+'</b>. Add any others.':'<b>Add at least one case ID.</b> The MD needs the case.')
+      +'<div style="margin-top:10px"><input id="mdCases" class="rpt-in" placeholder="case IDs, e.g. 13477890942 13501283472"></div>'
+      +'<div style="margin-top:8px"><textarea id="mdNote" class="rpt-in" placeholder="Anything Jack should know (optional)"></textarea></div>',
+    confirmLabel:'Escalate to MD',
+    onConfirm:function(){const t=(document.getElementById('mdCases')||{}).value||'';const q=((document.getElementById('mdNote')||{}).value||'').trim();
+      addCasesFrom(s,t);
+      if(!allCases(s).length){toast('Add at least one case ID first');setTimeout(function(){askJack(rid)},60);return}
+      s.escalated=true;s.mdAt=now();if(q){s.jackQ=q;s.jackQAt=now()}s.updated=now();
+      log(s,'Escalated to MD · case '+allCases(s).join(', ')+(q?' · '+q:''));markDirty(s.rid);save();refresh();toast(esc(s.id)+' escalated to MD')}});
+  setTimeout(function(){const t=document.getElementById('mdCases');if(t)t.focus()},60)};
+
+/* 2 — no "Case opened" without a case ID */
+function needCase(rid,then){const s=byId(rid);if(!s)return;
+  askConfirm({tone:'primary',icon:'msg',title:'Case ID for '+esc(s.id),
+    message:'A shipment can only be <b>Case opened</b> once its case ID is in the Deck.<div style="margin-top:10px"><input id="ncCase" class="rpt-in" placeholder="case ID from Seller Central"></div>',
+    confirmLabel:'Save and move',
+    onConfirm:function(){const v=(document.getElementById('ncCase')||{}).value||'';addCasesFrom(s,v);
+      if(!allCases(s).length){toast('No case ID, so nothing changed');return}
+      s.updated=now();markDirty(s.rid);then()}});
+  setTimeout(function(){const t=document.getElementById('ncCase');if(t)t.focus()},60)}
+{const _sst=setShipTag;setShipTag=function(rid,k){const s=byId(rid);if(!s)return;
+  if(k==='escalated'&&!s.escalated){askJack(rid);return}
+  if(k==='caseopen'&&s.status!=='caseopen'&&!allCases(s).length){needCase(rid,function(){_sst(rid,k)});return}
+  return _sst(rid,k)}}
+{const _cs=changeStatus;changeStatus=function(rid,k){const s=byId(rid);
+  if(s&&k==='caseopen'&&s.status!=='caseopen'&&!allCases(s).length){needCase(rid,function(){_cs(rid,k)});return}
+  return _cs(rid,k)}}
+
+/* 3 — one shipment, many cases, each with its lines */
+const CASE_ST=[['open','Waiting on Amazon'],['denied','Denied · pushing back'],['md','With the MD'],['pending','Reimbursement ID given'],['paid','Paid'],['closed','Closed']];
+function lineKey(s,i){const sku=String((s.lines[i]||{}).sku||'');let n=0;for(let j=0;j<i;j++)if(String(s.lines[j].sku||'')===sku)n++;return sku+'#'+n}
+function lineShort(l){return String(l.p||l.sku||'').split(/[\s,|–-]+/).filter(Boolean).slice(0,3).join(' ')}
+function caseInfoOf(s,c){s.caseInfo=s.caseInfo||{};return s.caseInfo[c]||(s.caseInfo[c]={lines:[],state:'open'})}
+function toggleCaseLine(rid,c,k){const s=byId(rid);if(!s)return;const ci=caseInfoOf(s,c);const i=ci.lines.indexOf(k);
+  if(i>=0)ci.lines.splice(i,1);else ci.lines.push(k);s.updated=now();markDirty(s.rid);save();renderDetail()}
+function setCaseState(rid,c,v){const s=byId(rid);if(!s)return;const ci=caseInfoOf(s,c);if(ci.state===v)return;ci.state=v;ci.at=now();
+  const lab=(CASE_ST.find(function(o){return o[0]===v})||[v,v])[1];log(s,'Case '+c+': '+lab);s.updated=now();markDirty(s.rid);save();renderDetail()}
+function casePanel(s){const cs=allCases(s);if(!cs.length||!(s.lines||[]).length)return '';
+  return '<div class="cp"><div class="cp-h">Each case and its lines <span>tick the lines a case is for · say where it stands</span></div>'
+    +cs.map(function(c){const ci=(s.caseInfo||{})[c]||{lines:[],state:'open'};
+      return '<div class="cp-row"><div class="cp-top"><a class="sl-id src-sc" href="'+esc(urlScCase(c))+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+esc(c)+'<i>SC</i></a>'
+        +'<select class="cp-st st-'+esc(ci.state||'open')+'" onchange="setCaseState(&quot;'+s.rid+'&quot;,&quot;'+esc(c)+'&quot;,this.value)">'+CASE_ST.map(function(o){return '<option value="'+o[0]+'"'+((ci.state||'open')===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'
+        +'<span class="cp-n">'+(ci.lines||[]).length+' of '+s.lines.length+' line'+(s.lines.length!==1?'s':'')+'</span></div>'
+        +'<div class="cp-ls">'+s.lines.map(function(l,i){const k=lineKey(s,i),on=(ci.lines||[]).indexOf(k)>=0;
+          return '<button class="'+(on?'on':'')+'" title="'+esc((l.p||l.sku)+' · '+l.sku)+'" onclick="toggleCaseLine(&quot;'+s.rid+'&quot;,&quot;'+esc(c)+'&quot;,&quot;'+esc(k)+'&quot;)">'+(on?'✓ ':'')+esc(lineShort(l))+' ×'+esc(l.miss||0)+'</button>'}).join('')+'</div></div>'}).join('')+'</div>'}
+
+/* the same shipment in the Deck twice: show it and offer to merge */
+function twinsOf(s){return DATA.filter(function(x){return x.rid!==s.rid&&String(x.id||'').trim().toUpperCase()===String(s.id||'').trim().toUpperCase()})}
+function dupPanel(s){const tw=twinsOf(s);if(!tw.length)return '';
+  return tw.map(function(b){return '<div class="dp">'+ic('alert',14)+'<div><b>'+esc(s.id)+' is in the Deck twice.</b> The other row has '+b.lines.length+' line'+(b.lines.length!==1?'s':'')
+    +' ('+b.lines.slice(0,3).map(function(l){return esc(lineShort(l))+' ×'+esc(l.miss||0)}).join(', ')+(b.lines.length>3?'…':'')+') and case '+(allCases(b).map(esc).join(', ')||'none')
+    +' · '+esc((STATUS[b.status]||{l:b.status}).l)+'. Merge it here so one shipment holds both cases.</div>'
+    +'<button class="btn pri" onclick="mergeInto(&quot;'+s.rid+'&quot;,&quot;'+b.rid+'&quot;)">Merge into this one</button></div>'}).join('')}
+function mergeInto(keep,other){const a=byId(keep),b=byId(other);if(!a||!b)return;
+  askConfirm({tone:'primary',icon:'pkg',title:'Merge the two '+esc(a.id)+' rows?',
+    message:'Everything on the other row moves here: <b>'+b.lines.length+' line'+(b.lines.length!==1?'s':'')+'</b>, case '+(allCases(b).map(esc).join(', ')||'none')+', its notes and its history. Each case keeps the lines it was for.<br><span class="cfm-sub">The other row is then deleted. You can undo straight after, and it stays in Settings › Recently deleted for 30 days.</span>',
+    confirmLabel:'Merge',
+    onConfirm:function(){const snapA=JSON.parse(JSON.stringify(a)),snapB=JSON.parse(JSON.stringify(b));
+      a.caseInfo=a.caseInfo||{};
+      const aKeys=a.lines.map(function(l,i){return lineKey(a,i)});
+      allCases(a).forEach(function(c){if(!a.caseInfo[c])a.caseInfo[c]={lines:aKeys.slice(),state:a.status==='reimbursed'?'paid':'open'}});
+      const start=a.lines.length;b.lines.forEach(function(l){a.lines.push(JSON.parse(JSON.stringify(l)))});
+      const bKeys=b.lines.map(function(l,j){return lineKey(a,start+j)});
+      allCases(b).forEach(function(c){if(allCases(a).indexOf(c)<0){if(!String(a.caseId||'').trim())a.caseId=c;else{a.caseIds=a.caseIds||[];a.caseIds.push(c)}}
+        a.caseInfo[c]=Object.assign({lines:bKeys.slice(),state:b.status==='reimbursed'?'paid':'open'},(b.caseInfo||{})[c]||{})});
+      (b.cases||[]).forEach(function(c){a.cases=a.cases||[];a.cases.push(c)});
+      if(String(b.note||'').trim()&&String(b.note).trim()!==String(a.note||'').trim())a.note=(String(a.note||'').trim()?a.note+' | ':'')+b.note;
+      a.log=(a.log||[]).concat(b.log||[]).sort(function(x,y){return (y.ts||0)-(x.ts||0)});
+      ['amzDeadline','followUp','reimbId','firstRecv'].forEach(function(f){if(!a[f]&&b[f])a[f]=b[f]});
+      if(b.escalated)a.escalated=true;
+      log(a,'Merged the second '+a.id+' row in · '+b.lines.length+' line'+(b.lines.length!==1?'s':'')+' · case '+(allCases(b).join(', ')||'none'));
+      a.updated=now();markDirty(a.rid);
+      RECENTLY_DELETED.add(b.rid);DATA=DATA.filter(function(x){return x.rid!==b.rid});cloudDelete([b.rid]);
+      afterLineChange(a);save();refresh();
+      toastUndo('Merged the two '+a.id+' rows','Undo',function(){const i=DATA.findIndex(function(x){return x.rid===a.rid});
+        if(i>=0){snapA.updated=now();DATA[i]=snapA;markDirty(snapA.rid)}
+        RECENTLY_DELETED.delete(snapB.rid);if(!DATA.find(function(x){return x.rid===snapB.rid})){snapB.updated=now();DATA.unshift(snapB);markDirty(snapB.rid)}
+        cloudRestore(snapB.rid).then(function(){save(true)});save(true);refresh()})}})}
+{const _cih=caseIdsHtml;caseIdsHtml=function(s){return _cih(s)+casePanel(s)+dupPanel(s)}}
+
+/* 4 — the deadline in one click from Sellerfuse's first receipt */
+function dlGuess(s){if(!s.firstRecv)return '';const d=new Date(s.firstRecv+'T12:00:00');d.setDate(d.getDate()+182);return ymd(d)}
+
+/* a new case starts on the lines no other case covers yet (she can change the ticks) */
+function seedCaseLines(s,c){s.caseInfo=s.caseInfo||{};if(s.caseInfo[c])return;
+  const taken={};Object.keys(s.caseInfo).forEach(function(k){(s.caseInfo[k].lines||[]).forEach(function(x){taken[x]=1})});
+  const ls=[];(s.lines||[]).forEach(function(l,i){const k=lineKey(s,i);if((l.miss||0)>0&&l.lstatus!=='reimbursed'&&!taken[k])ls.push(k)});
+  s.caseInfo[c]={lines:ls,state:'open',at:now()}}
+{const _aci=addCaseId;addCaseId=function(rid,v){const r=_aci(rid,v);const s=byId(rid);const c=String(v||'').trim();if(s&&c&&allCases(s).indexOf(c)>=0){seedCaseLines(s,c);markDirty(s.rid);save()}return r}}
+{const _acf=addCasesFrom;addCasesFrom=function(s,txt){const before=allCases(s);const n=_acf(s,txt);allCases(s).filter(function(c){return before.indexOf(c)<0}).forEach(function(c){seedCaseLines(s,c)});return n}}
+
+/* History: money Amazon confirmed (Sellerfuse) vs amounts only typed in */
+function histConf(claims){let conf=0,typed=0;claims.forEach(function(c){const a=(c.l.amzPays||[]).reduce(function(t,p){return t+(+p.amt||0)},0);if((c.l.amzPays||[]).length){conf+=a;typed+=Math.max(0,c.paid-a)}else typed+=c.paid});
+  return{conf:Math.round(conf*100)/100,typed:Math.round(typed*100)/100}}
 
 /* ═══════════ OVERVIEW ═══════════ */
 function renderOverviewOld(){
@@ -5468,7 +5694,7 @@ const HOLD={SARAH:{l:'Sarah',c:'var(--amber)'},AMAZON:{l:'Amazon',c:'var(--blue)
 /* Journey order, first match wins. Jack and snoozed sit first so work that
    genuinely cannot move never gets counted as Sarah's queue. */
 const PIPE=[
- {k:'jack',l:'With Jack',hold:'JACK',m:function(s){return !!s.escalated},
+ {k:'jack',l:'With the MD',hold:'JACK',m:function(s){return !!s.escalated},
   means:function(s){return s.note?'Asked: '+s.note:'Escalated — she cannot move until it is answered.'}},
  {k:'snoozed',l:'Snoozed',hold:'NOBODY',m:function(s){return isSnoozed(s)},
   means:function(s){return 'Deliberately parked — back '+fmtDShort(s.snoozedUntil)+'.'}},
@@ -5603,7 +5829,7 @@ function renderPipeline(){
   var holdCards=['SARAH','AMAZON','JACK','NOBODY'].map(function(k){
     var H=HOLD[k];
     return '<div class="phold" style="--hc:'+H.c+'"><div class="ph-n">'+byHold[k]+'</div>'
-      +'<div class="ph-l">'+(k==='SARAH'?'Ours to move':k==='AMAZON'?'Waiting on Amazon':k==='JACK'?'With Jack':'Nobody can act')+'</div>'
+      +'<div class="ph-l">'+(k==='SARAH'?'Ours to move':k==='AMAZON'?'Waiting on Amazon':k==='JACK'?'With the MD':'Nobody can act')+'</div>'
       +'<div class="ph-m">'+money(vHold[k])+'</div></div>';
   }).join('');
   var actionable=byHold.SARAH, pctA=tot.n?Math.round(actionable/tot.n*100):0;
@@ -5992,10 +6218,10 @@ function renderHistory(){
   }).join('');
 
   el.innerHTML=''
-   +'<div class="h-hero"><div class="hh-main"><div class="hh-l">Recovered all time</div><div class="hh-v">'+money(paidT)+'</div>'
-     +'<div class="hh-s">of '+money(claimedT)+' claimed · '+claims.length+' settled SKU claims</div></div>'
+   +'<div class="h-hero"><div class="hh-main"><div class="hh-l">Confirmed by Amazon (Sellerfuse)</div><div class="hh-v">'+money(histConf(claims).conf)+'</div>'
+     +'<div class="hh-s">of '+money(claimedT)+' claimed · <b>'+money(histConf(claims).typed)+'</b> more typed in, not confirmed yet · '+claims.length+' settled SKU claims</div></div>'
      +'<div class="hh-side">'
-       +'<div><div class="hs-v" style="color:'+(recRate>=80?'var(--green)':recRate>=50?'var(--amber)':'var(--red)')+'">'+recRate+'%</div><div class="hs-l">recovered</div></div>'
+       +'<div><div class="hs-v" style="color:'+(recRate>=80?'var(--green)':recRate>=50?'var(--amber)':'var(--red)')+'">'+recRate+'%</div><div class="hs-l">recovered if every typed amount is right</div></div>'
        +'<div><div class="hs-v" style="color:'+(shortT>0.01?'var(--red)':'var(--green)')+'">'+money(shortT)+'</div><div class="hs-l">'+(overpaid?'never recovered ('+money(overpaid)+' overpaid)':'never recovered')+'</div></div>'
        +'<div><div class="hs-v">'+openN+'</div><div class="hs-l">still open</div></div>'
      +'</div></div>'
@@ -6252,7 +6478,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v0.7';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v0.9';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 
 /* ═══════════ v83 — SAFETY NETS ═══════════
    Bugs cannot be eliminated. These make them visible, reportable and
