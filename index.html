@@ -2658,6 +2658,50 @@ code,kbd,pre,samp{font-family:var(--sans)}
 .sl-row{padding-top:10px!important;padding-bottom:10px!important}
 .sl-s{margin-top:3px}
 
+/* ═══ v1.05 — card rows ═══ */
+.sl-grp .sl-card{background:var(--surface);border-color:var(--line);border-radius:11px;transition:border-color .15s,box-shadow .15s,background .15s}
+.sl-grp .sl-card:hover{border-color:color-mix(in srgb,var(--c,var(--blue)) 45%,var(--line));background:color-mix(in srgb,var(--c,var(--blue)) 3%,var(--surface))}
+.sl-grp .sl-card.open{border-color:color-mix(in srgb,var(--c,var(--blue)) 60%,var(--line));box-shadow:0 8px 28px rgba(0,0,0,.28)}
+.sl-card.sf .sl-kind{display:none}
+.sl-grp .sl-row{grid-template-columns:4px 32px minmax(0,1fr) auto auto;gap:14px;padding:11px 12px 11px 0!important}
+.sl-grp .sl-ico{width:32px;height:32px;border-radius:9px}
+.sl-grp .sl-t{font-size:13.5px;font-weight:550;color:var(--text);line-height:1.4}
+.sl-grp .sl-t b{font-weight:750;margin-right:3px;letter-spacing:.01em}
+.sl-grp .sl-s{font-size:12px;color:var(--text3);margin-top:4px}
+.sl-grp .sl-s b.okc{color:var(--green)}.sl-grp .sl-s b.soon{color:var(--amber)}.sl-grp .sl-s b.late{color:var(--red)}
+.sl-grp .sl-conf{font-size:11px;padding:1px 8px;margin-right:2px}
+.sl-grp .sl-sep{margin:0 6px;color:var(--text4)}
+.sl-grp .sl-m{min-width:92px}
+.sl-grp .sl-m .v{font-size:16px;font-weight:780;letter-spacing:-.01em}
+.sl-grp .sl-m .k{font-size:11px;margin-top:1px}
+.sl-grp .sl-acts{gap:6px}
+.sl-grp .sl-btn.no{background:transparent;border-color:transparent;color:var(--text3)}
+.sl-grp .sl-btn.no:hover{color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent)}
+.sl-grp .sl-proofbtn{padding:5px 9px;font-size:12px}
+
+/* ═══ shipment list: "Order of action" labels ═══ */
+.q-band{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 4px 6px;padding:0 2px;font-size:11px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:var(--text4)}
+.q-band:first-of-type{margin-top:4px}
+.q-band b{font:700 11px var(--sans);font-variant-numeric:tabular-nums;color:var(--text3);background:var(--raise);border:1px solid var(--line);border-radius:99px;padding:0 7px;letter-spacing:0}
+.q-band.crit{color:var(--red)}.q-band.crit b{color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,transparent)}
+
+/* ═══ shipment header: tools on the top row, status row underneath ═══ */
+.m-head{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:start;column-gap:14px}
+.m-head>.m-right{margin-left:0;align-self:start}
+@media (max-width:1100px){.m-head{grid-template-columns:1fr}.m-head>.m-right{justify-self:start}}
+/* chevron: rotate the holder once (it was rotating the icon and its svg = twice) */
+.sl-gch .ic,.sl-gch svg,.sl-grp.shut .sl-gch .ic,.sl-grp.shut .sl-gch svg{transform:none!important}
+.sl-gch{transition:transform .15s}
+.sl-grp.shut .sl-gch{transform:rotate(-90deg)}
+.sl-grp .sl-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* header: ID + tools on row 1, the status row gets the full width on row 2 */
+.m-head>div:first-child{display:contents}
+.m-head .m-id{grid-column:1;grid-row:1;align-self:center}
+.m-head>.m-right{grid-column:2;grid-row:1}
+.m-head .m-meta{grid-column:1/-1;grid-row:2}
+@media (max-width:1100px){.m-head>.m-right{grid-column:1;grid-row:3}}
+
 </style>
 </head>
 <body>
@@ -2693,7 +2737,7 @@ code,kbd,pre,samp{font-family:var(--sans)}
     </div>
     <div class="sb-foot">
       <button id="themeBtn" onclick="toggleTheme()" title="Switch theme"><span class="ic" data-ic="theme"></span><span class="lbl">Theme</span></button>
-      <span class="sb-ver" id="verPill">v1.0</span>
+      <span class="sb-ver" id="verPill">v1.05</span>
     </div>
   </div>
 
@@ -5876,7 +5920,7 @@ slGrouped=function(shown){const by={};shown.forEach(function(it){const k=slSecOf
     const extra=k==='fix'?ov:k==='ok'?auto:'',mh=k==='short'?months.map(slMonthHtml).join(''):'';
     const n=items.reduce(function(a,x){return a+((x.members||[]).length||1)},0)+(k==='case'?fc.length:0)+(extra?1:0)+(k==='short'?months.length:0);if(!n)return '';
     const m=items.reduce(function(a,x){return a+(+x.money||0)},0)+(k==='case'?fc.reduce(function(a,s){return a+Math.max(0,pot(s)-rec(s))},0):0);
-    return slGroupHtml(g,n,m,extra+(k==='case'?fc.map(fileCaseHtml).join(''):'')+items.map(slCardHtml).join('')+mh,SL.secOpen[k]!==false)}).join('');
+    return slGroupHtml(g,n,m,extra+(k==='case'?fc.map(fileCaseHtml).join(''):'')+items.map(slCardHtml).join('')+mh,SL.secOpen[k]===true)}).join('');
   return out||'<div class="sl-list"><div class="sl-empty">'+ic('check2',18)+'Nothing to check'+(FIND.state==='ok'?'':' · Sellerfuse cards appear once the check has run')+'</div></div>'};
 
 /* ── Due now in groups too ── */
@@ -5898,7 +5942,7 @@ const DUE_DESC={'d-dl':'Claim window closing: claim now or decide','d-urg':'You 
 function slDueGrouped(list){SL.secOpen=SL.secOpen||{};const by={};
   list.forEach(function(d){const g=DUE_GRPS.find(function(g){return g[4](d)});(by[g[0]]=by[g[0]]||[]).push(d)});
   return DUE_GRPS.map(function(g){const a=by[g[0]];if(!a)return '';const m=a.reduce(function(x,d){return x+(+d.money||0)},0);
-    return slGroupHtml([g[0],g[1],g[2],g[3],DUE_DESC[g[0]]],a.length,m,a.map(slDueHtml).join(''),SL.secOpen[g[0]]!==false)}).join('')}
+    return slGroupHtml([g[0],g[1],g[2],g[3],DUE_DESC[g[0]]],a.length,m,a.map(slDueHtml).join(''),SL.secOpen[g[0]]===true)}).join('')}
 
 /* "Open the case" is the same job as the File a case group: don't list it twice */
 const _slB10=slBuckets;
@@ -6031,6 +6075,64 @@ function checkList(d,s,l,diff,typed,band,caseOn,yes){const amt=money(+d.amount||
   const note=band==='short'?'<div class="ck-note bad">'+ic('alert',13)+'This is under our ex-VAT cost, so it also goes on the paid-short list to push back.</div>'
     :band==='exvat'?'<div class="ck-note">'+ic('check2',13)+'At least our ex-VAT cost, so it’s accepted. Nothing to chase.</div>':'';
   return '<div class="ck"><h4>'+ic('check2',13)+'Check, then press the green button</h4><ol>'+steps.join('')+'</ol>'+note+'<div class="ck-foot">Something doesn’t match? Press <b>No</b> and pick why. Nothing is saved until you press a button.</div></div>'}
+
+/* ═══════════ v1.05 — Jack 19 Nov: "the app should record every single thing someone does, me or Sarah",
+   cleaner card rows, the shipment list says what order it's in, tools sit on the shipment's top row ═══════════ */
+
+/* ── activity trail: every click that matters, signed with who's signed in ──
+   Changes already go into each shipment's history with the name. This adds the things that don't change data
+   (opening a proof, a Seller Central link, copying an ID, opening a shipment, every yes/no) to the table
+   shipment_deck_activity. If the table isn't there yet it quietly does nothing. Never touches the saving code. */
+const ACT_TABLE='shipment_deck_activity';let ACT_Q=[],ACT_OFF=false,ACT_T=null;
+function actRec(action,o){try{if(ACT_OFF||!cloudOn())return;o=o||{};
+  ACT_Q.push({at:new Date().toISOString(),who:WHO||'',action:String(action).slice(0,60),sid:o.sid||null,rid:o.rid||null,page:S.page||'',detail:o.detail||{}});
+  if(ACT_Q.length>=25)actFlush();else if(!ACT_T)ACT_T=setTimeout(actFlush,8000)}catch(e){}}
+async function actFlush(){clearTimeout(ACT_T);ACT_T=null;if(ACT_OFF||!ACT_Q.length||!cloudOn())return;const b=ACT_Q.splice(0,ACT_Q.length);
+  try{const r=await fetch(CLOUD.url+'/rest/v1/'+ACT_TABLE,{method:'POST',headers:cloudHdrs({Prefer:'return=minimal'}),body:JSON.stringify(b),keepalive:true});
+    if(r.status===404){ACT_OFF=true;return}if(!r.ok&&ACT_Q.length<500)ACT_Q=b.concat(ACT_Q)}catch(e){if(ACT_Q.length<500)ACT_Q=b.concat(ACT_Q)}}
+document.addEventListener('visibilitychange',function(){if(document.hidden)actFlush()});
+window.addEventListener('pagehide',function(){actFlush()});
+/* what gets recorded */
+const _log105=log;
+log=function(s,txt,to){const r=_log105.apply(this,arguments);try{actRec('change',{rid:s.rid,sid:s.id,detail:{txt:String(txt||'').slice(0,300),to:to||''}})}catch(e){}return r};
+const _go105=go;
+go=function(page){const was=S.page;const r=_go105.apply(this,arguments);if(page!==was)actRec('page',{detail:{page:page}});return r};
+const _pick105=pick;
+pick=function(rid){const s=byId(rid);actRec('open shipment',{rid:rid,sid:s?s.id:''});return _pick105.apply(this,arguments)};
+const _tog105=slToggle;
+slToggle=function(k){const it=SL.items[k];actRec(SL.open.has(k)?'proof closed':'proof opened',{rid:it&&it.rid,sid:it&&it.sid,detail:{card:k}});return _tog105.apply(this,arguments)};
+const _pbt105=slPbToggle;
+slPbToggle=function(k){const it=SL.items[k];actRec(SL.open.has('pbx:'+k)?'proof closed':'proof opened',{rid:it&&it.rid,sid:it&&it.sid,detail:{card:k,in:'Reimbursements that match'}});return _pbt105.apply(this,arguments)};
+const _dec105=decideFinding;
+decideFinding=async function(f,status,note){const r=await _dec105.apply(this,arguments);try{actRec(status==='open'?'card undone':'card '+status,{sid:f.shipment,detail:{card:f.id,kind:f.kind,note:note||'',ok:r!==false}})}catch(e){}return r};
+const _cp105=cp;
+cp=function(e,t){actRec('copy',{detail:{value:String(t||'').slice(0,120)}});return _cp105.apply(this,arguments)};
+document.addEventListener('click',function(e){try{const a=e.target.closest&&e.target.closest('a[href^="http"]');if(!a)return;
+  const card=a.closest('.sl-card'),k=card&&card.getAttribute('data-k'),it=k&&SL.items[k];
+  actRec('link',{rid:it&&it.rid,sid:it&&it.sid,detail:{href:a.href.slice(0,300),label:(a.textContent||'').trim().slice(0,80)}})}catch(x){}},true);
+
+/* ── card rows: less noise ── the group heading already says what kind they are, so the kind label goes;
+   reimbursement rows say the two figures and the date, the IDs live in the proof ── */
+const BAND_SHORT={full:'in full',exvat:'ex-VAT ok',short:'paid short'};
+const _slFF105=slFromFinding;
+slFromFinding=function(f){const it=_slFF105(f);if(f.kind!=='pay')return it;const d=f.detail||{},s=shipByFbaOrRid(d);const i=s?lineBySku(s,d.sku):-1,l=i>=0?s.lines[i]:null;
+  const typed=l?(+l.reimb||0):0,diff=l&&typed>0&&Math.abs(typed-(+d.amount||0))>=0.01;
+  if(diff&&!it.look)it.conf=['warn','Deck '+money(typed)+' → Amazon '+money(+d.amount||0)];
+  if(diff&&!it.look)it.yes='Use '+money(+d.amount||0);
+  const u=+d.units||0;
+  it.sub=(it.band?'<b class="'+(it.band==='short'?'late':it.band==='exvat'?'soon':'okc')+'">'+BAND_SHORT[it.band]+'</b><span class="sl-sep">·</span>':'')
+    +(d.date?'paid '+fmtDShort(d.date):'')+(u?'<span class="sl-sep">·</span>'+u+' unit'+(u!==1?'s':''):'')+(d.case?'<span class="sl-sep">·</span>case '+esc(d.case):'');
+  return it};
+const _slCard105=slCardHtml;
+slCardHtml=function(it){return _slCard105(it).replace('<div class="sl-card c-','<div class="sl-card'+(it.f?' sf':'')+' c-')};
+
+/* ── shipment list: label each part of "Order of action" so the order is obvious ── */
+const _rq105=renderQueue;
+renderQueue=function(){_rq105.apply(this,arguments);try{if(S.sort!=='action')return;const q=document.getElementById('queue');if(!q)return;
+  const rows=activeRows(),items=q.querySelectorAll('.item');if(items.length!==rows.length)return;
+  const rk=rows.map(function(s){return actionRank(s)}),cnt={};rk.forEach(function(r){cnt[r]=(cnt[r]||0)+1});let last=null;
+  rows.forEach(function(s,i){const r=rk[i];if(r===last)return;last=r;const b=ACTION_BANDS.find(function(x){return x.k===r});
+    const h=document.createElement('div');h.className='q-band'+(r===0?' crit':'');h.title=b?b.sub:'';h.innerHTML='<span>'+esc(b?b.label:'Other')+'</span><b>'+cnt[r]+'</b>';items[i].parentNode.insertBefore(h,items[i])})}catch(e){}};
 
 /* ═══════════ OVERVIEW ═══════════ */
 function renderOverviewOld(){
@@ -6930,7 +7032,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const g=document.getElementById('gq');if(g)g.focus()}if(e.key==='Escape'){_cfm=null;document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))}});
 
 hydrateIcons();setToggleIcon();applyTools();
-const APP_VER='v1.0';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
+const APP_VER='v1.05';document.title='Shipment Deck · '+APP_VER;{const vp=document.getElementById('verPill');if(vp)vp.textContent=APP_VER;}
 
 /* ═══════════ v83 — SAFETY NETS ═══════════
    Bugs cannot be eliminated. These make them visible, reportable and
